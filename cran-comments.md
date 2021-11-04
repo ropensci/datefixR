@@ -13,3 +13,14 @@
 
 via GitHub actions https://github.com/nathansam/datefixR/actions
 
+## Resolved Issues since last submission
+
+Possibly misspelled words in DESCRIPTION:
+     seperation (7:42)
+
+   Found the following (possibly) invalid URLs:
+     URL: https://codecov.io/gh/nathansam/datefixR (moved to
+https://app.codecov.io/gh/nathansam/datefixR)
+       From: README.md
+       Status: 301
+       Message: Moved Permanently
