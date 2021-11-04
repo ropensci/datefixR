@@ -12,6 +12,10 @@ months$full <- tolower(month.name)
 #' US system of MDY is not supported.
 #' @param df A \code{dataframe} object with messy date column(s)
 #' @param col.names Character vector of names of columns of messy date data
+#' @param day.impute Integer. Day of the month to be imputed if not available.
+#'   defaults to 1.
+#' @param month.impute Integer. Month to be be imputed if not available.
+#'   Defaults to 7 (July)
 #' @return A \code{dataframe} object. Selected columns are of type \code{Date}
 #' @examples
 #' bad.dates <- data.frame(id = seq(5),
@@ -27,7 +31,7 @@ months$full <- tolower(month.name)
 #'                                             "jan 2020"))
 #'fixed.df <- fix_dates(bad.dates, c("some.dates", "some.more.dates"))
 #' @export
-fix_dates <- function(df, col.names) {
+fix_dates <- function(df, col.names, day.impute = 1, month.impute = 7) {
   if (!is.data.frame(df)) {
     stop("df should be a dataframe object!")
   }
@@ -35,28 +39,33 @@ fix_dates <- function(df, col.names) {
     stop("col.names should be a character vector!")
   }
 
+  .checkday(day.impute)
+  .checkmonth(month.impute)
+  day.impute <- .convertimpute(day.impute)
+  month.impute <- .convertimpute(month.impute)
+
 
   for (col.name in col.names) {
     fixed.dates <- c()
       for (i in 1:nrow(df)) {
-        fixed.dates[i] <- fix_date(df[i, col.name])
+        fixed.dates[i] <- fix_date(df[i, col.name], day.impute, month.impute)
       }
     df[, col.name] <- as.Date(fixed.dates)
     }
     df
 }
 
-fix_date <- function(date) {
+fix_date <- function(date, day.impute, month.impute) {
 
   if (is.null(date) || is.na(date) || as.character(date) == "") {
     return(NA)
   }
   date <- as.character(date)
-  date <- convert_text_month(date)
+  date <- .convert_text_month(date)
 
   if (nchar(date) == 4) {
     # Just given year
-    year <- date; month <- "01"; day <- "01"
+    year <- date; month <- month.impute; day <- day.impute
   } else{
     date_vec <- seperate_date(date)
     if (any(nchar(date_vec) > 4)) {
@@ -85,7 +94,7 @@ fix_date <- function(date) {
     }
     if (length(date_vec) < 3) {
       # ASSUME MM/YYYY, YYYY/MM
-      day <- "01"
+      day <- day.impute
       if (nchar(date_vec[1]) == 4) {
       # Assume YYYY/MM
       year <- date_vec[1]; month <- date_vec[2]
@@ -123,7 +132,7 @@ seperate_date <- function(date) {
   date_vec
 }
 
-convert_text_month <- function(date) {
+.convert_text_month <- function(date) {
   date <- tolower(date)
   for (i in 1:12) {
     if (i < 10) {
@@ -140,3 +149,34 @@ convert_text_month <- function(date) {
   }
   date
 }
+
+.checkday <- function(day.impute){
+  if (day.impute < 1 | day.impute >28){
+    stop("day.impute should be an integer between 1 and 28\n")
+  }
+  if (!(day.impute%%1==0)){
+    stop("day.impute should be an integer\n")
+  }
+  return()
+}
+
+.checkmonth <- function(month.impute){
+  if (month.impute < 1 | month.impute > 12){
+    stop("month.impute should be an integer between 1 and 12\n")
+  }
+  if (!(month.impute%%1==0)){
+    stop("month.impute should be an integer\n")
+  }
+  return()
+}
+
+
+.convertimpute <- function(impute){
+  if (impute < 10) {
+    replacement <- paste0("0", impute)
+  } else {
+    replacement <- as.character(impute)
+  }
+  replacement
+}
+

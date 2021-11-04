@@ -4,12 +4,18 @@
 \alias{fix_dates}
 \title{Clean up messy date columns}
 \usage{
-fix_dates(df, col.names)
+fix_dates(df, col.names, day.impute = 1, month.impute = 7)
 }
 \arguments{
 \item{df}{A \code{dataframe} object with messy date column(s)}
 
 \item{col.names}{Character vector of names of columns of messy date data}
+
+\item{day.impute}{Integer. Day of the month to be imputed if not available.
+defaults to 1.}
+
+\item{month.impute}{Integer. Month to be be imputed if not available.
+Defaults to 7 (July)}
 }
 \value{
 A \code{dataframe} object. Selected columns are of type \code{Date}
