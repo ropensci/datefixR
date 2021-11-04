@@ -54,11 +54,23 @@ knitr::kable(fixed.df)
 
 |  id | some.dates | some.more.dates |
 |----:|:-----------|:----------------|
-|   1 | 1992-05-02 | 2015-01-01      |
+|   1 | 1992-05-02 | 2015-07-01      |
 |   2 | 2020-04-01 | 2000-05-02      |
 |   3 | 1996-05-01 | 1990-05-01      |
 |   4 | 2020-05-01 | 2012-08-01      |
 |   5 | 1996-04-02 | 2020-01-01      |
+
+By default, `datefixR` imputes missing days of the month as 01, and
+missing months as 07 (July). However, this behavior can be modified via
+the `day.impute` or `month.impute` arguments.
+
+``` r
+ example.df <- data.frame(example = "1994")
+
+fix_dates(example.df, "example", month.impute = 1)
+#>      example
+#> 1 1994-01-01
+```
 
 ### Limitations
 

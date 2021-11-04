@@ -59,6 +59,14 @@ fixed.df <- fix_dates(bad.dates, c("some.dates", "some.more.dates"))
 knitr::kable(fixed.df)
 ```
 
+By default, `datefixR` imputes missing days of the month as 01, and missing months as 07 (July). However, this behavior can be modified via the `day.impute` or `month.impute` arguments. 
+
+```{R}
+ example.df <- data.frame(example = "1994")
+
+fix_dates(example.df, "example", month.impute = 1)
+```
+
 ### Limitations
 
 The US date format of month first is not currently supported. This may change

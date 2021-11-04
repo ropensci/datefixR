@@ -1,10 +1,12 @@
 Package: datefixR
-Title: Fix really messy dates
-Version: 0.0.0.9000
-Authors@R: 
-    person("Nathan", "Constantine-Cooke", , "nathan.constantine-cooke@ed.ac.uk", role = c("aut", "cre"),
+Title: Fix Really Messy Dates
+Version: 0.1.1
+Authors@R: person("Nathan", "Constantine-Cooke", email = "nathan.constantine-cooke@ed.ac.uk", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-4437-8713"))
-Description: What the package does (one paragraph).
+Description: Fixes messy dates in data frames such as those entered via text
+  boxes. Standardizes / - and whitespace seperation, month abbreviations, and
+  year first or day first by converting to R's built-in Date class. Imputes
+  missing date or month using user-provided values.  
 License: GPL (>= 3)
 Depends: R (>= 4.0.0)
 Imports: stringr
