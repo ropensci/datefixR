@@ -23,7 +23,7 @@ A \code{dataframe} object. Selected columns are of type \code{Date}
 \description{
 Cleans up a \code{dataframe} object which has date columns
 entered via a free-text box (possibly by different users) and are therefore
-in a non-standardised format. Supports numerous seperators including /,- or
+in a non-standardized format. Supports numerous separators including /,- or
 space. Supports all-numeric, abbreviation or long-hand month notation. Where
 day of the month has not been supplied, the first day of the month is
 imputed. When day, month and year is given either DMY or YMD is assumed; the
