@@ -87,7 +87,9 @@ fix_date <- function(date, day.impute, month.impute) {
 
   if (nchar(date) == 4) {
     # Just given year
-    year <- date; month <- month.impute; day <- day.impute
+    year <- date
+    month <- .imputemonth(month.impute)
+    day <- .imputeday(day.impute)
   } else{
     date_vec <- .separate_date(date)
     if (any(nchar(date_vec) > 4)) {
@@ -116,7 +118,7 @@ fix_date <- function(date, day.impute, month.impute) {
     }
     if (length(date_vec) < 3) {
       # ASSUME MM/YYYY, YYYY/MM
-      day <- day.impute
+      day <- .imputeday(day.impute) 
       if (nchar(date_vec[1]) == 4) {
       # Assume YYYY/MM
       year <- date_vec[1]; month <- date_vec[2]
@@ -134,7 +136,12 @@ fix_date <- function(date, day.impute, month.impute) {
     }
   }
   .checkoutput(day, month)
-  fixed_date <- paste0(year, "-", month, "-", day)
+  
+  if (is.na(day) || is.na(month)) {
+    fixed_date <- NA
+  } else { 
+    fixed_date <- paste0(year, "-", month, "-", day)
+  }
   fixed_date
 }
 
@@ -174,42 +181,68 @@ fix_date <- function(date, day.impute, month.impute) {
 }
 
 .checkday <- function(day.impute){
-  if (day.impute < 1 | day.impute > 28) {
-    stop("day.impute should be an integer between 1 and 28\n")
-  }
-  if (!(day.impute %% 1 == 0)) {
-    stop("day.impute should be an integer\n")
+  if (!is.na(day.impute) && !is.null(day.impute)) {
+    if (day.impute < 1 | day.impute > 28) {
+      stop("day.impute should be an integer between 1 and 28\n")
+    }
+    if (!(day.impute %% 1 == 0)) {
+      stop("day.impute should be an integer\n")
+    }
   }
   return()
 }
 
 .checkmonth <- function(month.impute){
-  if (month.impute < 1 | month.impute > 12) {
-    stop("month.impute should be an integer between 1 and 12\n")
-  }
-  if (!(month.impute %% 1 == 0)) {
-    stop("month.impute should be an integer\n")
+  if (!is.na(month.impute) && !is.null(month.impute)) {
+    if (month.impute < 1 | month.impute > 12) {
+      stop("month.impute should be an integer between 1 and 12\n")
+    }
+    if (!(month.impute %% 1 == 0)) {
+      stop("month.impute should be an integer\n")
+    }
   }
   return()
 }
 
 .checkoutput <- function(day, month){
-
-  if (as.numeric(month) > 12 | as.numeric(month) < 1) {
-    stop("Month not in expected range \n")
+  if (!is.na(month)) {
+    if (as.numeric(month) > 12 | as.numeric(month) < 1) {
+      stop("Month not in expected range \n")
+    }
   }
-  if (as.numeric(day) > 31 | as.numeric(day) < 1) {
-    stop("Day of the year not in expected range \n")
+  if (!is.na(day)) {
+    if (as.numeric(day) > 31 | as.numeric(day) < 1) {
+      stop("Day of the year not in expected range \n")
+    }
   }
   NULL
 }
 
 .convertimpute <- function(impute){
-  if (impute < 10) {
-    replacement <- paste0("0", impute)
+  if (!is.na(impute) && !is.null(impute)) {
+    if (impute < 10) {
+      replacement <- paste0("0", impute)
+    } else {
+      replacement <- as.character(impute)
+    }
   } else {
-    replacement <- as.character(impute)
+    replacement <- impute
   }
   replacement
 }
 
+.imputemonth <- function(month.impute){
+  if (is.null(month.impute)) {
+    stop("Missing month with no imputation value given \n")
+  } else {
+    month.impute
+  }
+}
+
+.imputeday <- function(day.impute){
+  if (is.null(day.impute)) {
+    stop("Missing day with no imputation value given \n")
+  } else {
+    day.impute
+  }
+}
