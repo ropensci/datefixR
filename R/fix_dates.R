@@ -67,7 +67,7 @@ fix_date <- function(date, day.impute, month.impute) {
     # Just given year
     year <- date; month <- month.impute; day <- day.impute
   } else{
-    date_vec <- seperate_date(date)
+    date_vec <- .separate_date(date)
     if (any(nchar(date_vec) > 4)) {
       stop("unable to tidy a date")
     }
@@ -115,7 +115,7 @@ fix_date <- function(date, day.impute, month.impute) {
   fixed_date
 }
 
-seperate_date <- function(date) {
+.separate_date <- function(date) {
   if (grepl("/", date, fixed = TRUE)) {
     date_vec <- stringr::str_split_fixed(date,
                                          pattern = "/",
