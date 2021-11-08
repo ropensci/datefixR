@@ -12,6 +12,8 @@ months$full <- tolower(month.name)
 #' US system of MDY is not supported.
 #' @param df A \code{dataframe} object with messy date column(s)
 #' @param col.names Character vector of names of columns of messy date data
+#' @param id Name of column containing row IDs. By default, the first column is
+#' assumed.
 #' @param day.impute Integer. Day of the month to be imputed if not available.
 #'   defaults to 1.
 #' @param month.impute Integer. Month to be be imputed if not available.
@@ -31,24 +33,44 @@ months$full <- tolower(month.name)
 #'                                             "jan 2020"))
 #'fixed.df <- fix_dates(bad.dates, c("some.dates", "some.more.dates"))
 #' @export
-fix_dates <- function(df, col.names, day.impute = 1, month.impute = 7) {
+fix_dates <- function(df,
+                      col.names,
+                      day.impute = 1,
+                      month.impute = 7,
+                      id = NULL) {
   if (!is.data.frame(df)) {
     stop("df should be a dataframe object!")
   }
   if (any(!is.character(col.names))) {
     stop("col.names should be a character vector!")
   }
+  
+  if (is.null(id)) id <- 1 # Use first column as id if not explictly given
 
   .checkday(day.impute)
   .checkmonth(month.impute)
   day.impute <- .convertimpute(day.impute)
   month.impute <- .convertimpute(month.impute)
-
-
+  error.status <- 0
+  
   for (col.name in col.names) {
     fixed.dates <- c()
       for (i in 1:nrow(df)) {
-        fixed.dates[i] <- fix_date(df[i, col.name], day.impute, month.impute)
+        tryCatch(
+          {
+            fixed.dates[i] <- fix_date(df[i, col.name],
+                                       day.impute,
+                                       month.impute)
+            },
+          error = function(cond){
+            message(paste0("Unable to resolve date for subject ",
+                       df[i, id],
+                       " (date: ",
+                       df[i, col.name],
+                       ")\n")
+                 )
+            stop(cond)
+        })
       }
     df[, col.name] <- as.Date(fixed.dates)
     }
@@ -67,7 +89,7 @@ fix_date <- function(date, day.impute, month.impute) {
     # Just given year
     year <- date; month <- month.impute; day <- day.impute
   } else{
-    date_vec <- seperate_date(date)
+    date_vec <- .separate_date(date)
     if (any(nchar(date_vec) > 4)) {
       stop("unable to tidy a date")
     }
@@ -111,11 +133,12 @@ fix_date <- function(date, day.impute, month.impute) {
       }
     }
   }
+  .checkoutput(day, month)
   fixed_date <- paste0(year, "-", month, "-", day)
   fixed_date
 }
 
-seperate_date <- function(date) {
+.separate_date <- function(date) {
   if (grepl("/", date, fixed = TRUE)) {
     date_vec <- stringr::str_split_fixed(date,
                                          pattern = "/",
@@ -151,25 +174,35 @@ seperate_date <- function(date) {
 }
 
 .checkday <- function(day.impute){
-  if (day.impute < 1 | day.impute >28){
+  if (day.impute < 1 | day.impute > 28) {
     stop("day.impute should be an integer between 1 and 28\n")
   }
-  if (!(day.impute%%1==0)){
+  if (!(day.impute %% 1 == 0)) {
     stop("day.impute should be an integer\n")
   }
   return()
 }
 
 .checkmonth <- function(month.impute){
-  if (month.impute < 1 | month.impute > 12){
+  if (month.impute < 1 | month.impute > 12) {
     stop("month.impute should be an integer between 1 and 12\n")
   }
-  if (!(month.impute%%1==0)){
+  if (!(month.impute %% 1 == 0)) {
     stop("month.impute should be an integer\n")
   }
   return()
 }
 
+.checkoutput <- function(day, month){
+
+  if (as.numeric(month) > 12 | as.numeric(month) < 1) {
+    stop("Month not in expected range \n")
+  }
+  if (as.numeric(day) > 31 | as.numeric(day) < 1) {
+    stop("Day of the year not in expected range \n")
+  }
+  NULL
+}
 
 .convertimpute <- function(impute){
   if (impute < 10) {

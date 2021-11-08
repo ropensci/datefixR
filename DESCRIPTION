@@ -13,6 +13,8 @@ Imports: stringr
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
+URL: https://github.com/nathansam/datefixR
+BugReports: https://github.com/nathansam/datefixR/issues
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
