@@ -115,9 +115,23 @@ test_that("error if day.impute or month.impute are wrong format", {
 
 })
 
-test_that("error if day.impute or month.impute are wrong format", {
+test_that("error if day.impute or month.impute are in wrong format", {
   temp <- data.frame(example = "1994")
 
   expect_equal(fix_dates(temp, "example", month.impute = 11),
                data.frame(example = as.Date("1994-11-01")))
+})
+
+test_that("Error if month out of bounds", {
+  temp <- data.frame(id = 1, date = "13-1994")
+  
+  expect_error(fix_dates(temp, "date"),
+               "Month not in expected range \n")
+})
+
+test_that("Error if day out of bounds", {
+  temp <- data.frame(id = 1, date = "34-12-1994")
+  
+  expect_error(fix_dates(temp, "date"),
+               "Day of the year not in expected range \n")
 })
