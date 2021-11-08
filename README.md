@@ -8,7 +8,7 @@
 [![R build
 status](https://github.com/nathansam/datefixR/workflows/R-CMD-check/badge.svg)](https://github.com/nathansam/datefixR/actions)
 [![codecov](https://codecov.io/gh/nathansam/datefixR/branch/main/graph/badge.svg?token=lb83myWBXt)](https://app.codecov.io/gh/nathansam/datefixR)
-[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/datefixR)](https://cran.r-project.org/package=datefixR)
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/datefixR)](https://cran.r-project.org/package=datefixR)
 ![Top
 language](https://img.shields.io/github/languages/top/nathansam/datefixR)
 [![License:
@@ -25,11 +25,26 @@ were written in many different formats e.g 01-jan-15, 2015 04 02,
 
 ## Installation instructions
 
-The development version of `datefixR` can be installed via
+`datefixR` is now available on CRAN.
 
 ``` r
-if (!require("devtools")) install.packages("devtools")
-devtools::install_github("nathansam/fixdateR")
+install.packages("datefixR")
+```
+
+The most up-to-date (hopefully) stable version of `datefixR` can be
+installed via
+
+``` r
+if (!require("remotes")) install.packages("remotes")
+remotes::install_github("nathansam/fixdateR")
+```
+
+If you wish to live on the cutting edge of `datefixR` development, then
+the development version can be installed via
+
+``` r
+if (!require("remotes")) install.packages("remotes")
+remotes::install_github("nathansam/datefixR", "devel")
 ```
 
 ### Usage

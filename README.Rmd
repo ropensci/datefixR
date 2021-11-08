@@ -31,13 +31,27 @@ more.
 
 ## Installation instructions
 
-The development version of `datefixR` can be installed via
+`datefixR` is now available on CRAN.
 
-```{R install, eval = FALSE}
-if (!require("devtools")) install.packages("devtools")
-devtools::install_github("nathansam/fixdateR")
+```{R Cran, eval = FALSE}
+install.packages("datefixR")
 ```
 
+The most up-to-date (hopefully) stable version of `datefixR` can be installed
+via
+
+```{R github, eval = FALSE}
+if (!require("remotes")) install.packages("remotes")
+remotes::install_github("nathansam/fixdateR")
+```
+
+If you wish to live on the cutting edge of `datefixR` development, then the
+development version can be installed via
+
+```{R, eval = FALSE}
+if (!require("remotes")) install.packages("remotes")
+remotes::install_github("nathansam/datefixR", "devel")
+```
 
 ### Usage
 
