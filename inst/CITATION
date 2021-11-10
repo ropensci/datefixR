@@ -1,0 +1,23 @@
+citHeader("To cite datefixR in publications use:")
+
+year <- sub("-.*", "", packageDate("datefixR"))
+note <- sprintf("R package version %s", packageVersion("datefixR"))
+
+citEntry(
+  entry    = "Manual",
+  title    = "{datefixR}: Fix Really Messy Dates in {R}",
+  author   = as.person("Nathan Constantine-Cooke"),
+  year     = year,
+  url      = "https://CRAN.R-project.org/package=datefixR", 
+  doi      = "10.5281/zenodo.5655311",
+  note     = note,
+  textVersion = paste0("Constantine-Cooke, Nathan ",
+                       year,
+                       ". datefixR: Fix Really Messy Dates in R. ",
+                       note,
+                       ". DOI: 10.5281/zenodo.5655311. https://CRAN.R-project.org/package=datefixR")
+  )
+
+
+
+

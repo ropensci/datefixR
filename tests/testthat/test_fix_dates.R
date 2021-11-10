@@ -135,3 +135,38 @@ test_that("Error if day out of bounds", {
   expect_error(fix_dates(temp, "date"),
                "Day of the year not in expected range \n")
 })
+
+test_that("Error if day out of bounds", {
+  temp <- data.frame(id = 1, date = "34-12-1994")
+  
+  expect_error(fix_dates(temp, "date"),
+               "Day of the year not in expected range \n")
+})
+
+
+test_that("Imputing day with NA results in NA", {
+  temp <- data.frame(id = 1, date = "04-1994")
+  expect_equal(fix_dates(temp, "date", day.impute = NA ),
+               data.frame(id = 1, date = as.Date(NA)))
+})
+
+
+test_that("Imputing month with NA results in NA", {
+  temp <- data.frame(id = 1, date = "1994")
+  expect_equal(fix_dates(temp, "date", month.impute = NA ),
+               data.frame(id = 1, date = as.Date(NA)))
+})
+
+
+test_that("Error if imputing month with NULL", {
+  temp <- data.frame(id = 1, date = "1994")
+  expect_error(fix_dates(temp, "date", month.impute = NULL ),
+               "Missing month with no imputation value given \n")
+})
+
+test_that("Error if imputing day with NULL", {
+  temp <- data.frame(id = 1, date = "07-1994")
+  expect_error(fix_dates(temp, "date", day.impute = NULL ),
+               "Missing day with no imputation value given \n")
+})
+
