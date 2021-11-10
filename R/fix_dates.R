@@ -60,7 +60,8 @@ fix_dates <- function(df,
           {
             fixed.dates[i] <- fix_date(df[i, col.name],
                                        day.impute,
-                                       month.impute)
+                                       month.impute,
+                                       subject = df[i, id])
             },
           error = function(cond){
             message(paste0("Unable to resolve date for subject ",
@@ -69,15 +70,15 @@ fix_dates <- function(df,
                        df[i, col.name],
                        ")\n")
                  )
-            stop(cond)
-        })
+            stop(cond)}
+        )
       }
     df[, col.name] <- as.Date(fixed.dates)
     }
     df
 }
 
-fix_date <- function(date, day.impute, month.impute) {
+fix_date <- function(date, day.impute, month.impute, subject) {
 
   if (is.null(date) || is.na(date) || as.character(date) == "") {
     return(NA)
@@ -139,6 +140,12 @@ fix_date <- function(date, day.impute, month.impute) {
   
   if (is.na(day) || is.na(month)) {
     fixed_date <- NA
+    warning(paste0("NA imputed for subject ",
+                   subject,
+                   " (date: ",
+                   date,
+                   ")\n"),
+            call. = FALSE)
   } else { 
     fixed_date <- paste0(year, "-", month, "-", day)
   }
