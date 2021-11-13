@@ -74,7 +74,9 @@ fixed.df <- fix_dates(bad.dates, c("some.dates", "some.more.dates"))
 knitr::kable(fixed.df)
 ```
 
-By default, `datefixR` imputes missing days of the month as 01, and missing months as 07 (July). However, this behavior can be modified via the `day.impute` or `month.impute` arguments. 
+By default, `datefixR` imputes missing days of the month as 01, and missing
+months as 07 (July). However, this behavior can be modified via the `day.impute`
+or `month.impute` arguments. 
 
 ```{R}
  example.df <- data.frame(example = "1994")
@@ -90,3 +92,12 @@ in the future by passing an additional argument to the function call.
 The package is written solely in R and seems fast enough for my current use
 cases (a few hundred rows). However, I may convert the core for loop to C++ in
 the future if I (or others) need it to be faster. 
+
+### Citation
+
+If you use this package in your research, please consider citing `datefixR`! 
+An up-to-date citation can be obtained by running
+
+```{R}
+citation("datefixR")
+```

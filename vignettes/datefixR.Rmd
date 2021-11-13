@@ -1,0 +1,140 @@
+---
+title: "datefixR"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{datefixR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(datefixR)
+```
+
+This vignette describes the functionality of `datefixR` in more detail than the
+[README](https://github.com/nathansam/datefixR). `DatefixR` is a lightweight
+package consisting of a single user-accessible function, `fix_dates()`, which
+converts dates written in different formats into R's built-in `Date` class.
+
+Practically, this package is most useful when handling date data which has been
+supplied via text boxes (instead of a date-specific input with a consistent date
+format). However, this package may also be useful to validate the format of date
+data (see [date and month imputation](#date-and-month-imputation)).
+
+## Usage
+
+### Date standardization
+
+Firstly, we will demonstrate date standardization without imputation. We
+consider a dataframe with two columns of dates in differing formats
+with no missing data. 
+
+```{R, echo = FALSE}
+bad.dates <- data.frame(id = seq(5),
+                        some.dates = c("02/05/92",
+                                       "01-04-2020",
+                                       "1996/05/01",
+                                       "2020-05-01",
+                                       "02-04-96"),
+                        some.more.dates = c("01 03 2015",
+                                            "02/05/00",
+                                            "01/05/1990",
+                                            "03-Dec-2012",
+                                            "02 April 2020"))
+knitr::kable(bad.dates)
+```
+
+`fix_dates()` requires two arguments, `df`, a dataframe (or tibble) object and
+`col.names`, a character vector containing the names of columns to be
+standardized. By default, the first column of the dataframe is assumed to contain
+row IDs. These IDs are used if a warning or error is raised to assist with
+locating the source of the error. The ID column can also be manually provided
+via the `id` argument. 
+
+The output from this function is a data frame object with the selected date
+columns now belonging to the `Date` class. 
+
+```{R}
+fixed.dates <- fix_dates(bad.dates,
+                         c("some.dates", "some.more.dates"))
+knitr::kable(fixed.dates)
+```
+
+`datefixR` can handle many different formats including -, /, or white space
+separation,  year-first or day-first, and month supplied as a number, an
+abbreviation or full length name. The most notable current omission is the
+month-first format of dates commonly seen in the US, however this format may be
+supported in the future.
+
+### Date and month imputation
+
+By default, `datefixR` imputes missing months as July, and missing days of the
+month as the first day.  As such, 
+
+```{R, echo = FALSE}
+impute.dates <- data.frame(id = 1,
+                        some.date = "1992")
+knitr::kable(impute.dates)
+```
+
+converts to 
+
+```{R}
+imputed.dates <- fix_dates(impute.dates, "some.date")
+knitr::kable(imputed.dates)
+```
+
+The argument for defaulting to July is 1-2 July is halfway through the year
+(on a non leap year). Therefore assuming the year supplied is indeed correct,
+you are only a maximum of 6 months off from the true date.  However, this
+behavior can be changed by supplying the `day.impute` and  `month.impute`
+arguments with an integer corresponding to the desired day and month.
+For example, `day.impute = 1` and `month.impute = 1`  results in the first day
+of January being imputed instead. 
+
+```{R}
+imputed.dates <- fix_dates(impute.dates,
+                           "some.date",
+                           day.impute = 1,
+                           month.impute = 1)
+knitr::kable(imputed.dates)
+```
+
+The imputation mechanism can also be modified to impute `NA` if a month or day
+is missing by setting `day.impute` or `month.impute` to `NA`. This will
+also result in a warning being raised.
+
+```{R}
+imputed.dates <- fix_dates(impute.dates,
+                           "some.date",
+                           month.impute = NA)
+knitr::kable(imputed.dates)
+```
+
+Finally, imputation can be prevented by setting `day.impute` or `month.impute`
+to `NULL`. This will result in an error being raised if the day or month
+are missing respectively. 
+
+```{R, eval = FALSE}
+imputed.dates <- fix_dates(impute.dates,
+                           "some.date",
+                           month.impute = NULL)
+# ERROR
+```
+
+
+## Citation
+
+If you use this package in your research, please consider citing `datefixR`.
+An up-to-date citation can be obtained by running
+
+```{R}
+citation("datefixR")
+```

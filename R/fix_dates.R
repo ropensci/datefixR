@@ -177,10 +177,11 @@ fix_date <- function(date, day.impute, month.impute, subject) {
     } else {
       replacement <- i
     }
-    date <- gsub(pattern = months$abbrev[i],
+    date <- gsub(pattern = months$full[i],
                  replacement = replacement,
                  x = date)
-    date <- gsub(pattern = months$full[i],
+    
+    date <- gsub(pattern = months$abbrev[i],
                  replacement = replacement,
                  x = date)
   }
