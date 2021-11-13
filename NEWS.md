@@ -4,11 +4,13 @@
   column is assumed to contain row IDs.
 * Added more useful error messages which provide both the date causing the
   error, and the associated ID. 
-* If `NULL` is given for `day.impute` or `month.impute` then
-  `fix_dates()` will error if there are any missing values for either day or
-  month respectively. If `NA` is given for `day.impute` or `month.impute` then
-  `fix_dates()` will impute NA for any missing values for either day or
-  month respectively   
+* Setting `day.impute = NA` or `month.impute = NA` will now result in NA if day
+  or month is missing respectively in a date and a warning is issued. If
+  `day.impute = NULL` or `month.impute = NULL` then the function will error if
+  day or month is missing respectively in a date
+* Added `datefixR` vignette which describes the package in more detail than the
+  README
+* Added citation file
   
 # datefixR 0.1.1
 

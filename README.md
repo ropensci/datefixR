@@ -8,7 +8,7 @@
 [![R build
 status](https://github.com/nathansam/datefixR/workflows/R-CMD-check/badge.svg)](https://github.com/nathansam/datefixR/actions)
 [![codecov](https://codecov.io/gh/nathansam/datefixR/branch/main/graph/badge.svg?token=lb83myWBXt)](https://app.codecov.io/gh/nathansam/datefixR)
-[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/datefixR)](https://cran.r-project.org/package=datefixR)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/datefixR)](https://cran.r-project.org/package=datefixR)
 ![Top
 language](https://img.shields.io/github/languages/top/nathansam/datefixR)
 [![License:
@@ -97,3 +97,29 @@ call.
 The package is written solely in R and seems fast enough for my current
 use cases (a few hundred rows). However, I may convert the core for loop
 to C++ in the future if I (or others) need it to be faster.
+
+### Citation
+
+If you use this package in your research, please consider citing
+`datefixR`! An up-to-date citation can be obtained by running
+
+``` r
+citation("datefixR")
+#> 
+#> To cite datefixR in publications use:
+#> 
+#>   Constantine-Cooke, Nathan 2021. datefixR: Fix Really Messy Dates in
+#>   R. R package version 0.1.1.9000. DOI: 10.5281/zenodo.5655311.
+#>   https://CRAN.R-project.org/package=datefixR
+#> 
+#> A BibTeX entry for LaTeX users is
+#> 
+#>   @Manual{,
+#>     title = {{datefixR}: Fix Really Messy Dates in {R}},
+#>     author = {Nathan Constantine-Cooke},
+#>     year = {2021},
+#>     url = {https://CRAN.R-project.org/package=datefixR},
+#>     doi = {10.5281/zenodo.5655311},
+#>     note = {R package version 0.1.1.9000},
+#>   }
+```
