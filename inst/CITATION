@@ -1,7 +1,7 @@
 citHeader("To cite datefixR in publications use:")
 
-year <- sub("-.*", "", packageDate("datefixR"))
-note <- sprintf("R package version %s", packageVersion("datefixR"))
+year <- sub("-.*", "", meta$Date)
+note <- sprintf("R package version %s", meta$Version)
 
 citEntry(
   entry    = "Manual",
