@@ -10,6 +10,7 @@
   day or month is missing respectively in a date
 * Added `datefixR` vignette which describes the package in more detail than the
   README
+* Added `fix_date()` for fixing individual dates.
 * Added citation file
   
 # datefixR 0.1.1

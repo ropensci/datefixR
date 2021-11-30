@@ -19,6 +19,8 @@ months$full <- tolower(month.name)
 #' @param month.impute Integer. Month to be be imputed if not available.
 #'   Defaults to 7 (July)
 #' @return A \code{dataframe} object. Selected columns are of type \code{Date}
+#' @seealso \link{fix_date} Similar to \code{fix_dates()} except can only be
+#' applied to character obkects. 
 #' @examples
 #' bad.dates <- data.frame(id = seq(5),
 #'                         some.dates = c("02/05/92",
@@ -58,7 +60,7 @@ fix_dates <- function(df,
       for (i in 1:nrow(df)) {
         tryCatch(
           {
-            fixed.dates[i] <- fix_date(df[i, col.name],
+            fixed.dates[i] <- .fix_date(df[i, col.name],
                                        day.impute,
                                        month.impute,
                                        subject = df[i, id])
@@ -78,7 +80,7 @@ fix_dates <- function(df,
     df
 }
 
-fix_date <- function(date, day.impute, month.impute, subject) {
+.fix_date <- function(date, day.impute, month.impute, subject) {
 
   if (is.null(date) || is.na(date) || as.character(date) == "") {
     return(NA)

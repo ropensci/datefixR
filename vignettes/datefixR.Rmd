@@ -20,8 +20,10 @@ library(datefixR)
 
 This vignette describes the functionality of `datefixR` in more detail than the
 [README](https://github.com/nathansam/datefixR). `DatefixR` is a lightweight
-package consisting of a single user-accessible function, `fix_dates()`, which
-converts dates written in different formats into R's built-in `Date` class.
+package consisting of a two user-accessible functions, `fix_date()` and
+`fix_dates()`, which converts dates written in different formats into R's
+built-in `Date` class. The former is designed to modify single character objects
+whilst the latter is intended for modifying columns of a data frame (or tibble).
 
 Practically, this package is most useful when handling date data which has been
 supplied via text boxes (instead of a date-specific input with a consistent date
@@ -33,7 +35,7 @@ data (see [date and month imputation](#date-and-month-imputation)).
 ### Date standardization
 
 Firstly, we will demonstrate date standardization without imputation. We
-consider a dataframe with two columns of dates in differing formats
+consider a data frame with two columns of dates in differing formats
 with no missing data. 
 
 ```{R, echo = FALSE}
@@ -51,9 +53,9 @@ bad.dates <- data.frame(id = seq(5),
 knitr::kable(bad.dates)
 ```
 
-`fix_dates()` requires two arguments, `df`, a dataframe (or tibble) object and
+`fix_dates()` requires two arguments, `df`, a data frame (or tibble) object and
 `col.names`, a character vector containing the names of columns to be
-standardized. By default, the first column of the dataframe is assumed to contain
+standardized. By default, the first column of the data frame is assumed to contain
 row IDs. These IDs are used if a warning or error is raised to assist with
 locating the source of the error. The ID column can also be manually provided
 via the `id` argument. 
@@ -72,6 +74,13 @@ separation,  year-first or day-first, and month supplied as a number, an
 abbreviation or full length name. The most notable current omission is the
 month-first format of dates commonly seen in the US, however this format may be
 supported in the future.
+
+`fix_date()` is similar to `fix_dates()` but only applies to a single character
+object. 
+
+```{R}
+fix_date("01 02 2014")
+```
 
 ### Date and month imputation
 
@@ -129,6 +138,12 @@ imputed.dates <- fix_dates(impute.dates,
 # ERROR
 ```
 
+`day.impute` and `month.impute` can also be passed to `fix_date()` for similar
+functionality. 
+
+```{R}
+fix_date("2014", day.impute = 1, month.impute = 1)
+```
 
 ## Citation
 

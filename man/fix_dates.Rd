@@ -46,3 +46,7 @@ bad.dates <- data.frame(id = seq(5),
                                             "jan 2020"))
 fixed.df <- fix_dates(bad.dates, c("some.dates", "some.more.dates"))
 }
+\seealso{
+\link{fix_date} Similar to \code{fix_dates()} except can only be
+applied to character obkects.
+}
