@@ -1,6 +1,6 @@
 Package: datefixR
 Title: Fix Really Messy Dates
-Version: 0.1.1.9000
+Version: 0.1.2
 Authors@R: person("Nathan",
                   "Constantine-Cooke",
                   email = "nathan.constantine-cooke@ed.ac.uk",
