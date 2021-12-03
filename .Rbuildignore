@@ -6,3 +6,5 @@
 ^README_files$
 ^cran-comments\.md$
 ^CRAN-RELEASE$
+^CRAN-SUBMISSION$
+^_pkgdown\.yml$
