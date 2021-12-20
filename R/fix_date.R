@@ -6,18 +6,15 @@
 #' imputed. When day, month and year is given either DMY or YMD is assumed; the
 #' US system of MDY is not supported.
 #' @param date Character to be converted to R's date class. 
-#' @param day.impute Integer. Day of the month to be imputed if not available.
-#'   defaults to 1.
-#' @param month.impute Integer. Month to be be imputed if not available.
-#'   Defaults to 7 (July)
+#' @inheritParams fix_dates
 #' @return An object belonging to R's built in \code{Date} class. 
-#' @seealso \link{fix_dates} Similar to \code{fix_date()} except is applicable 
+#' @seealso \code{\link{fix_dates}} Similar to \code{fix_date()} except is applicable 
 #' to columns of a dataframe.
 #' @examples
 #' bad.date <- "02 03 2021"
 #' fixed.date <- fix_date(bad.date)
 #' @export
-fix_date <- function(date, day.impute = 1, month.impute = 7) {
+fix_date <- function(date, day.impute = 1, month.impute = 7, format = "dmy") {
   
   
   if (is.null(date) || is.na(date) || as.character(date) == "") {
@@ -25,9 +22,11 @@ fix_date <- function(date, day.impute = 1, month.impute = 7) {
   }
   
   if (!is.character(date)) stop("date should be a character \n")
+
   
   .checkday(day.impute)
   .checkmonth(month.impute)
+  .checkformat(format)
   day.impute <- .convertimpute(day.impute)
   month.impute <- .convertimpute(month.impute)
   
@@ -79,8 +78,13 @@ fix_date <- function(date, day.impute = 1, month.impute = 7) {
         # Assume YYYY/MM/DD
         year <- date_vec[1]; month <- date_vec[2]; day <- date_vec[3]
       } else{
-        # Assume DD/MM/YYYY
-        year <- date_vec[3]; month <- date_vec[2]; day <- date_vec[1]
+        if (format == "dmy") {
+          # Assume DD/MM/YYYY
+          year <- date_vec[3]; month <- date_vec[2]; day <- date_vec[1]
+        }
+        if (format == "mdy") {
+          year <- date_vec[3]; month <- date_vec[1]; day <- date_vec[2]
+        }
       }
     }
   }

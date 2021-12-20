@@ -59,3 +59,16 @@ test_that("Test NA imputed when provided", {
   expect_equal(fix_date(bad.date, day.impute = NA), as.Date(NA))
   
 })
+
+
+test_that("fix_date works for mdy format", {
+bad.date <- "07/15/11"
+fixed.date <- fix_date(bad.date, format = "mdy")
+expect_equal(fixed.date, as.Date("2011-07-15"))
+})
+
+test_that("unexpected format raises error", {
+  bad.date <- "07/15/11"
+  expect_error(fix_date(bad.date, format = "ydm"),
+               "format should be either 'dmy' or 'mdy' \n")
+})
