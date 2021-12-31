@@ -84,10 +84,11 @@ or `month.impute` arguments.
 fix_dates(example.df, "example", month.impute = 1)
 ```
 
-### Limitations
+Functions in `datefixR` assume day-first instead of month-first when day, month,
+and year are all given (unless year is given first). However this behaviour can
+be modified by passing `format = "mdy"` to function calls.  
 
-The US date format of month first is not currently supported. This may change
-in the future by passing an additional argument to the function call.
+### Limitations
 
 The package is written solely in R and seems fast enough for my current use
 cases (a few hundred rows). However, I may convert the core for loop to C++ in
@@ -98,6 +99,6 @@ the future if I (or others) need it to be faster.
 If you use this package in your research, please consider citing `datefixR`! 
 An up-to-date citation can be obtained by running
 
-```{R}
+```{R, results = "hide"}
 citation("datefixR")
 ```
