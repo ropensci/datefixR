@@ -4,7 +4,14 @@
 \alias{fix_dates}
 \title{Clean up messy date columns}
 \usage{
-fix_dates(df, col.names, day.impute = 1, month.impute = 7, id = NULL)
+fix_dates(
+  df,
+  col.names,
+  day.impute = 1,
+  month.impute = 7,
+  id = NULL,
+  format = "dmy"
+)
 }
 \arguments{
 \item{df}{A \code{dataframe} object with messy date column(s)}
@@ -19,6 +26,11 @@ Defaults to 7 (July)}
 
 \item{id}{Name of column containing row IDs. By default, the first column is
 assumed.}
+
+\item{format}{Character. The format which a date is mostly likely to be given
+in. Either \code{"dmy"} (default) or \code{"mdy"}. If year appears to have
+been given first, then YMD is assumed for the subject (format argument is
+not used)}
 }
 \value{
 A \code{dataframe} object. Selected columns are of type \code{Date}
@@ -47,6 +59,6 @@ bad.dates <- data.frame(id = seq(5),
 fixed.df <- fix_dates(bad.dates, c("some.dates", "some.more.dates"))
 }
 \seealso{
-\link{fix_date} Similar to \code{fix_dates()} except can only be
-applied to character obkects.
+\code{\link{fix_date}} Similar to \code{fix_dates()} except can only be
+applied to character objects.
 }

@@ -170,3 +170,43 @@ test_that("Error if imputing day with NULL", {
                "Missing day with no imputation value given \n")
 })
 
+
+test_that("fix_dates works for a mdy format", {
+  bad.dates <- data.frame(id = seq(6),
+                          some.dates = c("05/02/92",
+                                         "04-01-2020",
+                                         "1996/05/01",
+                                         "2020-01-05",
+                                         "04-02-96",
+                                         "2015"),
+                          some.more.dates = c(
+                            "05/02/00",
+                            "05/1990",
+                            "2012-08",
+                            "apr-21",
+                            "mar-65",
+                            "feb 84"))
+  
+  fixed.df <- fix_dates(bad.dates,
+                        c("some.dates", "some.more.dates"),
+                        format = "mdy")
+  
+  expected.df <- data.frame(id = seq(6),
+                            some.dates = c("1992-05-02",
+                                           "2020-04-01",
+                                           "1996-05-01",
+                                           "2020-01-05",
+                                           "1996-04-02",
+                                           "2015-07-01"),
+                            some.more.dates = c(
+                              "2000-05-02",
+                              "1990-05-01",
+                              "2012-08-01",
+                              "2021-04-01",
+                              "1965-03-01",
+                              "1984-02-01"))
+  expected.df$some.dates <- as.Date(expected.df$some.dates)
+  expected.df$some.more.dates <- as.Date(expected.df$some.more.dates)
+  expect_equal(fixed.df, expected.df)
+})
+

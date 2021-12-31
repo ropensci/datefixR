@@ -4,7 +4,7 @@
 \alias{fix_date}
 \title{Convert improperly formatted date to R's Date class}
 \usage{
-fix_date(date, day.impute = 1, month.impute = 7)
+fix_date(date, day.impute = 1, month.impute = 7, format = "dmy")
 }
 \arguments{
 \item{date}{Character to be converted to R's date class.}
@@ -14,6 +14,11 @@ defaults to 1.}
 
 \item{month.impute}{Integer. Month to be be imputed if not available.
 Defaults to 7 (July)}
+
+\item{format}{Character. The format which a date is mostly likely to be given
+in. Either \code{"dmy"} (default) or \code{"mdy"}. If year appears to have
+been given first, then YMD is assumed for the subject (format argument is
+not used)}
 }
 \value{
 An object belonging to R's built in \code{Date} class.
@@ -31,6 +36,6 @@ bad.date <- "02 03 2021"
 fixed.date <- fix_date(bad.date)
 }
 \seealso{
-\link{fix_dates} Similar to \code{fix_date()} except is applicable
+\code{\link{fix_dates}} Similar to \code{fix_date()} except is applicable
 to columns of a dataframe.
 }

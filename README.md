@@ -88,11 +88,12 @@ fix_dates(example.df, "example", month.impute = 1)
 #> 1 1994-01-01
 ```
 
-### Limitations
+Functions in `datefixR` assume day-first instead of month-first when
+day, month, and year are all given (unless year is given first). However
+this behaviour can be modified by passing `format = "mdy"` to function
+calls.
 
-The US date format of month first is not currently supported. This may
-change in the future by passing an additional argument to the function
-call.
+### Limitations
 
 The package is written solely in R and seems fast enough for my current
 use cases (a few hundred rows). However, I may convert the core for loop
@@ -105,21 +106,4 @@ If you use this package in your research, please consider citing
 
 ``` r
 citation("datefixR")
-#> 
-#> To cite datefixR in publications use:
-#> 
-#>   Constantine-Cooke, Nathan 2021. datefixR: Fix Really Messy Dates in
-#>   R. R package version 0.1.1.9000. DOI: 10.5281/zenodo.5655311.
-#>   https://CRAN.R-project.org/package=datefixR
-#> 
-#> A BibTeX entry for LaTeX users is
-#> 
-#>   @Manual{,
-#>     title = {{datefixR}: Fix Really Messy Dates in {R}},
-#>     author = {Nathan Constantine-Cooke},
-#>     year = {2021},
-#>     url = {https://CRAN.R-project.org/package=datefixR},
-#>     doi = {10.5281/zenodo.5655311},
-#>     note = {R package version 0.1.1.9000},
-#>   }
 ```
