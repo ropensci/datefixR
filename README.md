@@ -90,7 +90,7 @@ fix_dates(example.df, "example", month.impute = 1)
 
 Functions in `datefixR` assume day-first instead of month-first when
 day, month, and year are all given (unless year is given first). However
-this behaviour can be modified by passing `format = "mdy"` to function
+this behavior can be modified by passing `format = "mdy"` to function
 calls.
 
 ### Limitations

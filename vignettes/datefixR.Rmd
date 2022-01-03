@@ -83,7 +83,7 @@ fix_date("01 02 2014")
 ```
 
 Functions in `datefixR` assume day-first instead of month-first when day, month,
-and year are all given (unless year is given first). However this behaviour can
+and year are all given (unless year is given first). However this behavior can
 be modified by passing `format = "mdy"` to function calls.  
 
 
