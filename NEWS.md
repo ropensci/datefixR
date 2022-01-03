@@ -1,3 +1,7 @@
+# datefixR 0.1.3
+
+* Added support for MM/DD/YYYY formats via an optional argument, `format`.
+
 # datefixR 0.1.2
 
 * Added `id` argument to `fix_dates()`. If not explicitly stated, the first
