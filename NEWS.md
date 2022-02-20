@@ -1,3 +1,8 @@
+# datefixR 0.1.4
+
+* Update documentation to reflect support for MM/DD/YYYY formats and `NA`
+  imputation
+
 # datefixR 0.1.3
 
 * Added support for MM/DD/YYYY formats via an optional argument, `format`.

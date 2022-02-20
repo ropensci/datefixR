@@ -10,15 +10,20 @@ fix_date(date, day.impute = 1, month.impute = 7, format = "dmy")
 \item{date}{Character to be converted to R's date class.}
 
 \item{day.impute}{Integer. Day of the month to be imputed if not available.
-defaults to 1.}
+defaults to 1. If \code{day.impute = NA} then \code{NA} will be imputed for
+the date instead and a warning will be raised. If \code{day.impute = NULL}
+then instead of imputing the day of the month, the function will fail}
 
 \item{month.impute}{Integer. Month to be be imputed if not available.
-Defaults to 7 (July)}
+Defaults to 7 (July). If \code{month.impute = NA} then \code{NA} will be
+imputed for the date instead and a warning will be raised. If
+\code{month.impute = NULL} then instead of imputing the month, the
+function will fail.}
 
 \item{format}{Character. The format which a date is mostly likely to be given
 in. Either \code{"dmy"} (default) or \code{"mdy"}. If year appears to have
 been given first, then YMD is assumed for the subject (format argument is
-not used)}
+not used for these observations)}
 }
 \value{
 An object belonging to R's built in \code{Date} class.

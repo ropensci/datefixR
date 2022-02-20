@@ -19,10 +19,15 @@ fix_dates(
 \item{col.names}{Character vector of names of columns of messy date data}
 
 \item{day.impute}{Integer. Day of the month to be imputed if not available.
-defaults to 1.}
+defaults to 1. If \code{day.impute = NA} then \code{NA} will be imputed for
+the date instead and a warning will be raised. If \code{day.impute = NULL}
+then instead of imputing the day of the month, the function will fail}
 
 \item{month.impute}{Integer. Month to be be imputed if not available.
-Defaults to 7 (July)}
+Defaults to 7 (July). If \code{month.impute = NA} then \code{NA} will be
+imputed for the date instead and a warning will be raised. If
+\code{month.impute = NULL} then instead of imputing the month, the
+function will fail.}
 
 \item{id}{Name of column containing row IDs. By default, the first column is
 assumed.}
@@ -30,7 +35,7 @@ assumed.}
 \item{format}{Character. The format which a date is mostly likely to be given
 in. Either \code{"dmy"} (default) or \code{"mdy"}. If year appears to have
 been given first, then YMD is assumed for the subject (format argument is
-not used)}
+not used for these observations)}
 }
 \value{
 A \code{dataframe} object. Selected columns are of type \code{Date}
@@ -38,11 +43,11 @@ A \code{dataframe} object. Selected columns are of type \code{Date}
 \description{
 Cleans up a \code{dataframe} object which has date columns
 entered via a free-text box (possibly by different users) and are therefore
-in a non-standardized format. Supports numerous separators including /,- or
-space. Supports all-numeric, abbreviation or long-hand month notation. Where
+in a non-standardized format. Supports numerous separators including /,-, or
+space. Supports all-numeric, abbreviation, or long-hand month notation. Where
 day of the month has not been supplied, the first day of the month is
-imputed. When day, month and year is given either DMY or YMD is assumed; the
-US system of MDY is not supported.
+imputed. Either DMY or YMD is assumed by default. However, the US system of
+MDY is supported via the \code{format} argument.
 }
 \examples{
 bad.dates <- data.frame(id = seq(5),
