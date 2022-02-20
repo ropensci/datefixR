@@ -13,6 +13,7 @@ status](https://github.com/nathansam/datefixR/workflows/R-CMD-check/badge.svg)](
 language](https://img.shields.io/github/languages/top/nathansam/datefixR)
 [![License:
 GPL-3](https://img.shields.io/badge/License-GPL3-green.svg)](https://opensource.org/licenses/GPL-3.0)
+[![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/datefixR?color=blue)](https://r-pkg.org/pkg/datefixR)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5655311.svg)](https://doi.org/10.5281/zenodo.5655311)
 <!-- badges: end -->
 
