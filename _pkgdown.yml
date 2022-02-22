@@ -1,3 +1,5 @@
+url: "https://www.constantine-cooke.come/datefixR/"
+
 template:
   bootstrap:  5
   bootswatch: minty
@@ -7,7 +9,7 @@ template:
     
 navbar:
   structure:
-    left: [intro, reference, articles, tutorials, news, website]
+    right: [website, github]
   components:
     website:
       text: Constantine-Cooke.com
