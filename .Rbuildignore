@@ -8,3 +8,4 @@
 ^CRAN-RELEASE$
 ^CRAN-SUBMISSION$
 ^_pkgdown\.yml$
+^pkgdown$
