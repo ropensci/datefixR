@@ -13,7 +13,6 @@ status](https://github.com/nathansam/datefixR/workflows/R-CMD-check/badge.svg)](
 language](https://img.shields.io/github/languages/top/nathansam/datefixR)
 [![License:
 GPL-3](https://img.shields.io/badge/License-GPL3-green.svg)](https://opensource.org/licenses/GPL-3.0)
-[![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/datefixR?color=blue)](https://r-pkg.org/pkg/datefixR)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5655311.svg)](https://doi.org/10.5281/zenodo.5655311)
 <!-- badges: end -->
 
@@ -49,7 +48,20 @@ if (!require("remotes")) install.packages("remotes")
 remotes::install_github("nathansam/datefixR", "devel")
 ```
 
-### Usage
+## Package vignette
+
+`datefixR` has a “Getting Started” vignette which describes how to use
+this package in more detail than this page. View the vignette by either
+calling
+
+``` r
+browseVignettes("datefixR")
+```
+
+or visiting the vignette on the [package
+website](https://www.constantine-cooke.com/datefixR/articles/datefixR.html)
+
+## Usage
 
 ``` r
 library(datefixR)
@@ -94,13 +106,13 @@ day, month, and year are all given (unless year is given first). However
 this behavior can be modified by passing `format = "mdy"` to function
 calls.
 
-### Limitations
+## Limitations
 
 The package is written solely in R and seems fast enough for my current
 use cases (a few hundred rows). However, I may convert the core for loop
 to C++ in the future if I (or others) need it to be faster.
 
-### Citation
+## Citation
 
 If you use this package in your research, please consider citing
 `datefixR`! An up-to-date citation can be obtained by running
