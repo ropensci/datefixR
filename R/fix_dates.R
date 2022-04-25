@@ -10,10 +10,11 @@ months$full <- tolower(month.name)
 #' day of the month has not been supplied, the first day of the month is
 #' imputed. Either DMY or YMD is assumed by default. However, the US system of
 #' MDY is supported via the \code{format} argument.
-#' @param df A \code{dataframe} object with messy date column(s)
+#' @param df A \code{dataframe} or \code{tibble} object with messy date
+#'   column(s)
 #' @param col.names Character vector of names of columns of messy date data
 #' @param id Name of column containing row IDs. By default, the first column is
-#' assumed.
+#'   assumed.
 #' @param day.impute Integer. Day of the month to be imputed if not available.
 #'   defaults to 1. If \code{day.impute = NA} then \code{NA} will be imputed for
 #'   the date instead and a warning will be raised. If \code{day.impute = NULL}
@@ -27,7 +28,8 @@ months$full <- tolower(month.name)
 #'   in. Either \code{"dmy"} (default) or \code{"mdy"}. If year appears to have
 #'   been given first, then YMD is assumed for the subject (format argument is
 #'   not used for these observations) 
-#' @return A \code{dataframe} object. Selected columns are of type \code{Date}
+#' @return A \code{dataframe} or \code{tibble} object. Dependent on the type of
+#'   \code{df}. Selected columns are of type \code{Date}
 #' @seealso \code{\link{fix_date}} Similar to \code{fix_dates()} except can only be
 #' applied to character objects. 
 #' @examples
@@ -92,6 +94,7 @@ fix_dates <- function(df,
     df
 }
 
+#' @noRd
 .fix_date <- function(date, day.impute, month.impute, subject, format = format) {
 
   if (is.null(date) || is.na(date) || as.character(date) == "") {
@@ -155,6 +158,8 @@ fix_dates <- function(df,
       }
     }
   }
+  
+  #' @noRd
   .checkoutput(day, month)
   
   if (is.na(day) || is.na(month)) {
@@ -171,6 +176,7 @@ fix_dates <- function(df,
   fixed_date
 }
 
+#' @noRd
 .separate_date <- function(date) {
   if (grepl("/", date, fixed = TRUE)) {
     date_vec <- stringr::str_split_fixed(date,
@@ -188,6 +194,7 @@ fix_dates <- function(df,
   date_vec
 }
 
+#' @noRd
 .convert_text_month <- function(date) {
   date <- tolower(date)
   for (i in 1:12) {
@@ -207,6 +214,7 @@ fix_dates <- function(df,
   date
 }
 
+#' @noRd
 .checkday <- function(day.impute){
   if (!is.na(day.impute) && !is.null(day.impute)) {
     if (day.impute < 1 | day.impute > 28) {
@@ -219,6 +227,7 @@ fix_dates <- function(df,
   return()
 }
 
+#' @noRd
 .checkmonth <- function(month.impute){
   if (!is.na(month.impute) && !is.null(month.impute)) {
     if (month.impute < 1 | month.impute > 12) {
@@ -231,6 +240,7 @@ fix_dates <- function(df,
   return()
 }
 
+#' @noRd
 .checkoutput <- function(day, month){
   if (!is.na(month)) {
     if (as.numeric(month) > 12 | as.numeric(month) < 1) {
@@ -245,13 +255,14 @@ fix_dates <- function(df,
   NULL
 }
 
+#' @noRd
 .checkformat  <- function (format) {
   if (!(format %in% c("dmy", "mdy"))) {
     stop("format should be either 'dmy' or 'mdy' \n")
   }
 }
 
-
+#' @noRd
 .convertimpute <- function(impute){
   if (!is.na(impute) && !is.null(impute)) {
     if (impute < 10) {
@@ -265,6 +276,7 @@ fix_dates <- function(df,
   replacement
 }
 
+#' @noRd
 .imputemonth <- function(month.impute){
   if (is.null(month.impute)) {
     stop("Missing month with no imputation value given \n")
@@ -273,6 +285,7 @@ fix_dates <- function(df,
   }
 }
 
+#' @noRd
 .imputeday <- function(day.impute){
   if (is.null(day.impute)) {
     stop("Missing day with no imputation value given \n")

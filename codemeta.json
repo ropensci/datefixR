@@ -1,0 +1,125 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "identifier": "datefixR",
+  "description": "Fixes messy dates in data frames such as those entered via text boxes. Standardizes / - and whitespace separation, month abbreviations, and year first or day first by converting to R's built-in Date class. Imputes missing date or month using user-provided values. ",
+  "name": "datefixR: Fix Really Messy Dates",
+  "relatedLink": ["https://www.constantine-cooke.com/datefixR/", "https://CRAN.R-project.org/package=datefixR"],
+  "codeRepository": "https://github.com/nathansam/datefixR",
+  "issueTracker": "https://github.com/nathansam/datefixR/issues",
+  "license": "https://spdx.org/licenses/GPL-3.0",
+  "version": "0.1.4.9000",
+  "programmingLanguage": {
+    "@type": "ComputerLanguage",
+    "name": "R",
+    "url": "https://r-project.org"
+  },
+  "runtimePlatform": "R version 4.1.3 (2022-03-10)",
+  "provider": {
+    "@id": "https://cran.r-project.org",
+    "@type": "Organization",
+    "name": "Comprehensive R Archive Network (CRAN)",
+    "url": "https://cran.r-project.org"
+  },
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "Nathan",
+      "familyName": "Constantine-Cooke",
+      "email": "nathan.constantine-cooke@ed.ac.uk",
+      "@id": "https://orcid.org/0000-0002-4437-8713"
+    }
+  ],
+  "maintainer": [
+    {
+      "@type": "Person",
+      "givenName": "Nathan",
+      "familyName": "Constantine-Cooke",
+      "email": "nathan.constantine-cooke@ed.ac.uk",
+      "@id": "https://orcid.org/0000-0002-4437-8713"
+    }
+  ],
+  "softwareSuggestions": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "rmarkdown",
+      "name": "rmarkdown",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "knitr",
+      "name": "knitr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=knitr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "testthat",
+      "name": "testthat",
+      "version": ">= 3.0.0",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=testthat"
+    }
+  ],
+  "softwareRequirements": {
+    "1": {
+      "@type": "SoftwareApplication",
+      "identifier": "R",
+      "name": "R",
+      "version": ">= 4.0.0"
+    },
+    "2": {
+      "@type": "SoftwareApplication",
+      "identifier": "stringr",
+      "name": "stringr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=stringr"
+    },
+    "SystemRequirements": null
+  },
+  "fileSize": "478.954KB",
+  "citation": [
+    {
+      "@type": "SoftwareSourceCode",
+      "author": [
+        {
+          "@type": "Person",
+          "givenName": "Nathan",
+          "familyName": "Constantine-Cooke"
+        }
+      ],
+      "name": "{datefixR}: Fix Really Messy Dates in {R}",
+      "identifier": "10.5281/zenodo.5655311",
+      "url": "https://CRAN.R-project.org/package=datefixR",
+      "description": "R package version 0.1.4.9000",
+      "@id": "https://doi.org/10.5281/zenodo.5655311",
+      "sameAs": "https://doi.org/10.5281/zenodo.5655311"
+    }
+  ],
+  "releaseNotes": "https://github.com/nathansam/datefixR/blob/master/NEWS.md",
+  "readme": "https://github.com/nathansam/datefixR/blob/main/README.md",
+  "contIntegration": ["https://github.com/nathansam/datefixR/actions", "https://app.codecov.io/gh/nathansam/datefixR"],
+  "keywords": ["r", "r-package", "dates", "wrangling", "rstats"]
+}

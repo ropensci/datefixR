@@ -14,7 +14,8 @@ fix_dates(
 )
 }
 \arguments{
-\item{df}{A \code{dataframe} object with messy date column(s)}
+\item{df}{A \code{dataframe} or \code{tibble} object with messy date
+column(s)}
 
 \item{col.names}{Character vector of names of columns of messy date data}
 
@@ -38,7 +39,8 @@ been given first, then YMD is assumed for the subject (format argument is
 not used for these observations)}
 }
 \value{
-A \code{dataframe} object. Selected columns are of type \code{Date}
+A \code{dataframe} or \code{tibble} object. Dependent on the type of
+\code{df}. Selected columns are of type \code{Date}
 }
 \description{
 Cleans up a \code{dataframe} object which has date columns
