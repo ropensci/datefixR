@@ -41,11 +41,15 @@ install.packages("datefixR")
 ```
 
 The most up-to-date (hopefully) stable version of `datefixR` can be installed
-via
+via [r-universe](https://r-universe.dev/search/)
 
-```{R github, eval = FALSE}
-if (!require("remotes")) install.packages("remotes")
-remotes::install_github("nathansam/fixdateR")
+```{R dev, eval = FALSE}
+# Enable universe(s) by nathansam
+options(repos = c(
+  nathansam = 'https://nathansam.r-universe.dev',
+  CRAN = 'https://cloud.r-project.org'))
+
+install.packages('datefixR')
 ```
 
 If you wish to live on the cutting edge of `datefixR` development, then the

@@ -87,6 +87,18 @@
     },
     "2": {
       "@type": "SoftwareApplication",
+      "identifier": "lifecycle",
+      "name": "lifecycle",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=lifecycle"
+    },
+    "3": {
+      "@type": "SoftwareApplication",
       "identifier": "stringr",
       "name": "stringr",
       "provider": {
@@ -99,7 +111,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "478.954KB",
+  "fileSize": "515.975KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -121,5 +133,6 @@
   "releaseNotes": "https://github.com/nathansam/datefixR/blob/master/NEWS.md",
   "readme": "https://github.com/nathansam/datefixR/blob/main/README.md",
   "contIntegration": ["https://github.com/nathansam/datefixR/actions", "https://app.codecov.io/gh/nathansam/datefixR"],
+  "developmentStatus": "https://www.repostatus.org/#active",
   "keywords": ["r", "r-package", "dates", "wrangling", "rstats"]
 }
