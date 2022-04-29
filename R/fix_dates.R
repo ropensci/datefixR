@@ -197,6 +197,11 @@ fix_dates <- function(df,
 #' @noRd
 .convert_text_month <- function(date) {
   date <- tolower(date)
+  # Handle special case of sept abbrv. 
+  date <- gsub(pattern = "sept",
+               replacement = "09",
+               x = date)
+  
   for (i in 1:12) {
     if (i < 10) {
       replacement <- paste0("0", i)

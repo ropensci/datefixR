@@ -1,35 +1,39 @@
 test_that("fix_dates works for a series of malformed dates", {
-bad.dates <- data.frame(id = seq(6),
+bad.dates <- data.frame(id = seq(7),
                         some.dates = c("02/05/92",
                                        "01-04-2020",
                                        "1996/05/01",
                                        "2020-05-01",
                                        "02-04-96",
-                                       "2015"),
+                                       "2015",
+                                       "Sept 2009"),
                         some.more.dates = c(
                                        "02/05/00",
                                        "05/1990",
                                        "2012-08",
                                        "apr-21",
                                        "mar-65",
-                                       "feb 84"))
+                                       "feb 84", 
+                                       "5 sept 2021"))
 
 fixed.df <- fix_dates(bad.dates, c("some.dates", "some.more.dates"))
 
-expected.df <- data.frame(id = seq(6),
+expected.df <- data.frame(id = seq(7),
                           some.dates = c("1992-05-02",
                                          "2020-04-01",
                                          "1996-05-01",
                                          "2020-05-01",
                                          "1996-04-02",
-                                         "2015-07-01"),
+                                         "2015-07-01",
+                                         "2009-09-01"),
                           some.more.dates = c(
                                          "2000-05-02",
                                          "1990-05-01",
                                          "2012-08-01",
                                          "2021-04-01",
                                          "1965-03-01",
-                                         "1984-02-01"))
+                                         "1984-02-01",
+                                         "2021-09-05"))
 expected.df$some.dates <- as.Date(expected.df$some.dates)
 expected.df$some.more.dates <- as.Date(expected.df$some.more.dates)
 expect_equal(fixed.df, expected.df)
