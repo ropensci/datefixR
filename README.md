@@ -113,6 +113,70 @@ The package is written solely in R and seems fast enough for my current
 use cases (a few hundred rows). However, I may convert the core for loop
 to C++ in the future if I (or others) need it to be faster.
 
+## Similar packages to datefixR
+
+### `lubridate`
+
+[`lubridate::guess_formats()`](https://lubridate.tidyverse.org/reference/guess_formats.html)
+can be used to guess a date format and
+[`lubridate::parse_date_time()`](https://lubridate.tidyverse.org/reference/parse_date_time.html)
+calls this function when it attempts to parse a vector into a POSIXct
+date-time object. However:
+
+1.  When a date fails to parse in `{lubridate}` then the user is simply
+    told how many dates failed to parse. In `datefixR` the user is told
+    the ID (assumed to be the first column by default but can be
+    user-specified) corresponding to the date which failed to parse and
+    reports the considered date: making it much easier to figure out
+    which dates supplied failed to parse and why.
+2.  When imputing a missing day or month, there is no user-control over
+    this behaviour. For example, when imputing a missing month, the user
+    may wish to impute July, the middle of the year, instead of January.
+    However, January will always be imputed in `{lubridate}`. In
+    `datefixR`, this behaviour can be controlled by the `month.impute`
+    argument.
+3.  These functions require all possible date formats to be specified in
+    the `orders` argument, which may result in a date format not being
+    considered if the user forgets to list one of the possible formats.
+    By contrast, `datefixR` only needs a format to be specified if
+    month-first is to be preferred over day-first when guessing a date.
+
+However, `{lubridate}` of course excels in general date manipulation and
+is an excellent tool to use alongside `datefixR`.
+
+### `anytime`
+
+An alternative function is
+[`anytime::anydate()`](https://dirk.eddelbuettel.com/code/anytime.html)
+which also attempts to convert dates to a consistent format (POSIXct).
+However `{anytime}` assumes year, month, and day have all been provided
+and does not permit imputation. Moreover, if a date cannot be parsed,
+then the date is converted to an NA object and no warning is raised-
+which may lead to issues later in the analysis.
+
+### Speed comparison
+
+Both `{lubridate}` and and `{anytime}` use compiled code and therefore
+have the potential to be orders of magnitude faster than `datefixR`.
+However, in my own testing, I found `{anytime}` to actually be slower
+than `datefixR`: consistently being over 3 times slower (testing up to
+10,000 dates). `lubridate::parse_date_time()` (which is written in R) is
+an order of magnitude of time faster than `datefixR` and
+`lubridate::parse_date_time2()`, which is written in C but only allows
+numeric dates, is even faster. If you are don’t mind not having control
+over imputation, do not expect to have to deal with many unparsed dates,
+are confident you will specify all potential formats the supplied dates
+will be in, and you have many many dates to standardise (hundreds of
+thousands or more), `{lubridate}`’s functions may be a better option
+than `datefixR`.
+
+### Not actively maintained alternatives
+
+[`linelist::guess_dates()`](https://www.repidemicsconsortium.org/linelist/reference/guess_dates.html)
+appears to also have performed a somewhat similar role to the above
+functions. However, this function did not leave the experimental
+lifecycle phase and the package itself is no longer available on CRAN.
+
 ## Citation
 
 If you use this package in your research, please consider citing
