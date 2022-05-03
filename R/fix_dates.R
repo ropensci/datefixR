@@ -27,24 +27,30 @@ months$full <- tolower(month.name)
 #' @param format Character. The format which a date is mostly likely to be given
 #'   in. Either \code{"dmy"} (default) or \code{"mdy"}. If year appears to have
 #'   been given first, then YMD is assumed for the subject (format argument is
-#'   not used for these observations) 
+#'   not used for these observations)
 #' @return A \code{dataframe} or \code{tibble} object. Dependent on the type of
 #'   \code{df}. Selected columns are of type \code{Date}
 #' @seealso \code{\link{fix_date}} Similar to \code{fix_dates()} except can only be
-#' applied to character objects. 
+#' applied to character objects.
 #' @examples
-#' bad.dates <- data.frame(id = seq(5),
-#'                         some.dates = c("02/05/92",
-#'                                        "01-04-2020",
-#'                                        "1996/05/01",
-#'                                        "2020-05-01",
-#'                                        "02-04-96"),
-#'                         some.more.dates = c("2015",
-#'                                             "02/05/00",
-#'                                             "05/1990",
-#'                                             "2012-08",
-#'                                             "jan 2020"))
-#'fixed.df <- fix_dates(bad.dates, c("some.dates", "some.more.dates"))
+#' bad.dates <- data.frame(
+#'   id = seq(5),
+#'   some.dates = c(
+#'     "02/05/92",
+#'     "01-04-2020",
+#'     "1996/05/01",
+#'     "2020-05-01",
+#'     "02-04-96"
+#'   ),
+#'   some.more.dates = c(
+#'     "2015",
+#'     "02/05/00",
+#'     "05/1990",
+#'     "2012-08",
+#'     "jan 2020"
+#'   )
+#' )
+#' fixed.df <- fix_dates(bad.dates, c("some.dates", "some.more.dates"))
 #' @export
 fix_dates <- function(df,
                       col.names,
@@ -59,44 +65,45 @@ fix_dates <- function(df,
     stop("col.names should be a character vector!")
   }
   .checkformat(format)
-  
+
   if (is.null(id)) id <- 1 # Use first column as id if not explicitly given
 
   .checkday(day.impute)
   .checkmonth(month.impute)
   day.impute <- .convertimpute(day.impute)
   month.impute <- .convertimpute(month.impute)
-  error.status <- 0
-  
+
   for (col.name in col.names) {
     fixed.dates <- c()
-      for (i in 1:nrow(df)) {
-        tryCatch(
-          {
-            fixed.dates[i] <- .fix_date(df[i, col.name],
-                                       day.impute,
-                                       month.impute,
-                                       subject = df[i, id],
-                                       format = format)
-            },
-          error = function(cond){
-            message(paste0("Unable to resolve date for subject ",
-                       df[i, id],
-                       " (date: ",
-                       df[i, col.name],
-                       ")\n")
-                 )
-            stop(cond)}
-        )
-      }
-    df[, col.name] <- as.Date(fixed.dates)
+    for (i in seq_len(df)) {
+      tryCatch(
+        {
+          fixed.dates[i] <- .fix_date(df[i, col.name],
+            day.impute,
+            month.impute,
+            subject = df[i, id],
+            format = format
+          )
+        },
+        error = function(cond) {
+          message(paste0(
+            "Unable to resolve date for subject ",
+            df[i, id],
+            " (date: ",
+            df[i, col.name],
+            ")\n"
+          ))
+          stop(cond)
+        }
+      )
     }
-    df
+    df[, col.name] <- as.Date(fixed.dates)
+  }
+  df
 }
 
 #' @noRd
 .fix_date <- function(date, day.impute, month.impute, subject, format = format) {
-
   if (is.null(date) || is.na(date) || as.character(date) == "") {
     return(NA)
   }
@@ -108,69 +115,80 @@ fix_dates <- function(df,
     year <- date
     month <- .imputemonth(month.impute)
     day <- .imputeday(day.impute)
-  } else{
+  } else {
     date_vec <- .separate_date(date)
     if (any(nchar(date_vec) > 4)) {
       stop("unable to tidy a date")
     }
     if (all(nchar(date_vec) == 2)) {
       if (length(date_vec) == 3) {
-          # Assume DD/MM/YY or MM/DD/YY
-        if (substr(date_vec[3], 1, 1)  == "0" || (
+        # Assume DD/MM/YY or MM/DD/YY
+        if (substr(date_vec[3], 1, 1) == "0" || (
           substr(date_vec[3], 1, 1) == "1") || (
-            substr(date_vec[3], 1, 1) == "2")) {
-            date_vec[3] <- paste0("20", date_vec[3])
-          } else{
-            date_vec[3] <-  paste0("19", date_vec[3])
-          }
+          substr(date_vec[3], 1, 1) == "2")) {
+          date_vec[3] <- paste0("20", date_vec[3])
+        } else {
+          date_vec[3] <- paste0("19", date_vec[3])
+        }
       } else if (length(date_vec) == 2) {
         # Assume MM/YY
-        if (substr(date_vec[2], 1, 1)  == "0" || (
+        if (substr(date_vec[2], 1, 1) == "0" || (
           substr(date_vec[2], 1, 1) == "1") || (
-            substr(date_vec[2], 1, 1) == "2")) {
+          substr(date_vec[2], 1, 1) == "2")) {
           date_vec[2] <- paste0("20", date_vec[2])
-        } else{
-          date_vec[2] <-  paste0("19", date_vec[2])
+        } else {
+          date_vec[2] <- paste0("19", date_vec[2])
         }
       }
     }
     if (length(date_vec) < 3) {
       # ASSUME MM/YYYY, YYYY/MM
-      day <- .imputeday(day.impute) 
+      day <- .imputeday(day.impute)
       if (nchar(date_vec[1]) == 4) {
-      # Assume YYYY/MM
-      year <- date_vec[1]; month <- date_vec[2]
+        # Assume YYYY/MM
+        year <- date_vec[1]
+        month <- date_vec[2]
       } else if (nchar(date_vec[2]) == 4) {
-        year <- date_vec[2]; month <- date_vec[1]
+        year <- date_vec[2]
+        month <- date_vec[1]
       }
-    } else{
+    } else {
       if (nchar(date_vec[1]) == 4) {
         # Assume YYYY/MM/DD
-        year <- date_vec[1]; month <- date_vec[2]; day <- date_vec[3]
-      } else{
+        year <- date_vec[1]
+        month <- date_vec[2]
+        day <- date_vec[3]
+      } else {
         if (format == "dmy") {
           # Assume DD/MM/YYYY
-          year <- date_vec[3]; month <- date_vec[2]; day <- date_vec[1]
+          year <- date_vec[3]
+          month <- date_vec[2]
+          day <- date_vec[1]
         }
         if (format == "mdy") {
-          year <- date_vec[3]; month <- date_vec[1]; day <- date_vec[2]
+          year <- date_vec[3]
+          month <- date_vec[1]
+          day <- date_vec[2]
         }
       }
     }
   }
-  
+
   #' @noRd
   .checkoutput(day, month)
-  
+
   if (is.na(day) || is.na(month)) {
     fixed_date <- NA
-    warning(paste0("NA imputed for subject ",
-                   subject,
-                   " (date: ",
-                   date,
-                   ")\n"),
-            call. = FALSE)
-  } else { 
+    warning(paste0(
+      "NA imputed for subject ",
+      subject,
+      " (date: ",
+      date,
+      ")\n"
+    ),
+    call. = FALSE
+    )
+  } else {
     fixed_date <- paste0(year, "-", month, "-", day)
   }
   fixed_date
@@ -180,16 +198,19 @@ fix_dates <- function(df,
 .separate_date <- function(date) {
   if (grepl("/", date, fixed = TRUE)) {
     date_vec <- stringr::str_split_fixed(date,
-                                         pattern = "/",
-                                         n = Inf)
+      pattern = "/",
+      n = Inf
+    )
   } else if (grepl("-", date, fixed = TRUE)) {
     date_vec <- stringr::str_split_fixed(date,
-                                         pattern = "-",
-                                         n = Inf)
+      pattern = "-",
+      n = Inf
+    )
   } else if (grepl(" ", date, fixed = TRUE)) {
     date_vec <- stringr::str_split_fixed(date,
-                                         pattern = " ",
-                                         n = Inf)
+      pattern = " ",
+      n = Inf
+    )
   }
   date_vec
 }
@@ -197,30 +218,36 @@ fix_dates <- function(df,
 #' @noRd
 .convert_text_month <- function(date) {
   date <- tolower(date)
-  # Handle special case of sept abbrv. 
-  date <- gsub(pattern = "sept",
-               replacement = "09",
-               x = date)
-  
+  # Handle special case of sept abbrv.
+  date <- gsub(
+    pattern = "sept",
+    replacement = "09",
+    x = date
+  )
+
   for (i in 1:12) {
     if (i < 10) {
       replacement <- paste0("0", i)
     } else {
       replacement <- i
     }
-    date <- gsub(pattern = months$full[i],
-                 replacement = replacement,
-                 x = date)
-    
-    date <- gsub(pattern = months$abbrev[i],
-                 replacement = replacement,
-                 x = date)
+    date <- gsub(
+      pattern = months$full[i],
+      replacement = replacement,
+      x = date
+    )
+
+    date <- gsub(
+      pattern = months$abbrev[i],
+      replacement = replacement,
+      x = date
+    )
   }
   date
 }
 
 #' @noRd
-.checkday <- function(day.impute){
+.checkday <- function(day.impute) {
   if (!is.na(day.impute) && !is.null(day.impute)) {
     if (day.impute < 1 | day.impute > 28) {
       stop("day.impute should be an integer between 1 and 28\n")
@@ -233,7 +260,7 @@ fix_dates <- function(df,
 }
 
 #' @noRd
-.checkmonth <- function(month.impute){
+.checkmonth <- function(month.impute) {
   if (!is.na(month.impute) && !is.null(month.impute)) {
     if (month.impute < 1 | month.impute > 12) {
       stop("month.impute should be an integer between 1 and 12\n")
@@ -246,7 +273,7 @@ fix_dates <- function(df,
 }
 
 #' @noRd
-.checkoutput <- function(day, month){
+.checkoutput <- function(day, month) {
   if (!is.na(month)) {
     if (as.numeric(month) > 12 | as.numeric(month) < 1) {
       stop("Month not in expected range \n")
@@ -261,14 +288,14 @@ fix_dates <- function(df,
 }
 
 #' @noRd
-.checkformat  <- function (format) {
+.checkformat <- function(format) {
   if (!(format %in% c("dmy", "mdy"))) {
     stop("format should be either 'dmy' or 'mdy' \n")
   }
 }
 
 #' @noRd
-.convertimpute <- function(impute){
+.convertimpute <- function(impute) {
   if (!is.na(impute) && !is.null(impute)) {
     if (impute < 10) {
       replacement <- paste0("0", impute)
@@ -282,7 +309,7 @@ fix_dates <- function(df,
 }
 
 #' @noRd
-.imputemonth <- function(month.impute){
+.imputemonth <- function(month.impute) {
   if (is.null(month.impute)) {
     stop("Missing month with no imputation value given \n")
   } else {
@@ -291,7 +318,7 @@ fix_dates <- function(df,
 }
 
 #' @noRd
-.imputeday <- function(day.impute){
+.imputeday <- function(day.impute) {
   if (is.null(day.impute)) {
     stop("Missing day with no imputation value given \n")
   } else {
