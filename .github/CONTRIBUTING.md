@@ -70,6 +70,13 @@ Care to fix bugs or implement new functionality for our_package? Awesome! 👏 H
 
 We try to follow the [GitHub flow](https://guides.github.com/introduction/flow/) for development.
 
+This package also uses the [tidyverse style guide](https://style.tidyverse.org)
+enforced by [the styler package](https://www.tidyverse.org/blog/2017/12/styler-1.0.0/).
+Before committing your code, try to remember to call  `styler::style_pkg()`.
+Do not worry if you forget to call this function though! When you open a pull
+request, a bot should try to run both `devtools::document()` and
+`styler::style_pkg()` on your code anyway.
+
 1. Fork [this repo][repo] and clone it to your computer. To learn more about this process, see [this guide](https://guides.github.com/activities/forking/).
 2. If you have forked and cloned the project before and it has been a while since you worked on it, [pull changes from the original repo](https://help.github.com/articles/merging-an-upstream-repository-into-your-fork/) to your clone by using `git pull upstream master`.
 3. Open the RStudio project file (`.Rproj`).
