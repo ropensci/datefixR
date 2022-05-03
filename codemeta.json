@@ -8,7 +8,7 @@
   "codeRepository": "https://github.com/nathansam/datefixR",
   "issueTracker": "https://github.com/nathansam/datefixR/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -99,7 +99,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "512.052KB",
+  "fileSize": "510.104KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -113,7 +113,7 @@
       "name": "{datefixR}: Fix Really Messy Dates in {R}",
       "identifier": "10.5281/zenodo.5655311",
       "url": "https://CRAN.R-project.org/package=datefixR",
-      "description": "R package version 0.1.5",
+      "description": "R package version 0.1.6",
       "@id": "https://doi.org/10.5281/zenodo.5655311",
       "sameAs": "https://doi.org/10.5281/zenodo.5655311"
     }
