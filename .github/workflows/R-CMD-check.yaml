@@ -15,7 +15,7 @@ jobs:
           use-public-rspm: true
 
       - name: Install styler
-        run: install.packages("styler")
+        run: install.packages(c("styler", "roxygen2"))
         shell: Rscript {0}
 
       - name: Lint package
