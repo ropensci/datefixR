@@ -52,17 +52,23 @@ imputed. Either DMY or YMD is assumed by default. However, the US system of
 MDY is supported via the \code{format} argument.
 }
 \examples{
-bad.dates <- data.frame(id = seq(5),
-                        some.dates = c("02/05/92",
-                                       "01-04-2020",
-                                       "1996/05/01",
-                                       "2020-05-01",
-                                       "02-04-96"),
-                        some.more.dates = c("2015",
-                                            "02/05/00",
-                                            "05/1990",
-                                            "2012-08",
-                                            "jan 2020"))
+bad.dates <- data.frame(
+  id = seq(5),
+  some.dates = c(
+    "02/05/92",
+    "01-04-2020",
+    "1996/05/01",
+    "2020-05-01",
+    "02-04-96"
+  ),
+  some.more.dates = c(
+    "2015",
+    "02/05/00",
+    "05/1990",
+    "2012-08",
+    "jan 2020"
+  )
+)
 fixed.df <- fix_dates(bad.dates, c("some.dates", "some.more.dates"))
 }
 \seealso{
