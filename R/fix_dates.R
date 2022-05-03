@@ -75,7 +75,7 @@ fix_dates <- function(df,
 
   for (col.name in col.names) {
     fixed.dates <- c()
-    for (i in seq_len(df)) {
+    for (i in seq_len(nrow(df))) {
       tryCatch(
         {
           fixed.dates[i] <- .fix_date(df[i, col.name],
