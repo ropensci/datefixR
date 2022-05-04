@@ -1,3 +1,11 @@
+# datefixR 0.1.6.9000 (ropensci peer review)
+
+## Editor checks
+Addressed the below issues `{lintr}` found:
+
+* Avoid `1:nrow(...)` expressions, use `seq_len`.
+* lines of code >80 chars
+
 # datefixR 0.1.6
 
 * Dates with a "sept" / "Sept" abbreviation will now be correctly handled.
