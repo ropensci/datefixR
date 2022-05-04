@@ -14,3 +14,13 @@ via GitHub actions https://github.com/nathansam/datefixR/actions
 ## Downstream dependencies
 
 This package has no downstream dependencies
+
+## Resubmission
+
+This is a resubmission. The below error has now been fixed
+
+From: man/datefixR-package.Rd
+       Status: Error
+       Message: URL using bad/illegal format or missing URL
+       URL contains spaces
+     Spaces in an http[s] URL should probably be replaced by %20

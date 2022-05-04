@@ -30,8 +30,8 @@ months$full <- tolower(month.name)
 #'   not used for these observations)
 #' @return A \code{dataframe} or \code{tibble} object. Dependent on the type of
 #'   \code{df}. Selected columns are of type \code{Date}
-#' @seealso \code{\link{fix_date}} Similar to \code{fix_dates()} except can only be
-#' applied to character objects.
+#' @seealso \code{\link{fix_date}} Similar to \code{fix_dates()} except can only
+#' be applied to character objects.
 #' @examples
 #' bad.dates <- data.frame(
 #'   id = seq(5),
@@ -103,7 +103,11 @@ fix_dates <- function(df,
 }
 
 #' @noRd
-.fix_date <- function(date, day.impute, month.impute, subject, format = format) {
+.fix_date <- function(date,
+                      day.impute,
+                      month.impute,
+                      subject,
+                      format = format) {
   if (is.null(date) || is.na(date) || as.character(date) == "") {
     return(NA)
   }

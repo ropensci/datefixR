@@ -8,8 +8,8 @@
 #' @param date Character to be converted to R's date class.
 #' @inheritParams fix_dates
 #' @return An object belonging to R's built in \code{Date} class.
-#' @seealso \code{\link{fix_dates}} Similar to \code{fix_date()} except is applicable
-#' to columns of a dataframe.
+#' @seealso \code{\link{fix_dates}} Similar to \code{fix_date()} except is
+#' applicable to columns of a dataframe.
 #' @examples
 #' bad.date <- "02 03 2021"
 #' fixed.date <- fix_date(bad.date)
