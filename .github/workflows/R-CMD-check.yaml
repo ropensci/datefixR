@@ -4,7 +4,7 @@ on:
 
 name: "CI"
 jobs:
-  Update-readme.md:
+  Update-readme-md:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -102,7 +102,7 @@ jobs:
         shell: Rscript {0}
 
   pkgdown:
-    needs: [R-CMD-check, Update-readme.md]
+    needs: [R-CMD-check, Update-readme-md]
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     env:
