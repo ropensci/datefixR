@@ -22,7 +22,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Render README
-        run: rmarkdown::render("README.rmd")
+        run: rmarkdown::render("README.Rmd")
         shell: Rscript {0}
       - name: Commit and push changes
         run: |
