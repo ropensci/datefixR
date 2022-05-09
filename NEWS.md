@@ -1,10 +1,12 @@
 # datefixR 0.1.6.9000 (rOpenSci peer review)
 
 ## Editor checks
-Addressed the below issues `{lintr}` found:
+* Addressed the below issues `{lintr}` found:
+  * Avoid `1:nrow(...)` expressions, use `seq_len`.
+  * lines of code >80 chars
+* Fixed typo and added `{spellcheck}` to testing suite
+* Explicitly test for warnings
 
-* Avoid `1:nrow(...)` expressions, use `seq_len`.
-* lines of code >80 chars
 
 # datefixR 0.1.6
 
