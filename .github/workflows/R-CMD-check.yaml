@@ -4,6 +4,36 @@ on:
 
 name: "CI"
 jobs:
+  Update-readme.md:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - uses: r-lib/actions/setup-pandoc@v2
+        with:
+          pandoc-version: '2.7.3' # The pandoc version to download (if necessary) and use.
+
+      - name: Install rmarkdown
+        run: install.packages(c("rmarkdown", "knitr"))
+        shell: Rscript {0}
+
+      - name: Render README
+        run: rmarkdown::render("README.rmd")
+        shell: Rscript {0}
+      - name: Commit and push changes
+        run: |
+          if [[ `git status --porcelain` ]]; then
+           git config user.name 'github-actions[bot]'
+           git config user.email 'github-actions[bot]@users.noreply.github.com'
+           git add -A
+           git commit -m "Lint package"
+           git push
+          fi
+          
   lint-package:
     runs-on: ubuntu-latest
     env:
@@ -72,7 +102,7 @@ jobs:
         shell: Rscript {0}
 
   pkgdown:
-    needs: R-CMD-check
+    needs: [R-CMD-check, Update-readme.md]
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     env:
