@@ -17,10 +17,12 @@ jobs:
         with:
           pandoc-version: '2.7.3' # The pandoc version to download (if necessary) and use.
 
-      - name: Install rmarkdown
-        run: install.packages(c("rmarkdown", "knitr"))
+      - name: Install package and dependencies
+        run: |
+          install.packages(c("remotes")) 
+          remotes::install_local(dependencies = TRUE)
         shell: Rscript {0}
-
+       
       - name: Render README
         run: rmarkdown::render("README.Rmd")
         shell: Rscript {0}
