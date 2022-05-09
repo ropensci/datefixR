@@ -203,14 +203,20 @@ test_that("Error if day out of bounds", {
 
 test_that("Imputing day with NA results in NA", {
   temp <- data.frame(id = 1, date = "04-1994")
-  expect_warning(date.guess <- fix_dates(temp, "date", day.impute = NA))
+  expect_warning(
+    date.guess <- fix_dates(temp, "date", day.impute = NA),
+    "NA imputed for subject 1 \\(date: 04\\-1994\\)"
+  )
   expect_equal(date.guess, data.frame(id = 1, date = as.Date(NA)))
 })
 
 
 test_that("Imputing month with NA results in NA", {
   temp <- data.frame(id = 1, date = "1994")
-  expect_warning(date.guess <- fix_dates(temp, "date", month.impute = NA))
+  expect_warning(
+    date.guess <- fix_dates(temp, "date", month.impute = NA),
+    "NA imputed for subject 1 \\(date: 1994\\)"
+  )
   expect_equal(
     date.guess,
     data.frame(id = 1, date = as.Date(NA))
