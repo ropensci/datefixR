@@ -16,13 +16,10 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@v2
         with:
           pandoc-version: '2.7.3' # The pandoc version to download (if necessary) and use.
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: local::.
 
-      - name: Install package and dependencies
-        run: |
-          install.packages(c("pak")) 
-          pak::local_install(dependencies = TRUE)
-        shell: Rscript {0}
-       
       - name: Render README
         run: rmarkdown::render("README.Rmd")
         shell: Rscript {0}
