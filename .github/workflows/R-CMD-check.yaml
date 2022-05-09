@@ -19,8 +19,8 @@ jobs:
 
       - name: Install package and dependencies
         run: |
-          install.packages(c("remotes")) 
-          remotes::install_local(dependencies = TRUE)
+          install.packages(c("pak")) 
+          pak::local_install()
         shell: Rscript {0}
        
       - name: Render README
