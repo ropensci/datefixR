@@ -47,7 +47,7 @@ jobs:
           extra-packages: | 
             any::styler
             any::roxygen2
-          dependencies: "FALSE""
+          dependencies: "FALSE"
       - name: Lint package
         run: styler::style_pkg()
         shell: Rscript {0}
