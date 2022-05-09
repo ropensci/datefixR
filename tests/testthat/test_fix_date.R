@@ -56,7 +56,11 @@ test_that("error if date given has over 4 digits for year", {
 
 test_that("Test NA imputed when provided", {
   bad.date <- "1990-5"
-  expect_equal(fix_date(bad.date, day.impute = NA), as.Date(NA))
+  expect_warning(
+    date.guess <- fix_date(bad.date, day.impute = NA),
+    "NA imputed"
+  )
+  expect_equal(date.guess, as.Date(NA))
 })
 
 
