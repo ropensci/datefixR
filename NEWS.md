@@ -1,4 +1,4 @@
-# datefixR 0.1.6.9000 (ropensci peer review)
+# datefixR 0.1.6.9000 (rOpenSci peer review)
 
 ## Editor checks
 Addressed the below issues `{lintr}` found:

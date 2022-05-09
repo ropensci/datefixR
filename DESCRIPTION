@@ -22,6 +22,7 @@ BugReports: https://github.com/nathansam/datefixR/issues
 Suggests: 
     rmarkdown,
     knitr,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    spelling
 Config/testthat/edition: 3
 VignetteBuilder: knitr

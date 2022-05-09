@@ -129,7 +129,7 @@ date-time object. However:
 2.  When imputing a missing day or month, there is no user-control over this
   behavior. For example, when imputing a missing month, the user may wish to
   impute July,  the middle of the year, instead of January. However, January will
-  always be imputed in `{lubridate}`. In `datefixR`, this behaviour can be
+  always be imputed in `{lubridate}`. In `datefixR`, this behavior can be
   controlled by the `month.impute` argument.
 3. These functions require all possible date formats to be specified in the
   `orders` argument, which may result in a date format not being considered if
