@@ -20,7 +20,7 @@ jobs:
       - name: Install package and dependencies
         run: |
           install.packages(c("pak")) 
-          pak::local_install()
+          pak::local_install(dependencies = TRUE)
         shell: Rscript {0}
        
       - name: Render README
