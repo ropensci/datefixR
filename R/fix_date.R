@@ -46,7 +46,7 @@ fix_date <- function(date, day.impute = 1, month.impute = 7, format = "dmy") {
         date_vec[3] <- .yearprefix(date_vec[3])
       } else if (length(date_vec) == 2) {
         # Assume MM/YY
-        date_vec[2] <- .yearprefix(date_vec[2]) 
+        date_vec[2] <- .yearprefix(date_vec[2])
       }
     }
     if (length(date_vec) < 3) {

@@ -321,7 +321,7 @@ fix_dates <- function(df,
 #' @noRd
 .yearprefix <- function(year) {
   if (substr(year, 1, 1) %in% 0:as.numeric(substr(Sys.Date(), 3, 3))) {
-    year<- paste0("20", year)
+    year <- paste0("20", year)
   } else {
     year <- paste0("19", year)
   }
