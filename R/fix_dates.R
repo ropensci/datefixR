@@ -127,22 +127,10 @@ fix_dates <- function(df,
     if (all(nchar(date_vec) == 2)) {
       if (length(date_vec) == 3) {
         # Assume DD/MM/YY or MM/DD/YY
-        if (substr(date_vec[3], 1, 1) == "0" || (
-          substr(date_vec[3], 1, 1) == "1") || (
-          substr(date_vec[3], 1, 1) == "2")) {
-          date_vec[3] <- paste0("20", date_vec[3])
-        } else {
-          date_vec[3] <- paste0("19", date_vec[3])
-        }
+        date_vec[3] <- .yearprefix(date_vec[3])
       } else if (length(date_vec) == 2) {
         # Assume MM/YY
-        if (substr(date_vec[2], 1, 1) == "0" || (
-          substr(date_vec[2], 1, 1) == "1") || (
-          substr(date_vec[2], 1, 1) == "2")) {
-          date_vec[2] <- paste0("20", date_vec[2])
-        } else {
-          date_vec[2] <- paste0("19", date_vec[2])
-        }
+        date_vec[2] <- .yearprefix(date_vec[2])
       }
     }
     if (length(date_vec) < 3) {
@@ -328,4 +316,14 @@ fix_dates <- function(df,
   } else {
     day.impute
   }
+}
+
+#' @noRd
+.yearprefix <- function(year) {
+  if (substr(year, 1, 1) %in% 0:as.numeric(substr(Sys.Date(), 3, 3))) {
+    year<- paste0("20", year)
+  } else {
+    year <- paste0("19", year)
+  }
+  year
 }

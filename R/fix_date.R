@@ -21,7 +21,6 @@ fix_date <- function(date, day.impute = 1, month.impute = 7, format = "dmy") {
 
   if (!is.character(date)) stop("date should be a character \n")
 
-
   .checkday(day.impute)
   .checkmonth(month.impute)
   .checkformat(format)
@@ -44,22 +43,10 @@ fix_date <- function(date, day.impute = 1, month.impute = 7, format = "dmy") {
     if (all(nchar(date_vec) == 2)) {
       if (length(date_vec) == 3) {
         # Assume DD/MM/YY
-        if (substr(date_vec[3], 1, 1) == "0" || (
-          substr(date_vec[3], 1, 1) == "1") || (
-          substr(date_vec[3], 1, 1) == "2")) {
-          date_vec[3] <- paste0("20", date_vec[3])
-        } else {
-          date_vec[3] <- paste0("19", date_vec[3])
-        }
+        date_vec[3] <- .yearprefix(date_vec[3])
       } else if (length(date_vec) == 2) {
         # Assume MM/YY
-        if (substr(date_vec[2], 1, 1) == "0" || (
-          substr(date_vec[2], 1, 1) == "1") || (
-          substr(date_vec[2], 1, 1) == "2")) {
-          date_vec[2] <- paste0("20", date_vec[2])
-        } else {
-          date_vec[2] <- paste0("19", date_vec[2])
-        }
+        date_vec[2] <- .yearprefix(date_vec[2]) 
       }
     }
     if (length(date_vec) < 3) {
