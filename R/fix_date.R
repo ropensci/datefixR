@@ -40,15 +40,7 @@ fix_date <- function(date, day.impute = 1, month.impute = 7, format = "dmy") {
     if (any(nchar(date_vec) > 4)) {
       stop("unable to tidy a date")
     }
-    if (all(nchar(date_vec) == 2)) {
-      if (length(date_vec) == 3) {
-        # Assume DD/MM/YY
-        date_vec[3] <- .yearprefix(date_vec[3])
-      } else if (length(date_vec) == 2) {
-        # Assume MM/YY
-        date_vec[2] <- .yearprefix(date_vec[2])
-      }
-    }
+    date_vec <- .appendyear(date_vec)
     if (length(date_vec) < 3) {
       # ASSUME MM/YYYY, YYYY/MM
       day <- .imputeday(day.impute)
@@ -82,14 +74,5 @@ fix_date <- function(date, day.impute = 1, month.impute = 7, format = "dmy") {
     }
   }
   .checkoutput(day, month)
-
-  if (is.na(day) || is.na(month)) {
-    fixed_date <- NA
-    warning(paste0("NA imputed \n"),
-      call. = FALSE
-    )
-  } else {
-    fixed_date <- paste0(year, "-", month, "-", day)
-  }
-  as.Date(fixed_date)
+  as.Date(.combinepartialdate(day, month, year))
 }
