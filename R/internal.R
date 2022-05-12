@@ -10,7 +10,7 @@
   }
   date <- as.character(date)
   date <- .convert_text_month(date)
-  
+
   if (nchar(date) == 4) {
     # Just given year
     year <- date
@@ -22,7 +22,7 @@
       stop("unable to tidy a date")
     }
     date_vec <- .appendyear(date_vec)
-    
+
     if (length(date_vec) < 3) {
       # ASSUME MM/YYYY, YYYY/MM
       day <- .imputeday(day.impute)
@@ -63,18 +63,18 @@
 .separate_date <- function(date) {
   if (grepl("/", date, fixed = TRUE)) {
     date_vec <- stringr::str_split_fixed(date,
-                                         pattern = "/",
-                                         n = Inf
+      pattern = "/",
+      n = Inf
     )
   } else if (grepl("-", date, fixed = TRUE)) {
     date_vec <- stringr::str_split_fixed(date,
-                                         pattern = "-",
-                                         n = Inf
+      pattern = "-",
+      n = Inf
     )
   } else if (grepl(" ", date, fixed = TRUE)) {
     date_vec <- stringr::str_split_fixed(date,
-                                         pattern = " ",
-                                         n = Inf
+      pattern = " ",
+      n = Inf
     )
   }
   date_vec
@@ -89,7 +89,7 @@
     replacement = "09",
     x = date
   )
-  
+
   for (i in 1:12) {
     if (i < 10) {
       replacement <- paste0("0", i)
@@ -101,7 +101,7 @@
       replacement = replacement,
       x = date
     )
-    
+
     date <- gsub(
       pattern = months$abbrev[i],
       replacement = replacement,
