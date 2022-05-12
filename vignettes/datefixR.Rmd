@@ -71,9 +71,7 @@ knitr::kable(fixed.dates)
 
 `datefixR` can handle many different formats including -, /, or white space
 separation,  year-first or day-first, and month supplied as a number, an
-abbreviation or full length name. The most notable current omission is the
-month-first format of dates commonly seen in the US, however this format may be
-supported in the future.
+abbreviation or full length name.
 
 `fix_date()` is similar to `fix_dates()` but only applies to a single character
 object. 

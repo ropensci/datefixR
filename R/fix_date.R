@@ -3,8 +3,8 @@
 #' Supports numerous separators including /,- or white space.
 #' Supports all-numeric, abbreviation or long-hand month notation. Where
 #' day of the month has not been supplied, the first day of the month is
-#' imputed. When day, month and year is given either DMY or YMD is assumed; the
-#' US system of MDY is not supported.
+#' imputed. Either DMY or YMD is assumed by default. However, the US system of
+#' MDY is supported via the \code{format} argument.
 #' @param date Character to be converted to R's date class.
 #' @inheritParams fix_dates
 #' @return An object belonging to R's built in \code{Date} class.
@@ -13,6 +13,7 @@
 #' @examples
 #' bad.date <- "02 03 2021"
 #' fixed.date <- fix_date(bad.date)
+#' fixed.date
 #' @export
 fix_date <- function(date, day.impute = 1, month.impute = 7, format = "dmy") {
   if (is.null(date) || is.na(date) || as.character(date) == "") {
@@ -20,7 +21,6 @@ fix_date <- function(date, day.impute = 1, month.impute = 7, format = "dmy") {
   }
 
   if (!is.character(date)) stop("date should be a character \n")
-
 
   .checkday(day.impute)
   .checkmonth(month.impute)
@@ -41,27 +41,7 @@ fix_date <- function(date, day.impute = 1, month.impute = 7, format = "dmy") {
     if (any(nchar(date_vec) > 4)) {
       stop("unable to tidy a date")
     }
-    if (all(nchar(date_vec) == 2)) {
-      if (length(date_vec) == 3) {
-        # Assume DD/MM/YY
-        if (substr(date_vec[3], 1, 1) == "0" || (
-          substr(date_vec[3], 1, 1) == "1") || (
-          substr(date_vec[3], 1, 1) == "2")) {
-          date_vec[3] <- paste0("20", date_vec[3])
-        } else {
-          date_vec[3] <- paste0("19", date_vec[3])
-        }
-      } else if (length(date_vec) == 2) {
-        # Assume MM/YY
-        if (substr(date_vec[2], 1, 1) == "0" || (
-          substr(date_vec[2], 1, 1) == "1") || (
-          substr(date_vec[2], 1, 1) == "2")) {
-          date_vec[2] <- paste0("20", date_vec[2])
-        } else {
-          date_vec[2] <- paste0("19", date_vec[2])
-        }
-      }
-    }
+    date_vec <- .appendyear(date_vec)
     if (length(date_vec) < 3) {
       # ASSUME MM/YYYY, YYYY/MM
       day <- .imputeday(day.impute)
@@ -95,14 +75,5 @@ fix_date <- function(date, day.impute = 1, month.impute = 7, format = "dmy") {
     }
   }
   .checkoutput(day, month)
-
-  if (is.na(day) || is.na(month)) {
-    fixed_date <- NA
-    warning(paste0("NA imputed \n"),
-      call. = FALSE
-    )
-  } else {
-    fixed_date <- paste0(year, "-", month, "-", day)
-  }
-  as.Date(fixed_date)
+  as.Date(.combinepartialdate(day, month, year))
 }
