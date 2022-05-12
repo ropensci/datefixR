@@ -177,8 +177,6 @@ fix_dates <- function(df,
       }
     }
   }
-
-  #' @noRd
   .checkoutput(day, month)
 
   if (is.na(day) || is.na(month)) {

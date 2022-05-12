@@ -72,6 +72,6 @@ bad.dates <- data.frame(
 fixed.df <- fix_dates(bad.dates, c("some.dates", "some.more.dates"))
 }
 \seealso{
-\code{\link{fix_date}} Similar to \code{fix_dates()} except can only be
-applied to character objects.
+\code{\link{fix_date}} Similar to \code{fix_dates()} except can only
+be applied to character objects.
 }

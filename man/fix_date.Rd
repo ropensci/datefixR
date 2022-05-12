@@ -41,6 +41,6 @@ bad.date <- "02 03 2021"
 fixed.date <- fix_date(bad.date)
 }
 \seealso{
-\code{\link{fix_dates}} Similar to \code{fix_date()} except is applicable
-to columns of a dataframe.
+\code{\link{fix_dates}} Similar to \code{fix_date()} except is
+applicable to columns of a dataframe.
 }
