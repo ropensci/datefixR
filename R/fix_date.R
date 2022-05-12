@@ -3,8 +3,8 @@
 #' Supports numerous separators including /,- or white space.
 #' Supports all-numeric, abbreviation or long-hand month notation. Where
 #' day of the month has not been supplied, the first day of the month is
-#' imputed. When day, month and year is given either DMY or YMD is assumed; the
-#' US system of MDY is not supported.
+#' imputed. Either DMY or YMD is assumed by default. However, the US system of
+#' MDY is supported via the \code{format} argument.
 #' @param date Character to be converted to R's date class.
 #' @inheritParams fix_dates
 #' @return An object belonging to R's built in \code{Date} class.
@@ -13,6 +13,7 @@
 #' @examples
 #' bad.date <- "02 03 2021"
 #' fixed.date <- fix_date(bad.date)
+#' fixed.date
 #' @export
 fix_date <- function(date, day.impute = 1, month.impute = 7, format = "dmy") {
   if (is.null(date) || is.na(date) || as.character(date) == "") {

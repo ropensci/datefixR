@@ -33,12 +33,13 @@ Converts a single improperly formatted date to R's Date class
 Supports numerous separators including /,- or white space.
 Supports all-numeric, abbreviation or long-hand month notation. Where
 day of the month has not been supplied, the first day of the month is
-imputed. When day, month and year is given either DMY or YMD is assumed; the
-US system of MDY is not supported.
+imputed. Either DMY or YMD is assumed by default. However, the US system of
+MDY is supported via the \code{format} argument.
 }
 \examples{
 bad.date <- "02 03 2021"
 fixed.date <- fix_date(bad.date)
+fixed.date
 }
 \seealso{
 \code{\link{fix_dates}} Similar to \code{fix_date()} except is
