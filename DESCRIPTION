@@ -16,7 +16,7 @@ Imports: stringr
 Language: en-US
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 URL: https://www.constantine-cooke.com/datefixR/ https://github.com/nathansam/datefixR
 BugReports: https://github.com/nathansam/datefixR/issues
 Suggests: 
