@@ -1,3 +1,10 @@
+<!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
+
+# datefixR 0.1.6.9001
+
+- Same as previous version.
+
+
 # datefixR 0.1.6.9000 (rOpenSci peer review)
 
 ## Editor checks
