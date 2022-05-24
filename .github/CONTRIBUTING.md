@@ -77,8 +77,8 @@ Do not worry if you forget to call this function though! When you open a pull
 request, a bot should try to run both `devtools::document()` and
 `styler::style_pkg()` on your code anyway. This package also uses
 [fledge](https://cynkra.github.io/fledge/) to update NEWS.md. If your change
-should be included in the package changelog, start your commit with  - to ensure
-your change will be recorded in the changelog. 
+should be included in the package change log, start your commit with  - to ensure
+your change will be recorded in the change log. 
 
 1. Fork [this repo][repo] and clone it to your computer. To learn more about this process, see [this guide](https://guides.github.com/activities/forking/).
 2. If you have forked and cloned the project before and it has been a while since you worked on it, [pull changes from the original repo](https://help.github.com/articles/merging-an-upstream-repository-into-your-fork/) to your clone by using `git pull upstream master`.
@@ -89,5 +89,5 @@ your change will be recorded in the changelog.
     * Document your code (see function documentation above).
     * Check your code with `devtools::check()` and aim for 0 errors and warnings.
 5. Commit and push your changes. Remember to start your commit with - to update
-the changelog (NEWS.md)
+the change log (NEWS.md)
 6. Submit a [pull request](https://guides.github.com/activities/forking/#making-a-pull-request).
