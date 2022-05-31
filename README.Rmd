@@ -75,6 +75,10 @@ or visiting the vignette on the
 
 ## Usage
 
+`datefixR` is most commonly used to standardize columns of date data in a
+data frame or tibble. For this demonstration, we will generate a data frame of
+non-standardized dates. 
+
 ```{r example}
 library(datefixR)
 bad.dates <- data.frame(id = seq(5),
@@ -89,6 +93,14 @@ bad.dates <- data.frame(id = seq(5),
                                             "2012-08",
                                             "jan 2020")
                         )
+knitr::kable(bad.dates)
+```
+
+We can standardize these date columns by using the `fix_dates()` function and
+passing the data frame/tibble object and a character vector of column names for
+the corresponding columns to fix. 
+
+```{R}
 fixed.df <- fix_dates(bad.dates, c("some.dates", "some.more.dates"))
 knitr::kable(fixed.df)
 ```
