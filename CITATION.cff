@@ -1,0 +1,144 @@
+# -----------------------------------------------------------
+# CITATION file created with {cffr} R package, v0.2.2
+# See also: https://docs.ropensci.org/cffr/
+# -----------------------------------------------------------
+ 
+cff-version: 1.2.0
+message: 'To cite package "datefixR" in publications use:'
+type: software
+license: GPL-3.0-or-later
+title: 'datefixR: Fix Really Messy Dates'
+version: 0.1.6.9001
+doi: 10.5281/zenodo.5655311
+abstract: Fixes messy dates in data frames such as those entered via text boxes. Standardizes
+  / - and whitespace separation, month abbreviations, and year first or day first
+  by converting to R's built-in Date class. Imputes missing date or month using user-provided
+  values.
+authors:
+- family-names: Constantine-Cooke
+  given-names: Nathan
+  email: nathan.constantine-cooke@ed.ac.uk
+  orcid: https://orcid.org/0000-0002-4437-8713
+preferred-citation:
+  type: manual
+  title: 'datefixR: Fix Really Messy Dates in R'
+  authors:
+  - family-names: Constantine-Cooke
+    given-names: Nathan
+    email: nathan.constantine-cooke@ed.ac.uk
+    orcid: https://orcid.org/0000-0002-4437-8713
+  url: https://CRAN.R-project.org/package=datefixR
+  doi: 10.5281/zenodo.5655311
+  notes: R package version 0.1.6.9001
+repository: https://CRAN.R-project.org/package=datefixR
+repository-code: https://github.com/nathansam/datefixR
+url: https://www.constantine-cooke.com/datefixR/
+contact:
+- family-names: Constantine-Cooke
+  given-names: Nathan
+  email: nathan.constantine-cooke@ed.ac.uk
+  orcid: https://orcid.org/0000-0002-4437-8713
+keywords:
+- dates
+- r
+- r-package
+- rstats
+- wrangling
+references:
+- type: software
+  title: 'R: A Language and Environment for Statistical Computing'
+  notes: Depends
+  authors:
+  - name: R Core Team
+  location:
+    name: Vienna, Austria
+  year: '2022'
+  url: https://www.R-project.org/
+  institution:
+    name: R Foundation for Statistical Computing
+  version: '>= 4.0.0'
+- type: software
+  title: stringr
+  abstract: 'stringr: Simple, Consistent Wrappers for Common String Operations'
+  notes: Imports
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@rstudio.com
+  year: '2022'
+  url: https://CRAN.R-project.org/package=stringr
+- type: software
+  title: rmarkdown
+  abstract: 'rmarkdown: Dynamic Documents for R'
+  notes: Suggests
+  authors:
+  - family-names: Allaire
+    given-names: JJ
+    email: jj@rstudio.com
+  - family-names: Xie
+    given-names: Yihui
+    email: xie@yihui.name
+    orcid: https://orcid.org/0000-0003-0645-5666
+  - family-names: McPherson
+    given-names: Jonathan
+    email: jonathan@rstudio.com
+  - family-names: Luraschi
+    given-names: Javier
+    email: javier@rstudio.com
+  - family-names: Ushey
+    given-names: Kevin
+    email: kevin@rstudio.com
+  - family-names: Atkins
+    given-names: Aron
+    email: aron@rstudio.com
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@rstudio.com
+  - family-names: Cheng
+    given-names: Joe
+    email: joe@rstudio.com
+  - family-names: Chang
+    given-names: Winston
+    email: winston@rstudio.com
+  - family-names: Iannone
+    given-names: Richard
+    email: rich@rstudio.com
+    orcid: https://orcid.org/0000-0003-3925-190X
+  year: '2022'
+  url: https://CRAN.R-project.org/package=rmarkdown
+- type: software
+  title: knitr
+  abstract: 'knitr: A General-Purpose Package for Dynamic Report Generation in R'
+  notes: Suggests
+  authors:
+  - family-names: Xie
+    given-names: Yihui
+    email: xie@yihui.name
+    orcid: https://orcid.org/0000-0003-0645-5666
+  year: '2022'
+  url: https://CRAN.R-project.org/package=knitr
+- type: software
+  title: testthat
+  abstract: 'testthat: Unit Testing for R'
+  notes: Suggests
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@rstudio.com
+  year: '2022'
+  url: https://CRAN.R-project.org/package=testthat
+  version: '>= 3.0.0'
+- type: software
+  title: spelling
+  abstract: 'spelling: Tools for Spell Checking in R'
+  notes: Suggests
+  authors:
+  - family-names: Ooms
+    given-names: Jeroen
+    email: jeroen@berkeley.edu
+    orcid: https://orcid.org/0000-0002-4035-0289
+  - family-names: Hester
+    given-names: Jim
+    email: james.hester@rstudio.com
+  year: '2022'
+  url: https://CRAN.R-project.org/package=spelling
