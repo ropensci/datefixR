@@ -20,8 +20,8 @@ library(datefixR)
 
 This vignette describes the functionality of `datefixR` in more detail than the
 [README](https://github.com/nathansam/datefixR). `DatefixR` is a lightweight
-package consisting of a two user-accessible functions, `fix_date()` and
-`fix_dates()`, which converts dates written in different formats into R's
+package consisting of a two user-accessible functions, `fix_date_char()` and
+`fix_date_df()`, which converts dates written in different formats into R's
 built-in `Date` class. The former is designed to modify single character objects
 whilst the latter is intended for modifying columns of a data frame (or tibble).
 
@@ -53,7 +53,7 @@ bad.dates <- data.frame(id = seq(5),
 knitr::kable(bad.dates)
 ```
 
-`fix_dates()` requires two arguments, `df`, a data frame (or tibble) object and
+`fix_date_df()` requires two arguments, `df`, a data frame (or tibble) object and
 `col.names`, a character vector containing the names of columns to be
 standardized. By default, the first column of the data frame is assumed to contain
 row IDs. These IDs are used if a warning or error is raised to assist with
@@ -64,7 +64,7 @@ The output from this function is a data frame object with the selected date
 columns now belonging to the `Date` class. 
 
 ```{R}
-fixed.dates <- fix_dates(bad.dates,
+fixed.dates <- fix_date_df(bad.dates,
                          c("some.dates", "some.more.dates"))
 knitr::kable(fixed.dates)
 ```
@@ -73,11 +73,11 @@ knitr::kable(fixed.dates)
 separation,  year-first or day-first, and month supplied as a number, an
 abbreviation or full length name.
 
-`fix_date()` is similar to `fix_dates()` but only applies to a single character
-object. 
+`fix_date_char()` is similar to `fix_date_df()` but only applies to a single
+character object. 
 
 ```{R}
-fix_date("01 02 2014")
+fix_date_char("01 02 2014")
 ```
 
 Functions in `datefixR` assume day-first instead of month-first when day, month,
@@ -86,7 +86,7 @@ be modified by passing `format = "mdy"` to function calls.
 
 
 ```{R}
-fix_date("01 02 2014", format = "mdy")
+fix_date_char("01 02 2014", format = "mdy")
 ```
 
 
@@ -104,7 +104,7 @@ knitr::kable(impute.dates)
 converts to 
 
 ```{R}
-imputed.dates <- fix_dates(impute.dates, "some.date")
+imputed.dates <- fix_date_df(impute.dates, "some.date")
 knitr::kable(imputed.dates)
 ```
 
@@ -117,10 +117,10 @@ For example, `day.impute = 1` and `month.impute = 1`  results in the first day
 of January being imputed instead. 
 
 ```{R}
-imputed.dates <- fix_dates(impute.dates,
-                           "some.date",
-                           day.impute = 1,
-                           month.impute = 1)
+imputed.dates <- fix_date_df(impute.dates,
+                             "some.date",
+                             day.impute = 1,
+                             month.impute = 1)
 knitr::kable(imputed.dates)
 ```
 
@@ -129,9 +129,9 @@ is missing by setting `day.impute` or `month.impute` to `NA`. This will
 also result in a warning being raised.
 
 ```{R}
-imputed.dates <- fix_dates(impute.dates,
-                           "some.date",
-                           month.impute = NA)
+imputed.dates <- fix_date_df(impute.dates,
+                             "some.date",
+                             month.impute = NA)
 knitr::kable(imputed.dates)
 ```
 
@@ -140,17 +140,17 @@ to `NULL`. This will result in an error being raised if the day or month
 are missing respectively. 
 
 ```{R, eval = FALSE}
-imputed.dates <- fix_dates(impute.dates,
-                           "some.date",
-                           month.impute = NULL)
+imputed.dates <- fix_date_df(impute.dates,
+                             "some.date",
+                             month.impute = NULL)
 # ERROR
 ```
 
-`day.impute` and `month.impute` can also be passed to `fix_date()` for similar
-functionality. 
+`day.impute` and `month.impute` can also be passed to `fix_date_char()` for
+similar functionality. 
 
 ```{R}
-fix_date("2014", day.impute = 1, month.impute = 1)
+fix_date_char("2014", day.impute = 1, month.impute = 1)
 ```
 
 ## Citation

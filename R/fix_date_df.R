@@ -1,8 +1,9 @@
+months <- new.env()
+months$abbrev <- tolower(month.abb)
+months$full <- tolower(month.name)
+
 #' @title Clean up messy date columns
-#' @description
-#' `r lifecycle::badge("deprecated")`
-#'
-#' Cleans up a \code{dataframe} object which has date columns
+#' @description Cleans up a \code{dataframe} object which has date columns
 #' entered via a free-text box (possibly by different users) and are therefore
 #' in a non-standardized format. Supports numerous separators including /,-, or
 #' space. Supports all-numeric, abbreviation, or long-hand month notation. Where
@@ -49,24 +50,54 @@
 #'     "jan 2020"
 #'   )
 #' )
-#' fixed.df <- fix_dates(bad.dates, c("some.dates", "some.more.dates"))
-#' # ->
 #' fixed.df <- fix_date_df(bad.dates, c("some.dates", "some.more.dates"))
-#' @keywords internal
 #' @export
-fix_dates <- function(df,
-                      col.names,
-                      day.impute = 1,
-                      month.impute = 7,
-                      id = NULL,
-                      format = "dmy") {
-  lifecycle::deprecate_warn("1.0.0", "fix_dates()", "fix_date_df()")
-  fix_date_df(
-    df = df,
-    col.names = col.names,
-    day.impute = day.impute,
-    month.impute,
-    id = id,
-    format = format
-  )
+fix_date_df <- function(df,
+                        col.names,
+                        day.impute = 1,
+                        month.impute = 7,
+                        id = NULL,
+                        format = "dmy") {
+  if (!is.data.frame(df)) {
+    stop("df should be a dataframe object!")
+  }
+  if (any(!is.character(col.names))) {
+    stop("col.names should be a character vector!")
+  }
+  .checkformat(format)
+
+  if (is.null(id)) id <- 1 # Use first column as id if not explicitly given
+
+  .checkday(day.impute)
+  .checkmonth(month.impute)
+  day.impute <- .convertimpute(day.impute)
+  month.impute <- .convertimpute(month.impute)
+
+  for (col.name in col.names) {
+    fixed.dates <- c()
+    for (i in seq_len(nrow(df))) {
+      tryCatch(
+        {
+          fixed.dates[i] <- .fix_date(df[i, col.name],
+            day.impute,
+            month.impute,
+            subject = df[i, id],
+            format = format
+          )
+        },
+        error = function(cond) {
+          message(paste0(
+            "Unable to resolve date for subject ",
+            df[i, id],
+            " (date: ",
+            df[i, col.name],
+            ")\n"
+          ))
+          stop(cond)
+        }
+      )
+    }
+    df[, col.name] <- as.Date(fixed.dates)
+  }
+  df
 }

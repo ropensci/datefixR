@@ -96,12 +96,12 @@ bad.dates <- data.frame(id = seq(5),
 knitr::kable(bad.dates)
 ```
 
-We can standardize these date columns by using the `fix_dates()` function and
+We can standardize these date columns by using the `fix_date_df()` function and
 passing the data frame/tibble object and a character vector of column names for
 the corresponding columns to fix. 
 
 ```{R}
-fixed.df <- fix_dates(bad.dates, c("some.dates", "some.more.dates"))
+fixed.df <- fix_date_df(bad.dates, c("some.dates", "some.more.dates"))
 knitr::kable(fixed.df)
 ```
 
@@ -112,7 +112,7 @@ or `month.impute` arguments.
 ```{R}
  example.df <- data.frame(example = "1994")
 
-fix_dates(example.df, "example", month.impute = 1)
+fix_date_df(example.df, "example", month.impute = 1)
 ```
 
 Functions in `datefixR` assume day-first instead of month-first when day, month,

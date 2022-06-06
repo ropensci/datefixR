@@ -12,7 +12,9 @@ Description: Fixes messy dates in data frames such as those entered via text
   missing date or month using user-provided values.  
 License: GPL (>= 3)
 Depends: R (>= 4.0.0)
-Imports: stringr
+Imports: 
+    lifecycle,
+    stringr
 Language: en-US
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
