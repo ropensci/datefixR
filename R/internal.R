@@ -239,17 +239,17 @@
 }
 
 
-.fix_date_char <- function (date, day.impute = 1, month.impute = 7, format = "dmy"){
+.fix_date_char <- function(date, day.impute = 1, month.impute = 7, format = "dmy") {
   if (is.null(date) || is.na(date) || as.character(date) == "") {
     return(NA)
   }
   if (!is.character(date)) stop("date should be a character \n")
   day.impute <- .convertimpute(day.impute)
   month.impute <- .convertimpute(month.impute)
-  
+
   date <- as.character(date)
   date <- .convert_text_month(date)
-  
+
   if (nchar(date) == 4) {
     # Just given year
     year <- date
