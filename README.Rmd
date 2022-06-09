@@ -95,7 +95,7 @@ knitr::kable(fixed.df)
 ```
 
 By default, `datefixR` imputes missing days of the month as 01, and missing
-months as 07 (July). However, this behaviour can be modified via the `day.impute`
+months as 07 (July). However, this behavior can be modified via the `day.impute`
 or `month.impute` arguments. 
 
 ```{R}
