@@ -28,3 +28,4 @@ Suggests:
     spelling
 Config/testthat/edition: 3
 VignetteBuilder: knitr
+LazyData: true

@@ -76,24 +76,13 @@ or visiting the vignette on the
 ## Usage
 
 `datefixR` is most commonly used to standardize columns of date data in a
-data frame or tibble. For this demonstration, we will generate a data frame of
-non-standardized dates. 
+data frame or tibble. For this demonstration, we will use an example toy dataset
+provided alongside the package, `exampledates`.
 
 ```{r example}
 library(datefixR)
-bad.dates <- data.frame(id = seq(5),
-                        some.dates = c("02/05/92",
-                                       "01-04-2020",
-                                       "1996/05/01",
-                                       "2020-05-01",
-                                       "02-04-96"),
-                        some.more.dates = c("2015",
-                                            "02/05/00",
-                                            "05/1990",
-                                            "2012-08",
-                                            "jan 2020")
-                        )
-knitr::kable(bad.dates)
+data("exampledates")
+knitr::kable(exampledates)
 ```
 
 We can standardize these date columns by using the `fix_date_df()` function and
@@ -101,12 +90,12 @@ passing the data frame/tibble object and a character vector of column names for
 the corresponding columns to fix. 
 
 ```{R}
-fixed.df <- fix_date_df(bad.dates, c("some.dates", "some.more.dates"))
+fixed.df <- fix_date_df(exampledates, c("some.dates", "some.more.dates"))
 knitr::kable(fixed.df)
 ```
 
 By default, `datefixR` imputes missing days of the month as 01, and missing
-months as 07 (July). However, this behavior can be modified via the `day.impute`
+months as 07 (July). However, this behaviour can be modified via the `day.impute`
 or `month.impute` arguments. 
 
 ```{R}
