@@ -33,24 +33,9 @@ months$full <- tolower(month.name)
 #' @seealso \code{\link{fix_date}} Similar to \code{fix_dates()} except can only
 #' be applied to character objects.
 #' @examples
-#' bad.dates <- data.frame(
-#'   id = seq(5),
-#'   some.dates = c(
-#'     "02/05/92",
-#'     "01-04-2020",
-#'     "1996/05/01",
-#'     "2020-05-01",
-#'     "02-04-96"
-#'   ),
-#'   some.more.dates = c(
-#'     "2015",
-#'     "02/05/00",
-#'     "05/1990",
-#'     "2012-08",
-#'     "jan 2020"
-#'   )
-#' )
-#' fixed.df <- fix_date_df(bad.dates, c("some.dates", "some.more.dates"))
+#' data(exampledates)
+#' fixed.df <- fix_date_df(exampledates, c("some.dates", "some.more.dates"))
+#' fixed.df
 #' @export
 fix_date_df <- function(df,
                         col.names,
