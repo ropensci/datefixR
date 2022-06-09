@@ -16,17 +16,21 @@
 #' fixed.date <- fix_date_char(bad.date)
 #' fixed.date
 #' @export
-fix_date_char <- function(date, day.impute = 1, month.impute = 7, format = "dmy") {
-
+fix_date_char <- function(date,
+                          day.impute = 1,
+                          month.impute = 7,
+                          format = "dmy") {
   .checkday(day.impute)
   .checkmonth(month.impute)
   .checkformat(format)
-  
+
   as.Date(sapply(date,
-                 .fix_date_char,
-                 day.impute = day.impute,
-                 month.impute = month.impute,
-                 format = format,
-                 USE.NAMES = FALSE),
-          origin = "1970-01-01")
+    .fix_date_char,
+    day.impute = day.impute,
+    month.impute = month.impute,
+    format = format,
+    USE.NAMES = FALSE
+  ),
+  origin = "1970-01-01"
+  )
 }
