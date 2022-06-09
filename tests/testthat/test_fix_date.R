@@ -41,7 +41,7 @@ test_that("fix_date work for a series of malformed dates", {
 test_that("fix_date returns NA if NA is given", {
   bad.date <- NA
   fixed.date <- fix_date(bad.date)
-  expect_equal(fixed.date, NA)
+  expect_equal(fixed.date, as.Date(NA))
 })
 
 test_that("error if date given isn't character", {

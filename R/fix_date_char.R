@@ -17,65 +17,16 @@
 #' fixed.date
 #' @export
 fix_date_char <- function(date, day.impute = 1, month.impute = 7, format = "dmy") {
-  lifecycle::deprecate_warn("1.0.0", "fix_date()", "fix_date_char()")
-  if (is.null(date) || is.na(date) || as.character(date) == "") {
-    return(NA)
-  }
-
-  if (!is.character(date)) stop("date should be a character \n")
 
   .checkday(day.impute)
   .checkmonth(month.impute)
   .checkformat(format)
-  day.impute <- .convertimpute(day.impute)
-  month.impute <- .convertimpute(month.impute)
-
-  date <- as.character(date)
-  date <- .convert_text_month(date)
-
-  if (nchar(date) == 4) {
-    # Just given year
-    year <- date
-    month <- .imputemonth(month.impute)
-    day <- .imputeday(day.impute)
-  } else {
-    date_vec <- .separate_date(date)
-    if (any(nchar(date_vec) > 4)) {
-      stop("unable to tidy a date")
-    }
-    date_vec <- .appendyear(date_vec)
-    if (length(date_vec) < 3) {
-      # ASSUME MM/YYYY, YYYY/MM
-      day <- .imputeday(day.impute)
-      if (nchar(date_vec[1]) == 4) {
-        # Assume YYYY/MM
-        year <- date_vec[1]
-        month <- date_vec[2]
-      } else if (nchar(date_vec[2]) == 4) {
-        year <- date_vec[2]
-        month <- date_vec[1]
-      }
-    } else {
-      if (nchar(date_vec[1]) == 4) {
-        # Assume YYYY/MM/DD
-        year <- date_vec[1]
-        month <- date_vec[2]
-        day <- date_vec[3]
-      } else {
-        if (format == "dmy") {
-          # Assume DD/MM/YYYY
-          year <- date_vec[3]
-          month <- date_vec[2]
-          day <- date_vec[1]
-        }
-        if (format == "mdy") {
-          year <- date_vec[3]
-          month <- date_vec[1]
-          day <- date_vec[2]
-        }
-      }
-    }
-  }
-  .checkoutput(day, month)
-  as.Date(.combinepartialdate(day, month, year))
+  
+  as.Date(sapply(date,
+                 .fix_date_char,
+                 day.impute = day.impute,
+                 month.impute = month.impute,
+                 format = format,
+                 USE.NAMES = FALSE),
+          origin = "1970-01-01")
 }
