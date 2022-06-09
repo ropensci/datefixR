@@ -81,7 +81,7 @@ knitr::kable(exampledates)
 |  2 | 01-04-2020  | 02/05/00        |
 |  3 | 1996/05/01  | 05/1990         |
 |  4 | 2020-may-01 | 2012-08         |
-|  5 | 2 April 96  | jan 2020        |
+|  5 | 02-04-96    | jan 2020        |
 
 We can standardize these date columns by using the `fix_date_df()`
 function and passing the data frame/tibble object and a character vector
@@ -98,10 +98,10 @@ knitr::kable(fixed.df)
 |  2 | 2020-04-01 | 2000-05-02      |
 |  3 | 1996-05-01 | 1990-05-01      |
 |  4 | 2020-05-01 | 2012-08-01      |
-|  5 | 96-04-02   | 2020-01-01      |
+|  5 | 1996-04-02 | 2020-01-01      |
 
 By default, `datefixR` imputes missing days of the month as 01, and
-missing months as 07 (July). However, this behaviour can be modified via
+missing months as 07 (July). However, this behavior can be modified via
 the `day.impute` or `month.impute` arguments.
 
 ``` r
