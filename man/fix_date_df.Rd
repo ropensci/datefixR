@@ -43,7 +43,7 @@ A \code{dataframe} or \code{tibble} object. Dependent on the type of
 \code{df}. Selected columns are of type \code{Date}
 }
 \description{
-Cleans up a \code{dataframe} object which has date columns
+Tidies a \code{dataframe} object which has date columns
 entered via a free-text box (possibly by different users) and are therefore
 in a non-standardized format. Supports numerous separators including /,-, or
 space. Supports all-numeric, abbreviation, or long-hand month notation. Where
