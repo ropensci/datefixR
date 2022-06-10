@@ -38,7 +38,7 @@ Firstly, we will demonstrate date standardization without imputation. We
 consider a data frame with two columns of dates in differing formats
 with no missing data. 
 
-```{R, echo = FALSE}
+```{R, echo = TRUE}
 bad.dates <- data.frame(
   id = seq(5),
   some.dates = c(
