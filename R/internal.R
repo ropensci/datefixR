@@ -206,7 +206,11 @@
   if (is.na(day) || is.na(month)) {
     fixed_date <- NA
     if (is.null(subject)) {
-      warning("NA imputed \n", call. = FALSE)
+      warning("NA imputed (date: ",
+        date,
+        ")\n",
+        call. = FALSE
+      )
     } else {
       warning(paste0(
         "NA imputed for subject ",
@@ -294,5 +298,5 @@
     }
   }
   .checkoutput(day, month)
-  as.Date(.combinepartialdate(day, month, year))
+  as.Date(.combinepartialdate(day, month, year, date))
 }
