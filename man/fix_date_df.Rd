@@ -57,6 +57,6 @@ fixed.df <- fix_date_df(exampledates, c("some.dates", "some.more.dates"))
 fixed.df
 }
 \seealso{
-\code{\link{fix_date}} Similar to \code{fix_dates()} except can only
-be applied to character objects.
+\code{\link{fix_date_char}} Similar to \code{fix_date_df()} except
+can only be applied to character vectors.
 }

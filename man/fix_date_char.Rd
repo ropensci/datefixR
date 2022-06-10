@@ -4,10 +4,10 @@
 \alias{fix_date_char}
 \title{Convert improperly formatted date to R's Date class}
 \usage{
-fix_date_char(date, day.impute = 1, month.impute = 7, format = "dmy")
+fix_date_char(dates, day.impute = 1, month.impute = 7, format = "dmy")
 }
 \arguments{
-\item{date}{Character to be converted to R's date class.}
+\item{dates}{Character vector to be converted to R's date class.}
 
 \item{day.impute}{Integer. Day of the month to be imputed if not available.
 defaults to 1. If \code{day.impute = NA} then \code{NA} will be imputed for
@@ -26,15 +26,15 @@ been given first, then YMD is assumed for the subject (format argument is
 not used for these observations)}
 }
 \value{
-An object belonging to R's built in \code{Date} class.
+A vector of elements belonging to R's built in \code{Date} class.
 }
 \description{
-Converts a single improperly formatted date to R's Date class.
-Supports numerous separators including /,- or white space.
-Supports all-numeric, abbreviation or long-hand month notation. Where
-day of the month has not been supplied, the first day of the month is
-imputed. Either DMY or YMD is assumed by default. However, the US system of
-MDY is supported via the \code{format} argument.
+Converts a character vector (or single character object)  from improperly
+formatted dates to R's Date class. Supports numerous separators including /,-
+or white space. Supports all-numeric, abbreviation or long-hand month
+notation. Where day of the month has not been supplied, the first day of the
+month is imputed by default. Either DMY or YMD is assumed by default.
+However, the US system of MDY is supported via the \code{format} argument.
 }
 \examples{
 bad.date <- "02 03 2021"
@@ -42,6 +42,6 @@ fixed.date <- fix_date_char(bad.date)
 fixed.date
 }
 \seealso{
-\code{\link{fix_dates}} Similar to \code{fix_date()} except is
+\code{\link{fix_date_df}} Similar to \code{fix_date()} except is
 applicable to columns of a dataframe.
 }

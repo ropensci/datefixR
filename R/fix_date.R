@@ -24,7 +24,7 @@
 fix_date <- function(date, day.impute = 1, month.impute = 7, format = "dmy") {
   lifecycle::deprecate_warn("1.0.0", "fix_date()", "fix_date_char()")
   fix_date_char(
-    date = date,
+    dates = date,
     day.impute = day.impute,
     month.impute,
     format = format
