@@ -7,13 +7,17 @@ cff-version: 1.2.0
 message: 'To cite package "datefixR" in publications use:'
 type: software
 license: GPL-3.0-or-later
-title: 'datefixR: Fix Really Messy Dates'
+title: 'datefixR: Standardize Dates in Different Formats or with Missing Data'
 version: 0.1.6.9001
 doi: 10.5281/zenodo.5655311
-abstract: Fixes messy dates in data frames such as those entered via text boxes. Standardizes
-  / - and whitespace separation, month abbreviations, and year first or day first
-  by converting to R's built-in Date class. Imputes missing date or month using user-provided
-  values.
+abstract: 'There are many different formats dates are commonly represented with: the
+  order of day, month, or year can differ, different separators ("-", "/", or whitespace)
+  can be used, months can be numerical, names, or abbreviations and year given as
+  two digits or four. `datefixR` takes dates in all these different formats and converts
+  them to R''s built-in date class. If `datefixR` cannot standardize a date, such
+  as because it is too malformed, then the user is told which date cannot be standardized
+  and the corresponding ID for the row. `datefixR` also allows the imputation of missing
+  days and months with user-controlled behavior.'
 authors:
 - family-names: Constantine-Cooke
   given-names: Nathan
@@ -57,6 +61,20 @@ references:
   institution:
     name: R Foundation for Statistical Computing
   version: '>= 4.0.0'
+- type: software
+  title: lifecycle
+  abstract: 'lifecycle: Manage the Life Cycle of your Package Functions'
+  notes: Imports
+  authors:
+  - family-names: Henry
+    given-names: Lionel
+    email: lionel@rstudio.com
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@rstudio.com
+    orcid: https://orcid.org/0000-0003-4757-117X
+  year: '2022'
+  url: https://CRAN.R-project.org/package=lifecycle
 - type: software
   title: stringr
   abstract: 'stringr: Simple, Consistent Wrappers for Common String Operations'
@@ -142,3 +160,26 @@ references:
     email: james.hester@rstudio.com
   year: '2022'
   url: https://CRAN.R-project.org/package=spelling
+- type: software
+  title: withr
+  abstract: 'withr: Run Code ''With'' Temporarily Modified Global State'
+  notes: Suggests
+  authors:
+  - family-names: Hester
+    given-names: Jim
+  - family-names: Henry
+    given-names: Lionel
+    email: lionel@rstudio.com
+  - family-names: Müller
+    given-names: Kirill
+    email: krlmlr+r@mailbox.org
+  - family-names: Ushey
+    given-names: Kevin
+    email: kevinushey@gmail.com
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@rstudio.com
+  - family-names: Chang
+    given-names: Winston
+  year: '2022'
+  url: https://CRAN.R-project.org/package=withr
