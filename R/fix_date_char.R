@@ -8,9 +8,10 @@
 #' However, the US system of MDY is supported via the \code{format} argument.
 #' @param dates Character vector to be converted to R's date class.
 #' @inheritParams fix_date_df
-#' @return A vector of elements belonging to R's built in \code{Date} class.
-#' @seealso \code{\link{fix_date_df}} Similar to \code{fix_date()} except is
-#' applicable to columns of a dataframe.
+#' @return A vector of elements belonging to R's built in \code{Date} class with
+#'   the following format \code{yyyy-mm-dd}.
+#' @seealso \code{\link{fix_date_df}} which is similar to \code{fix_date_char()}
+#' except is applicable to columns of a data frame.
 #' @examples
 #' bad.date <- "02 03 2021"
 #' fixed.date <- fix_date_char(bad.date)

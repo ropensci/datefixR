@@ -40,7 +40,8 @@ not used for these observations)}
 }
 \value{
 A \code{dataframe} or \code{tibble} object. Dependent on the type of
-\code{df}. Selected columns are of type \code{Date}
+\code{df}. Selected columns are of type \code{Date} with the following
+format \code{yyyy-mm-dd}
 }
 \description{
 Tidies a \code{dataframe} object which has date columns
@@ -57,6 +58,6 @@ fixed.df <- fix_date_df(exampledates, c("some.dates", "some.more.dates"))
 fixed.df
 }
 \seealso{
-\code{\link{fix_date_char}} Similar to \code{fix_date_df()} except
-can only be applied to character vectors.
+\code{\link{fix_date_char}} which is similar to \code{fix_date_df()}
+except can only be applied to character vectors.
 }

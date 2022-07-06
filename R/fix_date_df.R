@@ -29,9 +29,10 @@ months$full <- tolower(month.name)
 #'   been given first, then YMD is assumed for the subject (format argument is
 #'   not used for these observations)
 #' @return A \code{dataframe} or \code{tibble} object. Dependent on the type of
-#'   \code{df}. Selected columns are of type \code{Date}
-#' @seealso \code{\link{fix_date_char}} Similar to \code{fix_date_df()} except
-#' can only be applied to character vectors.
+#'   \code{df}. Selected columns are of type \code{Date} with the following
+#'   format \code{yyyy-mm-dd}
+#' @seealso \code{\link{fix_date_char}} which is similar to \code{fix_date_df()}
+#'   except can only be applied to character vectors.
 #' @examples
 #' data(exampledates)
 #' fixed.df <- fix_date_df(exampledates, c("some.dates", "some.more.dates"))

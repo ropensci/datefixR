@@ -26,7 +26,8 @@ been given first, then YMD is assumed for the subject (format argument is
 not used for these observations)}
 }
 \value{
-A vector of elements belonging to R's built in \code{Date} class.
+A vector of elements belonging to R's built in \code{Date} class with
+the following format \code{yyyy-mm-dd}.
 }
 \description{
 Converts a character vector (or single character object)  from improperly
@@ -42,6 +43,6 @@ fixed.date <- fix_date_char(bad.date)
 fixed.date
 }
 \seealso{
-\code{\link{fix_date_df}} Similar to \code{fix_date()} except is
-applicable to columns of a dataframe.
+\code{\link{fix_date_df}} which is similar to \code{fix_date_char()}
+except is applicable to columns of a data frame.
 }
