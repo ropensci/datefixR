@@ -10,7 +10,7 @@ Asaad, and the editor, Adam H. Sparks.
 
 ## Code changes
 
-* `fix_date()` and `fix_dates()` have been deprecated in favour of
+* `fix_date()` and `fix_dates()` have been deprecated in favor of
   `fix_date_char()` and `fix_date_df()` respectively to make the role of each 
   function clearer. The deprecated functions will continue to work but are not
   guaranteed to have new features. Users will be gently encouraged to transition
@@ -27,7 +27,7 @@ Asaad, and the editor, Adam H. Sparks.
 * Instead of "cleans up", fix_date_df() is now described as "tidying" a data
   frame. 
 * Lack of support for the datetime format has been added to the README file
-* The package repository is now owned by the ropensci Github organisation and
+* The package repository is now owned by the ropensci GitHub organization and
   all links have been changed accordingly.
 
 ## Testing
