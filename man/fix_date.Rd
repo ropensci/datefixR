@@ -7,7 +7,7 @@
 fix_date(date, day.impute = 1, month.impute = 7, format = "dmy")
 }
 \arguments{
-\item{date}{Character to be converted to R's date class.}
+\item{date}{Character to be converted to \R{}'s date class.}
 
 \item{day.impute}{Integer. Day of the month to be imputed if not available.
 defaults to 1. If \code{day.impute = NA} then \code{NA} will be imputed for
@@ -26,12 +26,12 @@ been given first, then YMD is assumed for the subject (format argument is
 not used for these observations)}
 }
 \value{
-An object belonging to R's built in \code{Date} class.
+An object belonging to \R's built in \code{Date} class.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
-Converts a single improperly formatted date to R's Date class.
+Converts a single improperly formatted date to \R{}'s Date class.
 Supports numerous separators including /,- or white space.
 Supports all-numeric, abbreviation or long-hand month notation. Where
 day of the month has not been supplied, the first day of the month is
