@@ -2,28 +2,37 @@
 
 # datefixR 1.0.0
 
-- Same as previous version.
+For this revision, `datefixR` has undergone
+[ropensci peer review](https://github.com/ropensci/software-review/issues/533)
+which has resulted in substantial changes and improvements to the package. My
+sincerest thanks to the reviewers, Kaique dos S. Alves and Al-Ahmadgaid B.
+Asaad, and the editor, Adam H. Sparks.  
 
+## Code changes
 
-# datefixR 0.1.6.9002
+* `fix_date()` and `fix_dates()` have been deprecated in favour of
+  `fix_date_char()` and `fix_date_df()` respectively to make the role of each 
+  function clearer. The deprecated functions will continue to work but are not
+  guaranteed to have new features. Users will be gently encouraged to transition
+  to the new functions. 
+* `fix_date_char()` now supports vectors as well as character objects of length 1.
+  This also means `fix_date_char()` can be used with `dplyr::mutate()`.
+* An example data frame for using with the package functions, `exampledates`, is
+  now provided with the package. 
+  
+## Documentation
 
-- Point all links to ropensci links
+* The package description has been changed to make the purpose of the package 
+  clearer.
+* Instead of "cleans up", fix_date_df() is now described as "tidying" a data
+  frame. 
+* Lack of support for the datetime format has been added to the README file
+* The package repository is now owned by the ropensci Github organisation and
+  all links have been changed accordingly.
 
+## Testing
 
-# datefixR 0.1.6.9001
-
-- Same as previous version.
-
-
-# datefixR 0.1.6.9000 (rOpenSci peer review)
-
-## Editor checks
-* Addressed the below issues `{lintr}` found:
-  * Avoid `1:nrow(...)` expressions, use `seq_len`.
-  * lines of code >80 chars
-* Fixed typo and added `{spellcheck}` to testing suite
-* Explicitly test for warnings
-
+* Tests now expect specific warnings rather than warnings with any message. 
 
 # datefixR 0.1.6
 
