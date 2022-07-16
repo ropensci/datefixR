@@ -116,11 +116,11 @@ be modified by passing `format = "mdy"` to function calls.
 ## Limitations
 
 Date and time data are often reported together in the same variable (known as
-"datetime"). However datetime formats are not supported by datefixR. The current
-rationale is this package is mostly used to handle dates entered via free text
-web forms and it is much less common for both date and time to be reported
-together in this input method. However, if there is significant demand for
-support for datetime data in the future this may added. 
+"datetime"). However datetime formats are not supported by `datefixR`. The
+current rationale is this package is mostly used to handle dates entered via
+free text web forms and it is much less common for both date and time to be
+reported together in this input method. However, if there is significant demand
+for support for datetime data in the future this may added. 
 
 The package is written solely in R and seems fast enough for my current use
 cases (a few hundred rows). However, I may convert the core for loop to C++ in
