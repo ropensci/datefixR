@@ -1,11 +1,23 @@
 Package: datefixR
 Title: Standardize Dates in Different Formats or with Missing Data
 Version: 0.1.6.9001
-Authors@R: person("Nathan",
-                  "Constantine-Cooke",
-                  email = "nathan.constantine-cooke@ed.ac.uk",
-                  role = c("aut", "cre"),
-                  comment = c(ORCID = "0000-0002-4437-8713"))
+Authors@R: c(
+  person("Nathan",
+         "Constantine-Cooke",
+         email = "nathan.constantine-cooke@ed.ac.uk",
+         role = c("aut", "cre"),
+         comment = c(ORCID = "0000-0002-4437-8713")),
+  person("Kaique dos S.",
+         "Alves",
+         role = "rev",
+         email = "kaiquedsalves@gmail.com",
+         comment = c(ORCID = "0000-0001-9187-0252")),
+  person("Al-Ahmadgaid B.",
+         "Asaad",
+         role = "rev",
+         email = "alahmadgaid@gmail.com",
+         comment = c(ORCID = "0000-0003-3784-8593"))
+  )
 Description: There are many different formats dates are commonly represented
   with: the order of day, month, or year can differ, different separators ("-",
   "/", or whitespace) can be used, months can be numerical, names, or
