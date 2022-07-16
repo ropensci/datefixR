@@ -6,10 +6,10 @@
 <!-- badges: start -->
 
 | Usage                                                                                                                                 | Release                                                                                                                                          | Development                                                                                                                                                                                            |
-| ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| ![R](https://img.shields.io/badge/r-%23276DC3.svg?style=for-the-badge&logo=r&logoColor=white)                                         | [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/datefixR)](https://cran.r-project.org/package=datefixR)                             | [![R build status](https://github.com/nathansam/datefixR/workflows/CI/badge.svg)](https://github.com/nathansam/datefixR/actions)                                                                       |
-| [![License: GPL-3](https://img.shields.io/badge/License-GPL3-green.svg)](https://opensource.org/licenses/GPL-3.0)                     | [![datefixR status badge](https://nathansam.r-universe.dev/badges/datefixR)](https://nathansam.r-universe.dev)                                   | [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) |
-| [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/datefixR?color=blue)](https://r-pkg.org/pkg/datefixR) | [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5655311.svg)](https://doi.org/10.5281/zenodo.5655311)                                        | [![codecov](https://codecov.io/gh/nathansam/datefixR/branch/main/graph/badge.svg?token=lb83myWBXt)](https://app.codecov.io/gh/nathansam/datefixR)                                                      |
+|---------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ![R](https://img.shields.io/badge/r-%23276DC3.svg?style=for-the-badge&logo=r&logoColor=white)                                         | [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/datefixR)](https://cran.r-project.org/package=datefixR)                               | [![R build status](https://github.com/ropensci/datefixR/workflows/CI/badge.svg)](https://github.com/ropensci/datefixR/actions)                                                                         |
+| [![License: GPL-3](https://img.shields.io/badge/License-GPL3-green.svg)](https://opensource.org/licenses/GPL-3.0)                     | [![datefixR status badge](https://ropensci.r-universe.dev/badges/datefixR)](https://ropensci.r-universe.dev/ui#package:datefixR)                 | [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) |
+| [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/datefixR?color=blue)](https://r-pkg.org/pkg/datefixR) | [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5655311.svg)](https://doi.org/10.5281/zenodo.5655311)                                        | [![codecov](https://codecov.io/gh/ropensci/datefixR/branch/main/graph/badge.svg?token=zycOVwlq1m)](https://codecov.io/gh/ropensci/datefixR)                                                            |
 |                                                                                                                                       | [![Status at rOpenSci Software Peer Review](https://badges.ropensci.org/533_status.svg)](https://github.com/ropensci/software-review/issues/533) | [![Tidyverse style guide](https://img.shields.io/static/v1?label=Code%20Style&message=Tidyverse&color=1f1c30)](https://style.tidyverse.org)                                                            |
 
 <!-- badges: end -->
@@ -40,9 +40,9 @@ The most up-to-date (hopefully) stable version of `datefixR` can be
 installed via [r-universe](https://r-universe.dev/search/)
 
 ``` r
-# Enable universe(s) by nathansam
+# Enable universe(s) by ropensci
 options(repos = c(
-  nathansam = 'https://nathansam.r-universe.dev',
+  ropensci = 'https://ropensci.r-universe.dev',
   CRAN = 'https://cloud.r-project.org'))
 
 install.packages('datefixR')
@@ -53,7 +53,7 @@ the development version can be installed via
 
 ``` r
 if (!require("remotes")) install.packages("remotes")
-remotes::install_github("nathansam/datefixR", "devel")
+remotes::install_github("ropensci/datefixR", "devel")
 ```
 
 ## Package vignette
@@ -67,7 +67,7 @@ browseVignettes("datefixR")
 ```
 
 or visiting the vignette on the [package
-website](https://www.constantine-cooke.com/datefixR/articles/datefixR.html)
+website](https://docs.ropensci.org/datefixR/articles/datefixR.html)
 
 ## Usage
 
@@ -81,13 +81,13 @@ data("exampledates")
 knitr::kable(exampledates)
 ```
 
-| id | some.dates  | some.more.dates |
-| -: | :---------- | :-------------- |
-|  1 | 02 05 92    | 2015            |
-|  2 | 01-04-2020  | 02/05/00        |
-|  3 | 1996/05/01  | 05/1990         |
-|  4 | 2020-may-01 | 2012-08         |
-|  5 | 02-04-96    | jan 2020        |
+|  id | some.dates  | some.more.dates |
+|----:|:------------|:----------------|
+|   1 | 02 05 92    | 2015            |
+|   2 | 01-04-2020  | 02/05/00        |
+|   3 | 1996/05/01  | 05/1990         |
+|   4 | 2020-may-01 | 2012-08         |
+|   5 | 02-04-96    | jan 2020        |
 
 We can standardize these date columns by using the `fix_date_df()`
 function and passing the data frame/tibble object and a character vector
@@ -98,13 +98,13 @@ fixed.df <- fix_date_df(exampledates, c("some.dates", "some.more.dates"))
 knitr::kable(fixed.df)
 ```
 
-| id | some.dates | some.more.dates |
-| -: | :--------- | :-------------- |
-|  1 | 1992-05-02 | 2015-07-01      |
-|  2 | 2020-04-01 | 2000-05-02      |
-|  3 | 1996-05-01 | 1990-05-01      |
-|  4 | 2020-05-01 | 2012-08-01      |
-|  5 | 1996-04-02 | 2020-01-01      |
+|  id | some.dates | some.more.dates |
+|----:|:-----------|:----------------|
+|   1 | 1992-05-02 | 2015-07-01      |
+|   2 | 2020-04-01 | 2000-05-02      |
+|   3 | 1996-05-01 | 1990-05-01      |
+|   4 | 2020-05-01 | 2012-08-01      |
+|   5 | 1996-04-02 | 2020-01-01      |
 
 By default, `datefixR` imputes missing days of the month as 01, and
 missing months as 07 (July). However, this behavior can be modified via
@@ -201,10 +201,20 @@ appears to also have performed a somewhat similar role to the above
 functions. However, this function did not leave the experimental
 lifecycle phase and the package itself is no longer available on CRAN.
 
+## Contributing to datefixR
+
+If you are interested in contributing to `datefixR`, please read our
+[contributing
+guide](https://github.com/ropensci/datefixR/blob/main/.github/CONTRIBUTING.md).
+
+Please note that this package is released with a [Contributor Code of
+Conduct](https://ropensci.org/code-of-conduct/). By contributing to this
+project, you agree to abide by its terms.
+
 ## Citation
 
 If you use this package in your research, please consider citing
-`datefixR`\! An up-to-date citation can be obtained by running
+`datefixR`! An up-to-date citation can be obtained by running
 
 ``` r
 citation("datefixR")

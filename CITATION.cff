@@ -25,7 +25,7 @@ authors:
   orcid: https://orcid.org/0000-0002-4437-8713
 preferred-citation:
   type: manual
-  title: 'datefixR: Fix Really Messy Dates in R'
+  title: 'datefixR: Standardize Dates in Different Formats or with Missing Data'
   authors:
   - family-names: Constantine-Cooke
     given-names: Nathan
@@ -35,8 +35,8 @@ preferred-citation:
   doi: 10.5281/zenodo.5655311
   notes: R package version 0.1.6.9001
 repository: https://CRAN.R-project.org/package=datefixR
-repository-code: https://github.com/nathansam/datefixR
-url: https://www.constantine-cooke.com/datefixR/
+repository-code: https://github.com/ropensci/datefixR
+url: https://docs.ropensci.org/datefixR/
 contact:
 - family-names: Constantine-Cooke
   given-names: Nathan

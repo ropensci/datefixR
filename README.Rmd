@@ -19,9 +19,9 @@ knitr::opts_chunk$set(
 
 | Usage                                                                                                                                 | Release                                                                                                            | Development                                                                                                                                                                                            |
 |---------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ![R](https://img.shields.io/badge/r-%23276DC3.svg?style=for-the-badge&logo=r&logoColor=white)                      | [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/datefixR)](https://cran.r-project.org/package=datefixR) | [![R build status](https://github.com/nathansam/datefixR/workflows/CI/badge.svg)](https://github.com/nathansam/datefixR/actions)                                                              |
-| [![License: GPL-3](https://img.shields.io/badge/License-GPL3-green.svg)](https://opensource.org/licenses/GPL-3.0)                                       | [![datefixR status badge](https://nathansam.r-universe.dev/badges/datefixR)](https://nathansam.r-universe.dev)     | [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)                                                      |
-| [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/datefixR?color=blue)](https://r-pkg.org/pkg/datefixR) | [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5655311.svg)](https://doi.org/10.5281/zenodo.5655311)          | [![codecov](https://codecov.io/gh/nathansam/datefixR/branch/main/graph/badge.svg?token=lb83myWBXt)](https://app.codecov.io/gh/nathansam/datefixR)|
+| ![R](https://img.shields.io/badge/r-%23276DC3.svg?style=for-the-badge&logo=r&logoColor=white)                      | [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/datefixR)](https://cran.r-project.org/package=datefixR) | [![R build status](https://github.com/ropensci/datefixR/workflows/CI/badge.svg)](https://github.com/ropensci/datefixR/actions)                                                              |
+| [![License: GPL-3](https://img.shields.io/badge/License-GPL3-green.svg)](https://opensource.org/licenses/GPL-3.0)                                       | [![datefixR status badge](https://ropensci.r-universe.dev/badges/datefixR)](https://ropensci.r-universe.dev/ui#package:datefixR)     | [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)                                                      |
+| [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/datefixR?color=blue)](https://r-pkg.org/pkg/datefixR) | [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5655311.svg)](https://doi.org/10.5281/zenodo.5655311)          | [![codecov](https://codecov.io/gh/ropensci/datefixR/branch/main/graph/badge.svg?token=zycOVwlq1m)](https://codecov.io/gh/ropensci/datefixR)|
 | | [![Status at rOpenSci Software Peer Review](https://badges.ropensci.org/533_status.svg)](https://github.com/ropensci/software-review/issues/533) | [![Tidyverse style guide](https://img.shields.io/static/v1?label=Code%20Style&message=Tidyverse&color=1f1c30)](https://style.tidyverse.org) |
 <!-- badges: end -->
 
@@ -50,9 +50,9 @@ The most up-to-date (hopefully) stable version of `datefixR` can be installed
 via [r-universe](https://r-universe.dev/search/)
 
 ```{R dev, eval = FALSE}
-# Enable universe(s) by nathansam
+# Enable universe(s) by ropensci
 options(repos = c(
-  nathansam = 'https://nathansam.r-universe.dev',
+  ropensci = 'https://ropensci.r-universe.dev',
   CRAN = 'https://cloud.r-project.org'))
 
 install.packages('datefixR')
@@ -63,7 +63,7 @@ development version can be installed via
 
 ```{R, eval = FALSE}
 if (!require("remotes")) install.packages("remotes")
-remotes::install_github("nathansam/datefixR", "devel")
+remotes::install_github("ropensci/datefixR", "devel")
 ```
 
 ## Package vignette
@@ -76,7 +76,7 @@ browseVignettes("datefixR")
 ```
 
 or visiting the vignette on the
-[package website](https://www.constantine-cooke.com/datefixR/articles/datefixR.html)
+[package website](https://docs.ropensci.org/datefixR/articles/datefixR.html)
 
 ## Usage
 
@@ -185,6 +185,15 @@ option than `datefixR`.
 appears to also have performed a somewhat similar role to the above functions.
 However, this function did not leave the experimental lifecycle phase and the
 package itself is no longer available on CRAN.   
+
+## Contributing to datefixR
+
+If you are interested in contributing to `datefixR`, please read our
+[contributing guide](https://github.com/ropensci/datefixR/blob/main/.github/CONTRIBUTING.md).
+
+Please note that this package is released with a
+[Contributor Code of Conduct](https://ropensci.org/code-of-conduct/). 
+By contributing to this project, you agree to abide by its terms.
 
 ## Citation
 

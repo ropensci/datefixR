@@ -19,7 +19,7 @@ library(datefixR)
 ```
 
 This vignette describes the functionality of `datefixR` in more detail than the
-[README](https://github.com/nathansam/datefixR). `DatefixR` is a lightweight
+[README](https://github.com/ropensci/datefixR). `DatefixR` is a lightweight
 package consisting of a two user-accessible functions, `fix_date_char()` and
 `fix_date_df()`, which converts dates written in different formats into R's
 built-in `Date` class. The former is designed to modify character vectors whilst

@@ -6,11 +6,11 @@ First of all, thanks for considering contributing to our_package!
 
 datefixR is an open source project and is not directly funded
 
-[repo]: https://github.com/nathansam/datefixR
-[issues]: https://github.com/nathansam/datefixR/issues
-[new_issue]: https://github.com/nathansam/datefixR/issues/new
-[website]: https://constantine-cooke.com/datefixR/
-[citation]: https://www.constantine-cooke.com/datefixR/authors.html#citation
+[repo]: https://github.com/ropensci/datefixR
+[issues]: https://github.com/ropensci/datefixR/issues
+[new_issue]: https://github.com/ropensci/datefixR/issues/new
+[website]: https://docs.ropensci.org/datefixR/
+[citation]: https://docs.ropensci.org/datefixR/authors.html#citation
 [email]: mailto:nathan.constantine-cooke@ed.ac.uk
 
 ## How you can contribute

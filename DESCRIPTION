@@ -36,8 +36,8 @@ Language: en-US
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.0
-URL: https://www.constantine-cooke.com/datefixR/ https://github.com/nathansam/datefixR
-BugReports: https://github.com/nathansam/datefixR/issues
+URL: https://docs.ropensci.org/datefixR/, https://github.com/ropensci/datefixR
+BugReports: https://github.com/ropensci/datefixR/issues
 Suggests: 
     rmarkdown,
     knitr,
