@@ -20,10 +20,10 @@ library(datefixR)
 
 This vignette describes the functionality of `datefixR` in more detail than the
 [README](https://github.com/nathansam/datefixR). `DatefixR` is a lightweight
-package consisting of a two user-accessible functions, `fix_date()` and
-`fix_dates()`, which converts dates written in different formats into R's
-built-in `Date` class. The former is designed to modify single character objects
-whilst the latter is intended for modifying columns of a data frame (or tibble).
+package consisting of a two user-accessible functions, `fix_date_char()` and
+`fix_date_df()`, which converts dates written in different formats into R's
+built-in `Date` class. The former is designed to modify character vectors whilst
+the latter is intended for modifying columns of a data frame (or tibble).
 
 Practically, this package is most useful when handling date data which has been
 supplied via text boxes (instead of a date-specific input with a consistent date
@@ -38,34 +38,42 @@ Firstly, we will demonstrate date standardization without imputation. We
 consider a data frame with two columns of dates in differing formats
 with no missing data. 
 
-```{R, echo = FALSE}
-bad.dates <- data.frame(id = seq(5),
-                        some.dates = c("02/05/92",
-                                       "01-04-2020",
-                                       "1996/05/01",
-                                       "2020-05-01",
-                                       "02-04-96"),
-                        some.more.dates = c("01 03 2015",
-                                            "02/05/00",
-                                            "01/05/1990",
-                                            "03-Dec-2012",
-                                            "02 April 2020"))
+```{R, echo = TRUE}
+bad.dates <- data.frame(
+  id = seq(5),
+  some.dates = c(
+    "02/05/92",
+    "01-04-2020",
+    "1996/05/01",
+    "2020-05-01",
+    "02-04-96"
+  ),
+  some.more.dates = c(
+    "01 03 2015",
+    "02/05/00",
+    "01/05/1990",
+    "03-Dec-2012",
+    "02 April 2020"
+  )
+)
 knitr::kable(bad.dates)
 ```
 
-`fix_dates()` requires two arguments, `df`, a data frame (or tibble) object and
-`col.names`, a character vector containing the names of columns to be
-standardized. By default, the first column of the data frame is assumed to contain
-row IDs. These IDs are used if a warning or error is raised to assist with
-locating the source of the error. The ID column can also be manually provided
-via the `id` argument. 
+`fix_date_df()` requires two arguments, `df`, a data frame (or tibble) object
+and `col.names`, a character vector containing the names of columns to be
+standardized. By default, the first column of the data frame is assumed to
+contain row IDs. These IDs are used if a warning or error is raised to assist
+with locating the source of the error. The ID column can also be manually
+provided via the `id` argument. 
 
 The output from this function is a data frame object with the selected date
 columns now belonging to the `Date` class. 
 
 ```{R}
-fixed.dates <- fix_dates(bad.dates,
-                         c("some.dates", "some.more.dates"))
+fixed.dates <- fix_date_df(
+  bad.dates,
+  c("some.dates", "some.more.dates")
+)
 knitr::kable(fixed.dates)
 ```
 
@@ -73,11 +81,11 @@ knitr::kable(fixed.dates)
 separation,  year-first or day-first, and month supplied as a number, an
 abbreviation or full length name.
 
-`fix_date()` is similar to `fix_dates()` but only applies to a single character
-object. 
+`fix_date_char()` is similar to `fix_date_df()` but only applies to a single
+character object. 
 
 ```{R}
-fix_date("01 02 2014")
+fix_date_char("01 02 2014")
 ```
 
 Functions in `datefixR` assume day-first instead of month-first when day, month,
@@ -86,26 +94,17 @@ be modified by passing `format = "mdy"` to function calls.
 
 
 ```{R}
-fix_date("01 02 2014", format = "mdy")
+fix_date_char("01 02 2014", format = "mdy")
 ```
 
 
 ### Date and month imputation
 
 By default, `datefixR` imputes missing months as July, and missing days of the
-month as the first day.  As such, 
-
-```{R, echo = FALSE}
-impute.dates <- data.frame(id = 1,
-                        some.date = "1992")
-knitr::kable(impute.dates)
-```
-
-converts to 
+month as the first day.  As such, "1992" converts to 
 
 ```{R}
-imputed.dates <- fix_dates(impute.dates, "some.date")
-knitr::kable(imputed.dates)
+fix_date_char("1992")
 ```
 
 The argument for defaulting to July is 1-2 July is halfway through the year
@@ -117,11 +116,7 @@ For example, `day.impute = 1` and `month.impute = 1`  results in the first day
 of January being imputed instead. 
 
 ```{R}
-imputed.dates <- fix_dates(impute.dates,
-                           "some.date",
-                           day.impute = 1,
-                           month.impute = 1)
-knitr::kable(imputed.dates)
+fix_date_char("1992", day.impute = 1, month.impute = 1)
 ```
 
 The imputation mechanism can also be modified to impute `NA` if a month or day
@@ -129,10 +124,7 @@ is missing by setting `day.impute` or `month.impute` to `NA`. This will
 also result in a warning being raised.
 
 ```{R}
-imputed.dates <- fix_dates(impute.dates,
-                           "some.date",
-                           month.impute = NA)
-knitr::kable(imputed.dates)
+fix_date_char("1992", month.impute = NA)
 ```
 
 Finally, imputation can be prevented by setting `day.impute` or `month.impute`
@@ -140,17 +132,19 @@ to `NULL`. This will result in an error being raised if the day or month
 are missing respectively. 
 
 ```{R, eval = FALSE}
-imputed.dates <- fix_dates(impute.dates,
-                           "some.date",
-                           month.impute = NULL)
+fix_date_char("1992", month.impute = NULL)
 # ERROR
 ```
 
-`day.impute` and `month.impute` can also be passed to `fix_date()` for similar
-functionality. 
+`day.impute` and `month.impute` can also be passed to `fix_date_df()` for
+similar functionality. 
 
 ```{R}
-fix_date("2014", day.impute = 1, month.impute = 1)
+example.df <- data.frame(
+  id = seq(1, 3),
+  some.dates = c("2014", "April 1990", "Mar 19")
+)
+fix_date_df(example.df, "some.dates", day.impute = 1, month.impute = 1)
 ```
 
 ## Citation

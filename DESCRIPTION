@@ -1,18 +1,37 @@
 Package: datefixR
-Title: Fix Really Messy Dates
+Title: Standardize Dates in Different Formats or with Missing Data
 Version: 0.1.6.9001
-Authors@R: person("Nathan",
-                  "Constantine-Cooke",
-                  email = "nathan.constantine-cooke@ed.ac.uk",
-                  role = c("aut", "cre"),
-                  comment = c(ORCID = "0000-0002-4437-8713"))
-Description: Fixes messy dates in data frames such as those entered via text
-  boxes. Standardizes / - and whitespace separation, month abbreviations, and
-  year first or day first by converting to R's built-in Date class. Imputes
-  missing date or month using user-provided values.  
+Authors@R: c(
+  person("Nathan",
+         "Constantine-Cooke",
+         email = "nathan.constantine-cooke@ed.ac.uk",
+         role = c("aut", "cre"),
+         comment = c(ORCID = "0000-0002-4437-8713")),
+  person("Kaique dos S.",
+         "Alves",
+         role = "rev",
+         email = "kaiquedsalves@gmail.com",
+         comment = c(ORCID = "0000-0001-9187-0252")),
+  person("Al-Ahmadgaid B.",
+         "Asaad",
+         role = "rev",
+         email = "alahmadgaid@gmail.com",
+         comment = c(ORCID = "0000-0003-3784-8593"))
+  )
+Description: There are many different formats dates are commonly represented
+  with: the order of day, month, or year can differ, different separators ("-",
+  "/", or whitespace) can be used, months can be numerical, names, or
+  abbreviations and year given as two digits or four. `datefixR` takes dates in
+  all these different formats and converts them to R's built-in date class. If
+  `datefixR` cannot standardize a date, such as because it is too malformed,
+  then the user is told which date cannot be standardized and the corresponding
+  ID for the row. `datefixR` also allows the imputation of missing days and
+  months with user-controlled behavior. 
 License: GPL (>= 3)
 Depends: R (>= 4.0.0)
-Imports: stringr
+Imports: 
+    lifecycle,
+    stringr
 Language: en-US
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -23,6 +42,8 @@ Suggests:
     rmarkdown,
     knitr,
     testthat (>= 3.0.0),
-    spelling
+    spelling,
+    withr
 Config/testthat/edition: 3
 VignetteBuilder: knitr
+LazyData: true
