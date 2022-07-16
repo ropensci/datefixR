@@ -23,7 +23,7 @@ missing days and months with user-controlled behavior.
 }
 
 \seealso{
-\url{https://www.constantine-cooke.com/datefixR/}
+\url{https://docs.ropensci.org/datefixR/}
 
-\url{https://github.com/nathansam/datefixR/}
+\url{https://github.com/ropensci/datefixR/}
 }

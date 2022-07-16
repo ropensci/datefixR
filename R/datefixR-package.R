@@ -15,9 +15,9 @@
 #' \href{https://orcid.org/0000-0002-4437-8713}{(ORCID)}
 #'
 #' @seealso
-#' \url{https://www.constantine-cooke.com/datefixR/}
+#' \url{https://docs.ropensci.org/datefixR/}
 #'
-#' \url{https://github.com/nathansam/datefixR/}
+#' \url{https://github.com/ropensci/datefixR/}
 ## usethis namespace: start
 #' @importFrom lifecycle deprecated
 ## usethis namespace: end
