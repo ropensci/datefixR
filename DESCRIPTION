@@ -1,6 +1,6 @@
 Package: datefixR
 Title: Standardize Dates in Different Formats or with Missing Data
-Version: 0.1.6.9002
+Version: 1.0.0
 Authors@R: c(
   person("Nathan",
          "Constantine-Cooke",

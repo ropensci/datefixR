@@ -1,5 +1,10 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# datefixR 1.0.0
+
+- Same as previous version.
+
+
 # datefixR 0.1.6.9002
 
 - Point all links to ropensci links
