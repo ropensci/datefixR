@@ -2,7 +2,7 @@
   "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "identifier": "datefixR",
-  "description": "There are many different formats dates are commonly represented with: the order of day, month, or year can differ, different separators (\"-\", \"/\", or whitespace) can be used, months can be numerical, names, or abbreviations and year given as two digits or four. `datefixR` takes dates in all these different formats and converts them to R's built-in date class. If `datefixR` cannot standardize a date, such as because it is too malformed, then the user is told which date cannot be standardized and the corresponding ID for the row. `datefixR` also allows the imputation of missing days and months with user-controlled behavior. ",
+  "description": "There are many different formats dates are commonly represented with: the order of day, month, or year can differ, different separators (\"-\", \"/\", or whitespace) can be used, months can be numerical, names, or abbreviations and year given as two digits or four. 'datefixR' takes dates in all these different formats and converts them to R's built-in date class. If 'datefixR' cannot standardize a date, such as because it is too malformed, then the user is told which date cannot be standardized and the corresponding ID for the row. 'datefixR' also allows the imputation of missing days and months with user-controlled behavior. ",
   "name": "datefixR: Standardize Dates in Different Formats or with Missing Data",
   "relatedLink": ["https://docs.ropensci.org/datefixR/", "https://CRAN.R-project.org/package=datefixR"],
   "codeRepository": "https://github.com/ropensci/datefixR",
@@ -135,7 +135,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "544.891KB",
+  "fileSize": "544.889KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -156,7 +156,7 @@
   ],
   "releaseNotes": "https://github.com/ropensci/datefixR/blob/master/NEWS.md",
   "readme": "https://github.com/ropensci/datefixR/blob/main/README.md",
-  "contIntegration": ["https://github.com/ropensci/datefixR/actions", "https://codecov.io/gh/ropensci/datefixR"],
+  "contIntegration": ["https://github.com/ropensci/datefixR/actions", "https://app.codecov.io/gh/ropensci/datefixR"],
   "developmentStatus": "https://www.repostatus.org/#active",
   "review": {
     "@type": "Review",
