@@ -114,7 +114,7 @@
 #' @noRd
 .checkday <- function(day.impute) {
   if (!is.na(day.impute) && !is.null(day.impute)) {
-    if (day.impute < 1 | day.impute > 28) {
+    if (day.impute < 1 || day.impute > 28) {
       stop("day.impute should be an integer between 1 and 28\n")
     }
     if (!(day.impute %% 1 == 0)) {
@@ -127,7 +127,7 @@
 #' @noRd
 .checkmonth <- function(month.impute) {
   if (!is.na(month.impute) && !is.null(month.impute)) {
-    if (month.impute < 1 | month.impute > 12) {
+    if (month.impute < 1 || month.impute > 12) {
       stop("month.impute should be an integer between 1 and 12\n")
     }
     if (!(month.impute %% 1 == 0)) {
@@ -140,12 +140,12 @@
 #' @noRd
 .checkoutput <- function(day, month) {
   if (!is.na(month)) {
-    if (as.numeric(month) > 12 | as.numeric(month) < 1) {
+    if (as.numeric(month) > 12 || as.numeric(month) < 1) {
       stop("Month not in expected range \n")
     }
   }
   if (!is.na(day)) {
-    if (as.numeric(day) > 31 | as.numeric(day) < 1) {
+    if (as.numeric(day) > 31 || as.numeric(day) < 1) {
       stop("Day of the year not in expected range \n")
     }
   }
