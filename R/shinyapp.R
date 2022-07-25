@@ -176,7 +176,7 @@ hr {
     float: none !important;
     margin: 0 auto !important;
   }
-  
+
 .shiny-options-group {
   border-radius: 4px;
   padding: 5px;
@@ -260,9 +260,9 @@ hr {
     input.data <- .read_data(input$file.in)
     if (!any(is.null(input$selected.columns))) {
       output.data <- fix_date_df(input.data,
-                                 col.names = input$selected.columns,
-                                 day.impute = as.numeric(input$date.input),
-                                 month.impute = as.numeric(input$month.input)
+        col.names = input$selected.columns,
+        day.impute = as.numeric(input$date.input),
+        month.impute = as.numeric(input$month.input)
       )
     }
     if (is.null(output.data)) {
@@ -286,7 +286,8 @@ hr {
         input.data <- .read_data(input$file.in)
         if (!any(is.null(input$selected.columns))) {
           output.data <- fix_date_df(input.data,
-                                     col.names = input$selected.columns)
+            col.names = input$selected.columns
+          )
         }
         write.csv(output.data, file)
       }
