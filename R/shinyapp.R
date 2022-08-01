@@ -8,7 +8,7 @@
 #' @examples 
 #' \dontrun{
 #' fix_date_app()
-#' }  
+#' }
 #' @export
 fix_date_app <- function(theme = "datefixR") {
   
