@@ -1,5 +1,14 @@
+#' @title Shiny application standardizing date data in csv of excel files
+#' @description Shiny app which allows users to standardize dates using
+#'   a graphical user interface (GUI). Most features of datefixR are supported
+#'   including imputed missing date data. Data can be provided as csv or xlsx
+#'   files. Processed datasets can be downloaded as csv files.
+#' @examples 
+#' \dontrun{
+#' fix_date_app()
+#' }  
 #' @export
-shinyapp <- function() {
+fix_date_app <- function() {
   ui <- shiny::fluidPage(
     .html_head(),
     htmltools::div(
@@ -19,11 +28,11 @@ shinyapp <- function() {
           shiny::uiOutput("columns"),
           shiny::selectInput("date.input",
             "Day of month to impute",
-            choices = seq(1, 28)
+            choices = c(seq(1, 28), NA)
           ),
           shiny::selectInput("month.input",
             "Month to impute",
-            choices = seq(1, 12),
+            c(choices = seq(1, 12), NA),
             selected = 7
           ),
           shiny::selectInput("format",
@@ -132,7 +141,7 @@ shinyapp <- function() {
 .html_head <- function() {
   site <- "https://docs.ropensci.org/datefixR/" # replace with ropensci docs
   htmltools::tags$head(
-    tags$style(HTML("
+    htmltools::tags$style(htmltools::HTML("
       @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Zen+Tokyo+Zoo&display=swap');
 
 body {
@@ -289,7 +298,7 @@ hr {
             col.names = input$selected.columns
           )
         }
-        write.csv(output.data, file)
+        utils::write.csv(output.data, file)
       }
     )
   })
@@ -299,7 +308,7 @@ hr {
   if (!is.null(upload)) {
     ext <- tools::file_ext(upload$datapath)
     if (ext == "csv") {
-      return(read.csv(upload$datapath))
+      return(utils::read.csv(upload$datapath))
     } else {
       return(readxl::read_xlsx(upload$datapath))
     }
