@@ -3,14 +3,21 @@
 #'   a graphical user interface (GUI). Most features of datefixR are supported
 #'   including imputed missing date data. Data can be provided as csv or xlsx
 #'   files. Processed datasets can be downloaded as csv files.
+#' @param theme Color theme for shiny app. Either \code{"datefixR"} (datefixR
+#' colors) or \code{"none"}(default shiny app styling). 
 #' @examples 
 #' \dontrun{
 #' fix_date_app()
 #' }  
 #' @export
-fix_date_app <- function() {
+fix_date_app <- function(theme = "datefixR") {
+  
+  if (!(theme %in% c("datefixR", "none"))) {
+    stop("theme should be 'datefixR or 'none' \n")
+  }
+  
   ui <- shiny::fluidPage(
-    .html_head(),
+    .html_head(theme = theme),
     htmltools::div(
       class = "simpleDiv",
       shiny::titlePanel("datefixR", "datefixR")
@@ -138,129 +145,177 @@ fix_date_app <- function() {
 }
 
 
-.html_head <- function() {
+.html_head <- function(theme) {
   site <- "https://docs.ropensci.org/datefixR/" # replace with ropensci docs
-  htmltools::tags$head(
-    htmltools::tags$style(htmltools::HTML("
-      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Zen+Tokyo+Zoo&display=swap');
-
-body {
-  font-family: 'Roboto', sans-serif;
-  padding: 10px;
-}
-
-.nav-tabs {
-  padding-top: 5px;
-}
-
- a {
-  color: #2a9d8f;
-}
-
-.tab-content{
-  padding-top: 8px;
-}
-
-.simpleDiv {
-  background: #2a9d8f;
-  color: #e7c36a;
-  display: -webkit-box;
-  border: 0px;
-  border-radius: 20px;
-  font-family: 'Zen Tokyo Zoo', cursive;
-  padding: 5px;
-  border-bottom-right-radius: 0px;
-  border-bottom-left-radius: 0px;
-  border-bottom-width: 5px;
-  border-bottom-color: #1b333a;
-  border-bottom-style: solid;
-}
-
-hr {
-  border-top: 2px solid #1b333a;
-}
-
-.simpleDiv h2 {
-    font-size: 40px !important;
-    float: none !important;
-    margin: 0 auto !important;
+  
+  if (theme == "datefixR") {
+    
+    htmltools::tags$head(
+      htmltools::tags$style(htmltools::HTML("
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Zen+Tokyo+Zoo&display=swap');
+  
+  body {
+    font-family: 'Roboto', sans-serif;
+    padding: 10px;
   }
-
-.shiny-options-group {
-  border-radius: 4px;
-  padding: 5px;
-  padding-left: 10px;
-  background-color: #264653 ;
-}
-
-
-.well {
-  background-color: #2a9d8f !important;
-  color: white !important;
-  border: 0px;
-  height: 90vh;
-  border-radius: 0px;
-  border-bottom-left-radius: 20px;
-  border-right-width: 5px;
-  border-right-color: #1b333a;
-  border-right-style: solid;
-}
-
-.col-sm-8 {
-  padding-top: 20px !important;
-}
-
-.container-fluid {
-  padding-right: 0px !important;
-  padding-left: 0px !important;
-}
-
-.btn-default {
-  background-color: #264653 !important;
-  color: white !important;
-}")),
-    htmltools::tags$link(
-      rel = "icon",
-      type = "image/png",
-      sizes = "16x16",
-      href = paste0(site, "favicon-16x16.png")
-    ),
-    htmltools::tags$link(
-      rel = "icon",
-      type = "image/png",
-      sizes = "32x32",
-      href = paste0(site, "favicon-32x32.png")
-    ),
-    htmltools::tags$link(
-      rel = "apple-touch-icon",
-      type = "image/png",
-      sizes = "180x180",
-      href = paste0(site, "apple-touch-icon.png")
-    ),
-    htmltools::tags$link(
-      rel = "apple-touch-icon",
-      type = "image/png",
-      sizes = "120x120",
-      href = paste0(site, "apple-touch-icon-120x120.png")
-    ),
-    htmltools::tags$link(
-      rel = "apple-touch-icon",
-      type = "image/png",
-      sizes = "76x76",
-      href = paste0(site, "apple-touch-icon-76x76.png")
-    ),
-    htmltools::tags$link(
-      rel = "apple-touch-icon",
-      type = "image/png",
-      sizes = "60x60",
-      href = paste0(site, "apple-touch-icon-60x60.png")
-    ),
-    htmltools::tags$link(
-      rel = "stylesheet",
-      type = "text/css",
-      href = "style.css"
+  
+  .nav-tabs {
+    padding-top: 5px;
+  }
+  
+   a {
+    color: #2a9d8f;
+  }
+  
+  .tab-content{
+    padding-top: 8px;
+  }
+  
+  .simpleDiv {
+    background: #2a9d8f;
+    color: #e7c36a;
+    display: -webkit-box;
+    border: 0px;
+    border-radius: 20px;
+    font-family: 'Zen Tokyo Zoo', cursive;
+    padding: 5px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-width: 5px;
+    border-bottom-color: #1b333a;
+    border-bottom-style: solid;
+  }
+  
+  hr {
+    border-top: 2px solid #1b333a;
+  }
+  
+  .simpleDiv h2 {
+      font-size: 40px !important;
+      float: none !important;
+      margin: 0 auto !important;
+    }
+  
+  .shiny-options-group {
+    border-radius: 4px;
+    padding: 5px;
+    padding-left: 10px;
+    background-color: #264653 ;
+  }
+  
+  
+  .well {
+    background-color: #2a9d8f !important;
+    color: white !important;
+    border: 0px;
+    height: 90vh;
+    border-radius: 0px;
+    border-bottom-left-radius: 20px;
+    border-right-width: 5px;
+    border-right-color: #1b333a;
+    border-right-style: solid;
+  }
+  
+  .col-sm-8 {
+    padding-top: 20px !important;
+  }
+  
+  .container-fluid {
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+  }
+  
+  .btn-default {
+    background-color: #264653 !important;
+    color: white !important;
+  }")),
+      htmltools::tags$link(
+        rel = "icon",
+        type = "image/png",
+        sizes = "16x16",
+        href = paste0(site, "favicon-16x16.png")
+      ),
+      htmltools::tags$link(
+        rel = "icon",
+        type = "image/png",
+        sizes = "32x32",
+        href = paste0(site, "favicon-32x32.png")
+      ),
+      htmltools::tags$link(
+        rel = "apple-touch-icon",
+        type = "image/png",
+        sizes = "180x180",
+        href = paste0(site, "apple-touch-icon.png")
+      ),
+      htmltools::tags$link(
+        rel = "apple-touch-icon",
+        type = "image/png",
+        sizes = "120x120",
+        href = paste0(site, "apple-touch-icon-120x120.png")
+      ),
+      htmltools::tags$link(
+        rel = "apple-touch-icon",
+        type = "image/png",
+        sizes = "76x76",
+        href = paste0(site, "apple-touch-icon-76x76.png")
+      ),
+      htmltools::tags$link(
+        rel = "apple-touch-icon",
+        type = "image/png",
+        sizes = "60x60",
+        href = paste0(site, "apple-touch-icon-60x60.png")
+      ),
+      htmltools::tags$link(
+        rel = "stylesheet",
+        type = "text/css",
+        href = "style.css"
+        )
+      )
+  } else {
+    htmltools::tags$head(
+      htmltools::tags$link(
+        rel = "icon",
+        type = "image/png",
+        sizes = "16x16",
+        href = paste0(site, "favicon-16x16.png")
+      ),
+      htmltools::tags$link(
+        rel = "icon",
+        type = "image/png",
+        sizes = "32x32",
+        href = paste0(site, "favicon-32x32.png")
+      ),
+      htmltools::tags$link(
+        rel = "apple-touch-icon",
+        type = "image/png",
+        sizes = "180x180",
+        href = paste0(site, "apple-touch-icon.png")
+      ),
+      htmltools::tags$link(
+        rel = "apple-touch-icon",
+        type = "image/png",
+        sizes = "120x120",
+        href = paste0(site, "apple-touch-icon-120x120.png")
+      ),
+      htmltools::tags$link(
+        rel = "apple-touch-icon",
+        type = "image/png",
+        sizes = "76x76",
+        href = paste0(site, "apple-touch-icon-76x76.png")
+      ),
+      htmltools::tags$link(
+        rel = "apple-touch-icon",
+        type = "image/png",
+        sizes = "60x60",
+        href = paste0(site, "apple-touch-icon-60x60.png")
+      ),
+      htmltools::tags$link(
+        rel = "stylesheet",
+        type = "text/css",
+        href = "style.css"
+      )
     )
-  )
+  }
 }
 
 .server <- function(input, output) {

@@ -4,7 +4,11 @@
 \alias{fix_date_app}
 \title{Shiny application standardizing date data in csv of excel files}
 \usage{
-fix_date_app()
+fix_date_app(theme = "datefixR")
+}
+\arguments{
+\item{theme}{Color theme for shiny app. Either \code{"datefixR"} (datefixR
+colors) or \code{"none"}(default shiny app styling).}
 }
 \description{
 Shiny app which allows users to standardize dates using
