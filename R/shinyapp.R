@@ -3,10 +3,10 @@
 #'   a graphical user interface (GUI). Most features of datefixR are supported
 #'   including imputed missing date data. Data can be provided as csv or xlsx
 #'   files. Processed datasets can be downloaded as csv files.
-#' @examples 
+#' @examples
 #' \dontrun{
 #' fix_date_app()
-#' }  
+#' }
 #' @export
 fix_date_app <- function() {
   ui <- shiny::fluidPage(
