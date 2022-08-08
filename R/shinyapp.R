@@ -8,10 +8,10 @@
 #'   installed alongside \code{datefixR}. This allows \code{datefixR} to be
 #'   installed on secure systems where these packages may not be allowed. If one
 #'   of these dependencies is not installed on the system when this function is
-#'   called, then the user will have the option of installing them. 
+#'   called, then the user will have the option of installing them.
 #' @param theme Color theme for shiny app. Either \code{"datefixR"}
 #'   (\code{datefixR} colors) or \code{"none"}(default shiny app styling).
-#' @return A shiny app. 
+#' @return A shiny app.
 #' @seealso The \code{\link[shiny]{shiny}} package.
 #' @examples
 #' \dontrun{
