@@ -11,10 +11,10 @@
 #' }
 #' @export
 fix_date_app <- function(theme = "datefixR") {
-  
   rlang::check_installed(c("DT", "shiny", "readxl", "htmltools"),
-                         reason = "to use `fix_date_app()`")
-  
+    reason = "to use `fix_date_app()`"
+  )
+
   if (!(theme %in% c("datefixR", "none"))) {
     stop("theme should be 'datefixR or 'none' \n")
   }
