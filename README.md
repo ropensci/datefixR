@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# datefixR <img src="man/figures/logo.png" align="right" width="150" />
+# datefixR <img src="man/figures/logo.png" align="right" width="150"/>
 
 <!-- badges: start -->
 
@@ -27,6 +27,11 @@ is too malformed, then the user is told which date cannot be
 standardized and the corresponding ID for the row. `datefixR` also
 allows the imputation of missing days and months with user-controlled
 behavior.
+
+<img src="man/figures/example.svg" width="800"/>
+
+Not familiar with R or want to quickly try out `datefixR`? Check out the
+shiny app [here](https://nathansam.shinyapps.io/datefixr/).
 
 ## Installation instructions
 
