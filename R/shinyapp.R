@@ -3,16 +3,16 @@
 #'   using a graphical user interface (GUI). Most features of \code{datefixR}
 #'   are supported including imputing missing date data. Data can be provided as
 #'   CSV (comma-separated value) or XLSX (Excel) files. Processed datasets can
-#'   be downloaded as CSV files. Please note, the dependencies for this app (DT,
-#'   htmltools, readxl, and shiny) are not installed alongside \code{datefixR}.
-#'   This allows \code{datefixR} to be installed on secure systems where these
-#'   packages may not be allowed. If one of these dependencies is not installed
-#'   on the system when this function is called, then the user will have the
-#'   option of installing them. 
+#'   be downloaded as CSV files. Please note, the dependencies for this app
+#'   (\code{DT}, \code{htmltools}, \code{readxl}, and \code{shiny}) are not
+#'   installed alongside \code{datefixR}. This allows \code{datefixR} to be
+#'   installed on secure systems where these packages may not be allowed. If one
+#'   of these dependencies is not installed on the system when this function is
+#'   called, then the user will have the option of installing them. 
 #' @param theme Color theme for shiny app. Either \code{"datefixR"}
 #'   (\code{datefixR} colors) or \code{"none"}(default shiny app styling).
 #' @return A shiny app. 
-#' @seealso The \code{\link{shiny}} package.
+#' @seealso The \code{\link[shiny]{shiny}} package.
 #' @examples
 #' \dontrun{
 #' fix_date_app()}
