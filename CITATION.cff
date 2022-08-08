@@ -8,7 +8,7 @@ message: 'To cite package "datefixR" in publications use:'
 type: software
 license: GPL-3.0-or-later
 title: 'datefixR: Standardize Dates in Different Formats or with Missing Data'
-version: 1.0.0
+version: 1.0.0.9000
 doi: 10.5281/zenodo.5655311
 abstract: 'There are many different formats dates are commonly represented with: the
   order of day, month, or year can differ, different separators ("-", "/", or whitespace)
@@ -33,7 +33,7 @@ preferred-citation:
     orcid: https://orcid.org/0000-0002-4437-8713
   url: https://CRAN.R-project.org/package=datefixR
   doi: 10.5281/zenodo.5655311
-  notes: R package version 1.0.0
+  notes: R package version 1.0.0.9000
 repository: https://CRAN.R-project.org/package=datefixR
 repository-code: https://github.com/ropensci/datefixR
 url: https://docs.ropensci.org/datefixR/
@@ -76,6 +76,19 @@ references:
   year: '2022'
   url: https://CRAN.R-project.org/package=lifecycle
 - type: software
+  title: rlang
+  abstract: 'rlang: Functions for Base Types and Core R and ''Tidyverse'' Features'
+  notes: Imports
+  authors:
+  - family-names: Henry
+    given-names: Lionel
+    email: lionel@rstudio.com
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@rstudio.com
+  year: '2022'
+  url: https://CRAN.R-project.org/package=rlang
+- type: software
   title: stringr
   abstract: 'stringr: Simple, Consistent Wrappers for Common String Operations'
   notes: Imports
@@ -85,6 +98,74 @@ references:
     email: hadley@rstudio.com
   year: '2022'
   url: https://CRAN.R-project.org/package=stringr
+- type: software
+  title: DT
+  abstract: 'DT: A Wrapper of the JavaScript Library ''DataTables'''
+  notes: Suggests
+  authors:
+  - family-names: Xie
+    given-names: Yihui
+    email: xie@yihui.name
+  - family-names: Cheng
+    given-names: Joe
+  - family-names: Tan
+    given-names: Xianying
+  year: '2022'
+  url: https://CRAN.R-project.org/package=DT
+- type: software
+  title: htmltools
+  abstract: 'htmltools: Tools for HTML'
+  notes: Suggests
+  authors:
+  - family-names: Cheng
+    given-names: Joe
+    email: joe@rstudio.com
+  - family-names: Sievert
+    given-names: Carson
+    email: carson@rstudio.com
+    orcid: https://orcid.org/0000-0002-4958-2844
+  - family-names: Schloerke
+    given-names: Barret
+    email: barret@rstudio.com
+    orcid: https://orcid.org/0000-0001-9986-114X
+  - family-names: Chang
+    given-names: Winston
+    email: winston@rstudio.com
+    orcid: https://orcid.org/0000-0002-1576-2126
+  - family-names: Xie
+    given-names: Yihui
+    email: yihui@rstudio.com
+  - family-names: Allen
+    given-names: Jeff
+    email: jeff@rstudio.com
+  year: '2022'
+  url: https://CRAN.R-project.org/package=htmltools
+- type: software
+  title: knitr
+  abstract: 'knitr: A General-Purpose Package for Dynamic Report Generation in R'
+  notes: Suggests
+  authors:
+  - family-names: Xie
+    given-names: Yihui
+    email: xie@yihui.name
+    orcid: https://orcid.org/0000-0003-0645-5666
+  year: '2022'
+  url: https://CRAN.R-project.org/package=knitr
+- type: software
+  title: readxl
+  abstract: 'readxl: Read Excel Files'
+  notes: Suggests
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@rstudio.com
+    orcid: https://orcid.org/0000-0003-4757-117X
+  - family-names: Bryan
+    given-names: Jennifer
+    email: jenny@rstudio.com
+    orcid: https://orcid.org/0000-0002-6983-2759
+  year: '2022'
+  url: https://CRAN.R-project.org/package=readxl
 - type: software
   title: rmarkdown
   abstract: 'rmarkdown: Dynamic Documents for R'
@@ -125,27 +206,43 @@ references:
   year: '2022'
   url: https://CRAN.R-project.org/package=rmarkdown
 - type: software
-  title: knitr
-  abstract: 'knitr: A General-Purpose Package for Dynamic Report Generation in R'
+  title: shiny
+  abstract: 'shiny: Web Application Framework for R'
   notes: Suggests
   authors:
+  - family-names: Chang
+    given-names: Winston
+    email: winston@rstudio.com
+    orcid: https://orcid.org/0000-0002-1576-2126
+  - family-names: Cheng
+    given-names: Joe
+    email: joe@rstudio.com
+  - family-names: Allaire
+    given-names: JJ
+    email: jj@rstudio.com
+  - family-names: Sievert
+    given-names: Carson
+    email: carson@rstudio.com
+    orcid: https://orcid.org/0000-0002-4958-2844
+  - family-names: Schloerke
+    given-names: Barret
+    email: barret@rstudio.com
+    orcid: https://orcid.org/0000-0001-9986-114X
   - family-names: Xie
     given-names: Yihui
-    email: xie@yihui.name
-    orcid: https://orcid.org/0000-0003-0645-5666
+    email: yihui@rstudio.com
+  - family-names: Allen
+    given-names: Jeff
+    email: jeff@rstudio.com
+  - family-names: McPherson
+    given-names: Jonathan
+    email: jonathan@rstudio.com
+  - family-names: Dipert
+    given-names: Alan
+  - family-names: Borges
+    given-names: Barbara
   year: '2022'
-  url: https://CRAN.R-project.org/package=knitr
-- type: software
-  title: testthat
-  abstract: 'testthat: Unit Testing for R'
-  notes: Suggests
-  authors:
-  - family-names: Wickham
-    given-names: Hadley
-    email: hadley@rstudio.com
-  year: '2022'
-  url: https://CRAN.R-project.org/package=testthat
-  version: '>= 3.0.0'
+  url: https://CRAN.R-project.org/package=shiny
 - type: software
   title: spelling
   abstract: 'spelling: Tools for Spell Checking in R'
@@ -160,6 +257,17 @@ references:
     email: james.hester@rstudio.com
   year: '2022'
   url: https://CRAN.R-project.org/package=spelling
+- type: software
+  title: testthat
+  abstract: 'testthat: Unit Testing for R'
+  notes: Suggests
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@rstudio.com
+  year: '2022'
+  url: https://CRAN.R-project.org/package=testthat
+  version: '>= 3.0.0'
 - type: software
   title: withr
   abstract: 'withr: Run Code ''With'' Temporarily Modified Global State'
