@@ -8,14 +8,15 @@
 #'   This allows \code{datefixR} to be installed on secure systems where these
 #'   packages may not be allowed. If one of these dependencies is not installed
 #'   on the system when this function is called, then the user will have the
-#'   option of installing them. 
+#'   option of installing them.
 #' @param theme Color theme for shiny app. Either \code{"datefixR"}
 #'   (\code{datefixR} colors) or \code{"none"}(default shiny app styling).
-#' @return A shiny app. 
+#' @return A shiny app.
 #' @seealso The \code{\link{shiny}} package.
 #' @examples
 #' \dontrun{
-#' fix_date_app()}
+#' fix_date_app()
+#' }
 #' @export
 fix_date_app <- function(theme = "datefixR") {
   rlang::check_installed(c("DT", "shiny", "readxl", "htmltools"),
