@@ -10,7 +10,7 @@ jobs:
       - uses: r-lib/actions/setup-r@master
       - name: Install shiny
         run: |
-          install.packages(c("shiny", "rsconnect", "remotes"), type = "binary"); remotes::install_deps() 
+          install.packages(c("shiny", "rsconnect", "remotes"), type = "binary"); remotes::install_deps(dependencies = TRUE) 
         shell: Rscript {0}
       - name: Push to shiny.io
         run: |
