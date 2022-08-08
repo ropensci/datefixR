@@ -15,7 +15,8 @@
 #' @seealso The \code{\link[shiny]{shiny}} package.
 #' @examples
 #' \dontrun{
-#' fix_date_app()}
+#' fix_date_app()
+#' }
 #' @export
 fix_date_app <- function(theme = "datefixR") {
   rlang::check_installed(c("DT", "shiny", "readxl", "htmltools"),
