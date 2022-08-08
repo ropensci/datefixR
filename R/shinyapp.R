@@ -11,6 +11,10 @@
 #' }
 #' @export
 fix_date_app <- function(theme = "datefixR") {
+  
+  rlang::check_installed(c("DT", "shiny", "readxl", "htmltools"),
+                         reason = "to use `fix_date_app()`")
+  
   if (!(theme %in% c("datefixR", "none"))) {
     stop("theme should be 'datefixR or 'none' \n")
   }
@@ -38,7 +42,7 @@ fix_date_app <- function(theme = "datefixR") {
           ),
           shiny::selectInput("month.input",
             "Month to impute",
-            c(choices = seq(1, 12), NA),
+            choices = c(seq(1, 12), NA),
             selected = 7
           ),
           shiny::selectInput("format",

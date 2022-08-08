@@ -19,5 +19,5 @@ files. Processed datasets can be downloaded as csv files.
 \examples{
 \dontrun{
 fix_date_app()
-}  
+}
 }

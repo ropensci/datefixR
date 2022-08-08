@@ -2,52 +2,48 @@ Package: datefixR
 Title: Standardize Dates in Different Formats or with Missing Data
 Version: 1.0.0.9000
 Authors@R: c(
-  person("Nathan",
-         "Constantine-Cooke",
-         email = "nathan.constantine-cooke@ed.ac.uk",
-         role = c("aut", "cre"),
-         comment = c(ORCID = "0000-0002-4437-8713")),
-  person("Kaique dos S.",
-         "Alves",
-         role = "rev",
-         email = "kaiquedsalves@gmail.com",
-         comment = c(ORCID = "0000-0001-9187-0252")),
-  person("Al-Ahmadgaid B.",
-         "Asaad",
-         role = "rev",
-         email = "alahmadgaid@gmail.com",
-         comment = c(ORCID = "0000-0003-3784-8593"))
+    person("Nathan", "Constantine-Cooke", , "nathan.constantine-cooke@ed.ac.uk", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-4437-8713")),
+    person("Kaique dos S.", "Alves", , "kaiquedsalves@gmail.com", role = "rev",
+           comment = c(ORCID = "0000-0001-9187-0252")),
+    person("Al-Ahmadgaid B.", "Asaad", , "alahmadgaid@gmail.com", role = "rev",
+           comment = c(ORCID = "0000-0003-3784-8593"))
   )
-Description: There are many different formats dates are commonly represented
-  with: the order of day, month, or year can differ, different separators ("-",
-  "/", or whitespace) can be used, months can be numerical, names, or
-  abbreviations and year given as two digits or four. 'datefixR' takes dates in
-  all these different formats and converts them to R's built-in date class. If
-  'datefixR' cannot standardize a date, such as because it is too malformed,
-  then the user is told which date cannot be standardized and the corresponding
-  ID for the row. 'datefixR' also allows the imputation of missing days and
-  months with user-controlled behavior. 
+Description: There are many different formats dates are commonly
+    represented with: the order of day, month, or year can differ,
+    different separators ("-", "/", or whitespace) can be used, months can
+    be numerical, names, or abbreviations and year given as two digits or
+    four. 'datefixR' takes dates in all these different formats and
+    converts them to R's built-in date class. If 'datefixR' cannot
+    standardize a date, such as because it is too malformed, then the user
+    is told which date cannot be standardized and the corresponding ID for
+    the row. 'datefixR' also allows the imputation of missing days and
+    months with user-controlled behavior.
 License: GPL (>= 3)
-Depends: R (>= 4.0.0)
+URL: https://docs.ropensci.org/datefixR/,
+    https://github.com/ropensci/datefixR
+BugReports: https://github.com/ropensci/datefixR/issues
+Depends: 
+    R (>= 4.0.0)
 Imports: 
     lifecycle,
-    stringr,
+    rlang,
+    stringr
+Suggests: 
     DT,
-    shiny,
+    htmltools,
+    knitr,
     readxl,
-    htmltools
-Language: en-US
+    rmarkdown,
+    shiny,
+    spelling,
+    testthat (>= 3.0.0),
+    withr
+VignetteBuilder: 
+    knitr
+Config/testthat/edition: 3
 Encoding: UTF-8
+Language: en-US
+LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
-URL: https://docs.ropensci.org/datefixR/, https://github.com/ropensci/datefixR
-BugReports: https://github.com/ropensci/datefixR/issues
-Suggests: 
-    rmarkdown,
-    knitr,
-    testthat (>= 3.0.0),
-    spelling,
-    withr
-Config/testthat/edition: 3
-VignetteBuilder: knitr
-LazyData: true
