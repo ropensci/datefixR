@@ -11,3 +11,5 @@
 ^pkgdown$
 ^codemeta\.json$
 ^CITATION\.cff$
+^app\.R$
+^rsconnect$
