@@ -36,6 +36,7 @@ Suggests:
     readxl,
     rmarkdown,
     shiny,
+    shinytest,
     spelling,
     testthat (>= 3.0.0),
     withr
