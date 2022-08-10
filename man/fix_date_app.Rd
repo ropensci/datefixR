@@ -27,7 +27,8 @@ called, then the user will have the option of installing them.
 }
 \examples{
 \dontrun{
-fix_date_app()}
+fix_date_app()
+}
 }
 \seealso{
 The \code{\link[shiny]{shiny}} package.
