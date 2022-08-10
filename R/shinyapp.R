@@ -152,7 +152,7 @@ fix_date_app <- function(theme = "datefixR") {
     )
   )
   # Run the application
-  shiny::shinyApp(ui = ui, server = .server)
+  return(shiny::shinyApp(ui = ui, server = .server))
 }
 
 
