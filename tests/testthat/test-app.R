@@ -1,4 +1,3 @@
-context("app-function")
 # This file is for testing the applications in the apps/ directory.
 
 library(shinytest)
