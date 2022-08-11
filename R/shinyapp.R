@@ -38,7 +38,7 @@ fix_date_app <- function(theme = "datefixR") {
         3,
         shiny::wellPanel(
           shiny::fileInput(
-            "file.in",
+            "datafile",
             "File Upload",
             accept = c(".csv", ".xlsx"),
             placeholder = ".xlsx (Excel) or .csv file"
@@ -152,7 +152,7 @@ fix_date_app <- function(theme = "datefixR") {
     )
   )
   # Run the application
-  shiny::shinyApp(ui = ui, server = .server)
+  return(shiny::shinyApp(ui = ui, server = .server))
 }
 
 
@@ -331,7 +331,7 @@ fix_date_app <- function(theme = "datefixR") {
 .server <- function(input, output) {
   output.data <- NULL
   shiny::observeEvent(input$do, {
-    input.data <- .read_data(input$file.in)
+    input.data <- .read_data(input$datafile)
     if (!any(is.null(input$selected.columns))) {
       output.data <- fix_date_df(input.data,
         col.names = input$selected.columns,
@@ -357,7 +357,7 @@ fix_date_app <- function(theme = "datefixR") {
         "fixed.csv"
       },
       content = function(file) {
-        input.data <- .read_data(input$file.in)
+        input.data <- .read_data(input$datafile)
         if (!any(is.null(input$selected.columns))) {
           output.data <- fix_date_df(input.data,
             col.names = input$selected.columns
@@ -373,9 +373,9 @@ fix_date_app <- function(theme = "datefixR") {
   if (!is.null(upload)) {
     ext <- tools::file_ext(upload$datapath)
     if (ext == "csv") {
-      return(utils::read.csv(upload$datapath))
+      return((utils::read.csv(upload$datapath)))
     } else {
-      return(readxl::read_xlsx(upload$datapath))
+      return(as.data.frame(readxl::read_xlsx(upload$datapath)))
     }
   }
 }
