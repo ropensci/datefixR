@@ -83,16 +83,15 @@
 #' @noRd
 .convert_text_month <- function(date) {
   date <- tolower(date)
-  
+
   for (i in 1:12) {
     if (i < 10) {
       replacement <- paste0("0", i)
     } else {
       replacement <- i
     }
-    
+
     for (j in 1:length(months$months[[i]])) {
-      
       date <- gsub(
         pattern = months$months[[i]][j],
         replacement = replacement,
