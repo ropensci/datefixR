@@ -66,6 +66,10 @@ Functions are described as comments near their code and translated to documentat
 
 Care to fix bugs or implement new functionality for our_package? Awesome! 👏 Have a look at the [issue list][issues] and leave a comment on the things you want to work on. See also the development guidelines below.
 
+We also welcome support for adding names of months in different languages! 🌍 If 
+you are interested in adding the months of the year in your language, please 
+see [R/months.R](https://github.com/ropensci/datefixR/blob/main/R/months.R)
+
 ## Development guidelines
 
 We try to follow the [GitHub flow](https://guides.github.com/introduction/flow/) for development.
