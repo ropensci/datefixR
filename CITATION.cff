@@ -244,6 +244,22 @@ references:
   year: '2022'
   url: https://CRAN.R-project.org/package=shiny
 - type: software
+  title: shinytest
+  abstract: 'shinytest: Test Shiny Apps'
+  notes: Suggests
+  authors:
+  - family-names: Chang
+    given-names: Winston
+    email: winston@rstudio.com
+  - family-names: Csárdi
+    given-names: Gábor
+    email: gabor@rstudio.com
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@rstudio.com
+  year: '2022'
+  url: https://CRAN.R-project.org/package=shinytest
+- type: software
   title: spelling
   abstract: 'spelling: Tools for Spell Checking in R'
   notes: Suggests
