@@ -1,7 +1,3 @@
-months <- new.env()
-months$abbrev <- tolower(month.abb)
-months$full <- tolower(month.name)
-
 #' @title Clean up messy date columns
 #' @description Tidies a \code{dataframe} object which has date columns
 #' entered via a free-text box (possibly by different users) and are therefore

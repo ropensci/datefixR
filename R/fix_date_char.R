@@ -26,13 +26,12 @@ fix_date_char <- function(dates,
   .checkformat(format)
 
   as.Date(
-    vapply(
+    sapply(
       dates,
       .fix_date_char,
       day.impute = day.impute,
       month.impute = month.impute,
       format = format,
-      FUN.VALUE = numeric(length(dates)),
       USE.NAMES = FALSE
     ),
     origin = "1970-01-01"
