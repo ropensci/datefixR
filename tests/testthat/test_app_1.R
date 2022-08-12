@@ -8,6 +8,7 @@ test_that("fix_date_app() works", {
 
   if (Sys.info()["sysname"] == "Darwin") {
     expect_pass(testApp(test_path("apps/fix_date_theme/"),
-                        compareImages = TRUE))
+      compareImages = TRUE
+    ))
   }
 })
