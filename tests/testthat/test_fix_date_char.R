@@ -76,3 +76,8 @@ test_that("unexpected format raises error", {
     "format should be either 'dmy' or 'mdy' \n"
   )
 })
+
+test_that("'de' and 'del' is parsed", {
+  expect_equal(fix_date_char("20 de abril de 1994"), as.Date("1994-04-20"))
+  expect_equal(fix_date_char("06 de enero del 2008"), as.Date("2008-01-06"))
+})
