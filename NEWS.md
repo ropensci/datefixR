@@ -1,5 +1,29 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# datefixR 1.1.0
+
+This update introduces a Shiny app and support for names of months in Spanish,
+German, and French.
+
+## Code changes
+
+* New function, `fix_date_app()` which produces a shiny app for accessing
+  the features of `datefixR`. Please note, the package dependencies for this app
+  (`DT`, `htmltools`, `readxl`, and `shiny`) are not installed alongside
+  `datefixR`. This allows datefixR to be installed on secure systems where these
+  packages may not be allowed. If one of these dependencies is not installed on
+  the system when this function is called, then the user will have the option of
+  installing them.
+* Behind the scenes, names for months of the year are now handled differently to
+  allow multilingual support. Spanish, German, and French is currently supported
+  with the option to support additional languages in the future.
+  
+## Documentation
+
+* The README now uses an animation from
+  [`asciicast`](https://CRAN.R-project.org/package=asciicast) to demonstrate the
+  package. 
+
 # datefixR 1.0.0
 
 For this revision, `datefixR` has undergone

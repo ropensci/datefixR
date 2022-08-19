@@ -2,13 +2,13 @@
   "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "identifier": "datefixR",
-  "description": "There are many different formats dates are commonly represented with: the order of day, month, or year can differ, different separators (\"-\", \"/\", or whitespace) can be used, months can be numerical, names, or abbreviations and year given as two digits or four. 'datefixR' takes dates in all these different formats and converts them to R's built-in date class. If 'datefixR' cannot standardize a date, such as because it is too malformed, then the user is told which date cannot be standardized and the corresponding ID for the row. 'datefixR' also allows the imputation of missing days and months with user-controlled behavior. ",
+  "description": "There are many different formats dates are commonly represented with: the order of day, month, or year can differ, different separators (\"-\", \"/\", or whitespace) can be used, months can be numerical, names, or abbreviations and year given as two digits or four. 'datefixR' takes dates in all these different formats and converts them to R's built-in date class. If 'datefixR' cannot standardize a date, such as because it is too malformed, then the user is told which date cannot be standardized and the corresponding ID for the row. 'datefixR' also allows the imputation of missing days and months with user-controlled behavior.",
   "name": "datefixR: Standardize Dates in Different Formats or with Missing Data",
   "relatedLink": ["https://docs.ropensci.org/datefixR/", "https://CRAN.R-project.org/package=datefixR"],
   "codeRepository": "https://github.com/ropensci/datefixR",
   "issueTracker": "https://github.com/ropensci/datefixR/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -42,15 +42,27 @@
   "softwareSuggestions": [
     {
       "@type": "SoftwareApplication",
-      "identifier": "rmarkdown",
-      "name": "rmarkdown",
+      "identifier": "DT",
+      "name": "DT",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
+      "sameAs": "https://CRAN.R-project.org/package=DT"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "htmltools",
+      "name": "htmltools",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=htmltools"
     },
     {
       "@type": "SoftwareApplication",
@@ -66,16 +78,51 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "testthat",
-      "name": "testthat",
-      "version": ">= 3.0.0",
+      "identifier": "readxl",
+      "name": "readxl",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://CRAN.R-project.org/package=testthat"
+      "sameAs": "https://CRAN.R-project.org/package=readxl"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "rmarkdown",
+      "name": "rmarkdown",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "shiny",
+      "name": "shiny",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=shiny"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "shinytest",
+      "name": "shinytest",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=shinytest"
     },
     {
       "@type": "SoftwareApplication",
@@ -88,6 +135,19 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=spelling"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "testthat",
+      "name": "testthat",
+      "version": ">= 3.0.0",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=testthat"
     },
     {
       "@type": "SoftwareApplication",
@@ -123,6 +183,18 @@
     },
     "3": {
       "@type": "SoftwareApplication",
+      "identifier": "rlang",
+      "name": "rlang",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rlang"
+    },
+    "4": {
+      "@type": "SoftwareApplication",
       "identifier": "stringr",
       "name": "stringr",
       "provider": {
@@ -135,7 +207,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "544.889KB",
+  "fileSize": "870.496KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -149,7 +221,7 @@
       "name": "{datefixR}: Standardize Dates in Different Formats or with Missing Data",
       "identifier": "10.5281/zenodo.5655311",
       "url": "https://CRAN.R-project.org/package=datefixR",
-      "description": "R package version 1.0.0",
+      "description": "R package version 1.1.0",
       "@id": "https://doi.org/10.5281/zenodo.5655311",
       "sameAs": "https://doi.org/10.5281/zenodo.5655311"
     }

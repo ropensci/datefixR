@@ -71,6 +71,12 @@
       pattern = "-",
       n = Inf
     )
+  } else if (grepl(" de ", date, fixed = TRUE)) {
+    # Spanish date
+    date_vec <- stringr::str_split_fixed(date,
+                                         pattern = " de | del ",
+                                         n = Inf
+    )
   } else if (grepl(" ", date, fixed = TRUE)) {
     date_vec <- stringr::str_split_fixed(date,
       pattern = " ",
@@ -91,7 +97,7 @@
       replacement <- i
     }
 
-    for (j in 1:length(months$months[[i]])) {
+    for (j in seq_along(months$months[[i]])) {
       date <- gsub(
         pattern = months$months[[i]][j],
         replacement = replacement,
@@ -234,7 +240,9 @@
 }
 
 
-.fix_date_char <- function(date, day.impute = 1, month.impute = 7, format = "dmy") {
+.fix_date_char <- function(date, day.impute = 1,
+                           month.impute = 7,
+                           format = "dmy") {
   if (is.null(date) || is.na(date) || as.character(date) == "") {
     return(NA)
   }
