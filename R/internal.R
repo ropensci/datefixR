@@ -74,8 +74,8 @@
   } else if (grepl(" de ", date, fixed = TRUE)) {
     # Spanish date
     date_vec <- stringr::str_split_fixed(date,
-                                         pattern = " de | del ",
-                                         n = Inf
+      pattern = " de | del ",
+      n = Inf
     )
   } else if (grepl(" ", date, fixed = TRUE)) {
     date_vec <- stringr::str_split_fixed(date,
