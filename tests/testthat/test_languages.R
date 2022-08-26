@@ -7,7 +7,8 @@ test_that("All January translations work", {
     "05 j\u00E4nner 2021",
     "j\u00E4n 2003",
     "enero 2005",
-    "jan 2010"
+    "jan 2010",
+    "10 de janeiro de 2019"
   ))
 
   expect_equal(fixed, as.Date(c(
@@ -18,7 +19,8 @@ test_that("All January translations work", {
     "2021-01-05",
     "2003-01-01",
     "2005-01-01",
-    "2010-01-01"
+    "2010-01-01",
+    "2019-01-10"
   )))
 
   example.df <- data.frame(column = c(
@@ -29,7 +31,8 @@ test_that("All January translations work", {
     "05 j\u00E4nner 2021",
     "j\u00E4n 2003",
     "enero 2005",
-    "jan 2010"
+    "jan 2010",
+    "10 de janeiro de 2019"
   ))
   fixed.df <- fix_date_df(example.df, col.names = "column")
 
@@ -41,7 +44,8 @@ test_that("All January translations work", {
     "2021-01-05",
     "2003-01-01",
     "2005-01-01",
-    "2010-01-01"
+    "2010-01-01",
+    "2019-01-10"
   ))))
 })
 
@@ -54,7 +58,8 @@ test_that("All Feburary translations work", {
     "05 fevr 2021",
     "februar 2003",
     "febrero 2005",
-    "feb 2010"
+    "feb 2010",
+    "25 de fevereiro de 2018"
   ))
 
   expect_equal(fixed, as.Date(c(
@@ -65,7 +70,8 @@ test_that("All Feburary translations work", {
     "2021-02-05",
     "2003-02-01",
     "2005-02-01",
-    "2010-02-01"
+    "2010-02-01",
+    "2018-02-25"
   )))
 
   example.df <- data.frame(column = c(
@@ -76,7 +82,8 @@ test_that("All Feburary translations work", {
     "05 fevr 2021",
     "februar 2003",
     "febrero 2005",
-    "feb 2010"
+    "feb 2010",
+    "25 de fevereiro de 2018"
   ))
   fixed.df <- fix_date_df(example.df, col.names = "column")
 
@@ -88,7 +95,8 @@ test_that("All Feburary translations work", {
     "2021-02-05",
     "2003-02-01",
     "2005-02-01",
-    "2010-02-01"
+    "2010-02-01",
+    "2018-02-25"
   ))))
 })
 
@@ -99,7 +107,9 @@ test_that("All March translations work", {
     "m\u00E4rz 2020",
     "marzo 2015",
     "marz 2021",
-    "mar 2003"
+    "mar 2003",
+    "mar\u00E7o 1980",
+    "marco 2000"
   ))
 
   expect_equal(fixed, as.Date(c(
@@ -108,7 +118,9 @@ test_that("All March translations work", {
     "2020-03-01",
     "2015-03-01",
     "2021-03-01",
-    "2003-03-01"
+    "2003-03-01",
+    "1980-03-01",
+    "2000-03-01"
   )))
 
   example.df <- data.frame(column = c(
@@ -117,7 +129,9 @@ test_that("All March translations work", {
     "m\u00E4rz 2020",
     "marzo 2015",
     "marz 2021",
-    "mar 2003"
+    "mar 2003",
+    "mar\u00E7o 1980",
+    "marco 2000"
   ))
   fixed.df <- fix_date_df(example.df, col.names = "column")
 
@@ -127,7 +141,9 @@ test_that("All March translations work", {
     "2020-03-01",
     "2015-03-01",
     "2021-03-01",
-    "2003-03-01"
+    "2003-03-01",
+    "1980-03-01",
+    "2000-03-01"
   ))))
 })
 
@@ -171,26 +187,30 @@ test_that("All May translations work", {
   fixed <- fix_date_char(c(
     "1 Mayo 2000",
     "15 May 1975",
-    "Mai 2020"
+    "Mai 2020",
+    "15 de maio de 1993"
   ))
 
   expect_equal(fixed, as.Date(c(
     "2000-05-01",
     "1975-05-15",
-    "2020-05-01"
+    "2020-05-01",
+    "1993-05-15"
   )))
 
   example.df <- data.frame(column = c(
     "1 Mayo 2000",
     "15 May 1975",
-    "Mai 2020"
+    "Mai 2020",
+    "15 de maio de 1993"
   ))
   fixed.df <- fix_date_df(example.df, col.names = "column")
 
   expect_equal(fixed.df, data.frame(column = as.Date(c(
     "2000-05-01",
     "1975-05-15",
-    "2020-05-01"
+    "2020-05-01",
+    "1993-05-15"
   ))))
 })
 
@@ -201,7 +221,8 @@ test_that("All June translations work", {
     "15 juin 1975",
     "junio 2020",
     "Juni 2015",
-    "jun 2021"
+    "jun 2021",
+    "12 de junho de 2015"
   ))
 
   expect_equal(fixed, as.Date(c(
@@ -209,7 +230,8 @@ test_that("All June translations work", {
     "1975-06-15",
     "2020-06-01",
     "2015-06-01",
-    "2021-06-01"
+    "2021-06-01",
+    "2015-06-12"
   )))
 
   example.df <- data.frame(column = c(
@@ -217,7 +239,8 @@ test_that("All June translations work", {
     "15 juin 1975",
     "junio 2020",
     "Juni 2015",
-    "jun 2021"
+    "jun 2021",
+    "12 de junho de 2015"
   ))
   fixed.df <- fix_date_df(example.df, col.names = "column")
 
@@ -226,7 +249,8 @@ test_that("All June translations work", {
     "1975-06-15",
     "2020-06-01",
     "2015-06-01",
-    "2021-06-01"
+    "2021-06-01",
+    "2015-06-12"
   ))))
 })
 
@@ -237,7 +261,8 @@ test_that("All July translations work", {
     "Juil 2020",
     "Julio 2015",
     "juli 2021",
-    "jul 2003"
+    "jul 2003",
+    "julho de 1997"
   ))
 
   expect_equal(fixed, as.Date(c(
@@ -246,7 +271,8 @@ test_that("All July translations work", {
     "2020-07-01",
     "2015-07-01",
     "2021-07-01",
-    "2003-07-01"
+    "2003-07-01",
+    "1997-07-01"
   )))
 
   example.df <- data.frame(column = c(
@@ -255,7 +281,8 @@ test_that("All July translations work", {
     "Juil 2020",
     "Julio 2015",
     "juli 2021",
-    "jul 2003"
+    "jul 2003",
+    "julho de 1997"
   ))
   fixed.df <- fix_date_df(example.df, col.names = "column")
 
@@ -265,7 +292,8 @@ test_that("All July translations work", {
     "2020-07-01",
     "2015-07-01",
     "2021-07-01",
-    "2003-07-01"
+    "2003-07-01",
+    "1997-07-01"
   ))))
 })
 
@@ -313,7 +341,8 @@ test_that("All September translations work", {
     "septiembre 2020",
     "set 2015",
     "Sept 2021",
-    "Sep 2003"
+    "Sep 2003",
+    "20 de setembro de 1975"
   ))
 
   expect_equal(fixed, as.Date(c(
@@ -322,7 +351,8 @@ test_that("All September translations work", {
     "2020-09-01",
     "2015-09-01",
     "2021-09-01",
-    "2003-09-01"
+    "2003-09-01",
+    "1975-09-20"
   )))
 
   example.df <- data.frame(column = c(
@@ -331,7 +361,8 @@ test_that("All September translations work", {
     "septiembre 2020",
     "set 2015",
     "Sept 2021",
-    "Sep 2003"
+    "Sep 2003",
+    "20 de setembro de 1975"
   ))
   fixed.df <- fix_date_df(example.df, col.names = "column")
 
@@ -341,7 +372,8 @@ test_that("All September translations work", {
     "2020-09-01",
     "2015-09-01",
     "2021-09-01",
-    "2003-09-01"
+    "2003-09-01",
+    "1975-09-20"
   ))))
 })
 
@@ -354,7 +386,8 @@ test_that("All October translations work", {
     "oktober 2020",
     "Okt 2015",
     "octubre 2021",
-    "Oct 2003"
+    "Oct 2003",
+    "27 de outubro de 1987"
   ))
 
   expect_equal(fixed, as.Date(c(
@@ -363,7 +396,8 @@ test_that("All October translations work", {
     "2020-10-01",
     "2015-10-01",
     "2021-10-01",
-    "2003-10-01"
+    "2003-10-01",
+    "1987-10-27"
   )))
 
   example.df <- data.frame(column = c(
@@ -372,7 +406,8 @@ test_that("All October translations work", {
     "oktober 2020",
     "Okt 2015",
     "octubre 2021",
-    "Oct 2003"
+    "Oct 2003",
+    "27 de outubro de 1987"
   ))
   fixed.df <- fix_date_df(example.df, col.names = "column")
 
@@ -382,7 +417,8 @@ test_that("All October translations work", {
     "2020-10-01",
     "2015-10-01",
     "2021-10-01",
-    "2003-10-01"
+    "2003-10-01",
+    "1987-10-27"
   ))))
 })
 
@@ -392,21 +428,24 @@ test_that("All November translations work", {
     "1 november 2000",
     "15 Novembre 1975",
     "noviembre 2020",
-    "Nov 2015"
+    "Nov 2015",
+    "5 de novembro de 1990"
   ))
 
   expect_equal(fixed, as.Date(c(
     "2000-11-01",
     "1975-11-15",
     "2020-11-01",
-    "2015-11-01"
+    "2015-11-01",
+    "1990-11-05"
   )))
 
   example.df <- data.frame(column = c(
     "1 november 2000",
     "15 Novembre 1975",
     "noviembre 2020",
-    "Nov 2015"
+    "Nov 2015",
+    "5 de novembro de 1990"
   ))
   fixed.df <- fix_date_df(example.df, col.names = "column")
 
@@ -414,7 +453,8 @@ test_that("All November translations work", {
     "2000-11-01",
     "1975-11-15",
     "2020-11-01",
-    "2015-11-01"
+    "2015-11-01",
+    "1990-11-05"
   ))))
 })
 
@@ -428,7 +468,8 @@ test_that("All December translations work", {
     "Dez 2003",
     "diciembre 2005",
     "dic 2010",
-    "03-dec-2000"
+    "03-dec-2000",
+    "16 de dezembro de 2020"
   ))
 
   expect_equal(fixed, as.Date(c(
@@ -440,7 +481,8 @@ test_that("All December translations work", {
     "2003-12-01",
     "2005-12-01",
     "2010-12-01",
-    "2000-12-03"
+    "2000-12-03",
+    "2020-12-16"
   )))
 
   example.df <- data.frame(column = c(
@@ -452,7 +494,8 @@ test_that("All December translations work", {
     "Dez 2003",
     "diciembre 2005",
     "dic 2010",
-    "03-dec-2000"
+    "03-dec-2000",
+    "16 de dezembro de 2020"
   ))
   fixed.df <- fix_date_df(example.df, col.names = "column")
 
@@ -465,6 +508,7 @@ test_that("All December translations work", {
     "2003-12-01",
     "2005-12-01",
     "2010-12-01",
-    "2000-12-03"
+    "2000-12-03",
+    "2020-12-16"
   ))))
 })
