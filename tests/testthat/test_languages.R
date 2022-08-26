@@ -108,7 +108,7 @@ test_that("All March translations work", {
     "marzo 2015",
     "marz 2021",
     "mar 2003",
-    "março 1980",
+    "mar\u00E7o 1980",
     "marco 2000"
   ))
 
@@ -130,7 +130,7 @@ test_that("All March translations work", {
     "marzo 2015",
     "marz 2021",
     "mar 2003",
-    "março 1980",
+    "mar\u00E7o 1980",
     "marco 2000"
   ))
   fixed.df <- fix_date_df(example.df, col.names = "column")
