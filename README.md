@@ -20,6 +20,7 @@ for example dates which have been provided from free text web forms.
 There are many different formats dates are commonly represented with:
 the order of day, month, or year can differ, different separators (“-”,
 “/”, or whitespace) can be used, months can be numerical, names, or
+“/”, “.”, or whitespace) can be used, months can be numerical, names, or
 abbreviations and year given as two digits or four. `datefixR` takes
 dates in all these different formats and converts them to R’s built-in
 date class. If `datefixR` cannot standardize a date, such as because it
