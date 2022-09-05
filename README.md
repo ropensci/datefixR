@@ -6,8 +6,8 @@
 <!-- badges: start -->
 
 | Usage                                                                                                                                                                    | Release                                                                                                                                          | Development                                                                                                                                                                                            |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| ![R](https://img.shields.io/badge/r-%23276DC3.svg?style=for-the-badge&logo=r&logoColor=white)                                                                            | [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/datefixR)](https://cran.r-project.org/package=datefixR)                             | [![R build status](https://github.com/ropensci/datefixR/workflows/CI/badge.svg)](https://github.com/ropensci/datefixR/actions)                                                                         |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ![R](https://img.shields.io/badge/r-%23276DC3.svg?style=for-the-badge&logo=r&logoColor=white)                                                                            | [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/datefixR)](https://cran.r-project.org/package=datefixR)                               | [![R build status](https://github.com/ropensci/datefixR/workflows/CI/badge.svg)](https://github.com/ropensci/datefixR/actions)                                                                         |
 | [![License: GPL-3](https://img.shields.io/badge/License-GPL3-green.svg)](https://opensource.org/licenses/GPL-3.0)                                                        | [![datefixR status badge](https://ropensci.r-universe.dev/badges/datefixR)](https://ropensci.r-universe.dev/ui#package:datefixR)                 | [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) |
 | [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/datefixR?color=blue)](https://r-pkg.org/pkg/datefixR)                                    | [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5655311.svg)](https://doi.org/10.5281/zenodo.5655311)                                        | [![codecov](https://codecov.io/gh/ropensci/datefixR/branch/main/graph/badge.svg?token=zycOVwlq1m)](https://app.codecov.io/gh/ropensci/datefixR)                                                        |
 | ![website status](https://img.shields.io/website?down_color=red&down_message=offline&up_color=green&up_message=online&url=https%3A%2F%2Fdocs.ropensci.org%2FdatefixR%2F) | [![Status at rOpenSci Software Peer Review](https://badges.ropensci.org/533_status.svg)](https://github.com/ropensci/software-review/issues/533) | [![Tidyverse style guide](https://img.shields.io/static/v1?label=Code%20Style&message=Tidyverse&color=1f1c30)](https://style.tidyverse.org)                                                            |
@@ -19,7 +19,6 @@ for example dates which have been provided from free text web forms.
 
 There are many different formats dates are commonly represented with:
 the order of day, month, or year can differ, different separators (“-”,
-“/”, or whitespace) can be used, months can be numerical, names, or
 “/”, “.”, or whitespace) can be used, months can be numerical, names, or
 abbreviations and year given as two digits or four. `datefixR` takes
 dates in all these different formats and converts them to R’s built-in
@@ -30,6 +29,15 @@ allows the imputation of missing days and months with user-controlled
 behavior.
 
 <img src="man/figures/example.svg" width="800"/>
+
+`datefixR` also supports dates provided in different languages. The
+following languages are currently supported:
+
+- English
+- Français (French)
+- Deutsche (German)
+- español (Spanish)
+- português (Portuguese)
 
 Not familiar with R or want to quickly try out `datefixR`? Check out the
 shiny app [here](https://nathansam.shinyapps.io/datefixr/).
@@ -87,13 +95,13 @@ data("exampledates")
 knitr::kable(exampledates)
 ```
 
-| id | some.dates  | some.more.dates |
-| -: | :---------- | :-------------- |
-|  1 | 02 05 92    | 2015            |
-|  2 | 01-04-2020  | 02/05/00        |
-|  3 | 1996/05/01  | 05/1990         |
-|  4 | 2020-may-01 | 2012-08         |
-|  5 | 02-04-96    | jan 2020        |
+|  id | some.dates  | some.more.dates |
+|----:|:------------|:----------------|
+|   1 | 02 05 92    | 2015            |
+|   2 | 01-04-2020  | 02/05/00        |
+|   3 | 1996/05/01  | 05/1990         |
+|   4 | 2020-may-01 | 2012-08         |
+|   5 | 02-04-96    | jan 2020        |
 
 We can standardize these date columns by using the `fix_date_df()`
 function and passing the data frame/tibble object and a character vector
@@ -104,13 +112,13 @@ fixed.df <- fix_date_df(exampledates, c("some.dates", "some.more.dates"))
 knitr::kable(fixed.df)
 ```
 
-| id | some.dates | some.more.dates |
-| -: | :--------- | :-------------- |
-|  1 | 1992-05-02 | 2015-07-01      |
-|  2 | 2020-04-01 | 2000-05-02      |
-|  3 | 1996-05-01 | 1990-05-01      |
-|  4 | 2020-05-01 | 2012-08-01      |
-|  5 | 1996-04-02 | 2020-01-01      |
+|  id | some.dates | some.more.dates |
+|----:|:-----------|:----------------|
+|   1 | 1992-05-02 | 2015-07-01      |
+|   2 | 2020-04-01 | 2000-05-02      |
+|   3 | 1996-05-01 | 1990-05-01      |
+|   4 | 2020-05-01 | 2012-08-01      |
+|   5 | 1996-04-02 | 2020-01-01      |
 
 By default, `datefixR` imputes missing days of the month as 01, and
 missing months as 07 (July). However, this behavior can be modified via
@@ -220,7 +228,7 @@ project, you agree to abide by its terms.
 ## Citation
 
 If you use this package in your research, please consider citing
-`datefixR`\! An up-to-date citation can be obtained by running
+`datefixR`! An up-to-date citation can be obtained by running
 
 ``` r
 citation("datefixR")
