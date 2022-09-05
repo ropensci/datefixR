@@ -80,8 +80,8 @@
   } else if (grepl(".", date, fixed = TRUE)) {
     # German date
     date_vec <- stringr::str_split_fixed(date,
-                                         pattern = "\\.",
-                                         n = Inf
+      pattern = "\\.",
+      n = Inf
     )
   } else if (grepl(" ", date, fixed = TRUE)) {
     date_vec <- stringr::str_split_fixed(date,

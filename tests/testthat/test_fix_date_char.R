@@ -61,7 +61,7 @@ test_that("Test NA imputed when provided", {
   )
   expect_equal(date.guess, as.Date(NA))
 })
- 
+
 test_that("fix_date works for mdy format", {
   bad.date <- "07/15/11"
   fixed.date <- fix_date_char(bad.date, format = "mdy")
