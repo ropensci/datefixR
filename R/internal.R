@@ -309,14 +309,16 @@
 }
 
 .process_french <- function(date) {
-  date <- gsub(pattern = "le ",
-               replacement = "",
-               x = date,
-               ignore.case = TRUE)
-  gsub(pattern = "1er",
-       replacement = "01",
-       x = date,
-       ignore.case = TRUE)
+  date <- gsub(
+    pattern = "le ",
+    replacement = "",
+    x = date,
+    ignore.case = TRUE
+  )
+  gsub(
+    pattern = "1er",
+    replacement = "01",
+    x = date,
+    ignore.case = TRUE
+  )
 }
-
-
