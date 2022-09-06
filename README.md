@@ -19,8 +19,8 @@ for example dates which have been provided from free text web forms.
 
 There are many different formats dates are commonly represented with:
 the order of day, month, or year can differ, different separators (“-”,
-“/”, or whitespace) can be used, months can be numerical, names, or
-abbreviations and year given as two digits or four. `datefixR` takes
+“/”, “.”, or whitespace) can be used, months can be numerical, names,
+or abbreviations and year given as two digits or four. `datefixR` takes
 dates in all these different formats and converts them to R’s built-in
 date class. If `datefixR` cannot standardize a date, such as because it
 is too malformed, then the user is told which date cannot be
@@ -29,6 +29,15 @@ allows the imputation of missing days and months with user-controlled
 behavior.
 
 <img src="man/figures/example.svg" width="800"/>
+
+`datefixR` also supports dates provided in different languages. The
+following languages are currently supported:
+
+  - English
+  - Français (French)
+  - Deutsche (German)
+  - español (Spanish)
+  - português (Portuguese)
 
 Not familiar with R or want to quickly try out `datefixR`? Check out the
 shiny app [here](https://nathansam.shinyapps.io/datefixr/).

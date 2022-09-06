@@ -88,10 +88,21 @@ character object.
 fix_date_char("01 02 2014")
 ```
 
+### Localization
+
+datefixR` supports dates being provided in English, Français (French),
+Deutsche (German), español (Spanish), or português (Portuguese) by recognizing
+both the names of the months in these languages and formatting customs. Expected
+languages do not need to be specified and can be provided just like any other
+date to be standardized. This can be seen by calling
+ 
+```{R}
+fix_date_char("7 de septiembre de 2014")
+```
+
 Functions in `datefixR` assume day-first instead of month-first when day, month,
 and year are all given (unless year is given first). However this behavior can
 be modified by passing `format = "mdy"` to function calls.  
-
 
 ```{R}
 fix_date_char("01 02 2014", format = "mdy")

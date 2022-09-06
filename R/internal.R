@@ -9,6 +9,7 @@
     return(NA)
   }
   date <- as.character(date)
+  date <- .process_french(date)
   date <- .convert_text_month(date)
 
   if (nchar(date) == 4) {
@@ -75,6 +76,12 @@
     # Spanish date
     date_vec <- stringr::str_split_fixed(date,
       pattern = " de | del ",
+      n = Inf
+    )
+  } else if (grepl(".", date, fixed = TRUE)) {
+    # German date
+    date_vec <- stringr::str_split_fixed(date,
+      pattern = "\\.",
       n = Inf
     )
   } else if (grepl(" ", date, fixed = TRUE)) {
@@ -247,6 +254,7 @@
     return(NA)
   }
   if (!is.character(date)) stop("date should be a character \n")
+  date <- .process_french(date)
   day.impute <- .convertimpute(day.impute)
   month.impute <- .convertimpute(month.impute)
 
@@ -298,4 +306,19 @@
   }
   .checkoutput(day, month)
   as.Date(.combinepartialdate(day, month, year, date))
+}
+
+.process_french <- function(date) {
+  date <- gsub(
+    pattern = "le ",
+    replacement = "",
+    x = date,
+    ignore.case = TRUE
+  )
+  gsub(
+    pattern = "1er",
+    replacement = "01",
+    x = date,
+    ignore.case = TRUE
+  )
 }

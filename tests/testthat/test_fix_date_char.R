@@ -62,7 +62,6 @@ test_that("Test NA imputed when provided", {
   expect_equal(date.guess, as.Date(NA))
 })
 
-
 test_that("fix_date works for mdy format", {
   bad.date <- "07/15/11"
   fixed.date <- fix_date_char(bad.date, format = "mdy")
@@ -80,4 +79,8 @@ test_that("unexpected format raises error", {
 test_that("'de' and 'del' is parsed", {
   expect_equal(fix_date_char("20 de abril de 1994"), as.Date("1994-04-20"))
   expect_equal(fix_date_char("06 de enero del 2008"), as.Date("2008-01-06"))
+})
+
+test_that("German format days are supported", {
+  expect_equal(fix_date_char("29.08.1992"), as.Date("1992-08-29"))
 })
