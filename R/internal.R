@@ -309,10 +309,10 @@
 }
 
 .rm_article <- function(date) {
-  gsub(pattern = "le ",
+  gsub(
+    pattern = "le ",
     replacement = "",
     x = date,
-    ignore.case = TRUE)
+    ignore.case = TRUE
+  )
 }
-
-
