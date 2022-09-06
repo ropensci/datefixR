@@ -1,7 +1,7 @@
 test_that("All January translations work", {
   fixed <- fix_date_char(c(
     "1 january 2000",
-    "15 janvier 1975",
+    "le 1er janvier 1975",
     "janv 2020",
     "januar 2015",
     "05 j\u00E4nner 2021",
@@ -13,7 +13,7 @@ test_that("All January translations work", {
 
   expect_equal(fixed, as.Date(c(
     "2000-01-01",
-    "1975-01-15",
+    "1975-01-01",
     "2020-01-01",
     "2015-01-01",
     "2021-01-05",

@@ -9,7 +9,7 @@
     return(NA)
   }
   date <- as.character(date)
-  date <- .rm_article(date)
+  date <- .process_french(date)
   date <- .convert_text_month(date)
 
   if (nchar(date) == 4) {
@@ -254,7 +254,7 @@
     return(NA)
   }
   if (!is.character(date)) stop("date should be a character \n")
-  date <- .rm_article(date)
+  date <- .process_french(date)
   day.impute <- .convertimpute(day.impute)
   month.impute <- .convertimpute(month.impute)
 
@@ -308,11 +308,15 @@
   as.Date(.combinepartialdate(day, month, year, date))
 }
 
-.rm_article <- function(date) {
-  gsub(pattern = "le ",
-    replacement = "",
-    x = date,
-    ignore.case = TRUE)
+.process_french <- function(date) {
+  date <- gsub(pattern = "le ",
+               replacement = "",
+               x = date,
+               ignore.case = TRUE)
+  gsub(pattern = "1er",
+       replacement = "01",
+       x = date,
+       ignore.case = TRUE)
 }
 
 
