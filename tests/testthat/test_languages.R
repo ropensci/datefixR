@@ -76,7 +76,7 @@ test_that("All Feburary translations work", {
 
   example.df <- data.frame(column = c(
     "1 february 2000",
-    "15 f\u00E9vrier 1975",
+    "le 15 f\u00E9vrier 1975",
     "fevrier 2020",
     "f\u00E9vr 2015",
     "05 fevr 2021",
@@ -151,7 +151,7 @@ test_that("All March translations work", {
 test_that("All April translations work", {
   fixed <- fix_date_char(c(
     "1 April 2000",
-    "15 avril 1975",
+    "Le 15 avril 1975",
     "abril 2020",
     "abr 2015",
     "apr 2021"

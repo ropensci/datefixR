@@ -9,6 +9,7 @@
     return(NA)
   }
   date <- as.character(date)
+  date <- .rm_article(date)
   date <- .convert_text_month(date)
 
   if (nchar(date) == 4) {
@@ -253,6 +254,7 @@
     return(NA)
   }
   if (!is.character(date)) stop("date should be a character \n")
+  date <- .rm_article(date)
   day.impute <- .convertimpute(day.impute)
   month.impute <- .convertimpute(month.impute)
 
@@ -305,3 +307,12 @@
   .checkoutput(day, month)
   as.Date(.combinepartialdate(day, month, year, date))
 }
+
+.rm_article <- function(date) {
+  gsub(pattern = "le ",
+    replacement = "",
+    x = date,
+    ignore.case = TRUE)
+}
+
+
