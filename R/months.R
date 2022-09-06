@@ -28,24 +28,28 @@ months$months[[2]] <- c(
   "febrero",
   "feb"
 )
-months$months[[3]] <- c("march",
-                        "mars",
-                        "m\u00E4rz",
-                        "marzo",
-                        "mar\u00E7o",
-                        "marco",
-                        "marz",
-                        "mar")
+months$months[[3]] <- c(
+  "march",
+  "mars",
+  "m\u00E4rz",
+  "marzo",
+  "mar\u00E7o",
+  "marco",
+  "marz",
+  "mar"
+)
 months$months[[4]] <- c("april", "avril", "abril", "abr", "apr")
 months$months[[5]] <- c("mayo", "may", "maio", "mai")
 months$months[[6]] <- c("june", "juin", "junio", "junho", "juni", "jun")
-months$months[[7]] <- c("july",
-                        "juillet",
-                        "juil",
-                        "julio",
-                        "julho",
-                        "juli",
-                        "jul")
+months$months[[7]] <- c(
+  "july",
+  "juillet",
+  "juil",
+  "julio",
+  "julho",
+  "juli",
+  "jul"
+)
 months$months[[8]] <- c("august", "aug", "ao\u00FBt", "aout", "agosto")
 months$months[[9]] <- c(
   "september",
