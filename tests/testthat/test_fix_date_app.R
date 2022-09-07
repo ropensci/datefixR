@@ -57,6 +57,5 @@ test_that(".read_data works for csv files", {
       "December 2020"
     )
   )
-
   expect_equal(.read_data(upload), exp.data)
 })
