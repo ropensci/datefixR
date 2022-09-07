@@ -1,7 +1,7 @@
 test_that("unexpected theme raises error raises error", {
   expect_error(
     fix_date_app(theme = "test"),
-    "theme should be 'datefixR or 'none' \n"
+    "theme should be 'datefixR' or 'none' \n"
   )
 })
 

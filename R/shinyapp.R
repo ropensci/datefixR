@@ -24,7 +24,7 @@ fix_date_app <- function(theme = "datefixR") {
   )
 
   if (!(theme %in% c("datefixR", "none"))) {
-    stop("theme should be 'datefixR or 'none' \n")
+    stop("theme should be 'datefixR' or 'none' \n")
   }
 
   ui <- shiny::fluidPage(
