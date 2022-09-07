@@ -1,0 +1,68 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: datefixR 1.1.0.9000\n"
+"POT-Creation-Date: 2022-09-07 11:41\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "df should be a dataframe object!"
+msgstr ""
+
+msgid "col.names should be a character vector!"
+msgstr ""
+
+msgid "Unable to resolve date for subject"
+msgstr ""
+
+msgid "(date:"
+msgstr ""
+
+msgid ")"
+msgstr ")"
+
+msgid "unable to tidy a date"
+msgstr ""
+
+msgid "day.impute should be an integer between 1 and 28"
+msgstr ""
+
+msgid "day.impute should be an integer"
+msgstr ""
+
+msgid "month.impute should be an integer between 1 and 12"
+msgstr ""
+
+msgid "month.impute should be an integer"
+msgstr ""
+
+msgid "Month not in expected range"
+msgstr ""
+
+msgid "Day of the year not in expected range"
+msgstr ""
+
+msgid "format should be either 'dmy' or 'mdy'"
+msgstr ""
+
+msgid "Missing month with no imputation value given"
+msgstr ""
+
+msgid "Missing day with no imputation value given"
+msgstr ""
+
+msgid "NA imputed (date:"
+msgstr ""
+
+msgid "NA imputed for subject"
+msgstr ""
+
+msgid "date should be a character"
+msgstr ""
+
+msgid "theme should be 'datefixR' or 'none'"
+msgstr ""
