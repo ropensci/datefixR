@@ -81,7 +81,10 @@ jobs:
       - uses: r-lib/actions/setup-r@v2
       - name: Install Phantom JS
         run: |
-          install.packages("shinytest"); shinytest::installDependencies()
+          if (Sys.info()["sysname"] == "Darwin") {
+          install.packages("shinytest")
+          shinytest::installDependencies()
+          }
         shell: Rscript {0}
       - uses: r-lib/actions/setup-pandoc@v2
         with:
