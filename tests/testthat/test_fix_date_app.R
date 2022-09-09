@@ -1,7 +1,7 @@
 test_that("unexpected theme raises error raises error", {
   expect_error(
     fix_date_app(theme = "test"),
-    "theme should be 'datefixR or 'none' \n"
+    "theme should be 'datefixR' or 'none' \n"
   )
 })
 
@@ -57,6 +57,5 @@ test_that(".read_data works for csv files", {
       "December 2020"
     )
   )
-
   expect_equal(.read_data(upload), exp.data)
 })
