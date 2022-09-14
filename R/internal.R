@@ -8,7 +8,7 @@
   if (is.null(date) || is.na(date) || as.character(date) == "") {
     return(NA)
   }
-  
+
   date <- stringr::str_replace(date, "st,", "") |>
     stringr::str_replace("nd,", "") |>
     stringr::str_replace("rd,", "") |>
