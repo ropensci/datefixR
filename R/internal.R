@@ -8,9 +8,13 @@
   if (is.null(date) || is.na(date) || as.character(date) == "") {
     return(NA)
   }
-  date <- as.character(date)
-  date <- .process_french(date)
-  date <- .convert_text_month(date)
+  
+  date <- stringr::str_replace(date, "st,", "") |>
+    stringr::str_replace("nd,", "") |>
+    stringr::str_replace("rd,", "") |>
+    as.character() |>
+    .process_french() |>
+    .convert_text_month()
 
   if (nchar(date) == 4) {
     # Just given year
