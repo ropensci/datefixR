@@ -84,3 +84,7 @@ test_that("'de' and 'del' is parsed", {
 test_that("German format days are supported", {
   expect_equal(fix_date_char("29.08.1992"), as.Date("1992-08-29"))
 })
+
+test_that("nunber. + month name (whitespace) + year", {
+  fix_date_char("3. Oktober 1990")
+})
