@@ -86,7 +86,7 @@
   } else if (grepl(".", date, fixed = TRUE)) {
     # German date
     date_vec <- stringr::str_split_fixed(date,
-      pattern = "\\.(\\s)|\\.|(\\s)",
+      pattern = "\\.(\\s)|\\.'|\\.|(\\s)",
       n = Inf
     )
   } else if (grepl(" ", date, fixed = TRUE)) {
@@ -251,7 +251,7 @@
   date_vec
 }
 
-
+#' @noRd
 .fix_date_char <- function(date, day.impute = 1,
                            month.impute = 7,
                            format = "dmy") {
@@ -318,6 +318,7 @@
   as.Date(.combinepartialdate(day, month, year, date))
 }
 
+#' @noRd
 .process_french <- function(date) {
   date <- gsub(
     pattern = "le ",
@@ -333,6 +334,7 @@
   )
 }
 
+#' @noRd
 .rm_ordinal_suffixes <- function(date) {
   # Remove ordinal suffixes
   stringr::str_replace(date, "(\\d)(st,)", "\\1") |>
