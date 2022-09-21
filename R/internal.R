@@ -8,9 +8,10 @@
   if (is.null(date) || is.na(date) || as.character(date) == "") {
     return(NA)
   }
-  date <- as.character(date)
-  date <- .process_french(date)
-  date <- .convert_text_month(date)
+
+  date <- as.character(date) |>
+    .rm_ordinal_suffixes() |>
+    .process_french()
 
   if (nchar(date) == 4) {
     # Just given year
@@ -18,6 +19,10 @@
     month <- .imputemonth(month.impute)
     day <- .imputeday(day.impute)
   } else {
+    if (tolower(.separate_date(date)[1]) %in% unlist(months$months)) {
+      format <- "mdy"
+    }
+    date <- .convert_text_month(date)
     date_vec <- .separate_date(date)
     if (any(nchar(date_vec) > 4)) {
       stop("unable to tidy a date")
@@ -81,7 +86,7 @@
   } else if (grepl(".", date, fixed = TRUE)) {
     # German date
     date_vec <- stringr::str_split_fixed(date,
-      pattern = "\\.",
+      pattern = "\\.(\\s)|\\.'|\\.|(\\s)'|(\\s)",
       n = Inf
     )
   } else if (grepl(" ", date, fixed = TRUE)) {
@@ -246,7 +251,7 @@
   date_vec
 }
 
-
+#' @noRd
 .fix_date_char <- function(date, day.impute = 1,
                            month.impute = 7,
                            format = "dmy") {
@@ -254,12 +259,13 @@
     return(NA)
   }
   if (!is.character(date)) stop("date should be a character \n")
-  date <- .process_french(date)
+
   day.impute <- .convertimpute(day.impute)
   month.impute <- .convertimpute(month.impute)
 
-  date <- as.character(date)
-  date <- .convert_text_month(date)
+  date <- as.character(date) |>
+    .rm_ordinal_suffixes() |>
+    .process_french()
 
   if (nchar(date) == 4) {
     # Just given year
@@ -267,6 +273,10 @@
     month <- .imputemonth(month.impute)
     day <- .imputeday(day.impute)
   } else {
+    if (tolower(.separate_date(date)[1]) %in% unlist(months$months)) {
+      format <- "mdy"
+    }
+    date <- .convert_text_month(date)
     date_vec <- .separate_date(date)
     if (any(nchar(date_vec) > 4)) {
       stop("unable to tidy a date")
@@ -308,6 +318,7 @@
   as.Date(.combinepartialdate(day, month, year, date))
 }
 
+#' @noRd
 .process_french <- function(date) {
   date <- gsub(
     pattern = "le ",
@@ -321,4 +332,17 @@
     x = date,
     ignore.case = TRUE
   )
+}
+
+#' @noRd
+.rm_ordinal_suffixes <- function(date) {
+  # Remove ordinal suffixes
+  stringr::str_replace(date, "(\\d)(st,)", "\\1") |>
+    stringr::str_replace("(\\d)(nd,)", "\\1") |>
+    stringr::str_replace("(\\d)(rd,)", "\\1") |>
+    stringr::str_replace("(\\d)(th,)", "\\1") |>
+    stringr::str_replace("(\\d)(st)", "\\1") |>
+    stringr::str_replace("(\\d)(nd)", "\\1") |>
+    stringr::str_replace("(\\d)(rd)", "\\1") |>
+    stringr::str_replace("(\\d)(th)", "\\1")
 }

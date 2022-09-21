@@ -3,7 +3,6 @@ test_that("fix_date_char works for a series of malformed dates", {
   fixed.date <- fix_date_char(bad.date)
   expect_equal(fixed.date, as.Date("2021-03-02"))
 
-
   bad.date <- "15/07/11"
   fixed.date <- fix_date_char(bad.date)
   expect_equal(fixed.date, as.Date("2011-07-15"))
@@ -83,4 +82,12 @@ test_that("'de' and 'del' is parsed", {
 
 test_that("German format days are supported", {
   expect_equal(fix_date_char("29.08.1992"), as.Date("1992-08-29"))
+})
+
+test_that("nunber. + month name (whitespace) + year", {
+  expect_equal(fix_date_char("3. Oktober 1990"), as.Date("1990-10-03"))
+})
+
+test_that("Month-first dates where the month is given by name", {
+  expect_equal(fix_date_char("July 4th, 1776"), as.Date("1776-07-04"))
 })
