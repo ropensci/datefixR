@@ -9,12 +9,9 @@
     return(NA)
   }
 
-  date <- stringr::str_replace(date, "st,", "") |>
-    stringr::str_replace("nd,", "") |>
-    stringr::str_replace("rd,", "") |>
-    as.character() |>
-    .process_french() |>
-    .convert_text_month()
+  date <- as.character(date) |>
+    .rm_ordinal_suffixes() |>
+    .process_french()
 
   if (nchar(date) == 4) {
     # Just given year
@@ -22,6 +19,10 @@
     month <- .imputemonth(month.impute)
     day <- .imputeday(day.impute)
   } else {
+    if (tolower(.separate_date(date)[1]) %in% unlist(months$months)) {
+      format <- "mdy"
+    }
+    date <- .convert_text_month(date)
     date_vec <- .separate_date(date)
     if (any(nchar(date_vec) > 4)) {
       stop("unable to tidy a date")
@@ -258,12 +259,13 @@
     return(NA)
   }
   if (!is.character(date)) stop("date should be a character \n")
-  date <- .process_french(date)
+
   day.impute <- .convertimpute(day.impute)
   month.impute <- .convertimpute(month.impute)
 
-  date <- as.character(date)
-  date <- .convert_text_month(date)
+  date <- as.character(date) |>
+    .rm_ordinal_suffixes() |>
+    .process_french()
 
   if (nchar(date) == 4) {
     # Just given year
@@ -271,6 +273,10 @@
     month <- .imputemonth(month.impute)
     day <- .imputeday(day.impute)
   } else {
+    if (tolower(.separate_date(date)[1]) %in% unlist(months$months)) {
+      format <- "mdy"
+    }
+    date <- .convert_text_month(date)
     date_vec <- .separate_date(date)
     if (any(nchar(date_vec) > 4)) {
       stop("unable to tidy a date")
@@ -325,4 +331,16 @@
     x = date,
     ignore.case = TRUE
   )
+}
+
+.rm_ordinal_suffixes <- function(date) {
+  # Remove ordinal suffixes
+  stringr::str_replace(date, "(\\d)(st,)", "\\1") |>
+    stringr::str_replace("(\\d)(nd,)", "\\1") |>
+    stringr::str_replace("(\\d)(rd,)", "\\1") |>
+    stringr::str_replace("(\\d)(th,)", "\\1") |>
+    stringr::str_replace("(\\d)(st)", "\\1") |>
+    stringr::str_replace("(\\d)(nd)", "\\1") |>
+    stringr::str_replace("(\\d)(rd)", "\\1") |>
+    stringr::str_replace("(\\d)(th)", "\\1")
 }
