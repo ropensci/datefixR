@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: datefixR 1.1.0.9000\n"
+"Project-Id-Version: datefixR 1.2.0\n"
 "POT-Creation-Date: 2022-09-07 11:41\n"
 "PO-Revision-Date: 2022-09-07 HO:MI+ZONE\n"
 "Last-Translator: Jonathan Kitt <jonathan.kitt@protonmail.com>\n"

@@ -1,5 +1,34 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# datefixR 1.2.0
+
+## Code changes
+
+* Added much wider support for date formats commonly seen in regions where
+  English is not the first language (de and del, "1er" "le" etc.) . 
+* Months with Portuguese names are now recognised. 
+* "." and ".'" separators are now supported.
+* Support has been added for dates with ordinals ("1st", "2nd", etc. )
+* `datefixR` will now recognise when a month-first date is given (without
+  needing the `format` argument to be explicitly provided) if the month is
+  given by name e.g "July 4th, 1776"
+  
+
+* Thanks to community submissions, error messages and warnings have now been
+  translated to French and Spanish. These messages should automatically be
+  delivered instead of the English language versions based on the locale
+  detected by R. 
+  * French errors/warnings were translated by Jonathan Kitt (@KittJonathan on
+    GitHub)
+  * Spanish errors/warnings were translated by Antonio J Perez-Luque (@ajpelu on
+    GitHub)
+
+
+## Documentation
+
+The README file now mentions which languages `datefixR` currently supports. 
+
+
 # datefixR 1.1.0
 
 This update introduces a Shiny app and support for names of months in Spanish,
