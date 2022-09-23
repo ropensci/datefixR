@@ -27,7 +27,7 @@ URL: https://docs.ropensci.org/datefixR/,
     https://github.com/ropensci/datefixR
 BugReports: https://github.com/ropensci/datefixR/issues
 Depends: 
-    R (>= 4.0.0)
+    R (>= 4.1.0)
 Imports: 
     lifecycle,
     rlang,
