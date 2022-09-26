@@ -96,13 +96,6 @@ fix_date_char("01 02 2014")
 
 ### Localization
 
-<<<<<<< Updated upstream
-datefixR` supports dates being provided in English, Français (French),
-Deutsche (German), español (Spanish), or português (Portuguese) by recognizing
-both the names of the months in these languages and formatting customs. Expected
-languages do not need to be specified and can be provided just like any other
-date to be standardized. This can be seen by calling
-=======
 `datefixR` currently supports dates being provided in English, Français
 (French), Deutsch (German), español (Spanish), and português (Portuguese) by
 recognizing both names of months in these languages and formatting customs.
@@ -123,7 +116,7 @@ fix_date_char("01 02 2014", format = "mdy")
 ```
 
 If the month is given by name, then `datefixR` will automatically detect the
-correct format without the `format` argument needing to be specifed by the user. 
+correct format without the `format` argument needing to be specified by the user. 
 
 ```{R}
 fix_date_char("July 4th, 1776")
@@ -142,12 +135,12 @@ fix_date_char("1992")
 
 The argument for defaulting to July is 1st-2nd July is halfway through the year
 (on a non leap year). Therefore, assuming the year supplied is indeed correct,
-the imputation has a maximum potential error of 6 months from the true date.  However, this
-behavior can be changed by supplying the `day.impute` and  `month.impute`
-arguments with an integer corresponding to the desired day and month.
-For example, `day.impute = 1` and `month.impute = 1`  results in the first day
-of January being imputed instead which is often a more common imputation for
-missing date data. 
+the imputation has a maximum potential error of 6 months from the true date.
+However, this behavior can be changed by supplying the `day.impute` and 
+`month.impute` arguments with an integer corresponding to the desired day and
+month. For example, `day.impute = 1` and `month.impute = 1`  results in the
+first day of January being imputed instead which is often a more common
+imputation for missing date data. 
 
 ```{R}
 fix_date_char("1992", day.impute = 1, month.impute = 1)
