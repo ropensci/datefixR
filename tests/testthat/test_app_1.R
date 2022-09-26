@@ -3,8 +3,11 @@
 test_that("fix_date_app() works", {
   # Don't run these tests on the CRAN build servers
   skip_on_cran()
-  skip_on_os(c("windows", "linux", "solaris"))
   withr::local_package("shinytest")
 
-  expect_pass(testApp(test_path("apps/fix_date_theme/"), compareImages = TRUE))
+  if (Sys.info()["sysname"] == "Darwin") {
+    expect_pass(testApp(test_path("apps/fix_date_theme/"),
+      compareImages = TRUE
+    ))
+  }
 })
