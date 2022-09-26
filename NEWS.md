@@ -1,9 +1,18 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# datefixR 1.2.0.9002
+
+- Add German translation of warnings/errors 
+- Refactor tests
+
+
+# datefixR 1.2.0.9001
+
+- Fixes typo in README for the German language (now "Deutsch") 
+
 # datefixR 1.2.0.9000
 
 - Bump to development version
-
 
 # datefixR 1.2.0
 
@@ -13,7 +22,7 @@
   English is not the first language (de and del, "1er" "le" etc.) . 
 * Months with Portuguese names are now recognized. 
 * "." and ".'" separators are now supported.
-* Support has been added for dates with ordinals ("1st", "2nd", etc. )
+* Support has been added for dates with ordinals ("1st", "2nd", etc.)
 * `datefixR` will now recognize when a month-first date is given (without
   needing the `format` argument to be explicitly provided) if the month is
   given by name e.g "July 4th, 1776"

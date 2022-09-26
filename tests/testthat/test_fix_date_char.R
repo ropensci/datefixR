@@ -1,39 +1,19 @@
 test_that("fix_date_char works for a series of malformed dates", {
-  bad.date <- "02 03 2021"
-  fixed.date <- fix_date_char(bad.date)
-  expect_equal(fixed.date, as.Date("2021-03-02"))
+  dates <- c(
+    "02 03 2021" = "2021-03-02",
+    "15/07/11"   = "2011-07-15",
+    "15/07/84"   = "1984-07-15",
+    "2015 11 11" = "2015-11-11",
+    "05/2015"    = "2015-05-01",
+    "2020-01"    = "2020-01-01",
+    "05/89"      = "1989-05-01",
+    "02/14"      = "2014-02-01",
+    "1994"       = "1994-07-01"
+  )
 
-  bad.date <- "15/07/11"
-  fixed.date <- fix_date_char(bad.date)
-  expect_equal(fixed.date, as.Date("2011-07-15"))
+  fixed <- fix_date_char(names(dates))
 
-  bad.date <- "15/07/84"
-  fixed.date <- fix_date_char(bad.date)
-  expect_equal(fixed.date, as.Date("1984-07-15"))
-
-  bad.date <- "2015 11 11"
-  fixed.date <- fix_date_char(bad.date)
-  expect_equal(fixed.date, as.Date("2015-11-11"))
-
-  bad.date <- "05/2015"
-  fixed.date <- fix_date_char(bad.date)
-  expect_equal(fixed.date, as.Date("2015-05-01"))
-
-  bad.date <- "2020-01"
-  fixed.date <- fix_date_char(bad.date)
-  expect_equal(fixed.date, as.Date("2020-01-01"))
-
-  bad.date <- "05/89"
-  fixed.date <- fix_date_char(bad.date)
-  expect_equal(fixed.date, as.Date("1989-05-01"))
-
-  bad.date <- "02/14"
-  fixed.date <- fix_date_char(bad.date)
-  expect_equal(fixed.date, as.Date("2014-02-01"))
-
-  bad.date <- "1994"
-  fixed.date <- fix_date_char(bad.date)
-  expect_equal(fixed.date, as.Date("1994-07-01"))
+  expect_equal(fixed, as.Date(unname(dates)))
 })
 
 test_that("fix_date returns NA if NA is given", {

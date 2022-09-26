@@ -101,7 +101,7 @@ fix_date_char("01 02 2014")
 recognizing both names of months in these languages and formatting customs.
 Expected languages do not need to be specified and can be provided just like any
 other date to be standardized.
->>>>>>> Stashed changes
+
  
 ```{R}
 fix_date_char("7 de septiembre del 2014")

@@ -1,12 +1,14 @@
 Package: datefixR
 Title: Standardize Dates in Different Formats or with Missing Data
-Version: 1.2.0.9000
+Version: 1.2.0.9002
 Authors@R: c(
     person("Nathan", "Constantine-Cooke", , "nathan.constantine-cooke@ed.ac.uk", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-4437-8713")),
     person("Jonathan", "Kitt", , "jonathan.kitt@protonmail.com", role = c("ctb", "trl")),
     person("Antonio J.", "Pérez-Luque", ,"ajpelu@gmail.com", role = c("ctb", "trl"), 
            comment = c(ORCID = "0000-0002-1747-0469")),
+    person("Daniel", "Possenriede", ,"possenriede+r@gmail.com", role = c("ctb", "trl"), 
+           comment = c(ORCID = "0000-0002-6738-9845")),
     person("Kaique dos S.", "Alves", , "kaiquedsalves@gmail.com", role = "rev",
            comment = c(ORCID = "0000-0001-9187-0252")),
     person("Al-Ahmadgaid B.", "Asaad", , "alahmadgaid@gmail.com", role = "rev",
