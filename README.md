@@ -35,7 +35,7 @@ following languages are currently supported:
 
   - English
   - Français (French)
-  - Deutsche (German)
+  - Deutsch (German)
   - español (Spanish)
   - português (Portuguese)
 
