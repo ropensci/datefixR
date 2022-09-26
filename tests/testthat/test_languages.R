@@ -11,7 +11,7 @@ test_that("All January translations work", {
       "jan 2010"              = "2010-01-01",
       "10 de janeiro de 2019" = "2019-01-10"
     )
-  
+
   fixed <- fix_date_char(names(dates))
 
   expect_equal(fixed, as.Date(unname(dates)))
@@ -36,7 +36,7 @@ test_that("All Feburary translations work", {
       "feb 2010"                = "2010-02-01",
       "25 de fevereiro de 2018" = "2018-02-25"
     )
-  
+
   fixed <- fix_date_char(names(dates))
 
   expect_equal(fixed, as.Date(unname(dates)))
@@ -49,7 +49,7 @@ test_that("All Feburary translations work", {
 
 
 test_that("All March translations work", {
-  dates <- 
+  dates <-
     c(
       "1 march 2000"    = "2000-03-01",
       "15 mars 1975"    = "1975-03-15",
@@ -60,7 +60,7 @@ test_that("All March translations work", {
       "mar\u00E7o 1980" = "1980-03-01",
       "marco 2000"      = "2000-03-01"
     )
-  
+
   fixed <- fix_date_char(names(dates))
 
   expect_equal(fixed, as.Date(unname(dates)))
@@ -73,7 +73,7 @@ test_that("All March translations work", {
 
 
 test_that("All April translations work", {
-  dates <- 
+  dates <-
     c(
       "1 April 2000"     = "2000-04-01",
       "Le 15 avril 1975" = "1975-04-15",
@@ -81,7 +81,7 @@ test_that("All April translations work", {
       "abr 2015"         = "2015-04-01",
       "apr 2021"         = "2021-04-01"
     )
-  
+
   fixed <- fix_date_char(names(dates))
 
   expect_equal(fixed, as.Date(unname(dates)))
@@ -94,14 +94,14 @@ test_that("All April translations work", {
 
 
 test_that("All May translations work", {
-  dates <- 
+  dates <-
     c(
       "1 Mayo 2000"        = "2000-05-01",
       "15 May 1975"        = "1975-05-15",
       "Mai 2020"           = "2020-05-01",
       "15 de maio de 1993" = "1993-05-15"
     )
-  
+
   fixed <- fix_date_char(names(dates))
 
   expect_equal(fixed, as.Date(unname(dates)))
@@ -114,7 +114,7 @@ test_that("All May translations work", {
 
 
 test_that("All June translations work", {
-  dates <- 
+  dates <-
     c(
       "1 June 2000"         = "2000-06-01",
       "15 juin 1975"        = "1975-06-15",
@@ -123,7 +123,7 @@ test_that("All June translations work", {
       "jun 2021"            = "2021-06-01",
       "12 de junho de 2015" = "2015-06-12"
     )
-  
+
   fixed <- fix_date_char(names(dates))
 
   expect_equal(fixed, as.Date(unname(dates)))
@@ -146,7 +146,7 @@ test_that("All July translations work", {
       "jul 2003"        = "2003-07-01",
       "julho de 1997"   = "1997-07-01"
     )
-  
+
   fixed <- fix_date_char(names(dates))
 
   expect_equal(fixed, as.Date(unname(dates)))
@@ -159,7 +159,7 @@ test_that("All July translations work", {
 
 
 test_that("All August translations work", {
-  dates <- 
+  dates <-
     c(
       "1 August 2000"  = "2000-08-01",
       "15 aug 1975"    = "1975-08-15",
@@ -167,7 +167,7 @@ test_that("All August translations work", {
       "aout 2015"      = "2015-08-01",
       "agosto 2021"    = "2021-08-01"
     )
-  
+
   fixed <- fix_date_char(names(dates))
 
   expect_equal(fixed, as.Date(unname(dates)))
@@ -180,7 +180,7 @@ test_that("All August translations work", {
 
 
 test_that("All September translations work", {
-  dates <- 
+  dates <-
     c(
       "1 september 2000"       = "2000-09-01",
       "15 septembre 1975"      = "1975-09-15",
@@ -190,7 +190,7 @@ test_that("All September translations work", {
       "Sep 2003"               = "2003-09-01",
       "20 de setembro de 1975" = "1975-09-20"
     )
-  
+
   fixed <- fix_date_char(names(dates))
 
   expect_equal(fixed, as.Date(unname(dates)))
@@ -203,7 +203,7 @@ test_that("All September translations work", {
 
 
 test_that("All October translations work", {
-  dates <- 
+  dates <-
     c(
       "1 october 2000"        = "2000-10-01",
       "15 Octobre 1975"       = "1975-10-15",
@@ -213,7 +213,7 @@ test_that("All October translations work", {
       "Oct 2003"              = "2003-10-01",
       "27 de outubro de 1987" = "1987-10-27"
     )
-  
+
   fixed <- fix_date_char(names(dates))
 
   expect_equal(fixed, as.Date(unname(dates)))
@@ -226,14 +226,14 @@ test_that("All October translations work", {
 
 
 test_that("All November translations work", {
-  dates <- 
+  dates <-
     c(
       "1 november 2000"       = "2000-11-01",
       "15 Novembre 1975"      = "1975-11-15",
       "noviembre 2020"        = "2020-11-01",
       "Nov 2015"              = "2015-11-01",
       "5 de novembro de 1990" = "1990-11-05"
-    )  
+    )
 
   fixed <- fix_date_char(names(dates))
 
@@ -247,7 +247,7 @@ test_that("All November translations work", {
 
 
 test_that("All December translations work", {
-  dates <- 
+  dates <-
     c(
       "1 December 2000"        = "2000-12-01",
       "15 d\u00E9cembre 1975"  = "1975-12-15",
@@ -260,7 +260,7 @@ test_that("All December translations work", {
       "03-dec-2000"            = "2000-12-03",
       "16 de dezembro de 2020" = "2020-12-16"
     )
-    
+
   fixed <- fix_date_char(names(dates))
 
   expect_equal(fixed, as.Date(unname(dates)))
