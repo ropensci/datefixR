@@ -1,5 +1,11 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# datefixR 1.2.0.9002
+
+- Add German translation of warnings/errors 
+- Refactor tests
+
+
 # datefixR 1.2.0.9001
 
 - Fixes typo in README for the German language (now "Deutsch") 
