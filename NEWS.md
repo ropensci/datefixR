@@ -16,7 +16,7 @@
   English is not the first language (de and del, "1er" "le" etc.) . 
 * Months with Portuguese names are now recognized. 
 * "." and ".'" separators are now supported.
-* Support has been added for dates with ordinals ("1st", "2nd", etc. )
+* Support has been added for dates with ordinals ("1st", "2nd", etc.)
 * `datefixR` will now recognize when a month-first date is given (without
   needing the `format` argument to be explicitly provided) if the month is
   given by name e.g "July 4th, 1776"
