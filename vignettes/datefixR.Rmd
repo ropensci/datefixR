@@ -19,11 +19,16 @@ library(datefixR)
 ```
 
 This vignette describes the functionality of `datefixR` in more detail than the
-[README](https://github.com/ropensci/datefixR). `DatefixR` is a lightweight
-package consisting of a two user-accessible functions, `fix_date_char()` and
+[README](https://github.com/ropensci/datefixR) file. `DatefixR` is a lightweight
+package consisting of two main user-accessible functions, `fix_date_char()` and
 `fix_date_df()`, which converts dates written in different formats into R's
-built-in `Date` class. The former is designed to modify character vectors whilst
+built-in
+[`Date` class](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/Dates).
+The former is designed to modify character vectors whilst
 the latter is intended for modifying columns of a data frame (or tibble).
+`fix_date_app()` is a third function which allows dates to be standardized via a
+Shiny app interface. You can learn more about the Shiny app in its dedicated
+vignette.
 
 Practically, this package is most useful when handling date data which has been
 supplied via text boxes (instead of a date-specific input with a consistent date
@@ -50,7 +55,7 @@ bad.dates <- data.frame(
   ),
   some.more.dates = c(
     "01 03 2015",
-    "02/05/00",
+    "2nd January 2010",
     "01/05/1990",
     "03-Dec-2012",
     "02 April 2020"
@@ -63,11 +68,12 @@ knitr::kable(bad.dates)
 and `col.names`, a character vector containing the names of columns to be
 standardized. By default, the first column of the data frame is assumed to
 contain row IDs. These IDs are used if a warning or error is raised to assist
-with locating the source of the error. The ID column can also be manually
-provided via the `id` argument. 
+the user with locating the source of the error. The ID column can also be
+manually provided via the `id` argument. 
 
-The output from this function is a data frame object with the selected date
-columns now belonging to the `Date` class. 
+The output from this function is a data frame or tibble (dependent on the
+object type of the the first argument, `df`) with the selected date
+columns now standardized and belonging to the `Date` class. 
 
 ```{R}
 fixed.dates <- fix_date_df(
@@ -77,7 +83,7 @@ fixed.dates <- fix_date_df(
 knitr::kable(fixed.dates)
 ```
 
-`datefixR` can handle many different formats including -, /, or white space
+`datefixR` can handle many different formats including -, /, ., or white space
 separation,  year-first or day-first, and month supplied as a number, an
 abbreviation or full length name.
 
@@ -90,23 +96,39 @@ fix_date_char("01 02 2014")
 
 ### Localization
 
+<<<<<<< Updated upstream
 datefixR` supports dates being provided in English, Français (French),
 Deutsche (German), español (Spanish), or português (Portuguese) by recognizing
 both the names of the months in these languages and formatting customs. Expected
 languages do not need to be specified and can be provided just like any other
 date to be standardized. This can be seen by calling
+=======
+`datefixR` currently supports dates being provided in English, Français
+(French), Deutsch (German), español (Spanish), and português (Portuguese) by
+recognizing both names of months in these languages and formatting customs.
+Expected languages do not need to be specified and can be provided just like any
+other date to be standardized.
+>>>>>>> Stashed changes
  
 ```{R}
-fix_date_char("7 de septiembre de 2014")
+fix_date_char("7 de septiembre del 2014")
 ```
 
 Functions in `datefixR` assume day-first instead of month-first when day, month,
-and year are all given (unless year is given first). However this behavior can
-be modified by passing `format = "mdy"` to function calls.  
+and year are all given numerically (unless year is given first). However, this
+behavior can be modified by passing `format = "mdy"` to function calls.  
 
 ```{R}
 fix_date_char("01 02 2014", format = "mdy")
 ```
+
+If the month is given by name, then `datefixR` will automatically detect the
+correct format without the `format` argument needing to be specifed by the user. 
+
+```{R}
+fix_date_char("July 4th, 1776")
+```
+
 
 
 ### Date and month imputation
@@ -118,13 +140,14 @@ month as the first day.  As such, "1992" converts to
 fix_date_char("1992")
 ```
 
-The argument for defaulting to July is 1-2 July is halfway through the year
-(on a non leap year). Therefore assuming the year supplied is indeed correct,
-you are only a maximum of 6 months off from the true date.  However, this
+The argument for defaulting to July is 1st-2nd July is halfway through the year
+(on a non leap year). Therefore, assuming the year supplied is indeed correct,
+the imputation has a maximum potential error of 6 months from the true date.  However, this
 behavior can be changed by supplying the `day.impute` and  `month.impute`
 arguments with an integer corresponding to the desired day and month.
 For example, `day.impute = 1` and `month.impute = 1`  results in the first day
-of January being imputed instead. 
+of January being imputed instead which is often a more common imputation for
+missing date data. 
 
 ```{R}
 fix_date_char("1992", day.impute = 1, month.impute = 1)
