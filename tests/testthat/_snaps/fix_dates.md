@@ -4,7 +4,7 @@
       fix_dates(bad.dates, c("some.dates", "some.more.dates"))
     Warning <lifecycle_warning_deprecated>
       `fix_dates()` was deprecated in datefixR 1.0.0.
-      Please use `fix_date_df()` instead.
+      i Please use `fix_date_df()` instead.
     Output
         id some.dates some.more.dates
       1  1 1992-05-02      2000-05-02
