@@ -44,7 +44,9 @@ Suggests:
     shinytest,
     spelling,
     testthat (>= 3.0.0),
-    withr
+    withr,
+    parsedate,
+    readr
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
