@@ -2,7 +2,7 @@
 
 # datefixR 1.2.0.9003
 
-- Same as previous version.
+- Discuss more R packages similar to `datefixR` in README
 
 
 # datefixR 1.2.0.9002
