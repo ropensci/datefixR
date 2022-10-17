@@ -74,7 +74,6 @@ references:
     email: hadley@rstudio.com
     orcid: https://orcid.org/0000-0003-4757-117X
   year: '2022'
-  url: https://CRAN.R-project.org/package=lifecycle
 - type: software
   title: rlang
   abstract: 'rlang: Functions for Base Types and Core R and ''Tidyverse'' Features'
@@ -87,7 +86,6 @@ references:
     given-names: Hadley
     email: hadley@rstudio.com
   year: '2022'
-  url: https://CRAN.R-project.org/package=rlang
 - type: software
   title: stringr
   abstract: 'stringr: Simple, Consistent Wrappers for Common String Operations'
@@ -97,7 +95,6 @@ references:
     given-names: Hadley
     email: hadley@rstudio.com
   year: '2022'
-  url: https://CRAN.R-project.org/package=stringr
 - type: software
   title: DT
   abstract: 'DT: A Wrapper of the JavaScript Library ''DataTables'''
@@ -111,7 +108,7 @@ references:
   - family-names: Tan
     given-names: Xianying
   year: '2022'
-  url: https://CRAN.R-project.org/package=DT
+  url: https://github.com/rstudio/DT
 - type: software
   title: htmltools
   abstract: 'htmltools: Tools for HTML'
@@ -139,7 +136,7 @@ references:
     given-names: Jeff
     email: jeff@rstudio.com
   year: '2022'
-  url: https://CRAN.R-project.org/package=htmltools
+  url: https://github.com/rstudio/htmltools
 - type: software
   title: knitr
   abstract: 'knitr: A General-Purpose Package for Dynamic Report Generation in R'
@@ -150,7 +147,7 @@ references:
     email: xie@yihui.name
     orcid: https://orcid.org/0000-0003-0645-5666
   year: '2022'
-  url: https://CRAN.R-project.org/package=knitr
+  url: https://yihui.org/knitr/
 - type: software
   title: readxl
   abstract: 'readxl: Read Excel Files'
@@ -165,7 +162,6 @@ references:
     email: jenny@rstudio.com
     orcid: https://orcid.org/0000-0002-6983-2759
   year: '2022'
-  url: https://CRAN.R-project.org/package=readxl
 - type: software
   title: rmarkdown
   abstract: 'rmarkdown: Dynamic Documents for R'
@@ -204,7 +200,6 @@ references:
     email: rich@rstudio.com
     orcid: https://orcid.org/0000-0003-3925-190X
   year: '2022'
-  url: https://CRAN.R-project.org/package=rmarkdown
 - type: software
   title: shiny
   abstract: 'shiny: Web Application Framework for R'
@@ -242,7 +237,7 @@ references:
   - family-names: Borges
     given-names: Barbara
   year: '2022'
-  url: https://CRAN.R-project.org/package=shiny
+  url: https://shiny.rstudio.com/
 - type: software
   title: shinytest
   abstract: 'shinytest: Test Shiny Apps'
@@ -258,7 +253,7 @@ references:
     given-names: Hadley
     email: hadley@rstudio.com
   year: '2022'
-  url: https://CRAN.R-project.org/package=shinytest
+  url: https://github.com/rstudio/shinytest
 - type: software
   title: spelling
   abstract: 'spelling: Tools for Spell Checking in R'
@@ -272,7 +267,6 @@ references:
     given-names: Jim
     email: james.hester@rstudio.com
   year: '2022'
-  url: https://CRAN.R-project.org/package=spelling
 - type: software
   title: testthat
   abstract: 'testthat: Unit Testing for R'
@@ -282,7 +276,6 @@ references:
     given-names: Hadley
     email: hadley@rstudio.com
   year: '2022'
-  url: https://CRAN.R-project.org/package=testthat
   version: '>= 3.0.0'
 - type: software
   title: withr
@@ -306,4 +299,30 @@ references:
   - family-names: Chang
     given-names: Winston
   year: '2022'
-  url: https://CRAN.R-project.org/package=withr
+- type: software
+  title: parsedate
+  abstract: 'parsedate: Recognize and Parse Dates in Various Formats, Including All
+    ISO 8601 Formats'
+  notes: Suggests
+  authors:
+  - family-names: Csárdi
+    given-names: Gábor
+  - family-names: Torvalds
+    given-names: Linus
+  year: '2022'
+  url: https://github.com/gaborcsardi/parsedate
+- type: software
+  title: readr
+  abstract: 'readr: Read Rectangular Text Data'
+  notes: Suggests
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@rstudio.com
+  - family-names: Hester
+    given-names: Jim
+  - family-names: Bryan
+    given-names: Jennifer
+    email: jenny@rstudio.com
+    orcid: https://orcid.org/0000-0002-6983-2759
+  year: '2022'
