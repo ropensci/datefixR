@@ -111,7 +111,6 @@
     } else {
       replacement <- i
     }
-
     for (j in seq_along(months$months[[i]])) {
       date <- gsub(
         pattern = months$months[[i]][j],
@@ -121,19 +120,6 @@
     }
   }
   date
-}
-
-#' @noRd
-.checkday <- function(day.impute) {
-  if (!is.na(day.impute) && !is.null(day.impute)) {
-    if (day.impute < 1 || day.impute > 28) {
-      stop("day.impute should be an integer between 1 and 28\n")
-    }
-    if (!(day.impute %% 1 == 0)) {
-      stop("day.impute should be an integer\n")
-    }
-  }
-  return()
 }
 
 #' @noRd

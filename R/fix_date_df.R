@@ -50,7 +50,7 @@ fix_date_df <- function(df,
 
   if (is.null(id)) id <- 1 # Use first column as id if not explicitly given
 
-  .checkday(day.impute)
+  checkday(day.impute)
   .checkmonth(month.impute)
   day.impute <- .convertimpute(day.impute)
   month.impute <- .convertimpute(month.impute)
