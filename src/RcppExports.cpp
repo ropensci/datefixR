@@ -21,9 +21,43 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// imputemonth
+void imputemonth(Nullable<String> monthImpute_);
+RcppExport SEXP _datefixR_imputemonth(SEXP monthImpute_SEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Nullable<String> >::type monthImpute_(monthImpute_SEXP);
+    imputemonth(monthImpute_);
+    return R_NilValue;
+END_RCPP
+}
+// imputeday
+void imputeday(Nullable<String> dayImpute_);
+RcppExport SEXP _datefixR_imputeday(SEXP dayImpute_SEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Nullable<String> >::type dayImpute_(dayImpute_SEXP);
+    imputeday(dayImpute_);
+    return R_NilValue;
+END_RCPP
+}
+// rm_ordinal_suffixes
+String rm_ordinal_suffixes(String date_);
+RcppExport SEXP _datefixR_rm_ordinal_suffixes(SEXP date_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< String >::type date_(date_SEXP);
+    rcpp_result_gen = Rcpp::wrap(rm_ordinal_suffixes(date_));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_datefixR_process_french", (DL_FUNC) &_datefixR_process_french, 1},
+    {"_datefixR_imputemonth", (DL_FUNC) &_datefixR_imputemonth, 1},
+    {"_datefixR_imputeday", (DL_FUNC) &_datefixR_imputeday, 1},
+    {"_datefixR_rm_ordinal_suffixes", (DL_FUNC) &_datefixR_rm_ordinal_suffixes, 1},
     {NULL, NULL, 0}
 };
 

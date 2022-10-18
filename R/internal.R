@@ -10,14 +10,16 @@
   }
 
   date <- as.character(date) |>
-    .rm_ordinal_suffixes() |>
+    rm_ordinal_suffixes() |>
     process_french()
 
   if (nchar(date) == 4) {
     # Just given year
     year <- date
-    month <- .imputemonth(month.impute)
-    day <- .imputeday(day.impute)
+    imputemonth(month.impute)
+    month <- as.character(month.impute)
+    imputeday(day.impute)
+    day <- day.impute
   } else {
     if (tolower(.separate_date(date)[1]) %in% unlist(months$months)) {
       format <- "mdy"
@@ -31,7 +33,8 @@
 
     if (length(date_vec) < 3) {
       # ASSUME MM/YYYY, YYYY/MM
-      day <- .imputeday(day.impute)
+      imputeday(day.impute)
+      day <- day.impute
       if (nchar(date_vec[1]) == 4) {
         # Assume YYYY/MM
         year <- date_vec[1]
@@ -182,23 +185,6 @@
   replacement
 }
 
-#' @noRd
-.imputemonth <- function(month.impute) {
-  if (is.null(month.impute)) {
-    stop("Missing month with no imputation value given \n")
-  } else {
-    month.impute
-  }
-}
-
-#' @noRd
-.imputeday <- function(day.impute) {
-  if (is.null(day.impute)) {
-    stop("Missing day with no imputation value given \n")
-  } else {
-    day.impute
-  }
-}
 
 #' @noRd
 .yearprefix <- function(year) {
@@ -264,14 +250,16 @@
   month.impute <- .convertimpute(month.impute)
 
   date <- as.character(date) |>
-    .rm_ordinal_suffixes() |>
+    rm_ordinal_suffixes() |>
     process_french()
 
   if (nchar(date) == 4) {
     # Just given year
     year <- date
-    month <- .imputemonth(month.impute)
-    day <- .imputeday(day.impute)
+    imputemonth(month.impute)
+    month <- as.character(month.impute)
+    imputeday(day.impute)
+    day <- day.impute
   } else {
     if (tolower(.separate_date(date)[1]) %in% unlist(months$months)) {
       format <- "mdy"
@@ -284,7 +272,8 @@
     date_vec <- .appendyear(date_vec)
     if (length(date_vec) < 3) {
       # ASSUME MM/YYYY, YYYY/MM
-      day <- .imputeday(day.impute)
+      imputeday(day.impute)
+      day <- day.impute
       if (nchar(date_vec[1]) == 4) {
         # Assume YYYY/MM
         year <- date_vec[1]
@@ -316,33 +305,4 @@
   }
   .checkoutput(day, month)
   as.Date(.combinepartialdate(day, month, year, date))
-}
-
-#' @noRd
-.process_french <- function(date) {
-  date <- gsub(
-    pattern = "le ",
-    replacement = "",
-    x = date,
-    ignore.case = TRUE
-  )
-  gsub(
-    pattern = "1er",
-    replacement = "01",
-    x = date,
-    ignore.case = TRUE
-  )
-}
-
-#' @noRd
-.rm_ordinal_suffixes <- function(date) {
-  # Remove ordinal suffixes
-  stringr::str_replace(date, "(\\d)(st,)", "\\1") |>
-    stringr::str_replace("(\\d)(nd,)", "\\1") |>
-    stringr::str_replace("(\\d)(rd,)", "\\1") |>
-    stringr::str_replace("(\\d)(th,)", "\\1") |>
-    stringr::str_replace("(\\d)(st)", "\\1") |>
-    stringr::str_replace("(\\d)(nd)", "\\1") |>
-    stringr::str_replace("(\\d)(rd)", "\\1") |>
-    stringr::str_replace("(\\d)(th)", "\\1")
 }

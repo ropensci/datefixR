@@ -5,3 +5,15 @@ process_french <- function(date) {
     .Call(`_datefixR_process_french`, date)
 }
 
+imputemonth <- function(monthImpute_) {
+    invisible(.Call(`_datefixR_imputemonth`, monthImpute_))
+}
+
+imputeday <- function(dayImpute_) {
+    invisible(.Call(`_datefixR_imputeday`, dayImpute_))
+}
+
+rm_ordinal_suffixes <- function(date_) {
+    .Call(`_datefixR_rm_ordinal_suffixes`, date_)
+}
+
