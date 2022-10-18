@@ -1,23 +1,18 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
-# datefixR 1.2.0.9003
+# datefixR 1.3.0
 
-- Discuss more R packages similar to `datefixR` in README
+## Code changes
 
+Tests have been refactored: making it easier for others to contribute their own 
+tests. See [#57](https://github.com/ropensci/datefixR/pull/57).
 
-# datefixR 1.2.0.9002
+## Documentation
 
-- Add German translation of warnings/errors 
-- Refactor tests
-
-
-# datefixR 1.2.0.9001
-
+- Now discuss more R packages similar to `datefixR` in README
+- Warnings and errors have been translated to German thanks to Daniel
+  Possenriede (@dpprdan on GitHub)
 - Fixes typo in README for the German language (now "Deutsch") 
-
-# datefixR 1.2.0.9000
-
-- Bump to development version
 
 # datefixR 1.2.0
 
