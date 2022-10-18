@@ -31,6 +31,8 @@
 #' * Report bugs at \url{https://github.com/ropensci/datefixR/issues}
 ## usethis namespace: start
 #' @importFrom lifecycle deprecated
+#' @importFrom Rcpp sourceCpp
+#' @useDynLib datefixR, .registration = TRUE
 ## usethis namespace: end
 #' @docType package
 #' @name datefixR
