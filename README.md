@@ -56,10 +56,11 @@ installed via [r-universe](https://r-universe.dev/search/)
 ``` r
 # Enable universe(s) by ropensci
 options(repos = c(
-  ropensci = 'https://ropensci.r-universe.dev',
-  CRAN = 'https://cloud.r-project.org'))
+  ropensci = "https://ropensci.r-universe.dev",
+  CRAN = "https://cloud.r-project.org"
+))
 
-install.packages('datefixR')
+install.packages("datefixR")
 ```
 
 If you wish to live on the cutting edge of `datefixR` development, then
@@ -125,7 +126,7 @@ missing months as 07 (July). However, this behavior can be modified via
 the `day.impute` or `month.impute` arguments.
 
 ``` r
- example.df <- data.frame(example = "1994")
+example.df <- data.frame(example = "1994")
 
 fix_date_df(example.df, "example", month.impute = 1)
 #>      example
