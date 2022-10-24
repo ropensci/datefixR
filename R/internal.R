@@ -193,14 +193,15 @@
         call. = FALSE
       )
     } else {
-      warning(paste0(
-        "NA imputed for subject ",
-        subject,
-        " (date: ",
-        date,
-        ")\n"
-      ),
-      call. = FALSE
+      warning(
+        paste0(
+          "NA imputed for subject ",
+          subject,
+          " (date: ",
+          date,
+          ")\n"
+        ),
+        call. = FALSE
       )
     }
   } else {
@@ -294,11 +295,13 @@
 }
 
 
-.accept_multi_byte <- function(){
+.accept_multi_byte <- function() {
   multi.byte <- l10n_info()$MBCS
-  if(!l10n_info()$MBCS){
-    warning("The current locale does not support multibyte characters. ",
-            "You may run into difficulties if any months are given as ",
-            "non-English language names. \n")
+  if (!l10n_info()$MBCS) {
+    warning(
+      "The current locale does not support multibyte characters. ",
+      "You may run into difficulties if any months are given as ",
+      "non-English language names. \n"
+    )
   }
 }

@@ -1,5 +1,5 @@
 if (l10n_info()$MBCS) {
-# Tests will fail if multibyte characters are not supported. 
+  # Tests will fail if multibyte characters are not supported.
 
   test_that("All January translations work", {
     dates <-
@@ -15,18 +15,18 @@ if (l10n_info()$MBCS) {
         "Jan 2010"              = "2010-01-01",
         "10 de janeiro de 2019" = "2019-01-10"
       )
-  
+
     fixed <- fix_date_char(names(dates))
-  
+
     expect_equal(fixed, as.Date(unname(dates)))
-  
+
     example.df <- data.frame(column = names(dates))
     fixed.df <- fix_date_df(example.df, col.names = "column")
-  
+
     expect_equal(fixed.df, data.frame(column = as.Date(unname(dates))))
   })
-  
-  
+
+
   test_that("All Feburary translations work", {
     dates <-
       c(
@@ -40,18 +40,18 @@ if (l10n_info()$MBCS) {
         "febrero 2005"            = "2005-02-01",
         "25 de fevereiro de 2018" = "2018-02-25"
       )
-  
+
     fixed <- fix_date_char(names(dates))
-  
+
     expect_equal(fixed, as.Date(unname(dates)))
-  
+
     example.df <- data.frame(column = names(dates))
     fixed.df <- fix_date_df(example.df, col.names = "column")
-  
+
     expect_equal(fixed.df, data.frame(column = as.Date(unname(dates))))
   })
-  
-  
+
+
   test_that("All March translations work", {
     dates <-
       c(
@@ -65,18 +65,18 @@ if (l10n_info()$MBCS) {
         "mar\u00E7o 1980"     = "1980-03-01",
         "marco 2000"          = "2000-03-01"
       )
-  
+
     fixed <- fix_date_char(names(dates))
-  
+
     expect_equal(fixed, as.Date(unname(dates)))
-  
+
     example.df <- data.frame(column = names(dates))
     fixed.df <- fix_date_df(example.df, col.names = "column")
-  
+
     expect_equal(fixed.df, data.frame(column = as.Date(unname(dates))))
   })
-  
-  
+
+
   test_that("All April translations work", {
     dates <-
       c(
@@ -86,18 +86,18 @@ if (l10n_info()$MBCS) {
         "abr 2015"         = "2015-04-01",
         "apr 2021"         = "2021-04-01"
       )
-  
+
     fixed <- fix_date_char(names(dates))
-  
+
     expect_equal(fixed, as.Date(unname(dates)))
-  
+
     example.df <- data.frame(column = names(dates))
     fixed.df <- fix_date_df(example.df, col.names = "column")
-  
+
     expect_equal(fixed.df, data.frame(column = as.Date(unname(dates))))
   })
-  
-  
+
+
   test_that("All May translations work", {
     dates <-
       c(
@@ -107,18 +107,18 @@ if (l10n_info()$MBCS) {
         "Mai 2020"           = "2020-05-01",
         "15 de maio de 1993" = "1993-05-15"
       )
-  
+
     fixed <- fix_date_char(names(dates))
-  
+
     expect_equal(fixed, as.Date(unname(dates)))
-  
+
     example.df <- data.frame(column = names(dates))
     fixed.df <- fix_date_df(example.df, col.names = "column")
-  
+
     expect_equal(fixed.df, data.frame(column = as.Date(unname(dates))))
   })
-  
-  
+
+
   test_that("All June translations work", {
     dates <-
       c(
@@ -130,18 +130,18 @@ if (l10n_info()$MBCS) {
         "jun 2021"            = "2021-06-01",
         "12 de junho de 2015" = "2015-06-12"
       )
-  
+
     fixed <- fix_date_char(names(dates))
-  
+
     expect_equal(fixed, as.Date(unname(dates)))
-  
+
     example.df <- data.frame(column = names(dates))
     fixed.df <- fix_date_df(example.df, col.names = "column")
-  
+
     expect_equal(fixed.df, data.frame(column = as.Date(unname(dates))))
   })
-  
-  
+
+
   test_that("All July translations work", {
     dates <-
       c(
@@ -153,18 +153,18 @@ if (l10n_info()$MBCS) {
         "jul 2003"        = "2003-07-01",
         "julho de 1997"   = "1997-07-01"
       )
-  
+
     fixed <- fix_date_char(names(dates))
-  
+
     expect_equal(fixed, as.Date(unname(dates)))
-  
+
     example.df <- data.frame(column = names(dates))
     fixed.df <- fix_date_df(example.df, col.names = "column")
-  
+
     expect_equal(fixed.df, data.frame(column = as.Date(unname(dates))))
   })
-  
-  
+
+
   test_that("All August translations work", {
     dates <-
       c(
@@ -174,18 +174,18 @@ if (l10n_info()$MBCS) {
         "aout 2015"      = "2015-08-01",
         "agosto 2021"    = "2021-08-01"
       )
-  
+
     fixed <- fix_date_char(names(dates))
-  
+
     expect_equal(fixed, as.Date(unname(dates)))
-  
+
     example.df <- data.frame(column = names(dates))
     fixed.df <- fix_date_df(example.df, col.names = "column")
-  
+
     expect_equal(fixed.df, data.frame(column = as.Date(unname(dates))))
   })
-  
-  
+
+
   test_that("All September translations work", {
     dates <-
       c(
@@ -197,18 +197,18 @@ if (l10n_info()$MBCS) {
         "Sep 2003"               = "2003-09-01",
         "20 de setembro de 1975" = "1975-09-20"
       )
-  
+
     fixed <- fix_date_char(names(dates))
-  
+
     expect_equal(fixed, as.Date(unname(dates)))
-  
+
     example.df <- data.frame(column = names(dates))
     fixed.df <- fix_date_df(example.df, col.names = "column")
-  
+
     expect_equal(fixed.df, data.frame(column = as.Date(unname(dates))))
   })
-  
-  
+
+
   test_that("All October translations work", {
     dates <-
       c(
@@ -220,18 +220,18 @@ if (l10n_info()$MBCS) {
         "Oct 2003"              = "2003-10-01",
         "27 de outubro de 1987" = "1987-10-27"
       )
-  
+
     fixed <- fix_date_char(names(dates))
-  
+
     expect_equal(fixed, as.Date(unname(dates)))
-  
+
     example.df <- data.frame(column = names(dates))
     fixed.df <- fix_date_df(example.df, col.names = "column")
-  
+
     expect_equal(fixed.df, data.frame(column = as.Date(unname(dates))))
   })
-  
-  
+
+
   test_that("All November translations work", {
     dates <-
       c(
@@ -242,18 +242,18 @@ if (l10n_info()$MBCS) {
         "Nov 2015"              = "2015-11-01",
         "5 de novembro de 1990" = "1990-11-05"
       )
-  
+
     fixed <- fix_date_char(names(dates))
-  
+
     expect_equal(fixed, as.Date(unname(dates)))
-  
+
     example.df <- data.frame(column = names(dates))
     fixed.df <- fix_date_df(example.df, col.names = "column")
-  
+
     expect_equal(fixed.df, data.frame(column = as.Date(unname(dates))))
   })
-  
-  
+
+
   test_that("All December translations work", {
     dates <-
       c(
@@ -268,14 +268,14 @@ if (l10n_info()$MBCS) {
         "03-dec-2000"            = "2000-12-03",
         "16 de dezembro de 2020" = "2020-12-16"
       )
-  
+
     fixed <- fix_date_char(names(dates))
-  
+
     expect_equal(fixed, as.Date(unname(dates)))
-  
+
     example.df <- data.frame(column = names(dates))
     fixed.df <- fix_date_df(example.df, col.names = "column")
-  
+
     expect_equal(fixed.df, data.frame(column = as.Date(unname(dates))))
   })
 }
