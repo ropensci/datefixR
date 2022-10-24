@@ -24,6 +24,7 @@ fix_date_char <- function(dates,
   .checkday(day.impute)
   .checkmonth(month.impute)
   .checkformat(format)
+  .accept_multi_byte()
 
   as.Date(
     sapply(

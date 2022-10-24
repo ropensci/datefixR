@@ -306,3 +306,13 @@
   .checkoutput(day, month)
   as.Date(.combinepartialdate(day, month, year, date))
 }
+
+
+.accept_multi_byte <- function(){
+  multi.byte <- l10n_info()$MBCS
+  if(!l10n_info()$MBCS){
+    warning("The current locale does not support multibyte characters. ",
+            "You may run into difficulties if any months are given as ",
+            "non-English language names. \n")
+  }
+}
