@@ -17,3 +17,7 @@ rm_ordinal_suffixes <- function(date_) {
     .Call(`_datefixR_rm_ordinal_suffixes`, date_)
 }
 
+checkday <- function(dayImpute) {
+    invisible(.Call(`_datefixR_checkday`, dayImpute))
+}
+
