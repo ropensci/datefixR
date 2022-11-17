@@ -2,6 +2,7 @@
 using namespace Rcpp;
 #include <string>
 #include <regex>
+#include "translate.h"
 
 // [[Rcpp::export]]
 String process_french(String date) {
@@ -14,14 +15,14 @@ String process_french(String date) {
 // [[Rcpp::export]]
 void imputemonth(Nullable<String> monthImpute_) {
   if (monthImpute_.isNull()) {
-    stop("Missing month with no imputation value given \n");
+    stop(_("Missing month with no imputation value given \n"));
   } 
 }
 
 // [[Rcpp::export]]
 void imputeday(Nullable<String> dayImpute_) {
   if (dayImpute_.isNull()) {
-    stop("Missing day with no imputation value given \n");
+    stop(_("Missing day with no imputation value given \n"));
   }
 }
 
@@ -47,10 +48,10 @@ void checkday(Nullable<NumericVector> dayImpute) {
     NumericVector dayImpute_(dayImpute); 
     if (!NumericVector::is_na(dayImpute_[0])) {
       if (dayImpute_[0] < 1 || dayImpute_[0] > 28) {
-        stop("day.impute should be an integer between 1 and 28\n");
+        stop(_("day.impute should be an integer between 1 and 28\n"));
       }
       if (floor(dayImpute_[0]) != dayImpute_[0]) {
-        stop("day.impute should be an integer\n");
+        stop(_("day.impute should be an integer\n"));
         }
       }
     }

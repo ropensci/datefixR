@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: datefixR 1.2.0\n"
-"POT-Creation-Date: 2022-09-07 11:41\n"
+"POT-Creation-Date: 2022-11-17 12:09\n"
 "PO-Revision-Date: 2022-09-07 HO:MI+ZONE\n"
 "Last-Translator: Jonathan Kitt <jonathan.kitt@protonmail.com>\n"
 "Language-Team: None\n"
@@ -28,12 +28,6 @@ msgstr ")"
 msgid "unable to tidy a date"
 msgstr "impossible de nettoyer une date"
 
-msgid "day.impute should be an integer between 1 and 28"
-msgstr "day.impute doit être un nombre entier compris entre 1 et 28"
-
-msgid "day.impute should be an integer"
-msgstr "day.impute doit être un nombre entier"
-
 msgid "month.impute should be an integer between 1 and 12"
 msgstr "month.impute doit être un nombre entier entre 1 et 12"
 
@@ -49,12 +43,6 @@ msgstr "Day of the year ne se situe pas dans l'intervalle attendu"
 msgid "format should be either 'dmy' or 'mdy'"
 msgstr "le format doit être soit 'jma' ou 'mja'"
 
-msgid "Missing month with no imputation value given"
-msgstr "Le mois manquant n'a pas de valeur d'imputation"
-
-msgid "Missing day with no imputation value given"
-msgstr "Le jour manquant n'a pas de valeur d'imputation"
-
 msgid "NA imputed (date:"
 msgstr "NA imputé (date :"
 
@@ -63,6 +51,15 @@ msgstr "NA imputé pour le sujet"
 
 msgid "date should be a character"
 msgstr "la date doit être un caractère"
+
+msgid "The current locale does not support multibyte characters."
+msgstr ""
+
+msgid "You may run into difficulties if any months are given as"
+msgstr ""
+
+msgid "non-English language names."
+msgstr ""
 
 msgid "theme should be 'datefixR' or 'none'"
 msgstr "le thème doit être 'datefixR' ou 'none'"

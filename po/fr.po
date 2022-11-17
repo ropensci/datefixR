@@ -1,0 +1,28 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: datefixR 1.2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-11-17 12:14+0000\n"
+"PO-Revision-Date: 2022-09-07 HO:MI+ZONE\n"
+"Last-Translator: Jonathan Kitt <jonathan.kitt@protonmail.com>\n"
+"Language-Team: None\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: code.cpp:18
+msgid "Missing month with no imputation value given \n"
+msgstr "Le mois manquant n'a pas de valeur d'imputation \n"
+
+#: code.cpp:25
+msgid "Missing day with no imputation value given \n"
+msgstr "Le jour manquant n'a pas de valeur d'imputation \n"
+
+#: code.cpp:51
+msgid "day.impute should be an integer between 1 and 28\n"
+msgstr "day.impute doit tre un nombre entier compris entre 1 et 28 \n"
+
+#: code.cpp:54
+msgid "day.impute should be an integer\n"
+msgstr "day.impute doit tre un nombre entier\n"
