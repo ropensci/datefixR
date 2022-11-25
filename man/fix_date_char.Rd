@@ -4,7 +4,13 @@
 \alias{fix_date_char}
 \title{Convert improperly formatted date to \R{}'s Date class}
 \usage{
-fix_date_char(dates, day.impute = 1, month.impute = 7, format = "dmy")
+fix_date_char(
+  dates,
+  day.impute = 1,
+  month.impute = 7,
+  format = "dmy",
+  excel = FALSE
+)
 }
 \arguments{
 \item{dates}{Character vector to be converted to \R{}'s date class.}
@@ -24,6 +30,12 @@ function will fail.}
 in. Either \code{"dmy"} (default) or \code{"mdy"}. If year appears to have
 been given first, then YMD is assumed for the subject (format argument is
 not used for these observations)}
+
+\item{excel}{Logical. If a date is given as only numbers (no separators) and
+not four digits (which is then assumed to be a year) should the date be
+assumed to be from Excel which counts the number of days from 1900-01-01?
+In most programming languages, days are instead calculated from 1970-01-01
+and this is the default for this function \code{excel = FALSE}}
 }
 \value{
 A vector of elements belonging to \R{}'s built in \code{Date} class
