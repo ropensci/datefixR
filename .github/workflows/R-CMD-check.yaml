@@ -5,7 +5,7 @@ on:
 name: "CI"
 jobs:
   Update-readme-md:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
@@ -91,6 +91,13 @@ jobs:
       - name: Check
         run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: shiny-test
+          path: tests/testthat/_snaps/
+          retention-days: 5
       - name: Install dependencies
         run: |
           install.packages(c("remotes"))
