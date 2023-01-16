@@ -1,4 +1,3 @@
-
 #' @noRd
 .fix_date <- function(date,
                       day.impute,
