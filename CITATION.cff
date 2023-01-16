@@ -1,5 +1,5 @@
 # -----------------------------------------------------------
-# CITATION file created with {cffr} R package, v0.2.3
+# CITATION file created with {cffr} R package, v0.4.0
 # See also: https://docs.ropensci.org/cffr/
 # -----------------------------------------------------------
  
@@ -8,7 +8,7 @@ message: 'To cite package "datefixR" in publications use:'
 type: software
 license: GPL-3.0-or-later
 title: 'datefixR: Standardize Dates in Different Formats or with Missing Data'
-version: 1.3.0
+version: 1.3.1.9000
 doi: 10.5281/zenodo.5655311
 abstract: 'There are many different formats dates are commonly represented with: the
   order of day, month, or year can differ, different separators ("-", "/", or whitespace)
@@ -33,7 +33,7 @@ preferred-citation:
     orcid: https://orcid.org/0000-0002-4437-8713
   url: https://CRAN.R-project.org/package=datefixR
   doi: 10.5281/zenodo.5655311
-  notes: R package version 1.3.0
+  notes: R package version 1.3.1.9000
 repository: https://CRAN.R-project.org/package=datefixR
 repository-code: https://github.com/ropensci/datefixR
 url: https://docs.ropensci.org/datefixR/
@@ -52,12 +52,12 @@ references:
 - type: software
   title: 'R: A Language and Environment for Statistical Computing'
   notes: Depends
+  url: https://www.R-project.org/
   authors:
   - name: R Core Team
   location:
     name: Vienna, Austria
   year: '2022'
-  url: https://www.R-project.org/
   institution:
     name: R Foundation for Statistical Computing
   version: '>= 4.1.0'
@@ -65,6 +65,8 @@ references:
   title: lifecycle
   abstract: 'lifecycle: Manage the Life Cycle of your Package Functions'
   notes: Imports
+  url: https://lifecycle.r-lib.org/
+  repository: https://CRAN.R-project.org/package=lifecycle
   authors:
   - family-names: Henry
     given-names: Lionel
@@ -74,11 +76,38 @@ references:
     email: hadley@rstudio.com
     orcid: https://orcid.org/0000-0003-4757-117X
   year: '2022'
-  url: https://CRAN.R-project.org/package=lifecycle
+- type: software
+  title: Rcpp
+  abstract: 'Rcpp: Seamless R and C++ Integration'
+  notes: Imports
+  url: https://www.rcpp.org
+  repository: https://CRAN.R-project.org/package=Rcpp
+  authors:
+  - family-names: Eddelbuettel
+    given-names: Dirk
+  - family-names: Francois
+    given-names: Romain
+  - family-names: Allaire
+    given-names: JJ
+  - family-names: Ushey
+    given-names: Kevin
+  - family-names: Kou
+    given-names: Qiang
+  - family-names: Russell
+    given-names: Nathan
+  - family-names: Ucar
+    given-names: Inaki
+  - family-names: Bates
+    given-names: Douglas
+  - family-names: Chambers
+    given-names: John
+  year: '2022'
 - type: software
   title: rlang
   abstract: 'rlang: Functions for Base Types and Core R and ''Tidyverse'' Features'
   notes: Imports
+  url: https://rlang.r-lib.org
+  repository: https://CRAN.R-project.org/package=rlang
   authors:
   - family-names: Henry
     given-names: Lionel
@@ -87,21 +116,23 @@ references:
     given-names: Hadley
     email: hadley@rstudio.com
   year: '2022'
-  url: https://CRAN.R-project.org/package=rlang
 - type: software
   title: stringr
   abstract: 'stringr: Simple, Consistent Wrappers for Common String Operations'
   notes: Imports
+  url: https://stringr.tidyverse.org
+  repository: https://CRAN.R-project.org/package=stringr
   authors:
   - family-names: Wickham
     given-names: Hadley
     email: hadley@rstudio.com
   year: '2022'
-  url: https://CRAN.R-project.org/package=stringr
 - type: software
   title: DT
   abstract: 'DT: A Wrapper of the JavaScript Library ''DataTables'''
   notes: Suggests
+  url: https://github.com/rstudio/DT
+  repository: https://CRAN.R-project.org/package=DT
   authors:
   - family-names: Xie
     given-names: Yihui
@@ -111,11 +142,12 @@ references:
   - family-names: Tan
     given-names: Xianying
   year: '2022'
-  url: https://CRAN.R-project.org/package=DT
 - type: software
   title: htmltools
   abstract: 'htmltools: Tools for HTML'
   notes: Suggests
+  url: https://github.com/rstudio/htmltools
+  repository: https://CRAN.R-project.org/package=htmltools
   authors:
   - family-names: Cheng
     given-names: Joe
@@ -139,22 +171,24 @@ references:
     given-names: Jeff
     email: jeff@rstudio.com
   year: '2022'
-  url: https://CRAN.R-project.org/package=htmltools
 - type: software
   title: knitr
   abstract: 'knitr: A General-Purpose Package for Dynamic Report Generation in R'
   notes: Suggests
+  url: https://yihui.org/knitr/
+  repository: https://CRAN.R-project.org/package=knitr
   authors:
   - family-names: Xie
     given-names: Yihui
     email: xie@yihui.name
     orcid: https://orcid.org/0000-0003-0645-5666
   year: '2022'
-  url: https://CRAN.R-project.org/package=knitr
 - type: software
   title: readxl
   abstract: 'readxl: Read Excel Files'
   notes: Suggests
+  url: https://readxl.tidyverse.org
+  repository: https://CRAN.R-project.org/package=readxl
   authors:
   - family-names: Wickham
     given-names: Hadley
@@ -165,11 +199,12 @@ references:
     email: jenny@rstudio.com
     orcid: https://orcid.org/0000-0002-6983-2759
   year: '2022'
-  url: https://CRAN.R-project.org/package=readxl
 - type: software
   title: rmarkdown
   abstract: 'rmarkdown: Dynamic Documents for R'
   notes: Suggests
+  url: https://pkgs.rstudio.com/rmarkdown/
+  repository: https://CRAN.R-project.org/package=rmarkdown
   authors:
   - family-names: Allaire
     given-names: JJ
@@ -204,11 +239,12 @@ references:
     email: rich@rstudio.com
     orcid: https://orcid.org/0000-0003-3925-190X
   year: '2022'
-  url: https://CRAN.R-project.org/package=rmarkdown
 - type: software
   title: shiny
   abstract: 'shiny: Web Application Framework for R'
   notes: Suggests
+  url: https://shiny.rstudio.com/
+  repository: https://CRAN.R-project.org/package=shiny
   authors:
   - family-names: Chang
     given-names: Winston
@@ -242,11 +278,12 @@ references:
   - family-names: Borges
     given-names: Barbara
   year: '2022'
-  url: https://CRAN.R-project.org/package=shiny
 - type: software
   title: shinytest
   abstract: 'shinytest: Test Shiny Apps'
   notes: Suggests
+  url: https://github.com/rstudio/shinytest
+  repository: https://CRAN.R-project.org/package=shinytest
   authors:
   - family-names: Chang
     given-names: Winston
@@ -258,11 +295,12 @@ references:
     given-names: Hadley
     email: hadley@rstudio.com
   year: '2022'
-  url: https://CRAN.R-project.org/package=shinytest
 - type: software
   title: spelling
   abstract: 'spelling: Tools for Spell Checking in R'
   notes: Suggests
+  url: https://docs.ropensci.org/spelling/
+  repository: https://CRAN.R-project.org/package=spelling
   authors:
   - family-names: Ooms
     given-names: Jeroen
@@ -272,22 +310,24 @@ references:
     given-names: Jim
     email: james.hester@rstudio.com
   year: '2022'
-  url: https://CRAN.R-project.org/package=spelling
 - type: software
   title: testthat
   abstract: 'testthat: Unit Testing for R'
   notes: Suggests
+  url: https://testthat.r-lib.org
+  repository: https://CRAN.R-project.org/package=testthat
   authors:
   - family-names: Wickham
     given-names: Hadley
     email: hadley@rstudio.com
   year: '2022'
-  url: https://CRAN.R-project.org/package=testthat
   version: '>= 3.0.0'
 - type: software
   title: withr
   abstract: 'withr: Run Code ''With'' Temporarily Modified Global State'
   notes: Suggests
+  url: https://withr.r-lib.org
+  repository: https://CRAN.R-project.org/package=withr
   authors:
   - family-names: Hester
     given-names: Jim
@@ -306,23 +346,25 @@ references:
   - family-names: Chang
     given-names: Winston
   year: '2022'
-  url: https://CRAN.R-project.org/package=withr
 - type: software
   title: parsedate
   abstract: 'parsedate: Recognize and Parse Dates in Various Formats, Including All
     ISO 8601 Formats'
   notes: Suggests
+  url: https://github.com/gaborcsardi/parsedate
+  repository: https://CRAN.R-project.org/package=parsedate
   authors:
   - family-names: Csárdi
     given-names: Gábor
   - family-names: Torvalds
     given-names: Linus
   year: '2022'
-  url: https://CRAN.R-project.org/package=parsedate
 - type: software
   title: readr
   abstract: 'readr: Read Rectangular Text Data'
   notes: Suggests
+  url: https://readr.tidyverse.org
+  repository: https://CRAN.R-project.org/package=readr
   authors:
   - family-names: Wickham
     given-names: Hadley
@@ -334,4 +376,3 @@ references:
     email: jenny@rstudio.com
     orcid: https://orcid.org/0000-0002-6983-2759
   year: '2022'
-  url: https://CRAN.R-project.org/package=readr

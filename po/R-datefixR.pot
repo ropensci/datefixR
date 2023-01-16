@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: datefixR 1.2.0.9001\n"
-"POT-Creation-Date: 2022-09-26 17:06\n"
+"Project-Id-Version: datefixR 1.3.1\n"
+"POT-Creation-Date: 2022-11-17 12:14\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,12 +28,6 @@ msgstr ""
 msgid "unable to tidy a date"
 msgstr ""
 
-msgid "day.impute should be an integer between 1 and 28"
-msgstr ""
-
-msgid "day.impute should be an integer"
-msgstr ""
-
 msgid "month.impute should be an integer between 1 and 12"
 msgstr ""
 
@@ -49,12 +43,6 @@ msgstr ""
 msgid "format should be either 'dmy' or 'mdy'"
 msgstr ""
 
-msgid "Missing month with no imputation value given"
-msgstr ""
-
-msgid "Missing day with no imputation value given"
-msgstr ""
-
 msgid "NA imputed (date:"
 msgstr ""
 
@@ -62,6 +50,15 @@ msgid "NA imputed for subject"
 msgstr ""
 
 msgid "date should be a character"
+msgstr ""
+
+msgid "The current locale does not support multibyte characters."
+msgstr ""
+
+msgid "You may run into difficulties if any months are given as"
+msgstr ""
+
+msgid "non-English language names."
 msgstr ""
 
 msgid "theme should be 'datefixR' or 'none'"

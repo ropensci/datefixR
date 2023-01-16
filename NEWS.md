@@ -1,5 +1,13 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# datefixR 1.3.1
+
+## Code changes
+
+A warning is now raised if datefixR is used with a locale which does not support
+multibyte characters. Tests for months names in different languages now first
+check if multibyte characters are supported before running. 
+
 # datefixR 1.3.0
 
 ## Code changes
