@@ -95,7 +95,7 @@ jobs:
         uses: actions/upload-artifact@v3
         if: failure()
         with:
-          name: shiny-test
+          name: ${{ matrix.config.os }} (${{ matrix.config.r }}) shiny-test
           path: tests/testthat/_snaps/
           retention-days: 5
       - name: Install dependencies
