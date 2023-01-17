@@ -174,6 +174,30 @@ example.df <- data.frame(
 fix_date_df(example.df, "some.dates", day.impute = 1, month.impute = 1)
 ```
 
+### Converting numeric dates
+
+By default, if a date is given numerically (I.E no separators such as "/", "-",
+or white space) and is more than four character long, then this date is assumed
+to have been converted from `R`'s numeric date format. If a `Date` object is
+converted to a `numeric` object in R, the assigned value becomes the number of
+days from `1970-01-01`. Note that the date must still be converted to a
+`character` object before being passed to a `datefixR` function.
+
+```{R}
+date <- as.numeric(as.Date("2023-01-17"))
+print(date)
+fix_date_char(as.character(date))
+```
+
+However if a date is converted to a numeric date in Excel, the number of days
+is instead counted from `1900-01-01`. If a user expects that dates to have been
+converted to numerical dates in Excel, then `excel = TRUE` can be passed to a
+`datefixR` function to rectify this. 
+
+```{R}
+fix_date_char("44941", excel = TRUE)
+```
+
 ## Citation
 
 If you use this package in your research, please consider citing `datefixR`.
