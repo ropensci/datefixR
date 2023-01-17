@@ -24,11 +24,11 @@
 #'   in. Either \code{"dmy"} (default) or \code{"mdy"}. If year appears to have
 #'   been given first, then YMD is assumed for the subject (format argument is
 #'   not used for these observations)
-#' @param excel Logical. If a date is given as only numbers (no separators) and
-#'   not four digits (which is then assumed to be a year) should the date be
-#'   assumed to be from Excel which counts the number of days from 1900-01-01?
-#'   In most programming languages, days are instead calculated from 1970-01-01
-#'   and this is the default for this function \code{excel = FALSE}
+#' @param excel Logical. If a date is given as only numbers (no separators), and
+#'   is more than four digits, should the date be assumed to be from Excel
+#'   which counts the number of days from 1900-01-01? In most programming
+#'   languages (including R), days are instead calculated from 1970-01-01
+#'   and this is the default for this function (\code{excel = FALSE})
 #' @return A \code{dataframe} or \code{tibble} object. Dependent on the type of
 #'   \code{df}. Selected columns are of type \code{Date} with the following
 #'   format \code{yyyy-mm-dd}
