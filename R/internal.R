@@ -221,13 +221,12 @@
 
 #' @noRd
 .appendyear <- function(date_vec) {
-  if (all(nchar(date_vec) == 2)) {
+  if (all(nchar(date_vec) == 2 | nchar(date_vec) == 1)) {
     if (length(date_vec) == 3) {
-      # Assume DD/MM/YY or MM/DD/YY
-      date_vec[3] <- .yearprefix(date_vec[3])
+      if (nchar(date_vec[3]) == 2) date_vec[3] <- .yearprefix(date_vec[3])
     } else if (length(date_vec) == 2) {
       # Assume MM/YY
-      date_vec[2] <- .yearprefix(date_vec[2])
+      if (nchar(date_vec[2]) == 2) date_vec[2] <- .yearprefix(date_vec[2])
     }
   }
   date_vec
