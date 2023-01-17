@@ -1,0 +1,93 @@
+{
+  "output": {
+    "columns": {
+      "html": "<div id=\"selected.columns\" class=\"form-group shiny-input-checkboxgroup shiny-input-container\" role=\"group\" aria-labelledby=\"selected.columns-label\">\n  <label class=\"control-label\" id=\"selected.columns-label\" for=\"selected.columns\"><\/label>\n  <div class=\"shiny-options-group\">\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"selected.columns\" value=\"Apple\"/>\n        <span>Apple<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"selected.columns\" value=\"Pear\"/>\n        <span>Pear<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"selected.columns\" value=\"Lemon\"/>\n        <span>Lemon<\/span>\n      <\/label>\n    <\/div>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    },
+    "df": {
+      "x": {
+        "filter": "none",
+        "vertical": false,
+        "container": "<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Apple<\/th>\n      <th>Pear<\/th>\n      <th>Lemon<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>",
+        "options": {
+          "columnDefs": [
+            {
+              "orderable": false,
+              "targets": 0
+            }
+          ],
+          "order": [
+
+          ],
+          "autoWidth": false,
+          "orderClasses": false,
+          "ajax": {
+            "type": "POST",
+            "data": "function(d) {\nd.search.caseInsensitive = true;\nd.search.smart = true;\nd.escape = true;\nvar encodeAmp = function(x) { x.value = x.value.replace(/&/g, \"%26\"); }\nencodeAmp(d.search);\n$.each(d.columns, function(i, v) {encodeAmp(v.search);});\n}"
+          },
+          "serverSide": true,
+          "processing": true
+        },
+        "selection": {
+          "mode": "multiple",
+          "selected": null,
+          "target": "row",
+          "selectable": null
+        }
+      },
+      "evals": [
+        "options.ajax.data"
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+        {
+          "name": "jquery",
+          "version": "3.6.0",
+          "src": {
+            "href": "jquery-3.6.0"
+          },
+          "meta": null,
+          "script": "jquery-3.6.0.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "dt-core",
+          "version": "1.12.1",
+          "src": {
+            "href": "dt-core-1.12.1"
+          },
+          "meta": null,
+          "script": "js/jquery.dataTables.min.js",
+          "stylesheet": [
+            "css/jquery.dataTables.min.css",
+            "css/jquery.dataTables.extra.css"
+          ],
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": false
+        },
+        {
+          "name": "crosstalk",
+          "version": "1.2.0",
+          "src": {
+            "href": "crosstalk-1.2.0"
+          },
+          "meta": null,
+          "script": "js/crosstalk.min.js",
+          "stylesheet": "css/crosstalk.min.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        }
+      ]
+    }
+  }
+}

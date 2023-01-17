@@ -5,7 +5,7 @@ on:
 name: "CI"
 jobs:
   Update-readme-md:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
@@ -69,8 +69,8 @@ jobs:
       matrix:
         config:
           - {os: windows-latest, r: 'release'}
-          - {os: macOS-latest, r: 'release'}
-          - {os: macOS-latest, r: 'devel'}
+          - {os: macOS-12, r: 'release'}
+          - {os: macOS-12, r: 'devel'}
           - {os: ubuntu-20.04, r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
           - {os: ubuntu-20.04, r: 'oldrel-1', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
           - {os: ubuntu-20.04, r: 'oldrel-2', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
@@ -81,13 +81,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: r-lib/actions/setup-r@v2
-      - name: Install Phantom JS
-        run: |
-          if (Sys.info()["sysname"] == "Darwin") {
-          install.packages("shinytest")
-          shinytest::installDependencies()
-          }
-        shell: Rscript {0}
       - uses: r-lib/actions/setup-pandoc@v2
         with:
           pandoc-version: '2.7.3' # The pandoc version to download (if necessary) and use.
@@ -98,6 +91,13 @@ jobs:
       - name: Check
         run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: ${{ matrix.config.os }} (${{ matrix.config.r }}) shiny-test
+          path: tests/testthat/_snaps/
+          retention-days: 5
       - name: Install dependencies
         run: |
           install.packages(c("remotes"))

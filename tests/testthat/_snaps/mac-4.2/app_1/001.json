@@ -1,75 +1,4 @@
 {
-  "input": {
-    "datafile": {
-      "name": [
-        "example.csv"
-      ],
-      "size": [
-        143
-      ],
-      "type": [
-        "text/csv"
-      ],
-      "datapath": [
-        "0.csv"
-      ]
-    },
-    "date.input": "1",
-    "df_cell_clicked": {
-
-    },
-    "df_cells_selected": [
-
-    ],
-    "df_columns_selected": null,
-    "df_rows_all": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "df_rows_current": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "df_rows_selected": null,
-    "df_search": "",
-    "df_state": [
-      "1660142014386",
-      "0",
-      "10",
-      "",
-      "TRUE",
-      "FALSE",
-      "TRUE",
-      "TRUE",
-      "",
-      "TRUE",
-      "FALSE",
-      "TRUE",
-      "TRUE",
-      "",
-      "TRUE",
-      "FALSE",
-      "TRUE",
-      "TRUE",
-      "",
-      "TRUE",
-      "FALSE",
-      "TRUE",
-      "TRUE",
-      "",
-      "TRUE",
-      "FALSE",
-      "TRUE"
-    ],
-    "do": 2,
-    "format": "dmy",
-    "month.input": "7",
-    "selected.columns": null
-  },
   "output": {
     "columns": {
       "html": "<div id=\"selected.columns\" class=\"form-group shiny-input-checkboxgroup shiny-input-container\" role=\"group\" aria-labelledby=\"selected.columns-label\">\n  <label class=\"control-label\" id=\"selected.columns-label\" for=\"selected.columns\"><\/label>\n  <div class=\"shiny-options-group\">\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"selected.columns\" value=\"Apple\"/>\n        <span>Apple<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"selected.columns\" value=\"Pear\"/>\n        <span>Pear<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"selected.columns\" value=\"Lemon\"/>\n        <span>Lemon<\/span>\n      <\/label>\n    <\/div>\n  <\/div>\n<\/div>",
@@ -130,9 +59,9 @@
         },
         {
           "name": "dt-core",
-          "version": "1.11.3",
+          "version": "1.12.1",
           "src": {
-            "href": "dt-core-1.11.3"
+            "href": "dt-core-1.12.1"
           },
           "meta": null,
           "script": "js/jquery.dataTables.min.js",
@@ -160,8 +89,5 @@
         }
       ]
     }
-  },
-  "export": {
-
   }
 }

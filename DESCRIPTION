@@ -42,12 +42,13 @@ Suggests:
     readxl,
     rmarkdown,
     shiny,
-    shinytest,
+    shinytest2,
     spelling,
     testthat (>= 3.0.0),
     withr,
     parsedate,
-    readr
+    readr,
+    png
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
