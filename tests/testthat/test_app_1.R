@@ -18,14 +18,14 @@ test_that("fix_date_app() works with datefixR theme", {
   app$set_inputs(`selected.columns` = "Apple")
   app$set_inputs(`selected.columns` = c("Apple", "Pear"))
   app$click("do")
-  app$expect_values()
+  app$expect_values(output = TRUE)
   # Update output value
   app$set_inputs(df_rows_current = c(1, 2, 3, 4), allow_no_input_binding_ = TRUE, wait_ = FALSE)
   app$set_inputs(df_rows_all = c(1, 2, 3, 4), allow_no_input_binding_ = TRUE, wait_ = FALSE)
   app$set_inputs(df_state = c(1673953593973, 0, 10, "", TRUE, FALSE, TRUE, c(TRUE, "", TRUE, FALSE, TRUE), c(TRUE, "", TRUE, FALSE, TRUE), c(TRUE, "", TRUE, FALSE, TRUE), c(TRUE, "", TRUE, FALSE, TRUE)), allow_no_input_binding_ = TRUE)
   app$expect_download("downloadData")
   app$set_window_size(width = 779, height = 796)
-  app$expect_values()
+  app$expect_values(output = TRUE)
 })
 
 test_that("fix_date_app() works with shiny theme", {
@@ -46,12 +46,12 @@ test_that("fix_date_app() works with shiny theme", {
   app2$set_inputs(`selected.columns` = "Apple")
   app2$set_inputs(`selected.columns` = c("Apple", "Pear"))
   app2$click("do")
-  app2$expect_values()
+  app2$expect_values(output = TRUE)
   # Update output value
   app2$set_inputs(df_rows_current = c(1, 2, 3, 4), allow_no_input_binding_ = TRUE, wait_ = FALSE)
   app2$set_inputs(df_rows_all = c(1, 2, 3, 4), allow_no_input_binding_ = TRUE, wait_ = FALSE)
   app2$set_inputs(df_state = c(1673953593973, 0, 10, "", TRUE, FALSE, TRUE, c(TRUE, "", TRUE, FALSE, TRUE), c(TRUE, "", TRUE, FALSE, TRUE), c(TRUE, "", TRUE, FALSE, TRUE), c(TRUE, "", TRUE, FALSE, TRUE)), allow_no_input_binding_ = TRUE)
   app2$expect_download("downloadData")
   app2$set_window_size(width = 779, height = 796)
-  app2$expect_values()
+  app2$expect_values(output = TRUE)
 })

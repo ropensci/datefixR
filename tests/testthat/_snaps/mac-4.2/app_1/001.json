@@ -1,97 +1,4 @@
 {
-  "input": {
-    "datafile": {
-      "name": [
-        "example.xlsx"
-      ],
-      "size": [
-        9249
-      ],
-      "type": [
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-      ],
-      "datapath": [
-        "0.xlsx"
-      ]
-    },
-    "date.input": "1",
-    "df_cell_clicked": {
-
-    },
-    "df_cells_selected": [
-
-    ],
-    "df_columns_selected": null,
-    "df_rows_all": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "df_rows_current": [
-      1,
-      2,
-      3,
-      4
-    ],
-    "df_rows_selected": null,
-    "df_search": "",
-    "df_state": {
-      "start": 0,
-      "length": 10,
-      "order": [
-
-      ],
-      "search": {
-        "search": "",
-        "smart": true,
-        "regex": false,
-        "caseInsensitive": true
-      },
-      "columns": [
-        {
-          "visible": true,
-          "search": {
-            "search": "",
-            "smart": true,
-            "regex": false,
-            "caseInsensitive": true
-          }
-        },
-        {
-          "visible": true,
-          "search": {
-            "search": "",
-            "smart": true,
-            "regex": false,
-            "caseInsensitive": true
-          }
-        },
-        {
-          "visible": true,
-          "search": {
-            "search": "",
-            "smart": true,
-            "regex": false,
-            "caseInsensitive": true
-          }
-        },
-        {
-          "visible": true,
-          "search": {
-            "search": "",
-            "smart": true,
-            "regex": false,
-            "caseInsensitive": true
-          }
-        }
-      ]
-    },
-    "do": 2,
-    "format": "dmy",
-    "month.input": "7",
-    "selected.columns": null
-  },
   "output": {
     "columns": {
       "html": "<div id=\"selected.columns\" class=\"form-group shiny-input-checkboxgroup shiny-input-container\" role=\"group\" aria-labelledby=\"selected.columns-label\">\n  <label class=\"control-label\" id=\"selected.columns-label\" for=\"selected.columns\"><\/label>\n  <div class=\"shiny-options-group\">\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"selected.columns\" value=\"Apple\"/>\n        <span>Apple<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"selected.columns\" value=\"Pear\"/>\n        <span>Pear<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"selected.columns\" value=\"Lemon\"/>\n        <span>Lemon<\/span>\n      <\/label>\n    <\/div>\n  <\/div>\n<\/div>",
@@ -182,8 +89,5 @@
         }
       ]
     }
-  },
-  "export": {
-
   }
 }
