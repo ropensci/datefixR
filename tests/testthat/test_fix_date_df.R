@@ -290,3 +290,27 @@ test_that("fix_date_df works for a mdy format", {
   expected.df$some.more.dates <- as.Date(expected.df$some.more.dates)
   expect_equal(fixed.df, expected.df)
 })
+
+
+test_that("Non-excel nuneric date is parsed correctly", {
+  bad.date <- data.frame(id = 1, some.date = "19374")
+  fixed.df <- fix_date_df(bad.date, "some.date")
+  expected.df <- data.frame(id = 1, some.date = "2023-01-17")
+  expected.df$some.date <- as.Date(expected.df$some.date)
+  expect_equal(fixed.df, expected.df)
+})
+
+test_that("Excel numeric date is parsed correctly", {
+  bad.date <- data.frame(id = 1, some.date = "41035")
+  fixed.df <- fix_date_df(bad.date, "some.date", excel = TRUE)
+  expected.df <- data.frame(id = 1, some.date = "2012-05-08")
+  expected.df$some.date <- as.Date(expected.df$some.date)
+  expect_equal(fixed.df, expected.df)
+})
+
+test_that("checkday errors when input is out of range", {
+  expect_error(
+    checkday(45),
+    "day.impute should be an integer between 1 and 28\n"
+  )
+})

@@ -71,3 +71,11 @@ test_that("nunber. + month name (whitespace) + year", {
 test_that("Month-first dates where the month is given by name", {
   expect_equal(fix_date_char("July 4th, 1776"), as.Date("1776-07-04"))
 })
+
+test_that("Non-excel numeric date is parsed correctly", {
+  expect_equal(fix_date_char("19374"), as.Date("2023-01-17"))
+})
+
+test_that("Excel numeric date is parsed correctly", {
+  expect_equal(fix_date_char("41035", excel = TRUE), as.Date("2012-05-08"))
+})
