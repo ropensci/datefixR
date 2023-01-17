@@ -1,5 +1,25 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# datefixR 1.4.0
+
+## Code changes
+
+Support has been added for parsing dates converted to a numeric format by
+Excel. Unlike R which converts `Date` objects to numeric by calculating the
+number of days since `1970-01-01`, Excel typically converts date cells to
+numeric cells by calculating the number of days since `1900-01-01`. `datefixR`
+can be told to expect dates converted by Excel instead of R by passing
+`excel = TRUE` to `datefixR`'s functions. 
+
+In `datefixR` 1.3.1, internal functions began to be converted to C++. This
+process unintentionally led to translations of some user-facing messages not
+being delivered to users. This bug has now been fixed.
+
+## Documentation
+
+Add function documentation for the new `excel` argument and updated the "Getting
+Started" vignette with a section on converting numeric dates. 
+
 # datefixR 1.3.1
 
 ## Code changes
