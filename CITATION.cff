@@ -382,3 +382,18 @@ references:
     given-names: Simon
     email: Simon.Urbanek@r-project.org
   year: '2023'
+- type: software
+  title: pkgbuild
+  abstract: 'pkgbuild: Find Tools Needed to Build R Packages'
+  notes: Suggests
+  url: https://r-lib.github.io/pkgbuild/
+  repository: https://CRAN.R-project.org/package=pkgbuild
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+  - family-names: Hester
+    given-names: Jim
+  - family-names: Csárdi
+    given-names: Gábor
+    email: csardi.gabor@gmail.com
+  year: '2023'
