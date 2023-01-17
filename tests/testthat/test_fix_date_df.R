@@ -309,5 +309,8 @@ test_that("Excel numeric date is parsed correctly", {
 })
 
 test_that("checkday errors when input is out of range", {
-  expect_error(checkday(45),
-               "day.impute should be an integer between 1 and 28\n")})
+  expect_error(
+    checkday(45),
+    "day.impute should be an integer between 1 and 28\n"
+  )
+})
