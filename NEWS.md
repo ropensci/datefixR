@@ -17,7 +17,7 @@ being delivered to users. This bug has now been fixed.
 
 ## Documentation
 
-Add function documentation for the new `excel` argument and updated the "Getting
+Added function documentation for the new `excel` argument and updated the "Getting
 Started" vignette with a section on converting numeric dates. 
 
 # datefixR 1.3.1

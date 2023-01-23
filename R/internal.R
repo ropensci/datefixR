@@ -259,7 +259,8 @@
   } else {
     if (!grepl("\\D", date)) {
       if (excel) {
-        return(as.Date(as.numeric(date), origin = "1900-01-01"))
+        # Excel incorrectly considers 1900 to be a leap year
+        return(as.Date(as.numeric(date) - 2, origin = "1900-01-01"))
       } else {
         return(as.Date(as.numeric(date), origin = "1970-01-01"))
       }
