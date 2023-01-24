@@ -77,5 +77,9 @@ test_that("Non-excel numeric date is parsed correctly", {
 })
 
 test_that("Excel numeric date is parsed correctly", {
-  expect_equal(fix_date_char("41035", excel = TRUE), as.Date("2012-05-08"))
+  expect_equal(fix_date_char("41035", excel = TRUE), as.Date("2012-05-06"))
+})
+
+test_that("Allow single digit day with double digit year", {
+  expect_equal(fix_date_char("03/10/90"), fix_date_char("3/10/90"))
 })
