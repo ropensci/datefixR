@@ -318,7 +318,8 @@
     warning(
       "The current locale does not support multibyte characters. ",
       "You may run into difficulties if any months are given as ",
-      "non-English language names. \n"
+      "non-English language names. \n",
+      call. = FALSE
     )
   }
 }
