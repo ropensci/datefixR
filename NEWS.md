@@ -1,5 +1,16 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# datefixR 1.4.1
+
+## Code changes
+
+* The warning raised if `datefixR` is used with a locale which does not accept
+  multibyte characters now only occurs when the package is loaded using
+  `library()`. 
+* Fixed a bug where dates with single digit day and double digit year would fail
+* Fixed a bug where numeric dates converted from Excel were slightly off
+  (this is because Excel incorrectly regards 1900 as a leap year).
+
 # datefixR 1.4.0
 
 ## Code changes
