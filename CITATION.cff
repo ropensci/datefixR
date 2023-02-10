@@ -1,5 +1,5 @@
 # -----------------------------------------------------------
-# CITATION file created with {cffr} R package, v0.4.0
+# CITATION file created with {cffr} R package, v0.4.1
 # See also: https://docs.ropensci.org/cffr/
 # -----------------------------------------------------------
  
@@ -8,7 +8,7 @@ message: 'To cite package "datefixR" in publications use:'
 type: software
 license: GPL-3.0-or-later
 title: 'datefixR: Standardize Dates in Different Formats or with Missing Data'
-version: 1.4.0.9000
+version: 1.4.1
 doi: 10.5281/zenodo.5655311
 abstract: 'There are many different formats dates are commonly represented with: the
   order of day, month, or year can differ, different separators ("-", "/", or whitespace)
@@ -33,7 +33,7 @@ preferred-citation:
     orcid: https://orcid.org/0000-0002-4437-8713
   url: https://CRAN.R-project.org/package=datefixR
   doi: 10.5281/zenodo.5655311
-  notes: R package version 1.4.0.9000
+  notes: R package version 1.4.1
 repository: https://CRAN.R-project.org/package=datefixR
 repository-code: https://github.com/ropensci/datefixR
 url: https://docs.ropensci.org/datefixR/
@@ -192,11 +192,11 @@ references:
   authors:
   - family-names: Wickham
     given-names: Hadley
-    email: hadley@rstudio.com
+    email: hadley@posit.co
     orcid: https://orcid.org/0000-0003-4757-117X
   - family-names: Bryan
     given-names: Jennifer
-    email: jenny@rstudio.com
+    email: jenny@posit.co
     orcid: https://orcid.org/0000-0002-6983-2759
   year: '2023'
 - type: software
@@ -363,12 +363,12 @@ references:
   authors:
   - family-names: Wickham
     given-names: Hadley
-    email: hadley@rstudio.com
+    email: hadley@posit.co
   - family-names: Hester
     given-names: Jim
   - family-names: Bryan
     given-names: Jennifer
-    email: jenny@rstudio.com
+    email: jenny@posit.co
     orcid: https://orcid.org/0000-0002-6983-2759
   year: '2023'
 - type: software
