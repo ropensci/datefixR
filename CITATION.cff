@@ -31,9 +31,10 @@ preferred-citation:
     given-names: Nathan
     email: nathan.constantine-cooke@ed.ac.uk
     orcid: https://orcid.org/0000-0002-4437-8713
-  url: https://CRAN.R-project.org/package=datefixR
-  doi: 10.5281/zenodo.5655311
+  year: '2023'
   notes: R package version 1.4.1
+  doi: 10.5281/zenodo.5655311
+  url: https://CRAN.R-project.org/package=datefixR
 repository: https://CRAN.R-project.org/package=datefixR
 repository-code: https://github.com/ropensci/datefixR
 url: https://docs.ropensci.org/datefixR/
