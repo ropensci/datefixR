@@ -8,7 +8,7 @@
   "codeRepository": "https://github.com/ropensci/datefixR",
   "issueTracker": "https://github.com/ropensci/datefixR/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "1.4.1",
+  "version": "1.4.1.9000",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -309,10 +309,11 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "1068.062KB",
+  "fileSize": "3299.046KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
+      "datePublished": "2023",
       "author": [
         {
           "@type": "Person",
@@ -323,7 +324,7 @@
       "name": "{datefixR}: Standardize Dates in Different Formats or with Missing Data",
       "identifier": "10.5281/zenodo.5655311",
       "url": "https://CRAN.R-project.org/package=datefixR",
-      "description": "R package version 1.4.1",
+      "description": "R package version 1.4.1.9000",
       "@id": "https://doi.org/10.5281/zenodo.5655311",
       "sameAs": "https://doi.org/10.5281/zenodo.5655311"
     }

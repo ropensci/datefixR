@@ -8,7 +8,7 @@ message: 'To cite package "datefixR" in publications use:'
 type: software
 license: GPL-3.0-or-later
 title: 'datefixR: Standardize Dates in Different Formats or with Missing Data'
-version: 1.4.1
+version: 1.4.1.9000
 doi: 10.5281/zenodo.5655311
 abstract: 'There are many different formats dates are commonly represented with: the
   order of day, month, or year can differ, different separators ("-", "/", or whitespace)
@@ -32,7 +32,7 @@ preferred-citation:
     email: nathan.constantine-cooke@ed.ac.uk
     orcid: https://orcid.org/0000-0002-4437-8713
   year: '2023'
-  notes: R package version 1.4.1
+  notes: R package version 1.4.1.9000
   doi: 10.5281/zenodo.5655311
   url: https://CRAN.R-project.org/package=datefixR
 repository: https://CRAN.R-project.org/package=datefixR
@@ -364,12 +364,12 @@ references:
   authors:
   - family-names: Wickham
     given-names: Hadley
-    email: hadley@rstudio.com
+    email: hadley@posit.co
   - family-names: Hester
     given-names: Jim
   - family-names: Bryan
     given-names: Jennifer
-    email: jenny@rstudio.com
+    email: jenny@posit.co
     orcid: https://orcid.org/0000-0002-6983-2759
   year: '2023'
 - type: software
