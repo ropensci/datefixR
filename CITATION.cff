@@ -364,12 +364,12 @@ references:
   authors:
   - family-names: Wickham
     given-names: Hadley
-    email: hadley@posit.co
+    email: hadley@rstudio.com
   - family-names: Hester
     given-names: Jim
   - family-names: Bryan
     given-names: Jennifer
-    email: jenny@posit.co
+    email: jenny@rstudio.com
     orcid: https://orcid.org/0000-0002-6983-2759
   year: '2023'
 - type: software
