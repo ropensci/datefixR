@@ -56,7 +56,7 @@ msgid "The current locale does not support multibyte characters."
 msgstr "Das aktuelle Gebietsschema unterstützt keine Multibyte-Zeichen."
 
 msgid "You may run into difficulties if any months are given as"
-msgstr ""
+msgstr "Sie können auf Schwierigkeiten stoßen, wenn Monate angegeben sind als"
 
 msgid "non-English language names."
 msgstr "nicht englischsprachige Namen."
