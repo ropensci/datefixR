@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: datefixR 1.2.0\n"
-"POT-Creation-Date: 2022-11-17 12:09\n"
+"POT-Creation-Date: 2023-02-14 15:02\n"
 "PO-Revision-Date: 2022-09-08 HO:MI+ZONE\n"
 "Last-Translator: Antonio J. Pérez-Luque <ajpelu@gmail.com>\n"
 "Language-Team: None\n"
@@ -52,6 +52,9 @@ msgstr "NA imputado para el sujeto"
 msgid "date should be a character"
 msgstr "la fecha debe ser un carácter"
 
+msgid "theme should be 'datefixR' or 'none'"
+msgstr "el tema debe ser 'datefixR' o 'none'"
+
 msgid "The current locale does not support multibyte characters."
 msgstr ""
 
@@ -60,6 +63,3 @@ msgstr ""
 
 msgid "non-English language names."
 msgstr ""
-
-msgid "theme should be 'datefixR' or 'none'"
-msgstr "el tema debe ser 'datefixR' o 'none'"
