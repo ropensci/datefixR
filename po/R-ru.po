@@ -7,14 +7,14 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "df should be a dataframe object!"
 msgstr "`df` должен быть объектом класса `dataframe`!"
 
 msgid "col.names should be a character vector!"
-msgstr "`col.names` должен быть строковым вектором (т.е. класса "character")"
+msgstr "`col.names` должен быть строковым вектором (т.е. класса 'character')"
 
 msgid "Unable to resolve date for subject"
 msgstr "Не удалось определить дату для предмета"
@@ -29,10 +29,10 @@ msgid "unable to tidy a date"
 msgstr "Не удалось почистить дату"
 
 msgid "month.impute should be an integer between 1 and 12"
-msgstr "`month.impute` должен быть целым числом (класса "integer") от 1 до 12"
+msgstr "`month.impute` должен быть целым числом (класса 'integer') от 1 до 12"
 
 msgid "month.impute should be an integer"
-msgstr "`month.impute` должен быть целым числом (класса "integer")"
+msgstr "`month.impute` должен быть целым числом (класса 'integer')"
 
 msgid "Month not in expected range"
 msgstr "Месяц определен вне ожидаемого диапазона"
