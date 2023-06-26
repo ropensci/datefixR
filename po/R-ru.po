@@ -7,59 +7,59 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "df should be a dataframe object!"
-msgstr ""
+msgstr "`df` должен быть объектом класса `dataframe`!"
 
 msgid "col.names should be a character vector!"
-msgstr ""
+msgstr "`col.names` должен быть строковым вектором (т.е. класса "character")"
 
 msgid "Unable to resolve date for subject"
-msgstr ""
+msgstr "Не удалось определить дату для предмета"
 
 msgid "(date:"
-msgstr ""
+msgstr "(дата:"
 
 msgid ")"
-msgstr ""
+msgstr ")"
 
 msgid "unable to tidy a date"
-msgstr ""
+msgstr "Не удалось почистить дату"
 
 msgid "month.impute should be an integer between 1 and 12"
-msgstr ""
+msgstr "`month.impute` должен быть целым числом (класса "integer") от 1 до 12"
 
 msgid "month.impute should be an integer"
-msgstr ""
+msgstr "`month.impute` должен быть целым числом (класса "integer")"
 
 msgid "Month not in expected range"
-msgstr ""
+msgstr "Месяц определен вне ожидаемого диапазона"
 
 msgid "Day of the year not in expected range"
-msgstr ""
+msgstr "День года определен вне ожидаемого диапазона"
 
 msgid "format should be either 'dmy' or 'mdy'"
-msgstr ""
+msgstr "переменная `format` должна быть либо 'dmy' (т.е., день-месяц-год), либо 'mdy' (т.е., месяц-день-год)"
 
 msgid "NA imputed (date:"
-msgstr ""
+msgstr "Н/Д (т.е. `NA`) присвоено (дата:"
 
 msgid "NA imputed for subject"
-msgstr ""
+msgstr "Н/Д (т.е. `NA`) присвоено для предмета"
 
 msgid "date should be a character"
-msgstr ""
+msgstr "Переменная `date` должна быть строкой"
 
 msgid "theme should be 'datefixR' or 'none'"
-msgstr ""
+msgstr "Переменная `theme` должна быть 'datefixR' или 'none'"
 
 msgid "The current locale does not support multibyte characters."
-msgstr ""
+msgstr "Текущая локаль не поддерживает многобайтовые символы."
 
 msgid "You may run into difficulties if any months are given as"
-msgstr ""
+msgstr "Вы можете столкнуться с трудностями, если какие-либо месяцы указаны как"
 
 msgid "non-English language names."
-msgstr ""
+msgstr "названия не на английском языке."
