@@ -10,7 +10,7 @@
   }
 
   date <- as.character(date) |>
-    rm_ordinal_suffixes() |>
+    .rm_ordinal_suffixes() |>
     process_french()
 
   if (nchar(date) == 4) {
@@ -246,7 +246,7 @@
   month.impute <- .convertimpute(month.impute)
 
   date <- as.character(date) |>
-    rm_ordinal_suffixes() |>
+    .rm_ordinal_suffixes() |>
     process_french()
 
   if (nchar(date) == 4) {
@@ -309,4 +309,17 @@
   }
   .checkoutput(day, month)
   as.Date(.combinepartialdate(day, month, year, date))
+}
+
+#' @noRd
+.rm_ordinal_suffixes <- function(date) {
+  # Remove ordinal suffixes
+  stringr::str_replace(date, "(\\d)(st,)", "\\1") |>
+    stringr::str_replace("(\\d)(nd,)", "\\1") |>
+    stringr::str_replace("(\\d)(rd,)", "\\1") |>
+    stringr::str_replace("(\\d)(th,)", "\\1") |>
+    stringr::str_replace("(\\d)(st)", "\\1") |>
+    stringr::str_replace("(\\d)(nd)", "\\1") |>
+    stringr::str_replace("(\\d)(rd)", "\\1") |>
+    stringr::str_replace("(\\d)(th)", "\\1")
 }
