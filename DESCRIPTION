@@ -51,7 +51,7 @@ Suggests:
     parsedate,
     readr,
     png,
-    pkgbuild,
+    pkgbuild
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
