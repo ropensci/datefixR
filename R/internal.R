@@ -11,7 +11,8 @@
 
   date <- as.character(date) |>
     .rm_ordinal_suffixes() |>
-    process_french()
+    process_french() |> 
+    process_russian()
 
   if (nchar(date) == 4) {
     # Just given year
@@ -247,7 +248,8 @@
 
   date <- as.character(date) |>
     .rm_ordinal_suffixes() |>
-    process_french()
+    process_french() |> 
+    process_russian()
 
   if (nchar(date) == 4) {
     # Just given year

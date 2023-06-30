@@ -5,6 +5,10 @@ process_french <- function(date) {
     .Call(`_datefixR_process_french`, date)
 }
 
+process_russian <- function(date) {
+    .Call(`_datefixR_process_russian`, date)
+}
+
 imputemonth <- function(monthImpute_) {
     invisible(.Call(`_datefixR_imputemonth`, monthImpute_))
 }
