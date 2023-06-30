@@ -21,7 +21,8 @@ fix_date_char <- function(dates,
                           day.impute = 1,
                           month.impute = 7,
                           format = "dmy",
-                          excel = FALSE) {
+                          excel = FALSE,
+                          roman.numeral = FALSE) {
   checkday(day.impute)
   .checkmonth(month.impute)
   .checkformat(format)
@@ -33,6 +34,7 @@ fix_date_char <- function(dates,
       month.impute = month.impute,
       format = format,
       excel = excel,
+      roman.numeral = roman.numeral,
       USE.NAMES = FALSE
     ),
     origin = "1970-01-01"
