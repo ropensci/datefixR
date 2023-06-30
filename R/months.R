@@ -147,15 +147,17 @@ months$months[[12]] <- c(
   "\u0434\u0435\u043a" # "дек"
 )
 
-months$roman <- c("i",
-                  "ii",
-                  "iii",
-                  "iv",
-                  "v",
-                  "vi",
-                  "vii",
-                  "viii",
-                  "ix",
-                  "x",
-                  "xi",
-                  "xii")
+months$roman <- c(
+  "i",
+  "ii",
+  "iii",
+  "iv",
+  "v",
+  "vi",
+  "vii",
+  "viii",
+  "ix",
+  "x",
+  "xi",
+  "xii"
+)

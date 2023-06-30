@@ -21,7 +21,7 @@ fix_date_char <- function(dates,
                           day.impute = 1,
                           month.impute = 7,
                           format = "dmy",
-                          excel = FALSE, 
+                          excel = FALSE,
                           roman.numeral = FALSE) {
   checkday(day.impute)
   .checkmonth(month.impute)

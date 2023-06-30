@@ -4,7 +4,7 @@
                       month.impute,
                       subject,
                       format = format,
-                      excel, 
+                      excel,
                       roman.numeral) {
   if (is.null(date) || is.na(date) || as.character(date) == "") {
     return(NA)
@@ -37,9 +37,9 @@
     }
     date <- .convert_text_month(date)
     date_vec <- .separate_date(date)
-    
-     if (roman.numeral) date_vec <- roman_conversion(date_vec)
-    
+
+    if (roman.numeral) date_vec <- roman_conversion(date_vec)
+
     if (any(nchar(date_vec) > 4)) {
       stop("unable to tidy a date")
     }
@@ -335,9 +335,9 @@
 roman_conversion <- function(date_vec) {
   if (date_vec[2] %in% months$roman) {
     date_vec[2] <- which(months$roman == date_vec[2])
-      if (nchar(date_vec[2]) == 1) {
-        date_vec[2] <- paste0("0", date_vec[2])
-        }
+    if (nchar(date_vec[2]) == 1) {
+      date_vec[2] <- paste0("0", date_vec[2])
+    }
   }
   date_vec
 }
