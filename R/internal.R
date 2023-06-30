@@ -12,7 +12,7 @@
 
   date <- as.character(date) |>
     .rm_ordinal_suffixes() |>
-    process_french() |> 
+    process_french() |>
     process_russian()
 
   if (nchar(date) == 4) {
@@ -253,7 +253,7 @@
 
   date <- as.character(date) |>
     .rm_ordinal_suffixes() |>
-    process_french() |> 
+    process_french() |>
     process_russian()
 
   if (nchar(date) == 4) {
