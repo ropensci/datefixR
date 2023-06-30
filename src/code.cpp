@@ -13,6 +13,15 @@ String process_french(String date) {
 }
 
 // [[Rcpp::export]]
+String process_russian(String date) {
+  date.replace_all("марта", "март");
+  date.replace_all("Марта", "Март");
+  date.replace_all("августа", "август");
+  date.replace_all("Августа", "Август");
+  return date;
+}
+
+// [[Rcpp::export]]
 void imputemonth(Nullable<String> monthImpute_) {
   if (monthImpute_.isNull()) {
     stop(_("Missing month with no imputation value given \n"));
