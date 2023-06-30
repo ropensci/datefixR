@@ -47,30 +47,30 @@ months$months[[3]] <- c(
   "\u043C\u0430\u0440" # "мар"
 )
 months$months[[4]] <- c(
-  "april", 
-  "avril", 
-  "abril", 
-  "abr", 
-  "apr", 
+  "april",
+  "avril",
+  "abril",
+  "abr",
+  "apr",
   "\u0430\u043f\u0440\u0435\u043b\u044c", # "апрель"
   "\u0430\u043f\u0440\u0435\u043b\u044f", # "апреля"
   "\u0430\u043f\u0440" # "апр"
-) 
+)
 months$months[[5]] <- c(
-  "mayo", 
-  "may", 
-  "maio", 
-  "mai", 
+  "mayo",
+  "may",
+  "maio",
+  "mai",
   "\u043c\u0430\u0439", # "май"
   "\u043c\u0430\u044f" # "мая"
 )
 months$months[[6]] <- c(
-  "june", 
-  "juin", 
-  "junio", 
-  "junho", 
-  "juni", 
-  "jun", 
+  "june",
+  "juin",
+  "junio",
+  "junho",
+  "juni",
+  "jun",
   "\u0438\u044e\u043d\u044c", # "июнь"
   "\u0438\u044e\u043d\u044f", # "июня"
   "\u0438\u044e\u043d" # "июн"
@@ -90,9 +90,9 @@ months$months[[7]] <- c(
 months$months[[8]] <- c(
   "august",
   "aug",
-  "ao\u00FBt", 
-  "aout", 
-  "agosto", 
+  "ao\u00FBt",
+  "aout",
+  "agosto",
   "\u0430\u0432\u0433\u0443\u0441\u0442", # "август"
   "\u0430\u0432\u0433" # "авг"
 )
