@@ -9,7 +9,8 @@ fix_date_char(
   day.impute = 1,
   month.impute = 7,
   format = "dmy",
-  excel = FALSE
+  excel = FALSE,
+  roman.numeral = FALSE
 )
 }
 \arguments{
@@ -36,6 +37,12 @@ is more than four digits, should the date be assumed to be from Excel
 which counts the number of days from 1900-01-01? In most programming
 languages (including R), days are instead calculated from 1970-01-01
 and this is the default for this function (\code{excel = FALSE})}
+
+\item{roman.numeral}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}} Logical. If TRUE,
+months detected to have been given as Roman numerals will be converted.
+Months are given in Roman numerals in some database systems and biological
+records. Defaults to FALSE as this may occasionally interfere with months
+in other formats.}
 }
 \value{
 A vector of elements belonging to \R{}'s built in \code{Date} class

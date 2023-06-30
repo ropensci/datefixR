@@ -29,6 +29,11 @@
 #'   which counts the number of days from 1900-01-01? In most programming
 #'   languages (including R), days are instead calculated from 1970-01-01
 #'   and this is the default for this function (\code{excel = FALSE})
+#' @param roman.numeral `r lifecycle::badge("experimental")` Logical. If TRUE,
+#'   months detected to have been given as Roman numerals will be converted.
+#'   Months are given in Roman numerals in some database systems and biological
+#'   records. Defaults to FALSE as this may occasionally interfere with months
+#'   in other formats.
 #' @return A \code{dataframe} or \code{tibble} object. Dependent on the type of
 #'   \code{df}. Selected columns are of type \code{Date} with the following
 #'   format \code{yyyy-mm-dd}
@@ -45,7 +50,8 @@ fix_date_df <- function(df,
                         month.impute = 7,
                         id = NULL,
                         format = "dmy",
-                        excel = FALSE) {
+                        excel = FALSE,
+                        roman.numeral = FALSE) {
   if (!is.data.frame(df)) {
     stop("df should be a dataframe object!")
   }
@@ -70,7 +76,8 @@ fix_date_df <- function(df,
             month.impute,
             subject = df[i, id],
             format = format,
-            excel = excel
+            excel = excel,
+            roman.numeral = roman.numeral
           )
         },
         error = function(cond) {
