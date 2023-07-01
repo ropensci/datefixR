@@ -1,5 +1,5 @@
 # -----------------------------------------------------------
-# CITATION file created with {cffr} R package, v0.4.1
+# CITATION file created with {cffr} R package, v0.5.0
 # See also: https://docs.ropensci.org/cffr/
 # -----------------------------------------------------------
  
@@ -8,7 +8,7 @@ message: 'To cite package "datefixR" in publications use:'
 type: software
 license: GPL-3.0-or-later
 title: 'datefixR: Standardize Dates in Different Formats or with Missing Data'
-version: 1.4.1.9000
+version: 1.5.0
 doi: 10.5281/zenodo.5655311
 abstract: 'There are many different formats dates are commonly represented with: the
   order of day, month, or year can differ, different separators ("-", "/", or whitespace)
@@ -32,7 +32,7 @@ preferred-citation:
     email: nathan.constantine-cooke@ed.ac.uk
     orcid: https://orcid.org/0000-0002-4437-8713
   year: '2023'
-  notes: R package version 1.4.1.9000
+  notes: R package version 1.5.0
   doi: 10.5281/zenodo.5655311
   url: https://CRAN.R-project.org/package=datefixR
 repository: https://CRAN.R-project.org/package=datefixR
@@ -112,10 +112,10 @@ references:
   authors:
   - family-names: Henry
     given-names: Lionel
-    email: lionel@rstudio.com
+    email: lionel@posit.co
   - family-names: Wickham
     given-names: Hadley
-    email: hadley@rstudio.com
+    email: hadley@posit.co
   year: '2023'
 - type: software
   title: stringr
@@ -209,35 +209,38 @@ references:
   authors:
   - family-names: Allaire
     given-names: JJ
-    email: jj@rstudio.com
+    email: jj@posit.co
   - family-names: Xie
     given-names: Yihui
     email: xie@yihui.name
     orcid: https://orcid.org/0000-0003-0645-5666
+  - family-names: Dervieux
+    given-names: Christophe
+    email: cderv@posit.co
+    orcid: https://orcid.org/0000-0003-4474-2498
   - family-names: McPherson
     given-names: Jonathan
-    email: jonathan@rstudio.com
+    email: jonathan@posit.co
   - family-names: Luraschi
     given-names: Javier
-    email: javier@rstudio.com
   - family-names: Ushey
     given-names: Kevin
-    email: kevin@rstudio.com
+    email: kevin@posit.co
   - family-names: Atkins
     given-names: Aron
-    email: aron@rstudio.com
+    email: aron@posit.co
   - family-names: Wickham
     given-names: Hadley
-    email: hadley@rstudio.com
+    email: hadley@posit.co
   - family-names: Cheng
     given-names: Joe
-    email: joe@rstudio.com
+    email: joe@posit.co
   - family-names: Chang
     given-names: Winston
-    email: winston@rstudio.com
+    email: winston@posit.co
   - family-names: Iannone
     given-names: Richard
-    email: rich@rstudio.com
+    email: rich@posit.co
     orcid: https://orcid.org/0000-0003-3925-190X
   year: '2023'
 - type: software
@@ -315,7 +318,7 @@ references:
   authors:
   - family-names: Wickham
     given-names: Hadley
-    email: hadley@rstudio.com
+    email: hadley@posit.co
   year: '2023'
   version: '>= 3.0.0'
 - type: software
@@ -364,12 +367,12 @@ references:
   authors:
   - family-names: Wickham
     given-names: Hadley
-    email: hadley@rstudio.com
+    email: hadley@posit.co
   - family-names: Hester
     given-names: Jim
   - family-names: Bryan
     given-names: Jennifer
-    email: jenny@rstudio.com
+    email: jenny@posit.co
     orcid: https://orcid.org/0000-0002-6983-2759
   year: '2023'
 - type: software
@@ -387,7 +390,7 @@ references:
   title: pkgbuild
   abstract: 'pkgbuild: Find Tools Needed to Build R Packages'
   notes: Suggests
-  url: https://r-lib.github.io/pkgbuild/
+  url: https://pkgbuild.r-lib.org
   repository: https://CRAN.R-project.org/package=pkgbuild
   authors:
   - family-names: Wickham
