@@ -97,7 +97,7 @@ fix_date_char("01 02 2014")
 ### Localization
 
 `datefixR` currently supports dates being provided in English, Français
-(French), Deutsch (German), español (Spanish), and português (Portuguese) by
+(French), Deutsch (German), español (Spanish), and Русский (Russian) by
 recognizing both names of months in these languages and formatting customs.
 Expected languages do not need to be specified and can be provided just like any
 other date to be standardized.
@@ -121,7 +121,6 @@ correct format without the `format` argument needing to be specified by the user
 ```{R}
 fix_date_char("July 4th, 1776")
 ```
-
 
 
 ### Date and month imputation
@@ -196,6 +195,18 @@ converted to numerical dates in Excel, then `excel = TRUE` can be passed to a
 
 ```{R}
 fix_date_char("44941", excel = TRUE)
+```
+
+### Roman numeral months [![Experimental](https://lifecycle.r-lib.org/articles/figures/lifecycle-experimental.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+
+Oracle Database can use Roman numerals to format months and this custom is also
+used in some biological contexts. If dates in need of parsing are in this format,
+`roman.numeral = TRUE` can be passed to `fix_date_char()` or `fix_date_df()`.
+This implementation is currently experimental and is not guaranteed to work
+alongside other date formats. 
+
+```{R}
+fix_date_char("12/IV/2019", roman.numeral = TRUE)
 ```
 
 ## Citation
