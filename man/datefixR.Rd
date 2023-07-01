@@ -28,6 +28,7 @@ Other contributors:
 \item Jonathan Kitt \code{[}contributor, translator\verb{]}
 \item Antonio J. Pérez-Luque  \href{https://orcid.org/0000-0002-1747-0469}{(ORCID)} \code{[}contributor, translator\verb{]}
 \item Daniel Possenriede \href{https://orcid.org/0000-0002-6738-9845}{(ORCID)} \code{[}contributor, translator\verb{]}
+\item Anatoly Tsyplenkov \href{https://orcid.org/0000-0003-4144-8402}{(ORCID)} \code{[}contributor, translator\verb{]}
 \item Kaique dos S. Alves \href{https://orcid.org/0000-0001-9187-0252}{(ORCID)} \code{[}reviewer\verb{]}
 \item Al-Ahmadgaid B. Asaad  \href{https://orcid.org/0000-0003-3784-8593}{(ORCID)} \code{[}reviewer\verb{]}
 }
