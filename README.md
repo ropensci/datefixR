@@ -5,12 +5,12 @@
 
 <!-- badges: start -->
 
-| Usage                                                                                                                                                                    | Release                                                                                                                                          | Development                                                                                                                                                                                            | Translation Status                                                                                                       |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| ![R](https://img.shields.io/badge/r-%23276DC3.svg?style=for-the-badge&logo=r&logoColor=white)                                                                            | [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/datefixR)](https://cran.r-project.org/package=datefixR)                             | [![R build status](https://github.com/ropensci/datefixR/workflows/CI/badge.svg)](https://github.com/ropensci/datefixR/actions)                                                                         | [![localization](https://gitlocalize.com/repo/8364/de/badge.svg)](https://gitlocalize.com/repo/8364/de?utm_source=badge) |
-| [![License: GPL-3](https://img.shields.io/badge/License-GPL3-green.svg)](https://opensource.org/licenses/GPL-3.0)                                                        | [![datefixR status badge](https://ropensci.r-universe.dev/badges/datefixR)](https://ropensci.r-universe.dev/datefixR)                            | [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) | [![localization](https://gitlocalize.com/repo/8364/es/badge.svg)](https://gitlocalize.com/repo/8364/es?utm_source=badge) |
-| [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/datefixR?color=blue)](https://r-pkg.org/pkg/datefixR)                                    | [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5655311.svg)](https://doi.org/10.5281/zenodo.5655311)                                        | [![codecov](https://codecov.io/gh/ropensci/datefixR/branch/main/graph/badge.svg?token=zycOVwlq1m)](https://app.codecov.io/gh/ropensci/datefixR)                                                        | [![localization](https://gitlocalize.com/repo/8364/fr/badge.svg)](https://gitlocalize.com/repo/8364/fr?utm_source=badge) |
-| ![website status](https://img.shields.io/website?down_color=red&down_message=offline&up_color=green&up_message=online&url=https%3A%2F%2Fdocs.ropensci.org%2FdatefixR%2F) | [![Status at rOpenSci Software Peer Review](https://badges.ropensci.org/533_status.svg)](https://github.com/ropensci/software-review/issues/533) | [![Tidyverse style guide](https://img.shields.io/static/v1?label=Code%20Style&message=Tidyverse&color=1f1c30)](https://style.tidyverse.org)                                                            |                                                                                                                          |
+| Usage                                                                                                                                                                    | Release                                                                                                                                          | Development                                                                                                                                                                                            | Translation Status                                                                                                               |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
+| ![R](https://img.shields.io/badge/r-%23276DC3.svg?style=for-the-badge&logo=r&logoColor=white)                                                                            | [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/datefixR)](https://cran.r-project.org/package=datefixR)                             | [![R build status](https://github.com/ropensci/datefixR/workflows/CI/badge.svg)](https://github.com/ropensci/datefixR/actions)                                                                         | [![German localization](https://gitlocalize.com/repo/8364/de/badge.svg)](https://gitlocalize.com/repo/8364/de?utm_source=badge)  |
+| [![License: GPL-3](https://img.shields.io/badge/License-GPL3-green.svg)](https://opensource.org/licenses/GPL-3.0)                                                        | [![datefixR status badge](https://ropensci.r-universe.dev/badges/datefixR)](https://ropensci.r-universe.dev/datefixR)                            | [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) | [![Spanish localization](https://gitlocalize.com/repo/8364/es/badge.svg)](https://gitlocalize.com/repo/8364/es?utm_source=badge) |
+| [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/datefixR?color=blue)](https://r-pkg.org/pkg/datefixR)                                    | [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5655311.svg)](https://doi.org/10.5281/zenodo.5655311)                                        | [![codecov](https://codecov.io/gh/ropensci/datefixR/branch/main/graph/badge.svg?token=zycOVwlq1m)](https://app.codecov.io/gh/ropensci/datefixR)                                                        | [![French localization](https://gitlocalize.com/repo/8364/fr/badge.svg)](https://gitlocalize.com/repo/8364/fr?utm_source=badge)  |
+| ![website status](https://img.shields.io/website?down_color=red&down_message=offline&up_color=green&up_message=online&url=https%3A%2F%2Fdocs.ropensci.org%2FdatefixR%2F) | [![Status at rOpenSci Software Peer Review](https://badges.ropensci.org/533_status.svg)](https://github.com/ropensci/software-review/issues/533) | [![Tidyverse style guide](https://img.shields.io/static/v1?label=Code%20Style&message=Tidyverse&color=1f1c30)](https://style.tidyverse.org)                                                            | [![Russian localization](https://gitlocalize.com/repo/8364/ru/badge.svg)](https://gitlocalize.com/repo/8364/ru?utm_source=badge) |
 
 <!-- badges: end -->
 
@@ -30,14 +30,15 @@ behavior.
 
 <img src="man/figures/example.svg" width="800"/>
 
-`datefixR` also supports dates provided in different languages. The
-following languages are currently supported:
+`datefixR` also supports dates provided in different languages and
+provides translated warning and error messages. The following languages
+are currently supported:
 
   - English
   - Français (French)
   - Deutsch (German)
   - español (Spanish)
-  - português (Portuguese)
+  - Pусский (Russian)
 
 Not familiar with R or want to quickly try out `datefixR`? Check out the
 shiny app [here](https://nathansam.shinyapps.io/datefixr/).
@@ -141,6 +142,16 @@ Functions in `datefixR` assume day-first instead of month-first when
 day, month, and year are all given (unless year is given first). However
 this behavior can be modified by passing `format = "mdy"` to function
 calls.
+
+Numeric representations of dates, as used by either Excel or by R, are
+also supported.
+
+``` r
+fix_date_char("19539")
+#> [1] "2023-07-01"
+fix_date_char("45108", excel = TRUE)
+#> [1] "2023-07-01"
+```
 
 ## Limitations
 

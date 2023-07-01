@@ -3,7 +3,7 @@
 test_that("fix_date_app() works with datefixR theme", {
   # Don't run these tests on the CRAN build servers
   skip_on_cran()
-  skip_if_not(Sys.info()["sysname"] == "Darwin", message = "Not run on macOS")
+  skip_if_not(Sys.info()["sysname"] == "Darwin", message = "These tests only run on macOS")
   withr::local_package("shinytest2")
   shiny_app <- fix_date_app()
   app <- AppDriver$new(shiny_app, variant = platform_variant())
@@ -31,7 +31,7 @@ test_that("fix_date_app() works with datefixR theme", {
 test_that("fix_date_app() works with shiny theme", {
   # Don't run these tests on the CRAN build servers
   skip_on_cran()
-  skip_if_not(Sys.info()["sysname"] == "Darwin", message = "Not run on macOS")
+  skip_if_not(Sys.info()["sysname"] == "Darwin", message = "These tests only run on macOS")
   withr::local_package("shinytest2")
   shiny_app <- fix_date_app(theme = "none")
   app2 <- AppDriver$new(shiny_app, variant = "shiny")

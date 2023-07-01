@@ -16,13 +16,3 @@ via GitHub actions https://github.com/ropensci/datefixR/actions
 ## Downstream dependencies
 
 This package has no downstream dependencies
-
-
-# Resubmission
-
- This is a resubmission. The below error has now been fixed
- 
-```
-  Package CITATION file contains call(s) to old-style citEntry().  Please
-  use bibentry() instead.
-```
