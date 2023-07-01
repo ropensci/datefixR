@@ -1,5 +1,24 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# datefixR 1.5.0
+
+## Code changes
+
+* `exampledates` has been updated to now include dates in non-English formats
+* Russian translations and dates have been added thanks to @atsyplenkov.
+* Fixed a bug which would cause R to freeze on Windows machines when datefixR
+  had been built using Rtools 43. 
+* Experimental support has been added for months given as Roman numerals.
+* A message raised if the system locale does not support multibyte
+  characters has been translated (thanks @KittJonathan, @dpprdan, and @ajpelu)
+  (100% translation of all user-facing messages).
+
+## Documentation
+
+* README now lists localized date support. 
+* README badges have been added for translation status
+* The vignette now discusses parsing dates with Roman numerals.
+
 # datefixR 1.4.1
 
 ## Code changes
