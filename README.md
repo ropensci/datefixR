@@ -31,8 +31,8 @@ behavior.
 <img src="man/figures/example.svg" width="800"/>
 
 `datefixR` also supports dates provided in different languages and
-translated warning and error messages. The following languages are
-currently supported:
+provides translated warning and error messages. The following languages
+are currently supported:
 
   - English
   - Français (French)
