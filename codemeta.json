@@ -8,13 +8,13 @@
   "codeRepository": "https://github.com/ropensci/datefixR",
   "issueTracker": "https://github.com/ropensci/datefixR/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "1.4.1.9000",
+  "version": "1.5.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.2.2 (2022-10-31)",
+  "runtimePlatform": "R version 4.3.0 (2023-04-21)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -53,6 +53,13 @@
     },
     {
       "@type": "Person",
+      "givenName": "Anatoly",
+      "familyName": "Tsyplenkov",
+      "email": "atsyplenkov@gmail.com",
+      "@id": "https://orcid.org/0000-0003-4144-8402"
+    },
+    {
+      "@type": "Person",
       "givenName": "Jonathan",
       "familyName": "Kitt",
       "email": "jonathan.kitt@protonmail.com"
@@ -70,6 +77,13 @@
       "familyName": "Possenriede",
       "email": "possenriede+r@gmail.com",
       "@id": "https://orcid.org/0000-0002-6738-9845"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Anatoly",
+      "familyName": "Tsyplenkov",
+      "email": "atsyplenkov@gmail.com",
+      "@id": "https://orcid.org/0000-0003-4144-8402"
     }
   ],
   "maintainer": [
@@ -309,7 +323,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "3299.046KB",
+  "fileSize": "3376.958KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -324,7 +338,7 @@
       "name": "{datefixR}: Standardize Dates in Different Formats or with Missing Data",
       "identifier": "10.5281/zenodo.5655311",
       "url": "https://CRAN.R-project.org/package=datefixR",
-      "description": "R package version 1.4.1.9000",
+      "description": "R package version 1.5.0",
       "@id": "https://doi.org/10.5281/zenodo.5655311",
       "sameAs": "https://doi.org/10.5281/zenodo.5655311"
     }
