@@ -78,8 +78,8 @@
       }
     }
   }
-  .checkoutput(day, month)
-  .combinepartialdate(day, month, year, date, subject)
+  output <- .checkoutput(day, month, year)
+  .combinepartialdate(output$day, output$month, output$year, date, subject)
 }
 
 #' @noRd
@@ -150,18 +150,36 @@
 }
 
 #' @noRd
-.checkoutput <- function(day, month) {
+.checkoutput <- function(day, month, year) {
+  day <- as.numeric(day)
+  month <- as.numeric(month)
+  year <- as.numeric(year)
+  
   if (!is.na(month)) {
-    if (as.numeric(month) > 12 || as.numeric(month) < 1) {
+    if (month > 12 | month < 1) {
       stop("Month not in expected range \n")
     }
   }
-  if (!is.na(day)) {
-    if (as.numeric(day) > 31 || as.numeric(day) < 1) {
-      stop("Day of the year not in expected range \n")
+  
+  days.month <- months$days # vector of days in each month on non-leap year
+  #leap year check
+  
+  if (!is.na(day) & !is.na(month) & !is.na(year)){
+    if (month == 2) {
+      if ((year %% 4) == 0) {
+        if (((year %% 100) == 0) & ((year %% 400) == 0)) {
+          days.month[2] <- 29
+        }
+        if (!(year %% 100 == 0)) {
+          days.month[2] <- 29
+        }
+      }
+    }
+    if (day > days.month[month]) {
+      day <- days.month[month]
     }
   }
-  NULL
+  list(day = day, month = month, year = year)
 }
 
 #' @noRd
@@ -315,8 +333,8 @@
       }
     }
   }
-  .checkoutput(day, month)
-  as.Date(.combinepartialdate(day, month, year, date))
+  output <- .checkoutput(day, month, year)
+  as.Date(.combinepartialdate(output$day, output$month, output$year, date))
 }
 
 #' @noRd

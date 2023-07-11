@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: datefixR 1.4.1.9000\n"
-"POT-Creation-Date: 2023-02-14 15:02\n"
+"POT-Creation-Date: 2023-07-11 11:16\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,9 +37,6 @@ msgstr "month.impute debe ser un número entero"
 msgid "Month not in expected range"
 msgstr "Mes fuera del rango esperado"
 
-msgid "Day of the year not in expected range"
-msgstr "Día del año fuera del rango esperado"
-
 msgid "format should be either 'dmy' or 'mdy'"
 msgstr "formato debe ser 'dma' o 'mda'"
 
@@ -63,3 +60,6 @@ msgstr "Puedes tener dificultades si algún mes es dado como"
 
 msgid "non-English language names."
 msgstr "nombres en idiomas distintos del inglés."
+
+#~ msgid "Day of the year not in expected range"
+#~ msgstr "Día del año fuera del rango esperado"
