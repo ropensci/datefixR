@@ -154,17 +154,17 @@
   day <- as.numeric(day)
   month <- as.numeric(month)
   year <- as.numeric(year)
-  
+
   if (!is.na(month)) {
     if (month > 12 | month < 1) {
       stop("Month not in expected range \n")
     }
   }
-  
+
   days.month <- months$days # vector of days in each month on non-leap year
-  #leap year check
-  
-  if (!is.na(day) & !is.na(month) & !is.na(year)){
+  # leap year check
+
+  if (!is.na(day) & !is.na(month) & !is.na(year)) {
     if (month == 2) {
       if ((year %% 4) == 0) {
         if (((year %% 100) == 0) & ((year %% 400) == 0)) {
