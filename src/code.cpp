@@ -35,20 +35,6 @@ void imputeday(Nullable<String> dayImpute_) {
   }
 }
 
-// Not used following update to Rtools 43 Windows
-String rm_ordinal_suffixes(String date_) {
-  std::string date(date_);
-  date = std::regex_replace(date, std::regex("(\\d)(st,)"), "$1");
-  date = std::regex_replace(date, std::regex("(\\d)(nd,)"), "$1" );
-  date = std::regex_replace(date, std::regex("(\\d)(rd,)"), "$1" );
-  date = std::regex_replace(date, std::regex("(\\d)(th,)"), "$1" );
-  date = std::regex_replace(date, std::regex("(\\d)(st)"), "$1");
-  date = std::regex_replace(date, std::regex("(\\d)(nd)"), "$1" );
-  date = std::regex_replace(date, std::regex("(\\d)(rd)"), "$1" );
-  date = std::regex_replace(date, std::regex("(\\d)(th)"), "$1" );
-  String date2(date);
-  return date2;
-}
 
 // [[Rcpp::export]]
 void checkday(Nullable<NumericVector> dayImpute) {
