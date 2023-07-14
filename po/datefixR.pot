@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: datefixR 1.4.1.9000\n"
+"Project-Id-Version: datefixR 1.5.0.9000\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-14 15:02+0000\n"
+"POT-Creation-Date: 2023-07-11 11:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,18 +17,18 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: code.cpp:18
+#: code.cpp:27
 msgid "Missing month with no imputation value given \n"
 msgstr ""
 
-#: code.cpp:25
+#: code.cpp:34
 msgid "Missing day with no imputation value given \n"
 msgstr ""
 
-#: code.cpp:51
-msgid "day.impute should be an integer between 1 and 28\n"
+#: code.cpp:59
+msgid "day.impute should be an integer between 1 and 31\n"
 msgstr ""
 
-#: code.cpp:54
+#: code.cpp:62
 msgid "day.impute should be an integer\n"
 msgstr ""

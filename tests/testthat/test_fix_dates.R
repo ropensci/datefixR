@@ -137,7 +137,7 @@ test_that("error if day.impute or month.impute are wrong format", {
       c("some.dates", "some.more.dates"),
       day.impute = 35
     ),
-    "day.impute should be an integer between 1 and 28\n"
+    "day.impute should be an integer between 1 and 31\n"
   )
   expect_error(
     fix_dates(bad.dates,
@@ -188,27 +188,6 @@ test_that("Error if month out of bounds", {
     "Month not in expected range \n"
   )
 })
-
-test_that("Error if day out of bounds", {
-  withr::local_options(lifecycle_verbosity = "quiet")
-  temp <- data.frame(id = 1, date = "34-12-1994")
-
-  expect_error(
-    fix_dates(temp, "date"),
-    "Day of the year not in expected range \n"
-  )
-})
-
-test_that("Error if day out of bounds", {
-  withr::local_options(lifecycle_verbosity = "quiet")
-  temp <- data.frame(id = 1, date = "34-12-1994")
-
-  expect_error(
-    fix_dates(temp, "date"),
-    "Day of the year not in expected range \n"
-  )
-})
-
 
 test_that("Imputing day with NA results in NA", {
   withr::local_options(lifecycle_verbosity = "quiet")

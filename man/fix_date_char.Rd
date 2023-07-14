@@ -17,9 +17,11 @@ fix_date_char(
 \item{dates}{Character vector to be converted to \R{}'s date class.}
 
 \item{day.impute}{Integer. Day of the month to be imputed if not available.
-defaults to 1. If \code{day.impute = NA} then \code{NA} will be imputed for
+defaults to 1. Maximum value of 31. If day.impute is greater than the
+number of days for a given month, then the last day of that month will be
+imputed. If \code{day.impute = NA}, then \code{NA} will be imputed for
 the date instead and a warning will be raised. If \code{day.impute = NULL}
-then instead of imputing the day of the month, the function will fail}
+then instead of imputing the day of the month, the function will fail.}
 
 \item{month.impute}{Integer. Month to be be imputed if not available.
 Defaults to 7 (July). If \code{month.impute = NA} then \code{NA} will be

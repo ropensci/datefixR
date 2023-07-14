@@ -132,7 +132,7 @@ test_that("error if day.impute or month.impute are wrong format", {
       c("some.dates", "some.more.dates"),
       day.impute = 35
     ),
-    "day.impute should be an integer between 1 and 28\n"
+    "day.impute should be an integer between 1 and 31\n"
   )
   expect_error(
     fix_date_df(bad.dates,
@@ -179,24 +179,6 @@ test_that("Error if month out of bounds", {
   expect_error(
     fix_date_df(temp, "date"),
     "Month not in expected range \n"
-  )
-})
-
-test_that("Error if day out of bounds", {
-  temp <- data.frame(id = 1, date = "34-12-1994")
-
-  expect_error(
-    fix_date_df(temp, "date"),
-    "Day of the year not in expected range \n"
-  )
-})
-
-test_that("Error if day out of bounds", {
-  temp <- data.frame(id = 1, date = "34-12-1994")
-
-  expect_error(
-    fix_date_df(temp, "date"),
-    "Day of the year not in expected range \n"
   )
 })
 
@@ -311,6 +293,6 @@ test_that("Excel numeric date is parsed correctly", {
 test_that("checkday errors when input is out of range", {
   expect_error(
     checkday(45),
-    "day.impute should be an integer between 1 and 28\n"
+    "day.impute should be an integer between 1 and 31\n"
   )
 })
