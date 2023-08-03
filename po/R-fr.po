@@ -56,9 +56,7 @@ msgid "theme should be 'datefixR' or 'none'"
 msgstr "le thème doit être 'datefixR' ou 'none'"
 
 msgid "The current locale does not support multibyte characters."
-msgstr ""
-"Les réglages régionaux actuels ne prennent pas en charge les caractères "
-"multioctets."
+msgstr "Les réglages régionaux actuels ne prennent pas en charge les caractères multioctets."
 
 msgid "You may run into difficulties if any months are given as"
 msgstr "Vous risquez de rencontrer des difficultés si des mois sont utilisés"

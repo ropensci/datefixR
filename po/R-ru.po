@@ -41,9 +41,7 @@ msgid "Day not in expected range"
 msgstr "день определен вне ожидаемого диапазона"
 
 msgid "format should be either 'dmy' or 'mdy'"
-msgstr ""
-"переменная `format` должна быть либо 'dmy' (т.е., день-месяц-год), либо "
-"'mdy' (т.е., месяц-день-год)"
+msgstr "переменная `format` должна быть либо 'dmy' (т.е., день-месяц-год), либо 'mdy' (т.е., месяц-день-год)"
 
 msgid "NA imputed (date:"
 msgstr "Н/Д (т.е. `NA`) присвоено (дата:"
