@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: datefixR 1.4.1.9000\n"
-"POT-Creation-Date: 2023-07-11 11:16\n"
+"POT-Creation-Date: 2023-08-03 11:24\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,6 +37,9 @@ msgstr "`month.impute` должен быть целым числом (класс
 msgid "Month not in expected range"
 msgstr "Месяц определен вне ожидаемого диапазона"
 
+msgid "Day not in expected range"
+msgstr "день определен вне ожидаемого диапазона"
+
 msgid "format should be either 'dmy' or 'mdy'"
 msgstr ""
 "переменная `format` должна быть либо 'dmy' (т.е., день-месяц-год), либо "
@@ -58,11 +61,12 @@ msgid "The current locale does not support multibyte characters."
 msgstr "Текущая локаль не поддерживает многобайтовые символы."
 
 msgid "You may run into difficulties if any months are given as"
-msgstr ""
-"Вы можете столкнуться с трудностями, если какие-либо месяцы указаны как"
+msgstr "Вы можете столкнуться с трудностями, если какие-либо месяцы указаны как"
 
 msgid "non-English language names."
 msgstr "названия не на английском языке."
+
+
 
 #~ msgid "Day of the year not in expected range"
 #~ msgstr "День года определен вне ожидаемого диапазона"

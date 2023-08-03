@@ -83,3 +83,20 @@ test_that("Excel numeric date is parsed correctly", {
 test_that("Allow single digit day with double digit year", {
   expect_equal(fix_date_char("03/10/90"), fix_date_char("3/10/90"))
 })
+
+test_that("if day > max for month, lower day to max", {
+  expect_equal(fix_date_char("2023-02-30"), as.Date("2023-02-28"))
+  expect_equal(fix_date_char("2024-02-30"), as.Date("2024-02-29"))
+})
+
+test_that("Error if day of month > 31 or < 1", {
+  expect_error(fix_date_char("32-01-2023"), "Day not in expected range\n")
+})
+
+
+test_that("Roman conversion works as expected", {
+  expect_equal(
+    fix_date_char("2023-II-15", roman.numeral = TRUE),
+    as.Date("2023-02-15")
+  )
+})

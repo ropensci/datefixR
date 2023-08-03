@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: datefixR 1.4.1.9000\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-11 11:16+0100\n"
+"POT-Creation-Date: 2023-08-03 11:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: None\n"
@@ -19,10 +19,10 @@ msgstr "Пропущен месяц без заданного значения �
 msgid "Missing day with no imputation value given \n"
 msgstr "Пропущен день без заданного значения присвоения \n"
 
-#: code.cpp:59
+#: code.cpp:45
 msgid "day.impute should be an integer between 1 and 31\n"
 msgstr "Переменная `day.impute` должна быть целым числом от 1 до 31\n"
 
-#: code.cpp:62
+#: code.cpp:48
 msgid "day.impute should be an integer\n"
 msgstr "Переменная `day.impute` должна быть целым числом \n"

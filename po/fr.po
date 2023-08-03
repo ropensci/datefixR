@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: datefixR 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-11 11:16+0100\n"
+"POT-Creation-Date: 2023-08-03 11:24+0100\n"
 "PO-Revision-Date: 2022-09-07 HO:MI+ZONE\n"
 "Last-Translator: Jonathan Kitt <jonathan.kitt@protonmail.com>\n"
 "Language-Team: None\n"
@@ -19,10 +19,10 @@ msgstr "Le mois manquant n'a pas de valeur d'imputation \n"
 msgid "Missing day with no imputation value given \n"
 msgstr "Le jour manquant n'a pas de valeur d'imputation \n"
 
-#: code.cpp:59
+#: code.cpp:45
 msgid "day.impute should be an integer between 1 and 31\n"
 msgstr "day.impute doit tre un nombre entier compris entre 1 et 31\n"
 
-#: code.cpp:62
+#: code.cpp:48
 msgid "day.impute should be an integer\n"
 msgstr "day.impute doit tre un nombre entier\n"
