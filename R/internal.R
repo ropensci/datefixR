@@ -175,7 +175,7 @@
         }
       }
     }
-    
+
     if (day > 31) stop("Day not in expected range\n")
     if (day > days.month[month]) {
       day <- days.month[month]

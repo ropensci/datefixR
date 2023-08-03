@@ -95,6 +95,8 @@ test_that("Error if day of month > 31 or < 1", {
 
 
 test_that("Roman conversion works as expected", {
-  expect_equal(fix_date_char("2023-II-15", roman.numeral = TRUE),
-               as.Date("2023-02-15"))
+  expect_equal(
+    fix_date_char("2023-II-15", roman.numeral = TRUE),
+    as.Date("2023-02-15")
+  )
 })
