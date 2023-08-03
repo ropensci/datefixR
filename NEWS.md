@@ -1,5 +1,15 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# datefixR 1.6.0
+
+## Code changes
+
+* If `day.impute` is greater than the number of days for a given month, then
+  the last day of that month will be imputed. This will also take into account
+  there are 29 days in February in leap years. Setting `day.impute = 31` ensures
+  the last day of the month will always be imputed if the day is missing. 
+* An error is raised if the provided day of the year is greater than 31. 
+
 # datefixR 1.5.0
 
 ## Code changes
