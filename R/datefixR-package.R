@@ -24,5 +24,5 @@
 ## usethis namespace: end
 #' @docType package
 #' @name datefixR
-#' @keywords internal 
+#' @keywords internal
 "_PACKAGE"
