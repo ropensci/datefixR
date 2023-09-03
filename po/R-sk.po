@@ -1,65 +1,65 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: datefixR 1.6.0\n"
-"POT-Creation-Date: 2023-08-03 11:24\n"
+"POT-Creation-Date: 2023-08-07 10:49\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: cs\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "df should be a dataframe object!"
-msgstr ""
+msgstr "df by mal byť objekt typu dataframe!"
 
 msgid "col.names should be a character vector!"
-msgstr ""
+msgstr "col.names by mal byť vektor znakov!"
 
 msgid "Unable to resolve date for subject"
-msgstr ""
+msgstr "Dátum nemohol byť rozpoznaný pre daný subjekt"
 
 msgid "(date:"
-msgstr ""
+msgstr "(dátum:"
 
 msgid ")"
-msgstr ""
+msgstr ")"
 
 msgid "unable to tidy a date"
-msgstr ""
+msgstr "nepodarilo sa normalizovať dátum"
 
 msgid "month.impute should be an integer between 1 and 12"
-msgstr ""
+msgstr "month.impute by malo byť celé číslo od 1 do 12"
 
 msgid "month.impute should be an integer"
-msgstr ""
+msgstr "month.impute by malo byť celé číslo"
 
 msgid "Month not in expected range"
-msgstr ""
+msgstr "Mesiac nie je v očakávanom rozsahu"
 
 msgid "Day not in expected range"
-msgstr ""
+msgstr "Deň nie je v očakávanom rozsahu"
 
 msgid "format should be either 'dmy' or 'mdy'"
-msgstr ""
+msgstr "Formát by mal byť "dmy" alebo "mdy"."
 
 msgid "NA imputed (date:"
-msgstr ""
+msgstr "Imputované NA (dátum:"
 
 msgid "NA imputed for subject"
-msgstr ""
+msgstr "Imputované NA pre subjekt"
 
 msgid "date should be a character"
-msgstr ""
+msgstr "dátum by malo byť text"
 
 msgid "theme should be 'datefixR' or 'none'"
-msgstr ""
+msgstr "theme by mal byť 'datefixR' alebo 'none'"
 
 msgid "The current locale does not support multibyte characters."
-msgstr ""
+msgstr "Aktuálne prostredie (locale) nepodporuje viacbajtové znaky."
 
 msgid "You may run into difficulties if any months are given as"
-msgstr ""
+msgstr "Môžu nastať problémy, ak sú niektoré mesiace uvedené ako"
 
 msgid "non-English language names."
-msgstr ""
+msgstr "Neanglické názvy jazykov."
