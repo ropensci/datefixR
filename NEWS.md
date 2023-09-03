@@ -9,6 +9,11 @@
   there are 29 days in February in leap years. Setting `day.impute = 31` ensures
   the last day of the month will always be imputed if the day is missing. 
 * An error is raised if the provided day of the year is greater than 31. 
+* Czech and Slovak translations have been added thanks to @MichalLauer.
+
+## Documentation
+
+Package help file is now auto-generated.
 
 # datefixR 1.5.0
 

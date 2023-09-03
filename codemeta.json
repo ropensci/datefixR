@@ -53,6 +53,12 @@
     },
     {
       "@type": "Person",
+      "givenName": "Michal",
+      "familyName": "Lauer",
+      "email": "michal.lauer.25@gmail.com"
+    },
+    {
+      "@type": "Person",
       "givenName": "Anatoly",
       "familyName": "Tsyplenkov",
       "email": "atsyplenkov@gmail.com",
@@ -77,6 +83,12 @@
       "familyName": "Possenriede",
       "email": "possenriede+r@gmail.com",
       "@id": "https://orcid.org/0000-0002-6738-9845"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Michal",
+      "familyName": "Lauer",
+      "email": "michal.lauer.25@gmail.com"
     },
     {
       "@type": "Person",
@@ -323,7 +335,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "1076.61KB",
+  "fileSize": "2274.057KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",

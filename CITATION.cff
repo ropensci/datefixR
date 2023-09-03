@@ -152,25 +152,24 @@ references:
   authors:
   - family-names: Cheng
     given-names: Joe
-    email: joe@rstudio.com
+    email: joe@posit.co
   - family-names: Sievert
     given-names: Carson
-    email: carson@rstudio.com
+    email: carson@posit.co
     orcid: https://orcid.org/0000-0002-4958-2844
   - family-names: Schloerke
     given-names: Barret
-    email: barret@rstudio.com
+    email: barret@posit.co
     orcid: https://orcid.org/0000-0001-9986-114X
   - family-names: Chang
     given-names: Winston
-    email: winston@rstudio.com
+    email: winston@posit.co
     orcid: https://orcid.org/0000-0002-1576-2126
   - family-names: Xie
     given-names: Yihui
-    email: yihui@rstudio.com
+    email: yihui@posit.co
   - family-names: Allen
     given-names: Jeff
-    email: jeff@rstudio.com
   year: '2023'
 - type: software
   title: knitr
@@ -252,31 +251,30 @@ references:
   authors:
   - family-names: Chang
     given-names: Winston
-    email: winston@rstudio.com
+    email: winston@posit.co
     orcid: https://orcid.org/0000-0002-1576-2126
   - family-names: Cheng
     given-names: Joe
-    email: joe@rstudio.com
+    email: joe@posit.co
   - family-names: Allaire
     given-names: JJ
-    email: jj@rstudio.com
+    email: jj@posit.co
   - family-names: Sievert
     given-names: Carson
-    email: carson@rstudio.com
+    email: carson@posit.co
     orcid: https://orcid.org/0000-0002-4958-2844
   - family-names: Schloerke
     given-names: Barret
-    email: barret@rstudio.com
+    email: barret@posit.co
     orcid: https://orcid.org/0000-0001-9986-114X
   - family-names: Xie
     given-names: Yihui
-    email: yihui@rstudio.com
+    email: yihui@posit.co
   - family-names: Allen
     given-names: Jeff
-    email: jeff@rstudio.com
   - family-names: McPherson
     given-names: Jonathan
-    email: jonathan@rstudio.com
+    email: jonathan@posit.co
   - family-names: Dipert
     given-names: Alan
   - family-names: Borges
@@ -291,7 +289,7 @@ references:
   authors:
   - family-names: Schloerke
     given-names: Barret
-    email: barret@rstudio.com
+    email: barret@posit.co
     orcid: https://orcid.org/0000-0001-9986-114X
   year: '2023'
 - type: software
