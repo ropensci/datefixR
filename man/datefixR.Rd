@@ -34,6 +34,7 @@ Other contributors:
   \item Jonathan Kitt \email{jonathan.kitt@protonmail.com} [contributor, translator]
   \item Antonio J. Pérez-Luque \email{ajpelu@gmail.com} (\href{https://orcid.org/0000-0002-1747-0469}{ORCID}) [contributor, translator]
   \item Daniel Possenriede \email{possenriede+r@gmail.com} (\href{https://orcid.org/0000-0002-6738-9845}{ORCID}) [contributor, translator]
+  \item Michal Lauer \email{michal.lauer.25@gmail.com} [contributor, translator]
   \item Kaique dos S. Alves \email{kaiquedsalves@gmail.com} (\href{https://orcid.org/0000-0001-9187-0252}{ORCID}) [reviewer]
   \item Al-Ahmadgaid B. Asaad \email{alahmadgaid@gmail.com} (\href{https://orcid.org/0000-0003-3784-8593}{ORCID}) [reviewer]
   \item Anatoly Tsyplenkov \email{atsyplenkov@gmail.com} (\href{https://orcid.org/0000-0003-4144-8402}{ORCID}) [contributor, translator]
