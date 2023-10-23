@@ -2,7 +2,8 @@
 
     Code
       fix_dates(bad.dates, c("some.dates", "some.more.dates"))
-    Warning <lifecycle_warning_deprecated>
+    Condition
+      Warning:
       `fix_dates()` was deprecated in datefixR 1.0.0.
       i Please use `fix_date_df()` instead.
     Output
