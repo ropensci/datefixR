@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# datefixR 1.6.1
+
+## Code changes
+
+* Added 'ene' and 'ener' as alternative names for January (thanks to
+  @Guallasamin)
+
 # datefixR 1.6.0
 
 ## Code changes
