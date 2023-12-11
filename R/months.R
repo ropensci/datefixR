@@ -14,6 +14,8 @@ months$months[[1]] <- c(
   "j\u00E4nner",
   "j\u00E4n",
   "enero",
+  "ener",
+  "ene",
   "jan",
   "\u044f\u043d\u0432\u0430\u0440\u044c", # "январь"
   "\u044f\u043d\u0432\u0430\u0440\u044f", # "января"
