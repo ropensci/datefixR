@@ -17,7 +17,7 @@ jobs:
           use-public-rspm: true
       - name: Install shiny
         run: |
-          install.packages(c("shiny", "rsconnect", "remotes", "pkgbuild")); remotes::install_deps(dependencies = TRUE) 
+          install.packages(c("curl", "shiny", "rsconnect", "remotes", "pkgbuild")); remotes::install_deps(dependencies = TRUE) 
         shell: Rscript {0}
       - name: Push to shiny.io
         run: |
