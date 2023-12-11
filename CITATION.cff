@@ -8,7 +8,7 @@ message: 'To cite package "datefixR" in publications use:'
 type: software
 license: GPL-3.0-or-later
 title: 'datefixR: Standardize Dates in Different Formats or with Missing Data'
-version: 1.6.0
+version: 1.6.1
 doi: 10.5281/zenodo.5655311
 abstract: 'There are many different formats dates are commonly represented with: the
   order of day, month, or year can differ, different separators ("-", "/", or whitespace)
@@ -32,7 +32,7 @@ preferred-citation:
     email: nathan.constantine-cooke@ed.ac.uk
     orcid: https://orcid.org/0000-0002-4437-8713
   year: '2023'
-  notes: R package version 1.6.0
+  notes: R package version 1.6.1
   doi: 10.5281/zenodo.5655311
   url: https://CRAN.R-project.org/package=datefixR
 repository: https://CRAN.R-project.org/package=datefixR
@@ -43,12 +43,6 @@ contact:
   given-names: Nathan
   email: nathan.constantine-cooke@ed.ac.uk
   orcid: https://orcid.org/0000-0002-4437-8713
-keywords:
-- dates
-- r
-- r-package
-- rstats
-- wrangling
 references:
 - type: software
   title: 'R: A Language and Environment for Statistical Computing'
@@ -71,10 +65,10 @@ references:
   authors:
   - family-names: Henry
     given-names: Lionel
-    email: lionel@rstudio.com
+    email: lionel@posit.co
   - family-names: Wickham
     given-names: Hadley
-    email: hadley@rstudio.com
+    email: hadley@posit.co
     orcid: https://orcid.org/0000-0003-4757-117X
   year: '2023'
 - type: software
@@ -126,7 +120,7 @@ references:
   authors:
   - family-names: Wickham
     given-names: Hadley
-    email: hadley@rstudio.com
+    email: hadley@posit.co
   year: '2023'
 - type: software
   title: DT
@@ -330,7 +324,7 @@ references:
     given-names: Jim
   - family-names: Henry
     given-names: Lionel
-    email: lionel@rstudio.com
+    email: lionel@posit.co
   - family-names: Müller
     given-names: Kirill
     email: krlmlr+r@mailbox.org
