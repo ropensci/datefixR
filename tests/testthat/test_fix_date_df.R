@@ -296,3 +296,20 @@ test_that("checkday errors when input is out of range", {
     "day.impute should be an integer between 1 and 31\n"
   )
 })
+
+
+test_that("Roman numerical dates handled correctly", {
+  bad.dataframe <- data.frame(
+    id = seq(2),
+    some.dates = c("20-iv-2023", "2010/v/19")
+  )
+  fixed.df <- fix_date_df(bad.dataframe, "some.dates", roman.numeral = TRUE)
+  
+  expected.df <- data.frame(
+    id = seq(2),
+    some.dates = c("2023-04-20", "2010-05-19")
+  )
+  expected.df$some.dates <- as.Date(expected.df$some.dates)
+  
+  expect_equal(fixed.df, expected.df)
+})
