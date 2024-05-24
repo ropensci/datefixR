@@ -2,7 +2,7 @@
 
 <!-- This CONTRIBUTING.md is adapted from https://gist.github.com/peterdesmet/e90a1b0dc17af6c12daf6e8b2f044e7c -->
 
-First of all, thanks for considering contributing to our_package!
+First of all, thanks for considering contributing to our package!
 
 datefixR is an open source project and is not directly funded
 
