@@ -149,6 +149,9 @@ also supported.
 ``` r
 fix_date_char("19539")
 #> [1] "2023-07-01"
+```
+
+``` r
 fix_date_char("45108", excel = TRUE)
 #> [1] "2023-07-01"
 ```
@@ -217,7 +220,7 @@ year using the current year without raising a warning.
 
 ``` r
 parsedate::parse_date("april 15 1969")
-#> [1] "2023-04-15 UTC"
+#> [1] "2024-04-15 UTC"
 ```
 
 Moreover, `parse_date()` assumes dates are in MDY format and does not
