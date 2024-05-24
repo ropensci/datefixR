@@ -5,16 +5,16 @@ Authors@R: c(
     person("Nathan", "Constantine-Cooke", , "nathan.constantine-cooke@ed.ac.uk", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-4437-8713")),
     person("Jonathan", "Kitt", , "jonathan.kitt@protonmail.com", role = c("ctb", "trl")),
-    person("Antonio J.", "Pérez-Luque", ,"ajpelu@gmail.com", role = c("ctb", "trl"), 
+    person("Antonio J.", "Pérez-Luque", , "ajpelu@gmail.com", role = c("ctb", "trl"),
            comment = c(ORCID = "0000-0002-1747-0469")),
-    person("Daniel", "Possenriede", ,"possenriede+r@gmail.com", role = c("ctb", "trl"), 
+    person("Daniel", "Possenriede", , "possenriede+r@gmail.com", role = c("ctb", "trl"),
            comment = c(ORCID = "0000-0002-6738-9845")),
-    person("Michal", "Lauer", ,"michal.lauer.25@gmail.com", role = c("ctb", "trl")),
+    person("Michal", "Lauer", , "michal.lauer.25@gmail.com", role = c("ctb", "trl")),
     person("Kaique dos S.", "Alves", , "kaiquedsalves@gmail.com", role = "rev",
            comment = c(ORCID = "0000-0001-9187-0252")),
     person("Al-Ahmadgaid B.", "Asaad", , "alahmadgaid@gmail.com", role = "rev",
            comment = c(ORCID = "0000-0003-3784-8593")),
-    person("Anatoly", "Tsyplenkov", ,"atsyplenkov@gmail.com", role = c("ctb", "trl"), 
+    person("Anatoly", "Tsyplenkov", , "atsyplenkov@gmail.com", role = c("ctb", "trl"),
            comment = c(ORCID = "0000-0003-4144-8402"))
   )
 Description: There are many different formats dates are commonly
@@ -42,17 +42,19 @@ Suggests:
     DT,
     htmltools,
     knitr,
+    parsedate,
+    pkgbuild,
+    png,
+    readr,
     readxl,
     rmarkdown,
     shiny,
     shinytest2,
     spelling,
     testthat (>= 3.0.0),
-    withr,
-    parsedate,
-    readr,
-    png,
-    pkgbuild
+    withr
+LinkingTo: 
+    Rcpp
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
@@ -62,5 +64,3 @@ Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
-LinkingTo: 
-    Rcpp
