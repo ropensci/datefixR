@@ -78,7 +78,7 @@ fix_date_app <- function(theme = "datefixR") {
                 "figures/logo.png"
               ),
               align = "right",
-              width = "150"
+              width = "170"
             ),
             htmltools::tags$p(
               "Dates can be some of the most infuriating data types to work
@@ -175,6 +175,10 @@ fix_date_app <- function(theme = "datefixR") {
 
    a {
     color: #2a9d8f;
+   }
+  
+  img {
+    padding-left: 20px;
   }
 
   .tab-content{
