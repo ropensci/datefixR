@@ -149,9 +149,6 @@ also supported.
 ``` r
 fix_date_char("19539")
 #> [1] "2023-07-01"
-```
-
-``` r
 fix_date_char("45108", excel = TRUE)
 #> [1] "2023-07-01"
 ```
