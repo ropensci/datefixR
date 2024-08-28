@@ -32,7 +32,7 @@ jobs:
            git checkout -b update-readme
            git add -A
            git commit -m "Re-render README"
-           git push -f
+           git push --set-upstream origin -f update-readme
           fi
           
   lint-package:
@@ -57,8 +57,8 @@ jobs:
           if [[ `git status --porcelain` ]]; then
            git config user.name 'github-actions[bot]'
            git config user.email 'github-actions[bot]@users.noreply.github.com'
-           git checkout -b update-lint
+           git checkout -b update-linting
            git add -A
            git commit -m "Lint package"
-           git push -f
+           git push --set-upstream origin -f update-linting
           fi
