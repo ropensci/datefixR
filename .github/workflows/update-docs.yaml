@@ -1,0 +1,64 @@
+
+on: 
+    push:
+      branches: [master, main]
+
+name: "Re-render README and lint package"
+jobs:
+  Update-readme-md:
+    runs-on: ubuntu-latest 
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - uses: r-lib/actions/setup-pandoc@v2
+        with:
+          pandoc-version: '2.7.3' # The pandoc version to download (if necessary) and use.
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: local::.
+
+      - name: Render README
+        run: rmarkdown::render("README.Rmd")
+        shell: Rscript {0}
+      - name: Commit and push changes
+        run: |
+          if [[ `git status --porcelain` ]]; then
+           git config user.name 'github-actions[bot]'
+           git config user.email 'github-actions[bot]@users.noreply.github.com'
+           git checkout -b update-readme
+           git add -A
+           git commit -m "Re-render README"
+           git push -f
+          fi
+          
+  lint-package:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: | 
+            any::styler
+            any::roxygen2
+      - name: Lint package
+        run: styler::style_pkg()
+        shell: Rscript {0}
+      - name: Commit and push changes
+        run: |
+          if [[ `git status --porcelain` ]]; then
+           git config user.name 'github-actions[bot]'
+           git config user.email 'github-actions[bot]@users.noreply.github.com'
+           git checkout -b update-lint
+           git add -A
+           git commit -m "Lint package"
+           git push -f
+          fi
