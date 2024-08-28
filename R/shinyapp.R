@@ -176,7 +176,7 @@ fix_date_app <- function(theme = "datefixR") {
    a {
     color: #2a9d8f;
    }
-  
+
   img {
     padding-left: 20px;
   }
