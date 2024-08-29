@@ -15,7 +15,9 @@ Authors@R: c(
     person("Al-Ahmadgaid B.", "Asaad", , "alahmadgaid@gmail.com", role = "rev",
            comment = c(ORCID = "0000-0003-3784-8593")),
     person("Anatoly", "Tsyplenkov", , "atsyplenkov@gmail.com", role = c("ctb", "trl"),
-           comment = c(ORCID = "0000-0003-4144-8402"))
+           comment = c(ORCID = "0000-0003-4144-8402")),
+    person("Chitra M.", "Saraswati", , "chitra.m.saraswati@gmail.com", role = c("ctb", "trl"),
+           comment = c(ORCID = "0000-0002-8159-0414"))
   )
 Description: There are many different formats dates are commonly
     represented with: the order of day, month, or year can differ,
