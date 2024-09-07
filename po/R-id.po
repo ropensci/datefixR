@@ -1,0 +1,65 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: datefixR 1.7.0\n"
+"POT-Creation-Date: 2023-08-07 10:49\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "df should be a dataframe object!"
+msgstr "df harus tipe objek dataframe!"
+
+msgid "col.names should be a character vector!"
+msgstr "col.names harus berupa character vector!"
+
+msgid "Unable to resolve date for subject"
+msgstr "Tidak dapat menuntaskan tanggal untuk subjek"
+
+msgid "(date:"
+msgstr "(tanggal:"
+
+msgid ")"
+msgstr ")"
+
+msgid "unable to tidy a date"
+msgstr "tanggal tidak dapat dirapihkan"
+
+msgid "month.impute should be an integer between 1 and 12"
+msgstr "month.impute harus berupa bilangan bulat antara 1 dan 12"
+
+msgid "month.impute should be an integer"
+msgstr "month.impute harus berupa bilangan bulat"
+
+msgid "Month not in expected range"
+msgstr "Bulan bukan dalam jangka yang di ekspektasi"
+
+msgid "Day not in expected range"
+msgstr "Hari bukan dalam jangka yang di ekspektasi"
+
+msgid "format should be either 'dmy' or 'mdy'"
+msgstr "format harus 'dmy' atau 'mdy'"
+
+msgid "NA imputed (date:"
+msgstr "NA diperhitungkan (tanggal:"
+
+msgid "NA imputed for subject"
+msgstr "NA diperhitungkan untuk subjek"
+
+msgid "date should be a character"
+msgstr "tanggal harus berupa karakter"
+
+msgid "theme should be 'datefixR' or 'none'"
+msgstr "tema harus berupa 'datefixR' atau 'none'"
+
+msgid "The current locale does not support multibyte characters."
+msgstr "Locale ini tidak mendukung karakter multibyte."
+
+msgid "You may run into difficulties if any months are given as"
+msgstr "Anda mungkin mengalami kesulitan jika ada bulan yang diberikan sebagai"
+
+msgid "non-English language names."
+msgstr "nama-nama bahasa bukan dalam Bahasa Inggris."
