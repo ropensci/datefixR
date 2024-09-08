@@ -2,6 +2,13 @@
 
 0 errors | 0 warnings | 0 notes
 
+
+## This is a resubmission
+
+https://r-universe.dev/search/has been changed to
+https://r-universe.dev/search in README.md as it has moved permanently. 
+
+
 ## Test environments 
 
 - windows-latest (R release)
