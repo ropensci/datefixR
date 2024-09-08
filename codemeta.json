@@ -8,13 +8,13 @@
   "codeRepository": "https://github.com/ropensci/datefixR",
   "issueTracker": "https://github.com/ropensci/datefixR/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.3.2 (2023-10-31)",
+  "runtimePlatform": "R version 4.4.0 (2024-04-24)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -66,6 +66,13 @@
     },
     {
       "@type": "Person",
+      "givenName": "Chitra M.",
+      "familyName": "Saraswati",
+      "email": "chitra.m.saraswati@gmail.com",
+      "@id": "https://orcid.org/0000-0002-8159-0414"
+    },
+    {
+      "@type": "Person",
       "givenName": "Jonathan",
       "familyName": "Kitt",
       "email": "jonathan.kitt@protonmail.com"
@@ -96,6 +103,13 @@
       "familyName": "Tsyplenkov",
       "email": "atsyplenkov@gmail.com",
       "@id": "https://orcid.org/0000-0003-4144-8402"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Chitra M.",
+      "familyName": "Saraswati",
+      "email": "chitra.m.saraswati@gmail.com",
+      "@id": "https://orcid.org/0000-0002-8159-0414"
     }
   ],
   "maintainer": [
@@ -143,6 +157,54 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=knitr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "parsedate",
+      "name": "parsedate",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=parsedate"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "pkgbuild",
+      "name": "pkgbuild",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=pkgbuild"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "png",
+      "name": "png",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=png"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "readr",
+      "name": "readr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=readr"
     },
     {
       "@type": "SoftwareApplication",
@@ -228,54 +290,6 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=withr"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "parsedate",
-      "name": "parsedate",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=parsedate"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "readr",
-      "name": "readr",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=readr"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "png",
-      "name": "png",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=png"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "pkgbuild",
-      "name": "pkgbuild",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=pkgbuild"
     }
   ],
   "softwareRequirements": {
@@ -335,7 +349,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "2437.586KB",
+  "fileSize": "2368.662KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -350,7 +364,7 @@
       "name": "{datefixR}: Standardize Dates in Different Formats or with Missing Data",
       "identifier": "10.5281/zenodo.5655311",
       "url": "https://CRAN.R-project.org/package=datefixR",
-      "description": "R package version 1.6.1",
+      "description": "R package version 1.7.0",
       "@id": "https://doi.org/10.5281/zenodo.5655311",
       "sameAs": "https://doi.org/10.5281/zenodo.5655311"
     }

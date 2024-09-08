@@ -2,8 +2,8 @@
 % Please edit documentation in R/datefixR-package.R
 \docType{package}
 \name{datefixR}
-\alias{datefixR}
 \alias{datefixR-package}
+\alias{datefixR}
 \title{datefixR: Standardize Dates in Different Formats or with Missing Data}
 \description{
 There are many different formats dates are commonly represented
@@ -38,6 +38,7 @@ Other contributors:
   \item Kaique dos S. Alves \email{kaiquedsalves@gmail.com} (\href{https://orcid.org/0000-0001-9187-0252}{ORCID}) [reviewer]
   \item Al-Ahmadgaid B. Asaad \email{alahmadgaid@gmail.com} (\href{https://orcid.org/0000-0003-3784-8593}{ORCID}) [reviewer]
   \item Anatoly Tsyplenkov \email{atsyplenkov@gmail.com} (\href{https://orcid.org/0000-0003-4144-8402}{ORCID}) [contributor, translator]
+  \item Chitra M. Saraswati \email{chitra.m.saraswati@gmail.com} (\href{https://orcid.org/0000-0002-8159-0414}{ORCID}) [contributor, translator]
 }
 
 }

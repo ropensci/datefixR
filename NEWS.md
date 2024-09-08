@@ -1,5 +1,10 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# datefixR 1.7.0
+
+* Indonesian translations and months have been added thanks to Chitra M
+  Saraswati (@chitrams on GitHub).
+
 # datefixR 1.6.1
 
 ## Code changes

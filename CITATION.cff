@@ -1,15 +1,18 @@
-# -----------------------------------------------------------
-# CITATION file created with {cffr} R package, v0.5.0
+# --------------------------------------------
+# CITATION file created with {cffr} R package
 # See also: https://docs.ropensci.org/cffr/
-# -----------------------------------------------------------
+# --------------------------------------------
  
 cff-version: 1.2.0
 message: 'To cite package "datefixR" in publications use:'
 type: software
 license: GPL-3.0-or-later
 title: 'datefixR: Standardize Dates in Different Formats or with Missing Data'
-version: 1.6.1
+version: 1.7.0
 doi: 10.5281/zenodo.5655311
+identifiers:
+- type: doi
+  value: 10.32614/CRAN.package.datefixR
 abstract: 'There are many different formats dates are commonly represented with: the
   order of day, month, or year can differ, different separators ("-", "/", or whitespace)
   can be used, months can be numerical, names, or abbreviations and year given as
@@ -32,7 +35,7 @@ preferred-citation:
     email: nathan.constantine-cooke@ed.ac.uk
     orcid: https://orcid.org/0000-0002-4437-8713
   year: '2023'
-  notes: R package version 1.6.1
+  notes: R package version 1.7.0
   doi: 10.5281/zenodo.5655311
   url: https://CRAN.R-project.org/package=datefixR
 repository: https://CRAN.R-project.org/package=datefixR
@@ -43,6 +46,12 @@ contact:
   given-names: Nathan
   email: nathan.constantine-cooke@ed.ac.uk
   orcid: https://orcid.org/0000-0002-4437-8713
+keywords:
+- dates
+- r
+- r-package
+- rstats
+- wrangling
 references:
 - type: software
   title: 'R: A Language and Environment for Statistical Computing'
@@ -50,11 +59,10 @@ references:
   url: https://www.R-project.org/
   authors:
   - name: R Core Team
-  location:
-    name: Vienna, Austria
-  year: '2023'
   institution:
     name: R Foundation for Statistical Computing
+    address: Vienna, Austria
+  year: '2024'
   version: '>= 4.1.0'
 - type: software
   title: lifecycle
@@ -70,7 +78,8 @@ references:
     given-names: Hadley
     email: hadley@posit.co
     orcid: https://orcid.org/0000-0003-4757-117X
-  year: '2023'
+  year: '2024'
+  doi: 10.32614/CRAN.package.lifecycle
 - type: software
   title: Rcpp
   abstract: 'Rcpp: Seamless R and C++ Integration'
@@ -96,7 +105,8 @@ references:
     given-names: Douglas
   - family-names: Chambers
     given-names: John
-  year: '2023'
+  year: '2024'
+  doi: 10.32614/CRAN.package.Rcpp
 - type: software
   title: rlang
   abstract: 'rlang: Functions for Base Types and Core R and ''Tidyverse'' Features'
@@ -110,7 +120,8 @@ references:
   - family-names: Wickham
     given-names: Hadley
     email: hadley@posit.co
-  year: '2023'
+  year: '2024'
+  doi: 10.32614/CRAN.package.rlang
 - type: software
   title: stringr
   abstract: 'stringr: Simple, Consistent Wrappers for Common String Operations'
@@ -121,7 +132,8 @@ references:
   - family-names: Wickham
     given-names: Hadley
     email: hadley@posit.co
-  year: '2023'
+  year: '2024'
+  doi: 10.32614/CRAN.package.stringr
 - type: software
   title: DT
   abstract: 'DT: A Wrapper of the JavaScript Library ''DataTables'''
@@ -131,12 +143,13 @@ references:
   authors:
   - family-names: Xie
     given-names: Yihui
-    email: xie@yihui.name
   - family-names: Cheng
     given-names: Joe
+    email: joe@posit.co
   - family-names: Tan
     given-names: Xianying
-  year: '2023'
+  year: '2024'
+  doi: 10.32614/CRAN.package.DT
 - type: software
   title: htmltools
   abstract: 'htmltools: Tools for HTML'
@@ -164,7 +177,8 @@ references:
     email: yihui@posit.co
   - family-names: Allen
     given-names: Jeff
-  year: '2023'
+  year: '2024'
+  doi: 10.32614/CRAN.package.htmltools
 - type: software
   title: knitr
   abstract: 'knitr: A General-Purpose Package for Dynamic Report Generation in R'
@@ -176,7 +190,68 @@ references:
     given-names: Yihui
     email: xie@yihui.name
     orcid: https://orcid.org/0000-0003-0645-5666
-  year: '2023'
+  year: '2024'
+  doi: 10.32614/CRAN.package.knitr
+- type: software
+  title: parsedate
+  abstract: 'parsedate: Recognize and Parse Dates in Various Formats, Including All
+    ISO 8601 Formats'
+  notes: Suggests
+  url: https://github.com/gaborcsardi/parsedate
+  repository: https://CRAN.R-project.org/package=parsedate
+  authors:
+  - family-names: Csárdi
+    given-names: Gábor
+  - family-names: Torvalds
+    given-names: Linus
+  year: '2024'
+  doi: 10.32614/CRAN.package.parsedate
+- type: software
+  title: pkgbuild
+  abstract: 'pkgbuild: Find Tools Needed to Build R Packages'
+  notes: Suggests
+  url: https://pkgbuild.r-lib.org
+  repository: https://CRAN.R-project.org/package=pkgbuild
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+  - family-names: Hester
+    given-names: Jim
+  - family-names: Csárdi
+    given-names: Gábor
+    email: csardi.gabor@gmail.com
+  year: '2024'
+  doi: 10.32614/CRAN.package.pkgbuild
+- type: software
+  title: png
+  abstract: 'png: Read and write PNG images'
+  notes: Suggests
+  url: http://www.rforge.net/png/
+  repository: https://CRAN.R-project.org/package=png
+  authors:
+  - family-names: Urbanek
+    given-names: Simon
+    email: Simon.Urbanek@r-project.org
+  year: '2024'
+  doi: 10.32614/CRAN.package.png
+- type: software
+  title: readr
+  abstract: 'readr: Read Rectangular Text Data'
+  notes: Suggests
+  url: https://readr.tidyverse.org
+  repository: https://CRAN.R-project.org/package=readr
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@posit.co
+  - family-names: Hester
+    given-names: Jim
+  - family-names: Bryan
+    given-names: Jennifer
+    email: jenny@posit.co
+    orcid: https://orcid.org/0000-0002-6983-2759
+  year: '2024'
+  doi: 10.32614/CRAN.package.readr
 - type: software
   title: readxl
   abstract: 'readxl: Read Excel Files'
@@ -192,7 +267,8 @@ references:
     given-names: Jennifer
     email: jenny@posit.co
     orcid: https://orcid.org/0000-0002-6983-2759
-  year: '2023'
+  year: '2024'
+  doi: 10.32614/CRAN.package.readxl
 - type: software
   title: rmarkdown
   abstract: 'rmarkdown: Dynamic Documents for R'
@@ -235,7 +311,8 @@ references:
     given-names: Richard
     email: rich@posit.co
     orcid: https://orcid.org/0000-0003-3925-190X
-  year: '2023'
+  year: '2024'
+  doi: 10.32614/CRAN.package.rmarkdown
 - type: software
   title: shiny
   abstract: 'shiny: Web Application Framework for R'
@@ -273,7 +350,8 @@ references:
     given-names: Alan
   - family-names: Borges
     given-names: Barbara
-  year: '2023'
+  year: '2024'
+  doi: 10.32614/CRAN.package.shiny
 - type: software
   title: shinytest2
   abstract: 'shinytest2: Testing for Shiny Applications'
@@ -285,12 +363,13 @@ references:
     given-names: Barret
     email: barret@posit.co
     orcid: https://orcid.org/0000-0001-9986-114X
-  year: '2023'
+  year: '2024'
+  doi: 10.32614/CRAN.package.shinytest2
 - type: software
   title: spelling
   abstract: 'spelling: Tools for Spell Checking in R'
   notes: Suggests
-  url: https://docs.ropensci.org/spelling/
+  url: https://ropensci.r-universe.dev/spelling
   repository: https://CRAN.R-project.org/package=spelling
   authors:
   - family-names: Ooms
@@ -300,7 +379,8 @@ references:
   - family-names: Hester
     given-names: Jim
     email: james.hester@rstudio.com
-  year: '2023'
+  year: '2024'
+  doi: 10.32614/CRAN.package.spelling
 - type: software
   title: testthat
   abstract: 'testthat: Unit Testing for R'
@@ -311,7 +391,8 @@ references:
   - family-names: Wickham
     given-names: Hadley
     email: hadley@posit.co
-  year: '2023'
+  year: '2024'
+  doi: 10.32614/CRAN.package.testthat
   version: '>= 3.0.0'
 - type: software
   title: withr
@@ -333,63 +414,9 @@ references:
     email: kevinushey@gmail.com
   - family-names: Wickham
     given-names: Hadley
-    email: hadley@rstudio.com
+    email: hadley@posit.co
   - family-names: Chang
     given-names: Winston
-  year: '2023'
-- type: software
-  title: parsedate
-  abstract: 'parsedate: Recognize and Parse Dates in Various Formats, Including All
-    ISO 8601 Formats'
-  notes: Suggests
-  url: https://github.com/gaborcsardi/parsedate
-  repository: https://CRAN.R-project.org/package=parsedate
-  authors:
-  - family-names: Csárdi
-    given-names: Gábor
-  - family-names: Torvalds
-    given-names: Linus
-  year: '2023'
-- type: software
-  title: readr
-  abstract: 'readr: Read Rectangular Text Data'
-  notes: Suggests
-  url: https://readr.tidyverse.org
-  repository: https://CRAN.R-project.org/package=readr
-  authors:
-  - family-names: Wickham
-    given-names: Hadley
-    email: hadley@posit.co
-  - family-names: Hester
-    given-names: Jim
-  - family-names: Bryan
-    given-names: Jennifer
-    email: jenny@posit.co
-    orcid: https://orcid.org/0000-0002-6983-2759
-  year: '2023'
-- type: software
-  title: png
-  abstract: 'png: Read and write PNG images'
-  notes: Suggests
-  url: http://www.rforge.net/png/
-  repository: https://CRAN.R-project.org/package=png
-  authors:
-  - family-names: Urbanek
-    given-names: Simon
-    email: Simon.Urbanek@r-project.org
-  year: '2023'
-- type: software
-  title: pkgbuild
-  abstract: 'pkgbuild: Find Tools Needed to Build R Packages'
-  notes: Suggests
-  url: https://pkgbuild.r-lib.org
-  repository: https://CRAN.R-project.org/package=pkgbuild
-  authors:
-  - family-names: Wickham
-    given-names: Hadley
-  - family-names: Hester
-    given-names: Jim
-  - family-names: Csárdi
-    given-names: Gábor
-    email: csardi.gabor@gmail.com
-  year: '2023'
+  year: '2024'
+  doi: 10.32614/CRAN.package.withr
+
