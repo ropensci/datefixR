@@ -67,7 +67,7 @@ install.packages("datefixR")
 ```
 
 The most up-to-date (hopefully) stable version of `datefixR` can be installed
-via [r-universe](https://r-universe.dev/search/)
+via [r-universe](https://r-universe.dev/search)
 
 ```{R dev, eval = FALSE}
 # Enable universe(s) by ropensci
