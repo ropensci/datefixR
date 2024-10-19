@@ -1,4 +1,4 @@
-#' @title Shiny application standardizing date data in csv of excel files
+#' @title Shiny application standardizing date data in csv or excel files
 #' @description A shiny application which allows users to standardize dates
 #'   using a graphical user interface (GUI). Most features of \code{datefixR}
 #'   are supported including imputing missing date data. Data can be provided as
@@ -8,7 +8,7 @@
 #'   installed alongside \code{datefixR}. This allows \code{datefixR} to be
 #'   installed on secure systems where these packages may not be allowed. If one
 #'   of these dependencies is not installed on the system when this function is
-#'   called, then the user will have the option of installing them.
+#'   called, then the user will be given the option of installing them.
 #' @param theme Color theme for shiny app. Either \code{"datefixR"}
 #'   (\code{datefixR} colors) or \code{"none"}(default shiny app styling).
 #' @return A shiny app.

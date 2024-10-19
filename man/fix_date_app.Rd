@@ -2,7 +2,7 @@
 % Please edit documentation in R/shinyapp.R
 \name{fix_date_app}
 \alias{fix_date_app}
-\title{Shiny application standardizing date data in csv of excel files}
+\title{Shiny application standardizing date data in csv or excel files}
 \usage{
 fix_date_app(theme = "datefixR")
 }
@@ -23,7 +23,7 @@ be downloaded as CSV files. Please note, the dependencies for this app
 installed alongside \code{datefixR}. This allows \code{datefixR} to be
 installed on secure systems where these packages may not be allowed. If one
 of these dependencies is not installed on the system when this function is
-called, then the user will have the option of installing them.
+called, then the user will be given the option of installing them.
 }
 \examples{
 \dontrun{

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fix_date_char.R
 \name{fix_date_char}
 \alias{fix_date_char}
-\title{Convert improperly formatted date to \R{}'s Date class}
+\title{Convert non-standardized dates to \R{}'s \code{Date} class}
 \usage{
 fix_date_char(
   dates,
@@ -51,11 +51,11 @@ A vector of elements belonging to \R{}'s built in \code{Date} class
 with the following format \code{yyyy-mm-dd}.
 }
 \description{
-Converts a character vector (or single character object)  from improperly
-formatted dates to \R{}'s Date class. Supports numerous separators including
-/, -, or white space. Supports all-numeric, abbreviation or long-hand month
-notation. Where day of the month has not been supplied, the first day of the
-month is imputed by default. Either DMY or YMD is assumed by default.
+Converts a character vector (or single character object) from inconsistently
+formatted dates to \R{}'s \code{Date} class. Supports numerous separators
+including /, -, or space. Supports numeric, abbreviation or long-hand
+month notation. Where day of the month has not been supplied, the first day
+of the month is imputed by default. Either DMY or YMD is assumed by default.
 However, the US system of MDY is supported via the \code{format} argument.
 }
 \examples{

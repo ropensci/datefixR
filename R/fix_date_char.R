@@ -1,10 +1,10 @@
-#' @title Convert improperly formatted date to \R{}'s Date class
+#' @title Convert non-standardized dates to \R{}'s \code{Date} class
 #' @description
-#' Converts a character vector (or single character object)  from improperly
-#' formatted dates to \R{}'s Date class. Supports numerous separators including
-#' /, -, or white space. Supports all-numeric, abbreviation or long-hand month
-#' notation. Where day of the month has not been supplied, the first day of the
-#' month is imputed by default. Either DMY or YMD is assumed by default.
+#' Converts a character vector (or single character object) from inconsistently
+#' formatted dates to \R{}'s \code{Date} class. Supports numerous separators
+#' including /, -, or space. Supports numeric, abbreviation or long-hand
+#' month notation. Where day of the month has not been supplied, the first day
+#' of the month is imputed by default. Either DMY or YMD is assumed by default.
 #' However, the US system of MDY is supported via the \code{format} argument.
 #' @param dates Character vector to be converted to \R{}'s date class.
 #' @inheritParams fix_date_df
