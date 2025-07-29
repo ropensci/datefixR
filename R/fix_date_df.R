@@ -35,7 +35,7 @@
 #' @param month.impute Integer between 1 and 12, or NA, or NULL. Month to be
 #'   imputed when missing. Defaults to 7 (July). If \code{month.impute = NA},
 #'   then \code{NA} will be imputed for the entire date and a warning will be
-#'   raised. 
+#'   raised.
 #'   If \code{month.impute = NULL}, the function will fail with an error when
 #'   month is missing.
 #' @param format Character string specifying date interpretation preference.
@@ -93,15 +93,14 @@
 #' fix_date_df(roman_df, "roman.dates", roman.numeral = TRUE)
 #' @export
 fix_date_df <- function(
-  df,
-  col.names,
-  day.impute = 1,
-  month.impute = 7,
-  id = NULL,
-  format = "dmy",
-  excel = FALSE,
-  roman.numeral = FALSE
-) {
+    df,
+    col.names,
+    day.impute = 1,
+    month.impute = 7,
+    id = NULL,
+    format = "dmy",
+    excel = FALSE,
+    roman.numeral = FALSE) {
   if (!is.data.frame(df)) {
     stop("df should be a dataframe object!")
   }

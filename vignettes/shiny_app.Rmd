@@ -149,7 +149,7 @@ Here's a complete example of using the app:
 
 2. **Launch and configure**:
    ```{r eval=FALSE}
-   fix_date_app()
+fix_date_app()
    ```
 
 3. **Upload and process**:
