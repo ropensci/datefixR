@@ -36,6 +36,7 @@ knitr::opts_chunk$set(
 [![Development Version](https://img.shields.io/badge/dev-1.7.0.9000-orange)](https://github.com/ropensci/datefixR)
 
 **Key features:**
+
 - **Smart parsing**: Handles mixed date formats, separators, and representations in a single dataset
 - **Multilingual support**: Recognizes dates in English, French, German, Spanish, Indonesian, Russian, and Portuguese
 - **Missing data imputation**: User-controlled behavior for incomplete dates (missing days/months)
@@ -348,6 +349,7 @@ potential to be orders of magnitude faster than `datefixR`. However, performance
 varies significantly based on use case and data characteristics.
 
 **Trade-offs to consider:**
+
 - **`datefixR`**: Excellent error reporting, flexible imputation, handles mixed formats automatically
 - **`lubridate`**: Faster performance but requires format specification, limited imputation control  
 - **`stringi`/`readr`/`clock`**: Blazing fast but require exact format specification, 211 locale support
