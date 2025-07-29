@@ -1,13 +1,12 @@
 #' @noRd
 .fix_date <- function(
-  date,
-  day.impute,
-  month.impute,
-  subject,
-  format = format,
-  excel,
-  roman.numeral
-) {
+    date,
+    day.impute,
+    month.impute,
+    subject,
+    format = format,
+    excel,
+    roman.numeral) {
   if (is.null(date) || is.na(date) || as.character(date) == "") {
     return(NA)
   }
@@ -250,13 +249,12 @@
 
 #' @noRd
 .fix_date_char <- function(
-  date,
-  day.impute = 1,
-  month.impute = 7,
-  format = "dmy",
-  excel,
-  roman.numeral
-) {
+    date,
+    day.impute = 1,
+    month.impute = 7,
+    format = "dmy",
+    excel,
+    roman.numeral) {
   if (is.null(date) || is.na(date) || as.character(date) == "") {
     return(NA)
   }

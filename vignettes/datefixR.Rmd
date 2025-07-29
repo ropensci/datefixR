@@ -239,11 +239,14 @@ These errors often guide you to correct format issues or identify unsupported ca
 - **Invalid Date Formats**: Entering purely numeric values with unsupported separators.
 
 ```{r}
-tryCatch({
-  fix_date_char("99-99-9999")
-}, error = function(e) {
-  cat("Error:", e$message, "\n")
-})
+tryCatch(
+  {
+    fix_date_char("99-99-9999")
+  },
+  error = function(e) {
+    cat("Error:", e$message, "\n")
+  }
+)
 ```
 
 # FAQ
@@ -264,7 +267,7 @@ tryCatch({
 fix_date_char("01/01/05") # → 2005-01-01
 fix_date_char("01/01/24") # → 2024-01-01
 
-# Years 26-99 become 1926-1999  
+# Years 26-99 become 1926-1999
 fix_date_char("06/15/92") # → 1992-06-15
 fix_date_char("03/10/80") # → 1980-03-10
 ```
@@ -296,8 +299,8 @@ fix_date_char("1995-04-15") # Year-first with different separator
 If the first component is a month name, switches to `month-day-year` format:
 ```{r}
 fix_date_char("January 15, 2023") # Month name → MDY
-fix_date_char("Mar 5 1992")       # Abbreviated month → MDY
-fix_date_char("abril 20 2020")    # Spanish month → MDY
+fix_date_char("Mar 5 1992") # Abbreviated month → MDY
+fix_date_char("abril 20 2020") # Spanish month → MDY
 ```
 
 ### 3. Numeric Component Defaults
@@ -317,11 +320,11 @@ fix_date_char("03/15/2023", format = "mdy") # → 2023-03-15 (month/day/year)
 
 ```{r}
 # Ambiguous: could be March 5th or May 3rd
-fix_date_char("03/05/2023")                 # → 2023-05-03 (assumes DMY)
+fix_date_char("03/05/2023") # → 2023-05-03 (assumes DMY)
 fix_date_char("03/05/2023", format = "mdy") # → 2023-03-05 (forces MDY)
 
 # Unambiguous: day > 12 forces correct interpretation
-fix_date_char("15/03/2023")                 # → 2023-03-15 (only valid as DMY)
+fix_date_char("15/03/2023") # → 2023-03-15 (only valid as DMY)
 fix_date_char("03/15/2023", format = "mdy") # → 2023-03-15 (only valid as MDY)
 ```
 
