@@ -45,7 +45,7 @@
 #' @inheritParams fix_date_df
 #' @return A vector of elements belonging to \R{}'s built in \code{Date} class
 #'   with the following format \code{yyyy-mm-dd}.
-#' @seealso 
+#' @seealso
 #' \code{\link{fix_date_df}} for data frame columns with date data and
 #' \code{\link{fix_date}} for singular date conversions.
 #'
@@ -62,20 +62,20 @@
 #'
 #' # Multiple formats with different separators
 #' mixed_dates <- c(
-#'   "02/05/92",      # slash separator, 2-digit year
-#'   "2020-may-01",   # hyphen separator, text month
-#'   "1996.05.01",    # dot separator
-#'   "02 04 96",      # space separator
+#'   "02/05/92", # slash separator, 2-digit year
+#'   "2020-may-01", # hyphen separator, text month
+#'   "1996.05.01", # dot separator
+#'   "02 04 96", # space separator
 #'   "le 3 mars 2013" # French format
 #' )
 #' fix_date_char(mixed_dates)
 #'
 #' # Text months in different languages
 #' text_months <- c(
-#'   "15 January 2020",     # English
-#'   "15 janvier 2020",     # French
-#'   "15 Januar 2020",      # German
-#'   "15 enero 2020",       # Spanish
+#'   "15 January 2020", # English
+#'   "15 janvier 2020", # French
+#'   "15 Januar 2020", # German
+#'   "15 enero 2020", # Spanish
 #'   "15 de janeiro de 2020" # Portuguese
 #' )
 #' fix_date_char(text_months)
@@ -85,12 +85,12 @@
 #' fix_date_char(roman_dates, roman.numeral = TRUE)
 #'
 #' # Excel serial numbers
-#' excel_serials <- c("44197", "44927")  # Excel dates
+#' excel_serials <- c("44197", "44927") # Excel dates
 #' fix_date_char(excel_serials, excel = TRUE)
 #'
 #' # Two-digit years (automatic century detection)
 #' two_digit_years <- c("15/03/99", "15/03/25", "15/03/50")
-#' fix_date_char(two_digit_years)  # 1999, 2025, 1950
+#' fix_date_char(two_digit_years) # 1999, 2025, 1950
 #'
 #' # MDY format (US style)
 #' us_dates <- c("12/25/2023", "07/04/1776", "02/29/2020")
@@ -102,13 +102,12 @@
 #'
 #' @export
 fix_date_char <- function(
-  dates,
-  day.impute = 1,
-  month.impute = 7,
-  format = "dmy",
-  excel = FALSE,
-  roman.numeral = FALSE
-) {
+    dates,
+    day.impute = 1,
+    month.impute = 7,
+    format = "dmy",
+    excel = FALSE,
+    roman.numeral = FALSE) {
   checkday(day.impute)
   .checkmonth(month.impute)
   .checkformat(format)
