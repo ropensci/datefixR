@@ -28,16 +28,20 @@ Version](https://img.shields.io/badge/R-≥4.1.0-blue)](https://www.r-project.or
 [![Development
 Version](https://img.shields.io/badge/dev-1.7.0.9000-orange)](https://github.com/ropensci/datefixR)
 
-**Key features:** - **Smart parsing**: Handles mixed date formats,
-separators, and representations in a single dataset - **Multilingual
-support**: Recognizes dates in English, French, German, Spanish,
-Indonesian, Russian, and Portuguese - **Missing data imputation**:
-User-controlled behavior for incomplete dates (missing days/months) -
-**Detailed error reporting**: Identifies exactly which dates couldn’t be
-parsed and why - **Excel compatibility**: Supports both R and Excel
-numeric date representations - **Shiny integration**: Interactive web
-app for data exploration and cleaning
-<img src="man/figures/example.svg" width="800"/>
+**Key features:**
+
+  - **Smart parsing**: Handles mixed date formats, separators, and
+    representations in a single dataset
+  - **Multilingual support**: Recognizes dates in English, French,
+    German, Spanish, Indonesian, Russian, and Portuguese
+  - **Missing data imputation**: User-controlled behavior for incomplete
+    dates (missing days/months)
+  - **Detailed error reporting**: Identifies exactly which dates
+    couldn’t be parsed and why
+  - **Excel compatibility**: Supports both R and Excel numeric date
+    representations
+  - **Shiny integration**: Interactive web app for data exploration and
+    cleaning <img src="man/figures/example.svg" width="800"/>
 
 ## Quick Start
 
@@ -46,7 +50,7 @@ Here’s a simple example showing how `datefixR` cleans messy date data:
 ``` r
 library(datefixR)
 
-# Create some messy date data  
+# Create some messy date data
 messy_dates <- c("02/05/92", "2020-may-01", "le 3 mars 2013", "1996")
 messy_df <- data.frame(id = 1:4, dates = messy_dates)
 print(messy_df)
@@ -151,12 +155,12 @@ library(datefixR)
 
 # Mixed format dates
 messy_dates <- c(
-  "02/05/92",           # US format, 2-digit year
-  "2020-may-01",        # ISO with named month
-  "le 3 mars 2013",     # French format
-  "1996",               # Year only
-  "22.07.1977",         # European format
-  "jan 2020"            # Month-year only
+  "02/05/92", # US format, 2-digit year
+  "2020-may-01", # ISO with named month
+  "le 3 mars 2013", # French format
+  "1996", # Year only
+  "22.07.1977", # European format
+  "jan 2020" # Month-year only
 )
 
 # Clean all dates at once
@@ -217,12 +221,12 @@ reporting if any dates fail to parse.
 
 ``` r
 # R serial dates (days since 1970-01-01)
-r_serial <- "19539"  # Represents 2023-07-01
+r_serial <- "19539" # Represents 2023-07-01
 fix_date_char(r_serial)
 #> [1] "2023-07-01"
 
 # Excel serial dates (days since 1900-01-01, accounting for Excel's leap year bug)
-excel_serial <- "45108"  # Also represents 2023-07-01
+excel_serial <- "45108" # Also represents 2023-07-01
 fix_date_char(excel_serial, excel = TRUE)
 #> [1] "2023-07-01"
 
@@ -243,9 +247,9 @@ European date formats:
 ``` r
 # Roman numeral months
 roman_dates <- c(
-  "15.VII.2023",     # July 15, 2023
-  "3.XII.1999",      # December 3, 1999
-  "1.I.2000"         # January 1, 2000
+  "15.VII.2023", # July 15, 2023
+  "3.XII.1999", # December 3, 1999
+  "1.I.2000" # January 1, 2000
 )
 
 fix_date_char(roman_dates)
@@ -296,9 +300,10 @@ print(default_impute)
 #> [1] "2023-07-01" "2023-05-01" "2023-08-01" "2022-03-01"
 
 # Custom imputation: missing month = January (01), missing day = 15th
-custom_impute <- fix_date_char(incomplete_dates, 
-                               month.impute = 1, 
-                               day.impute = 15)
+custom_impute <- fix_date_char(incomplete_dates,
+  month.impute = 1,
+  day.impute = 15
+)
 print(custom_impute)
 #> [1] "2023-01-15" "2023-05-15" "2023-08-15" "2022-03-15"
 
@@ -308,9 +313,10 @@ incomplete_df <- data.frame(
   dates = incomplete_dates
 )
 
-fixed_incomplete <- fix_date_df(incomplete_df, "dates", 
-                                month.impute = 12,  # December
-                                day.impute = 31)    # Last day
+fixed_incomplete <- fix_date_df(incomplete_df, "dates",
+  month.impute = 12, # December
+  day.impute = 31
+) # Last day
 knitr::kable(fixed_incomplete)
 ```
 
@@ -429,13 +435,16 @@ potential to be orders of magnitude faster than `datefixR`. However,
 performance varies significantly based on use case and data
 characteristics.
 
-**Trade-offs to consider:** - **`datefixR`**: Excellent error reporting,
-flexible imputation, handles mixed formats automatically -
-**`lubridate`**: Faster performance but requires format specification,
-limited imputation control  
-\- **`stringi`/`readr`/`clock`**: Blazing fast but require exact format
-specification, 211 locale support - **`anytime`**: Variable performance,
-no imputation support, silent failures
+**Trade-offs to consider:**
+
+  - **`datefixR`**: Excellent error reporting, flexible imputation,
+    handles mixed formats automatically
+  - **`lubridate`**: Faster performance but requires format
+    specification, limited imputation control  
+  - **`stringi`/`readr`/`clock`**: Blazing fast but require exact format
+    specification, 211 locale support
+  - **`anytime`**: Variable performance, no imputation support, silent
+    failures
 
 If you have very large datasets with consistent formats and don’t need
 detailed error reporting, consider `lubridate` or ICU-based packages.
