@@ -128,35 +128,36 @@ test_that("error if day.impute or month.impute are wrong format", {
   )
 
   expect_error(
-    fix_date_df(bad.dates,
-      c("some.dates", "some.more.dates"),
-      day.impute = 35
-    ),
+    fix_date_df(bad.dates, c("some.dates", "some.more.dates"), day.impute = 35),
     "day.impute should be an integer between 1 and 31\n"
   )
   expect_error(
-    fix_date_df(bad.dates,
+    fix_date_df(
+      bad.dates,
       c("some.dates", "some.more.dates"),
       day.impute = 2.2
     ),
     "day.impute should be an integer\n"
   )
   expect_error(
-    fix_date_df(bad.dates,
+    fix_date_df(
+      bad.dates,
       c("some.dates", "some.more.dates"),
       month.impute = 13
     ),
     "month.impute should be an integer between 1 and 12\n"
   )
   expect_error(
-    fix_date_df(bad.dates,
+    fix_date_df(
+      bad.dates,
       c("some.dates", "some.more.dates"),
       month.impute = 2.2
     ),
     "month.impute should be an integer\n"
   )
   expect_error(
-    fix_date_df(bad.dates,
+    fix_date_df(
+      bad.dates,
       c("some.dates", "some.more.dates"),
       month.impute = "apr"
     ),
@@ -244,7 +245,8 @@ test_that("fix_date_df works for a mdy format", {
     )
   )
 
-  fixed.df <- fix_date_df(bad.dates,
+  fixed.df <- fix_date_df(
+    bad.dates,
     c("some.dates", "some.more.dates"),
     format = "mdy"
   )

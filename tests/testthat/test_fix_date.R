@@ -4,7 +4,6 @@ test_that("fix_date works for a series of malformed dates", {
   fixed.date <- fix_date(bad.date)
   expect_equal(fixed.date, as.Date("2021-03-02"))
 
-
   bad.date <- "15/07/11"
   fixed.date <- fix_date(bad.date)
   expect_equal(fixed.date, as.Date("2011-07-15"))

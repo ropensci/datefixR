@@ -1,11 +1,13 @@
 #' @noRd
-.fix_date <- function(date,
-                      day.impute,
-                      month.impute,
-                      subject,
-                      format = format,
-                      excel,
-                      roman.numeral) {
+.fix_date <- function(
+  date,
+  day.impute,
+  month.impute,
+  subject,
+  format = format,
+  excel,
+  roman.numeral
+) {
   if (is.null(date) || is.na(date) || as.character(date) == "") {
     return(NA)
   }
@@ -38,7 +40,9 @@
     date <- .convert_text_month(date)
     date_vec <- .separate_date(date)
 
-    if (roman.numeral) date_vec <- roman_conversion(date_vec)
+    if (roman.numeral) {
+      date_vec <- roman_conversion(date_vec)
+    }
 
     if (any(nchar(date_vec) > 4)) {
       stop("unable to tidy a date")
@@ -85,32 +89,21 @@
 #' @noRd
 .separate_date <- function(date) {
   if (grepl("/", date, fixed = TRUE)) {
-    date_vec <- stringr::str_split_fixed(date,
-      pattern = "/",
-      n = Inf
-    )
+    date_vec <- stringr::str_split_fixed(date, pattern = "/", n = Inf)
   } else if (grepl("-", date, fixed = TRUE)) {
-    date_vec <- stringr::str_split_fixed(date,
-      pattern = "-",
-      n = Inf
-    )
+    date_vec <- stringr::str_split_fixed(date, pattern = "-", n = Inf)
   } else if (grepl(" de ", date, fixed = TRUE)) {
     # Spanish date
-    date_vec <- stringr::str_split_fixed(date,
-      pattern = " de | del ",
-      n = Inf
-    )
+    date_vec <- stringr::str_split_fixed(date, pattern = " de | del ", n = Inf)
   } else if (grepl(".", date, fixed = TRUE)) {
     # German date
-    date_vec <- stringr::str_split_fixed(date,
+    date_vec <- stringr::str_split_fixed(
+      date,
       pattern = "\\.(\\s)|\\.'|\\.|(\\s)'|(\\s)",
       n = Inf
     )
   } else if (grepl(" ", date, fixed = TRUE)) {
-    date_vec <- stringr::str_split_fixed(date,
-      pattern = " ",
-      n = Inf
-    )
+    date_vec <- stringr::str_split_fixed(date, pattern = " ", n = Inf)
   }
   date_vec
 }
@@ -176,7 +169,9 @@
       }
     }
 
-    if (day > 31) stop("Day not in expected range\n")
+    if (day > 31) {
+      stop("Day not in expected range\n")
+    }
     if (day > days.month[month]) {
       day <- days.month[month]
     }
@@ -221,11 +216,7 @@
   if (is.na(day) || is.na(month)) {
     fixed_date <- NA
     if (is.null(subject)) {
-      warning("NA imputed (date: ",
-        date,
-        ")\n",
-        call. = FALSE
-      )
+      warning("NA imputed (date: ", date, ")\n", call. = FALSE)
     } else {
       warning(
         paste0(
@@ -258,15 +249,20 @@
 }
 
 #' @noRd
-.fix_date_char <- function(date, day.impute = 1,
-                           month.impute = 7,
-                           format = "dmy",
-                           excel,
-                           roman.numeral) {
+.fix_date_char <- function(
+  date,
+  day.impute = 1,
+  month.impute = 7,
+  format = "dmy",
+  excel,
+  roman.numeral
+) {
   if (is.null(date) || is.na(date) || as.character(date) == "") {
     return(NA)
   }
-  if (!is.character(date)) stop("date should be a character \n")
+  if (!is.character(date)) {
+    stop("date should be a character \n")
+  }
 
   day.impute <- .convertimpute(day.impute)
   month.impute <- .convertimpute(month.impute)
@@ -297,7 +293,9 @@
     }
     date <- .convert_text_month(date)
     date_vec <- .separate_date(date)
-    if (roman.numeral) date_vec <- roman_conversion(date_vec)
+    if (roman.numeral) {
+      date_vec <- roman_conversion(date_vec)
+    }
     if (any(nchar(date_vec) > 4)) {
       stop("unable to tidy a date")
     }

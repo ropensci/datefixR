@@ -32,7 +32,6 @@ if (l10n_info()$MBCS) {
     expect_equal(fixed.df, data.frame(column = as.Date(unname(dates))))
   })
 
-
   test_that("All Feburary translations work", {
     dates <-
       c(
@@ -60,7 +59,6 @@ if (l10n_info()$MBCS) {
 
     expect_equal(fixed.df, data.frame(column = as.Date(unname(dates))))
   })
-
 
   test_that("All March translations work", {
     dates <-
@@ -90,7 +88,6 @@ if (l10n_info()$MBCS) {
     expect_equal(fixed.df, data.frame(column = as.Date(unname(dates))))
   })
 
-
   test_that("All April translations work", {
     dates <-
       c(
@@ -115,7 +112,6 @@ if (l10n_info()$MBCS) {
     expect_equal(fixed.df, data.frame(column = as.Date(unname(dates))))
   })
 
-
   test_that("All May translations work", {
     dates <-
       c(
@@ -138,7 +134,6 @@ if (l10n_info()$MBCS) {
 
     expect_equal(fixed.df, data.frame(column = as.Date(unname(dates))))
   })
-
 
   test_that("All June translations work", {
     dates <-
@@ -166,7 +161,6 @@ if (l10n_info()$MBCS) {
     expect_equal(fixed.df, data.frame(column = as.Date(unname(dates))))
   })
 
-
   test_that("All July translations work", {
     dates <-
       c(
@@ -193,7 +187,6 @@ if (l10n_info()$MBCS) {
     expect_equal(fixed.df, data.frame(column = as.Date(unname(dates))))
   })
 
-
   test_that("All August translations work", {
     dates <-
       c(
@@ -217,7 +210,6 @@ if (l10n_info()$MBCS) {
 
     expect_equal(fixed.df, data.frame(column = as.Date(unname(dates))))
   })
-
 
   test_that("All September translations work", {
     dates <-
@@ -245,7 +237,6 @@ if (l10n_info()$MBCS) {
     expect_equal(fixed.df, data.frame(column = as.Date(unname(dates))))
   })
 
-
   test_that("All October translations work", {
     dates <-
       c(
@@ -272,7 +263,6 @@ if (l10n_info()$MBCS) {
     expect_equal(fixed.df, data.frame(column = as.Date(unname(dates))))
   })
 
-
   test_that("All November translations work", {
     dates <-
       c(
@@ -297,7 +287,6 @@ if (l10n_info()$MBCS) {
 
     expect_equal(fixed.df, data.frame(column = as.Date(unname(dates))))
   })
-
 
   test_that("All December translations work", {
     dates <-

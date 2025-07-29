@@ -17,12 +17,14 @@
 #' fixed.date <- fix_date_char(bad.date)
 #' fixed.date
 #' @export
-fix_date_char <- function(dates,
-                          day.impute = 1,
-                          month.impute = 7,
-                          format = "dmy",
-                          excel = FALSE,
-                          roman.numeral = FALSE) {
+fix_date_char <- function(
+  dates,
+  day.impute = 1,
+  month.impute = 7,
+  format = "dmy",
+  excel = FALSE,
+  roman.numeral = FALSE
+) {
   checkday(day.impute)
   .checkmonth(month.impute)
   .checkformat(format)

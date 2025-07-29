@@ -54,12 +54,14 @@
 #' fixed.df <- fix_date_df(bad.dates, c("some.dates", "some.more.dates"))
 #' @keywords internal
 #' @export
-fix_dates <- function(df,
-                      col.names,
-                      day.impute = 1,
-                      month.impute = 7,
-                      id = NULL,
-                      format = "dmy") {
+fix_dates <- function(
+  df,
+  col.names,
+  day.impute = 1,
+  month.impute = 7,
+  id = NULL,
+  format = "dmy"
+) {
   lifecycle::deprecate_warn("1.0.0", "fix_dates()", "fix_date_df()")
   fix_date_df(
     df = df,

@@ -46,14 +46,16 @@
 #' fixed.df <- fix_date_df(exampledates, c("some.dates", "some.more.dates"))
 #' fixed.df
 #' @export
-fix_date_df <- function(df,
-                        col.names,
-                        day.impute = 1,
-                        month.impute = 7,
-                        id = NULL,
-                        format = "dmy",
-                        excel = FALSE,
-                        roman.numeral = FALSE) {
+fix_date_df <- function(
+  df,
+  col.names,
+  day.impute = 1,
+  month.impute = 7,
+  id = NULL,
+  format = "dmy",
+  excel = FALSE,
+  roman.numeral = FALSE
+) {
   if (!is.data.frame(df)) {
     stop("df should be a dataframe object!")
   }
@@ -62,7 +64,9 @@ fix_date_df <- function(df,
   }
   .checkformat(format)
 
-  if (is.null(id)) id <- 1 # Use first column as id if not explicitly given
+  if (is.null(id)) {
+    id <- 1
+  } # Use first column as id if not explicitly given
 
   checkday(day.impute)
   .checkmonth(month.impute)
@@ -73,7 +77,8 @@ fix_date_df <- function(df,
     for (i in seq_len(nrow(df))) {
       tryCatch(
         {
-          fixed.dates[i] <- .fix_date(df[i, col.name],
+          fixed.dates[i] <- .fix_date(
+            df[i, col.name],
             day.impute,
             month.impute,
             subject = df[i, id],
