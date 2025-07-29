@@ -1,0 +1,192 @@
+---
+title: "Using the datefixR Shiny App"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using the datefixR Shiny App}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(datefixR)
+```
+
+## Introduction
+
+The `datefixR` package provides a user-friendly Shiny app that allows users to standardize messy date data using a graphical user interface (GUI). This is particularly useful for researchers, data analysts, and anyone working with datasets containing inconsistently formatted dates who prefer not to use R code directly.
+
+The app supports the same powerful date parsing capabilities as the core `datefixR` functions, including:
+
+- Multiple date formats and separators
+- International month names in 9 languages
+- Custom imputation strategies for missing date components
+- Excel and CSV file processing
+- Batch processing of multiple date columns
+
+## Installation and Setup
+
+### Prerequisites
+
+The Shiny app requires additional dependencies that are not installed automatically with `datefixR`. This design choice allows the core package to be installed on secure systems where these packages might not be permitted.
+
+Required dependencies:
+- `DT` - for interactive data tables
+- `shiny` - for the web application framework
+- `readxl` - for reading Excel files
+- `htmltools` - for HTML generation
+
+### Launching the App
+
+To start the app, simply run:
+
+```{r eval=FALSE}
+fix_date_app()
+```
+
+If any required dependencies are missing, the app will detect this and offer to install them automatically.
+
+### Theme Options
+
+The app supports two visual themes:
+
+```{r eval=FALSE}
+# Default datefixR theme (recommended)
+fix_date_app(theme = "datefixR")
+
+# Standard Shiny theme
+fix_date_app(theme = "none")
+```
+
+## Step-by-Step Usage Guide
+
+### 1. File Upload
+
+- Click the **Browse** button in the left sidebar
+- Select either a CSV (.csv) or Excel (.xlsx) file
+- The file will be automatically uploaded and processed
+- Click **Refresh** to display the uploaded data
+
+### 2. Column Selection
+
+After uploading your file:
+
+- Review the data in the **Results** tab
+- In the left sidebar, check boxes will appear for each column
+- Select the columns containing date data that need to be standardized
+- Multiple columns can be selected simultaneously
+
+### 3. Imputation Settings
+
+Configure how missing date components should be handled:
+
+#### Day of Month Imputation
+- **Options**: 1-28, or NA
+- **Default**: 1 (first day of month)
+- **Purpose**: What day to use when only month/year are provided
+
+#### Month Imputation
+- **Options**: 1-12, or NA
+- **Default**: 7 (July)
+- **Purpose**: What month to use when only year is provided
+
+#### Format Assumption
+- **Options**: "dmy" (day-month-year) or "mdy" (month-day-year)
+- **Default**: "dmy"
+- **Purpose**: How to interpret ambiguous numeric dates like "01/02/2023"
+
+### 4. Processing and Review
+
+- Click **Refresh** after selecting columns and setting preferences
+- The processed data will appear in the **Results** tab
+- Review the standardized dates to ensure they meet your expectations
+- All date columns will now be in YYYY-MM-DD format
+
+### 5. Download Results
+
+- Click the **Download** button to save your processed data
+- The file will be saved as "fixed.csv"
+- All selected date columns will be standardized in the output
+
+## Advanced Features
+
+### File Format Support
+
+The app automatically detects and handles:
+
+- **CSV files**: Comma-separated values with automatic encoding detection
+- **Excel files**: Both .xlsx and .xls formats, reads the first worksheet
+
+### Error Handling
+
+If the app encounters problematic dates:
+
+- Error messages will appear in the R console
+- The problematic row and date value will be identified
+- Processing will stop, allowing you to review and correct the data
+
+### Data Privacy
+
+**Important Security Note**: When using online hosting platforms (like shinyapps.io), your uploaded files are temporarily stored on the hosting platform's servers. While no data should be stored persistently, use discretion with sensitive data. For maximum security, run the app locally.
+
+## Example Workflow
+
+Here's a complete example of using the app:
+
+1. **Prepare your data**: Create a CSV file with messy dates
+   ```
+   id,event_date,follow_up
+   1,"02/03/21","April 2021"
+   2,"15-Dec-2020","2021"
+   3,"2020/05/01","May 15 2021"
+   ```
+
+2. **Launch and configure**:
+   ```{r eval=FALSE}
+   fix_date_app()
+   ```
+
+3. **Upload and process**:
+   - Upload your CSV file
+   - Select "event_date" and "follow_up" columns
+   - Set day imputation to 15, month imputation to 6
+   - Click Refresh
+
+4. **Download results**: Clean, standardized date data ready for analysis
+
+## Troubleshooting
+
+### Common Issues
+
+**App won't start**:
+- Ensure all dependencies are installed
+- Try running `install.packages(c("DT", "shiny", "readxl", "htmltools"))`
+
+**File won't upload**:
+- Check file format (only .csv and .xlsx supported)
+- Ensure file size is reasonable (< 100MB recommended)
+- Verify file isn't corrupted
+
+**Dates not parsing correctly**:
+- Review your format assumption (dmy vs mdy)
+- Check for unusual date formats in your data
+- Consider pre-cleaning obviously problematic entries
+
+**Download not working**:
+- Ensure you've selected at least one date column
+- Try refreshing the processed data first
+- Check browser download settings
+
+## Performance Considerations
+
+- **File Size**: The app handles files up to several thousand rows efficiently
+- **Processing Time**: Complex date parsing may take a few seconds for large datasets
+- **Memory Usage**: Keep file sizes reasonable (< 100MB) for optimal performance
+
+For the latest updates and to report issues, visit the [datefixR GitHub repository](https://github.com/ropensci/datefixR).

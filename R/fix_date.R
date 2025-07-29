@@ -8,16 +8,15 @@
 #' day of the month has not been supplied, the first day of the month is
 #' imputed. Either DMY or YMD is assumed by default. However, the US system of
 #' MDY is supported via the \code{format} argument.
-#' @param date Character to be converted to \R{}'s date class.
-#' @inheritParams fix_dates
-#' @return An object belonging to \R's built in \code{Date} class.
-#' @seealso \code{\link{fix_dates}} Similar to \code{fix_date()} except is
-#' applicable to columns of a dataframe.
+#' @param date Character to be converted to \R{}'s \code{Date} class.
+#' @inheritParams fix_date_char
+#' @return An object belonging to \R's built-in \code{Date} class.
+#' @seealso \code{\link{fix_date_char}} for character vectors and \code{\link{fix_date_df}} for data frames.
 #' @examples
 #' bad.date <- "02 03 2021"
 #' fixed.date <- fix_date(bad.date)
 #' fixed.date
-#' # ->
+#' # - Due to deprecation, prefer using fix_date_char.
 #' fixed.date <- fix_date_char(bad.date)
 #' @keywords internal
 #' @export

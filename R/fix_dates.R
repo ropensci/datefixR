@@ -14,23 +14,25 @@
 #' @param col.names Character vector of names of columns of messy date data
 #' @param id Name of column containing row IDs. By default, the first column is
 #'   assumed.
-#' @param day.impute Integer. Day of the month to be imputed if not available.
-#'   defaults to 1. If \code{day.impute = NA} then \code{NA} will be imputed for
-#'   the date instead and a warning will be raised. If \code{day.impute = NULL}
-#'   then instead of imputing the day of the month, the function will fail
-#' @param month.impute Integer. Month to be be imputed if not available.
-#'   Defaults to 7 (July). If \code{month.impute = NA} then \code{NA} will be
-#'   imputed for the date instead and a warning will be raised. If
-#'   \code{month.impute = NULL} then instead of imputing the month, the
-#'   function will fail.
-#' @param format Character. The format which a date is mostly likely to be given
-#'   in. Either \code{"dmy"} (default) or \code{"mdy"}. If year appears to have
-#'   been given first, then YMD is assumed for the subject (format argument is
-#'   not used for these observations)
+#' @param day.impute Integer between 1 and 31, or NA, or NULL. Day of the month 
+#'   to be imputed when missing. Defaults to 1. If \code{day.impute} is greater 
+#'   than the number of days in a given month, the last day of that month will be 
+#'   imputed (accounting for leap years). If \code{day.impute = NA}, then \code{NA} 
+#'   will be imputed for the entire date and a warning will be raised. If 
+#'   \code{day.impute = NULL}, the function will fail with an error when day is missing.
+#' @param month.impute Integer between 1 and 12, or NA, or NULL. Month to be 
+#'   imputed when missing. Defaults to 7 (July). If \code{month.impute = NA}, 
+#'   then \code{NA} will be imputed for the entire date and a warning will be raised. 
+#'   If \code{month.impute = NULL}, the function will fail with an error when month is missing.
+#' @param format Character string specifying date interpretation preference. Either 
+#'   \code{"dmy"} (day-month-year, default) or \code{"mdy"} (month-day-year, US format). 
+#'   This setting only affects ambiguous numeric dates like "01/02/2023". When month 
+#'   names are present or year appears first, the format is auto-detected regardless 
+#'   of this parameter. Note that unambiguous dates (e.g., "25/12/2023") are parsed 
+#'   correctly regardless of the format setting.
 #' @return A \code{dataframe} or \code{tibble} object. Dependent on the type of
-#'   \code{df}. Selected columns are of type \code{Date}
-#' @seealso \code{\link{fix_date}} Similar to \code{fix_dates()} except can only
-#' be applied to character objects.
+#'   \code{df}. Selected columns are of type \code{Date}.
+#' @seealso \code{\link{fix_date_df}} for the updated version of this function and \code{\link{fix_date_char}} for character objects.
 #' @examples
 #' bad.dates <- data.frame(
 #'   id = seq(5),

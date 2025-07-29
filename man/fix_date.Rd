@@ -7,26 +7,31 @@
 fix_date(date, day.impute = 1, month.impute = 7, format = "dmy")
 }
 \arguments{
-\item{date}{Character to be converted to \R{}'s date class.}
+\item{date}{Character to be converted to \R{}'s \code{Date} class.}
 
-\item{day.impute}{Integer. Day of the month to be imputed if not available.
-defaults to 1. If \code{day.impute = NA} then \code{NA} will be imputed for
-the date instead and a warning will be raised. If \code{day.impute = NULL}
-then instead of imputing the day of the month, the function will fail}
+\item{day.impute}{Integer between 1 and 31, or NA, or NULL. Day of the month
+to be imputed when missing. Defaults to 1. If \code{day.impute = NA}, then
+\code{NA} will be imputed for the date and a warning will be raised. If
+\code{day.impute = NULL}, the function will fail with an error when day is
+missing.}
 
-\item{month.impute}{Integer. Month to be be imputed if not available.
-Defaults to 7 (July). If \code{month.impute = NA} then \code{NA} will be
-imputed for the date instead and a warning will be raised. If
-\code{month.impute = NULL} then instead of imputing the month, the
-function will fail.}
+\item{month.impute}{Integer between 1 and 12, or NA, or NULL. Month to be
+imputed when missing. Defaults to 7 (July). If \code{month.impute = NA},
+then \code{NA} will be imputed for the entire date and a warning will be
+raised.
+If \code{month.impute = NULL}, the function will fail with an error when
+month is missing.}
 
-\item{format}{Character. The format which a date is mostly likely to be given
-in. Either \code{"dmy"} (default) or \code{"mdy"}. If year appears to have
-been given first, then YMD is assumed for the subject (format argument is
-not used for these observations)}
+\item{format}{Character string specifying date interpretation preference.
+Either \code{"dmy"} (day-month-year, default) or \code{"mdy"}
+(month-day-year, US format). This setting only affects ambiguous numeric
+dates like "01/02/2023". When month names are present or year appears
+first, the format is auto-detected regardless of this parameter. Note that
+unambiguous dates (e.g., "25/12/2023") are parsed correctly regardless of
+the format setting.}
 }
 \value{
-An object belonging to \R's built in \code{Date} class.
+An object belonging to \R's built-in \code{Date} class.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
@@ -42,11 +47,10 @@ MDY is supported via the \code{format} argument.
 bad.date <- "02 03 2021"
 fixed.date <- fix_date(bad.date)
 fixed.date
-# ->
+# - Due to deprecation, prefer using fix_date_char.
 fixed.date <- fix_date_char(bad.date)
 }
 \seealso{
-\code{\link{fix_dates}} Similar to \code{fix_date()} except is
-applicable to columns of a dataframe.
+\code{\link{fix_date_char}} for character vectors and \code{\link{fix_date_df}} for data frames.
 }
 \keyword{internal}
