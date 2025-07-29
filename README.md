@@ -5,13 +5,13 @@
 
 <!-- badges: start -->
 
-| Usage | Release | Development | Translation Status |
-|----|----|----|----|
-| ![R](https://img.shields.io/badge/r-%23276DC3.svg?style=for-the-badge&logo=r&logoColor=white) | [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/datefixR)](https://cran.r-project.org/package=datefixR) | [![R build status](https://github.com/ropensci/datefixR/workflows/CI/badge.svg)](https://github.com/ropensci/datefixR/actions) | [![German localization](https://gitlocalize.com/repo/8364/de/badge.svg)](https://gitlocalize.com/repo/8364/de?utm_source=badge) |
-| [![License: GPL-3](https://img.shields.io/badge/License-GPL3-green.svg)](https://opensource.org/license/gpl-3-0) | [![datefixR status badge](https://ropensci.r-universe.dev/badges/datefixR)](https://ropensci.r-universe.dev/datefixR) | [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) | [![Spanish localization](https://gitlocalize.com/repo/8364/es/badge.svg)](https://gitlocalize.com/repo/8364/es?utm_source=badge) |
-| [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/datefixR?color=blue)](https://r-pkg.org/pkg/datefixR) | [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5655311.svg)](https://doi.org/10.5281/zenodo.5655311) | [![codecov](https://codecov.io/gh/ropensci/datefixR/branch/main/graph/badge.svg?token=zycOVwlq1m)](https://app.codecov.io/gh/ropensci/datefixR) | [![French localization](https://gitlocalize.com/repo/8364/fr/badge.svg)](https://gitlocalize.com/repo/8364/fr?utm_source=badge) |
-| ![website status](https://img.shields.io/website?down_color=red&down_message=offline&up_color=green&up_message=online&url=https%3A%2F%2Fdocs.ropensci.org%2FdatefixR%2F) | [![Status at rOpenSci Software Peer Review](https://badges.ropensci.org/533_status.svg)](https://github.com/ropensci/software-review/issues/533) | [![Tidyverse style guide](https://img.shields.io/static/v1?label=Code%20Style&message=Tidyverse&color=1f1c30)](https://style.tidyverse.org) | [![Indonesian localization](https://gitlocalize.com/repo/8364/id/badge.svg)](https://gitlocalize.com/repo/8364/id?utm_source=badge) |
-|  |  |  | [![Russian localization](https://gitlocalize.com/repo/8364/ru/badge.svg)](https://gitlocalize.com/repo/8364/ru?utm_source=badge) |
+| Usage                                                                                                                                                                    | Release                                                                                                                                          | Development                                                                                                                                                                                            | Translation Status                                                                                                                  |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------- |
+| ![R](https://img.shields.io/badge/r-%23276DC3.svg?style=for-the-badge&logo=r&logoColor=white)                                                                            | [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/datefixR)](https://cran.r-project.org/package=datefixR)                             | [![R build status](https://github.com/ropensci/datefixR/workflows/CI/badge.svg)](https://github.com/ropensci/datefixR/actions)                                                                         | [![German localization](https://gitlocalize.com/repo/8364/de/badge.svg)](https://gitlocalize.com/repo/8364/de?utm_source=badge)     |
+| [![License: GPL-3](https://img.shields.io/badge/License-GPL3-green.svg)](https://opensource.org/license/gpl-3-0)                                                         | [![datefixR status badge](https://ropensci.r-universe.dev/badges/datefixR)](https://ropensci.r-universe.dev/datefixR)                            | [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) | [![Spanish localization](https://gitlocalize.com/repo/8364/es/badge.svg)](https://gitlocalize.com/repo/8364/es?utm_source=badge)    |
+| [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/datefixR?color=blue)](https://r-pkg.org/pkg/datefixR)                                    | [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5655311.svg)](https://doi.org/10.5281/zenodo.5655311)                                        | [![codecov](https://codecov.io/gh/ropensci/datefixR/branch/main/graph/badge.svg?token=zycOVwlq1m)](https://app.codecov.io/gh/ropensci/datefixR)                                                        | [![French localization](https://gitlocalize.com/repo/8364/fr/badge.svg)](https://gitlocalize.com/repo/8364/fr?utm_source=badge)     |
+| ![website status](https://img.shields.io/website?down_color=red&down_message=offline&up_color=green&up_message=online&url=https%3A%2F%2Fdocs.ropensci.org%2FdatefixR%2F) | [![Status at rOpenSci Software Peer Review](https://badges.ropensci.org/533_status.svg)](https://github.com/ropensci/software-review/issues/533) | [![Tidyverse style guide](https://img.shields.io/static/v1?label=Code%20Style&message=Tidyverse&color=1f1c30)](https://style.tidyverse.org)                                                            | [![Indonesian localization](https://gitlocalize.com/repo/8364/id/badge.svg)](https://gitlocalize.com/repo/8364/id?utm_source=badge) |
+|                                                                                                                                                                          |                                                                                                                                                  |                                                                                                                                                                                                        | [![Russian localization](https://gitlocalize.com/repo/8364/ru/badge.svg)](https://gitlocalize.com/repo/8364/ru?utm_source=badge)    |
 
 <!-- badges: end -->
 
@@ -108,7 +108,7 @@ remotes::install_github("ropensci/datefixR", "devel")
 ```
 
 **Version Compatibility**: `datefixR` requires R ≥ 4.1.0. Current stable
-version: 1.7.0.
+version: 1.7.0.9000.
 
 ## Getting Started
 
@@ -181,15 +181,15 @@ data("exampledates")
 knitr::kable(exampledates)
 ```
 
-| id  | some.dates              | some.more.dates |
-|:----|:------------------------|:----------------|
-| 1   | 02 05 92                | 2015            |
-| 2   | 01-04-2020              | 02/05/00        |
-| 3   | 1996/05/01              | 05/1990         |
-| 4   | 2020-may-01             | 2012-08         |
-| 5   | 02-04-96                | jan 2020        |
-| 6   | le 3 mars 2013          | 22.07.1977      |
-| 7   | 7 de septiembre de 2014 | 13821           |
+| id | some.dates              | some.more.dates |
+| :- | :---------------------- | :-------------- |
+| 1  | 02 05 92                | 2015            |
+| 2  | 01-04-2020              | 02/05/00        |
+| 3  | 1996/05/01              | 05/1990         |
+| 4  | 2020-may-01             | 2012-08         |
+| 5  | 02-04-96                | jan 2020        |
+| 6  | le 3 mars 2013          | 22.07.1977      |
+| 7  | 7 de septiembre de 2014 | 13821           |
 
 ``` r
 
@@ -198,15 +198,15 @@ fixed_df <- fix_date_df(exampledates, c("some.dates", "some.more.dates"))
 knitr::kable(fixed_df)
 ```
 
-| id  | some.dates | some.more.dates |
-|:----|:-----------|:----------------|
-| 1   | 1992-05-02 | 2015-07-01      |
-| 2   | 2020-04-01 | 2000-05-02      |
-| 3   | 1996-05-01 | 1990-05-01      |
-| 4   | 2020-05-01 | 2012-08-01      |
-| 5   | 1996-04-02 | 2020-01-01      |
-| 6   | 2013-03-03 | 1977-07-22      |
-| 7   | 2014-09-07 | 2007-11-04      |
+| id | some.dates | some.more.dates |
+| :- | :--------- | :-------------- |
+| 1  | 1992-05-02 | 2015-07-01      |
+| 2  | 2020-04-01 | 2000-05-02      |
+| 3  | 1996-05-01 | 1990-05-01      |
+| 4  | 2020-05-01 | 2012-08-01      |
+| 5  | 1996-04-02 | 2020-01-01      |
+| 6  | 2013-03-03 | 1977-07-22      |
+| 7  | 2014-09-07 | 2007-11-04      |
 
 The function preserves non-date columns and provides detailed error
 reporting if any dates fail to parse.
@@ -314,51 +314,16 @@ fixed_incomplete <- fix_date_df(incomplete_df, "dates",
 knitr::kable(fixed_incomplete)
 ```
 
-|  id | dates      |
-|----:|:-----------|
-|   1 | 2023-12-31 |
-|   2 | 2023-05-31 |
-|   3 | 2023-08-31 |
-|   4 | 2022-03-31 |
+| id | dates      |
+| -: | :--------- |
+|  1 | 2023-12-31 |
+|  2 | 2023-05-31 |
+|  3 | 2023-08-31 |
+|  4 | 2022-03-31 |
 
 This flexibility allows you to choose imputation strategies that make
 sense for your specific use case (e.g., fiscal year starts, survey
 periods, etc.).
-
-### Performance Tips
-
-1.  **Batch Processing**: When possible, process dates in batches using
-    `fix_date_char()` rather than applying fixes row-by-row in loops.
-
-2.  **Pre-filtering**: If you know certain patterns won’t appear in your
-    data, consider pre-processing to remove obvious non-dates before
-    using `datefixR`.
-
-3.  **Format Specification**: When you know the predominant format in
-    your data, specify it explicitly (e.g., `format = "mdy"`) to reduce
-    ambiguity resolution overhead.
-
-4.  **Column Selection**: In `fix_date_df()`, only specify the columns
-    that actually contain dates to avoid unnecessary processing.
-
-5.  **Error Handling**: For large datasets, consider using `try()` or
-    `tryCatch()` around `datefixR` functions to handle edge cases
-    gracefully:
-
-``` r
-# Robust processing for production code
-safe_date_fix <- function(dates) {
-  tryCatch({
-    fix_date_char(dates)
-  }, error = function(e) {
-    warning("Date parsing failed for some entries: ", e$message)
-    return(rep(NA, length(dates)))
-  })
-}
-```
-
-6.  **Memory Considerations**: For very large datasets (\>100k rows),
-    consider processing in chunks to manage memory usage effectively.
 
 For datasets with hundreds of thousands of rows where speed is critical
 and you can accept less flexible parsing, consider alternatives like
@@ -468,7 +433,7 @@ characteristics.
 flexible imputation, handles mixed formats automatically -
 **`lubridate`**: Faster performance but requires format specification,
 limited imputation control  
-- **`stringi`/`readr`/`clock`**: Blazing fast but require exact format
+\- **`stringi`/`readr`/`clock`**: Blazing fast but require exact format
 specification, 211 locale support - **`anytime`**: Variable performance,
 no imputation support, silent failures
 
@@ -490,7 +455,7 @@ project, you agree to abide by its terms.
 ## Citation
 
 If you use this package in your research, please consider citing
-`datefixR`! An up-to-date citation can be obtained by running
+`datefixR`\! An up-to-date citation can be obtained by running
 
 ``` r
 citation("datefixR")
