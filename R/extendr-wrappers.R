@@ -10,22 +10,6 @@
 #' @useDynLib datefixR, .registration = TRUE
 NULL
 
-#' Process French date strings by removing articles and normalizing ordinals
-#' @noRd
-process_french <- function(date) .Call(wrap__process_french, date)
-
-#' Process Russian date strings by normalizing months
-#' @noRd
-process_russian <- function(date) .Call(wrap__process_russian, date)
-
-#' Validate month imputation value
-#' @noRd
-imputemonth <- function(month_impute) .Call(wrap__imputemonth, month_impute)
-
-#' Validate day imputation value
-#' @noRd
-imputeday <- function(day_impute) .Call(wrap__imputeday, day_impute)
-
 #' Validate day imputation value range
 #' @noRd
 checkday <- function(day_impute) .Call(wrap__checkday, day_impute)

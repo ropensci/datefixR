@@ -76,96 +76,7 @@ fn replace_all<'a>(input: &'a str, patterns: &[(&str, &str)]) -> String {
 }
 
 
-/// Process French date strings by removing articles and normalizing ordinals
-/// @noRd
-#[extendr]
-fn process_french(date: &str) -> String {
-    let mut result = replace_all(
-        date,
-        &[("le ", " "), ("Le ", " "), ("1er", "01")],
-    );
-    // Handle more French ordinals and cleanup extra spaces
-    result = result.trim().to_string();
-    result
-}
 
-/// Process Russian date strings by normalizing months
-#[extendr]
-/// @noRd
-fn process_russian(date: &str) -> String {
-    replace_all(
-        date,
-        &[
-            ("марта", "март"), ("Марта", "Март"),
-            ("августа", "август"), ("Августа", "Август"),
-        ],
-    )
-}
-
-/// Validate month imputation value
-/// @noRd
-#[extendr]
-fn imputemonth(month_impute: Option<&str>) -> Result<()> {
-    if month_impute.is_none() {
-        Err("Missing month with no imputation value given".into())
-    } else {
-        Ok(())
-    }
-}
-
-/// Validate day imputation value
-/// @noRd
-#[extendr]
-fn imputeday(day_impute: Option<&str>) -> Result<()> {
-    if day_impute.is_none() {
-        Err("Missing day with no imputation value given".into())
-    } else {
-        Ok(())
-    }
-}
-
-/// Validate day imputation value range
-/// @noRd
-#[extendr]
-fn checkday(day_impute: Robj) -> Result<()> {
-    if day_impute.is_null() || day_impute.len() == 0 {
-        return Ok(());             // nothing to check
-    }
-    
-    // Handle NA values - they are allowed
-    if day_impute.is_na() {
-        return Ok(());
-    }
-    
-    // Try to convert to f64 from various R types
-    let val: f64 = match day_impute.rtype() {
-        Rtype::Doubles => {
-            let real_val = day_impute.as_real().unwrap_or(f64::NAN);
-            if real_val.is_nan() {
-                return Ok(()); // NA values are OK
-            }
-            real_val
-        },
-        Rtype::Integers => {
-            let int_val = day_impute.as_integer().unwrap_or(i32::MIN);
-            if int_val == i32::MIN {
-                return Ok(()); // NA values are OK
-            }
-            int_val as f64
-        },
-        _ => {
-            return Err("day.impute must be numeric".into())
-        }
-    };
-    
-    if val.fract() != 0.0 {
-        return Err("day.impute should be an integer\n".into());
-    }
-    if !(1.0..=31.0).contains(&val) {
-        return Err("day.impute should be an integer between 1 and 31\n".into());
-    }
-    Ok(())
-}
 
 /// Remove ordinal suffixes from date strings
 fn rm_ordinal_suffixes(date: &str) -> String {
@@ -316,15 +227,48 @@ fn first_is_month(date_vec: &[String]) -> bool {
     false
 }
 
-/// Convert day/month imputation value to string with leading zero
-fn convert_impute(impute: Option<i32>) -> Option<String> {
-    impute.map(|val| {
-        if val < 10 {
-            format!("0{}", val)
-        } else {
-            val.to_string()
+
+/// Validate day imputation value range
+/// @noRd
+#[extendr]
+fn checkday(day_impute: Robj) -> Result<()> {
+    if day_impute.is_null() || day_impute.len() == 0 {
+        return Ok(());             // nothing to check
+    }
+    
+    // Handle NA values - they are allowed
+    if day_impute.is_na() {
+        return Ok(());
+    }
+    
+    // Try to convert to f64 from various R types
+    let val: f64 = match day_impute.rtype() {
+        Rtype::Doubles => {
+            let real_val = day_impute.as_real().unwrap_or(f64::NAN);
+            if real_val.is_nan() {
+                return Ok(()); // NA values are OK
+            }
+            real_val
+        },
+        Rtype::Integers => {
+            let int_val = day_impute.as_integer().unwrap_or(i32::MIN);
+            if int_val == i32::MIN {
+                return Ok(()); // NA values are OK
+            }
+            int_val as f64
+        },
+        _ => {
+            return Err("day.impute must be numeric".into())
         }
-    })
+    };
+    
+    if val.fract() != 0.0 {
+        return Err("day.impute should be an integer\n".into());
+    }
+    if !(1.0..=31.0).contains(&val) {
+        return Err("day.impute should be an integer between 1 and 31\n".into());
+    }
+    Ok(())
 }
 
 /// Validate and adjust date components
@@ -478,8 +422,14 @@ fn fix_date(
     
     // Clean the date string
     let mut cleaned_date = rm_ordinal_suffixes(date_str);
-    cleaned_date = process_french(&cleaned_date);
-    cleaned_date = process_russian(&cleaned_date);
+    // Process French date strings by removing articles and normalizing ordinals
+    cleaned_date = replace_all(&cleaned_date, &[("le ", " "), ("Le ", " "), ("1er", "01")]);
+    cleaned_date = cleaned_date.trim().to_string();
+    // Process Russian date strings by normalizing months
+    cleaned_date = replace_all(&cleaned_date, &[
+        ("марта", "март"), ("Марта", "Март"),
+        ("августа", "август"), ("Августа", "Август"),
+    ]);
     
     // Handle 4-digit year only
     if cleaned_date.len() == 4 && is_numeric(&cleaned_date) {
@@ -657,9 +607,6 @@ let adjusted_date = num_date;
     // Validate and adjust the date components
     let (adjusted_day, adjusted_month, adjusted_year) = check_output(day, month, year)?;
     
-// Trigger warnings and errors for specific cases
-if let Some(ref subject) = subject {
-}
 // Combine into final date string
     Ok(combine_partial_date(
         adjusted_day, 
@@ -675,10 +622,6 @@ if let Some(ref subject) = subject {
 // See corresponding C code in `entrypoint.c`.
 extendr_module! {
     mod datefixR;
-    fn process_french;
-    fn process_russian;
-    fn imputemonth;
-    fn imputeday;
     fn checkday;
     fn fix_date;
     fn fix_date_column;
@@ -687,18 +630,6 @@ extendr_module! {
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    #[test]
-    fn test_process_french() {
-        let result = process_french("Le 1er janvier");
-        assert_eq!(result, "01 janvier");
-    }
-
-    #[test]
-    fn test_process_russian() {
-        let result = process_russian("3 Марта 2020");
-        assert_eq!(result, "3 Март 2020");
-    }
 
     // Helper function to create a simple validation function without R objects
     fn validate_day_range(val: f64) -> std::result::Result<(), String> {
