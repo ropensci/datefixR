@@ -1,5 +1,5 @@
 ---
-title: "Internationalization with datefixR"
+title: "Localization with datefixR"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Internationalization with datefixR}
@@ -21,7 +21,7 @@ library(datefixR)
 ## Introduction
 
 One of the most powerful features of `datefixR` is its comprehensive
-internationalization support. The package can automatically recognize and parse
+localization support. The package can automatically recognize and parse
 dates in multiple languages without requiring users to specify the language
 beforehand. This makes it particularly valuable for processing datasets
 collected across different countries or containing mixed-language date entries.
@@ -76,7 +76,7 @@ fix_date_char(english_dates)
 
 ### French (Français)
 
-French dates often include cultural elements like articles ("le", "du") and prepositions ("de"):
+French dates often include articles ("le", "du") and prepositions ("de"):
 
 ```{r}
 # Various French formats
@@ -191,7 +191,8 @@ fix_date_char(indonesian_dates)
 
 ## Handling Mixed Languages
 
-The package automatically detects the language of month names without requiring explicit specification:
+The package automatically detects the language of month names without requiring
+explicit specification:
 
 ```{r}
 mixed_dates <- c(
