@@ -253,12 +253,6 @@ roman_dates <- c(
 )
 
 fix_date_char(roman_dates)
-#> Warning in .checkoutput(day, month, year): NAs introduced by coercion
-#> Warning: NA imputed (date: 15.vii.2023)
-#> Warning in .checkoutput(day, month, year): NAs introduced by coercion
-#> Warning: NA imputed (date: 3.xii.1999)
-#> Warning in .checkoutput(day, month, year): NAs introduced by coercion
-#> Warning: NA imputed (date: 1.i.2000)
 #> [1] NA NA NA
 ```
 
