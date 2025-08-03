@@ -1,8 +1,12 @@
+#![allow(non_snake_case)]
 use extendr_api::prelude::*;
 use regex::Regex;
 use chrono::{NaiveDate, Datelike};
 use std::collections::HashMap;
 use std::sync::OnceLock;
+
+mod translations;
+use translations::*;
 
 /// Month names in different languages (mirroring R months data)
 static MONTHS: OnceLock<HashMap<usize, Vec<&'static str>>> = OnceLock::new();
@@ -263,10 +267,10 @@ fn checkday(day_impute: Robj) -> Result<()> {
     };
     
     if val.fract() != 0.0 {
-        return Err("day.impute should be an integer\n".into());
+        return Err(day_impute_integer().into());
     }
     if !(1.0..=31.0).contains(&val) {
-        return Err("day.impute should be an integer between 1 and 31\n".into());
+        return Err(day_impute_integer_range().into());
     }
     Ok(())
 }
@@ -275,7 +279,7 @@ fn checkday(day_impute: Robj) -> Result<()> {
 fn check_output(day: Option<i32>, month: Option<i32>, year: Option<i32>) -> Result<(Option<i32>, Option<i32>, Option<i32>)> {
     if let Some(m) = month {
         if m < 1 || m > 12 {
-            return Err("Month not in expected range \n".into());
+            return Err(month_not_in_range().into());
         }
     }
     
@@ -284,7 +288,7 @@ fn check_output(day: Option<i32>, month: Option<i32>, year: Option<i32>) -> Resu
     if let (Some(d), Some(m), Some(y)) = (day, month, year) {
         if d > 31 || d < 1 {
 // Day validation failed
-return Err("Day not in expected range\n".into());
+return Err(day_not_in_range().into());
         }
         
         // Get max days for the month, accounting for leap years
@@ -315,9 +319,10 @@ fn combine_partial_date(day: Option<i32>, month: Option<i32>, year: Option<i32>,
         _ => {
             // Generate the proper warning message expected by R tests
             if let Some(subj) = subject {
-                eprintln!("WARNING: NA imputed for subject {} (date: {})", subj, original_date);
+                eprintln!("WARNING: {} {} {} {} {}", 
+                    na_imputed_for_subject(), subj, date_open_paren(), original_date, close_paren());
             } else {
-                eprintln!("WARNING: NA imputed for date: {}", original_date);
+                eprintln!("WARNING: {} {}", na_imputed_date(), original_date);
             }
             None
         }
@@ -415,7 +420,7 @@ fn fix_date(
         }
         s
     } else {
-        return Err("date should be a character".into());
+        return Err(date_should_be_character().into());
     };
     
     // format, excel, and roman_numeral are now non-optional parameters
@@ -438,9 +443,9 @@ fn fix_date(
             // Either month.impute or day.impute is NA, should return None and let R generate warning
             Ok(None)
         } else if month_impute.is_none() {
-            Err("Missing month with no imputation value given".into())
+            Err(missing_month_no_imputation().into())
         } else if day_impute.is_none() {
-            Err("Missing day with no imputation value given".into())
+            Err(missing_day_no_imputation().into())
         } else if let (Some(m), Some(d)) = (month_impute, day_impute) {
             // Only format if we have valid non-NA values
             if m != -1 && d != -1 {
@@ -507,14 +512,14 @@ let adjusted_date = num_date;
     
     // Check for overly long components before processing
     if date_str.len() > 200 || date_vec.iter().any(|s| s.len() > 6) {
-        return Err("unable to tidy a date".into());
+        return Err(unable_to_tidy_date().into());
     }
     
     // Check for components that are too long to be valid date parts
     // Any numeric component longer than 4 digits is invalid for years, and anything over 2 digits is invalid for days/months
     for component in &date_vec {
         if is_numeric(component) && component.len() > 4 {
-            return Err("unable to tidy a date".into());
+            return Err(unable_to_tidy_date().into());
         }
     }
     
@@ -529,7 +534,7 @@ let adjusted_date = num_date;
         if day_impute.is_none() {
             // When day_impute is None (NULL), we need to throw an error
             // When day_impute is None (NULL), we need to throw an error
-            return Err("Missing day with no imputation value given".into());
+            return Err(missing_day_no_imputation().into());
         } else if day_impute_na {
             // When day_impute is Some(-1) (NA), we return None and let R handle the warning
             // When day_impute is Some(-1) (NA), we return None and let R handle the warning
@@ -544,7 +549,7 @@ let adjusted_date = num_date;
                 let year = date_vec[0].parse::<i32>().map_err(|_| "Invalid year")?;
                 // Check for year with more than 4 digits
                 if date_vec[0].len() > 4 {
-                    return Err("unable to tidy a date".into());
+                    return Err(unable_to_tidy_date().into());
                 }
                 let month = date_vec[1].parse::<i32>().map_err(|_| "Invalid month")?;
                 (Some(day), Some(month), Some(year))
@@ -554,7 +559,7 @@ let adjusted_date = num_date;
                 let year = date_vec[1].parse::<i32>().map_err(|_| "Invalid year")?;
                 // Check for year with more than 4 digits
                 if date_vec[1].len() > 4 {
-                    return Err("unable to tidy a date".into());
+                    return Err(unable_to_tidy_date().into());
                 }
                 (Some(day), Some(month), Some(year))
             } else {
@@ -569,7 +574,7 @@ let adjusted_date = num_date;
             // YYYY/MM/DD
             // Check for year with more than 4 digits
             if date_vec[0].len() > 4 {
-                return Err("unable to tidy a date".into());
+                return Err(unable_to_tidy_date().into());
             }
             let year = date_vec[0].parse::<i32>().map_err(|_| "Invalid year")?;
             let month = date_vec[1].parse::<i32>().map_err(|_| "Invalid month")?;
@@ -583,7 +588,7 @@ let adjusted_date = num_date;
                     let month = date_vec[1].parse::<i32>().map_err(|_| "Invalid month")?;
                     // Check for year with more than 4 digits
                     if date_vec[2].len() > 4 {
-                        return Err("unable to tidy a date".into());
+                        return Err(unable_to_tidy_date().into());
                     }
                     let year = date_vec[2].parse::<i32>().map_err(|_| "Invalid year")?;
                     (Some(day), Some(month), Some(year))
@@ -594,12 +599,12 @@ let adjusted_date = num_date;
                     let day = date_vec[1].parse::<i32>().map_err(|_| "Invalid day")?;
                     // Check for year with more than 4 digits
                     if date_vec[2].len() > 4 {
-                        return Err("unable to tidy a date".into());
+                        return Err(unable_to_tidy_date().into());
                     }
                     let year = date_vec[2].parse::<i32>().map_err(|_| "Invalid year")?;
                     (Some(day), Some(month), Some(year))
                 },
-                _ => return Err("format should be either 'dmy' or 'mdy' \n".into())
+                _ => return Err(format_should_be_dmy_or_mdy().into())
             }
         }
     };

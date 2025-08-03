@@ -32,3 +32,23 @@ msgstr ""
 #: code.cpp:48
 msgid "day.impute should be an integer\n"
 msgstr ""
+
+#: rust/src/lib.rs:281
+msgid "Month not in expected range"
+msgstr ""
+
+#: rust/src/lib.rs:290
+msgid "Day not in expected range"
+msgstr ""
+
+#: rust/src/lib.rs:602
+msgid "format should be either 'dmy' or 'mdy'"
+msgstr ""
+
+#: rust/src/lib.rs:513
+msgid "unable to tidy a date"
+msgstr ""
+
+#: rust/src/lib.rs:421
+msgid "date should be a character"
+msgstr ""

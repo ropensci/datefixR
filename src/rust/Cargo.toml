@@ -13,3 +13,4 @@ name = 'datefixR'
 extendr-api = { version = "*", default-features = false, features = ["result_condition"] }
 regex = "1.5"
 chrono = "0.4"
+lazy_static = "1.4"
