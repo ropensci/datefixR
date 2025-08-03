@@ -39,3 +39,6 @@ vignettes/*.pdf
 .Renviron
 .Rproj.user
 *.DS_Store
+src/rust/vendor
+src/Makevars
+src/Makevars.win

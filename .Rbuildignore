@@ -13,3 +13,8 @@
 ^CITATION\.cff$
 ^app\.R$
 ^rsconnect$
+^src/\.cargo$
+^src/rust/vendor$
+^src/rust/target$
+^src/Makevars$
+^src/Makevars\.win$

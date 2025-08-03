@@ -10,4 +10,6 @@ crate-type = [ 'staticlib' ]
 name = 'datefixR'
 
 [dependencies]
-extendr-api = '*'
+extendr-api = { version = "*", default-features = false, features = ["result_condition"] }
+regex = "1.5"
+chrono = "0.4"
