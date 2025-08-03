@@ -1,7 +1,7 @@
 use lazy_static::lazy_static;
-use std::sync::Once;
 use std::collections::HashMap;
 use std::env;
+use std::sync::Once;
 
 static INIT: Once = Once::new();
 static mut CURRENT_LOCALE: String = String::new();
@@ -9,7 +9,7 @@ static mut CURRENT_LOCALE: String = String::new();
 lazy_static! {
     /// Translation domain for datefixR
     static ref DOMAIN: &'static str = "datefixR";
-    
+
     /// Spanish translations
     static ref SPANISH_TRANSLATIONS: HashMap<&'static str, &'static str> = {
         let mut m = HashMap::new();
@@ -31,7 +31,7 @@ lazy_static! {
         m.insert("NA imputed for subject", "NA imputado para sujeto");
         m
     };
-    
+
     /// French translations
     static ref FRENCH_TRANSLATIONS: HashMap<&'static str, &'static str> = {
         let mut m = HashMap::new();
@@ -53,7 +53,7 @@ lazy_static! {
         m.insert("NA imputed for subject", "NA imputé pour sujet");
         m
     };
-    
+
     /// Czech translations
     static ref CZECH_TRANSLATIONS: HashMap<&'static str, &'static str> = {
         let mut m = HashMap::new();
@@ -75,7 +75,7 @@ lazy_static! {
         m.insert("NA imputed for subject", "Imputované NA pro subjekt");
         m
     };
-    
+
     /// German translations
     static ref GERMAN_TRANSLATIONS: HashMap<&'static str, &'static str> = {
         let mut m = HashMap::new();
@@ -97,7 +97,7 @@ lazy_static! {
         m.insert("NA imputed for subject", "NA imputiert für");
         m
     };
-    
+
     /// Indonesian translations
     static ref INDONESIAN_TRANSLATIONS: HashMap<&'static str, &'static str> = {
         let mut m = HashMap::new();
@@ -119,7 +119,7 @@ lazy_static! {
         m.insert("NA imputed for subject", "NA diperhitungkan untuk subjek");
         m
     };
-    
+
     /// Portuguese translations
     static ref PORTUGUESE_TRANSLATIONS: HashMap<&'static str, &'static str> = {
         let mut m = HashMap::new();
@@ -141,7 +141,7 @@ lazy_static! {
         m.insert("NA imputed for subject", "NA imputado para sujeito");
         m
     };
-    
+
     /// Russian translations
     static ref RUSSIAN_TRANSLATIONS: HashMap<&'static str, &'static str> = {
         let mut m = HashMap::new();
@@ -163,7 +163,7 @@ lazy_static! {
         m.insert("NA imputed for subject", "Н/Д (т.е. `NA`) присвоено для предмета");
         m
     };
-    
+
     /// Slovak translations
     static ref SLOVAK_TRANSLATIONS: HashMap<&'static str, &'static str> = {
         let mut m = HashMap::new();
@@ -210,13 +210,13 @@ fn get_current_locale() -> String {
 /// Get translated string using locale-specific translations
 pub fn tr(message: &str) -> String {
     init_translations();
-    
+
     // Use raw pointer to avoid mutable static reference warning
     let locale_str = unsafe {
         let ptr = &raw const CURRENT_LOCALE;
         &*ptr
     };
-    
+
     // Determine which translation dictionary to use based on locale
     let translation = if locale_str.starts_with("es") || locale_str.contains("spanish") {
         SPANISH_TRANSLATIONS.get(message)
@@ -237,7 +237,7 @@ pub fn tr(message: &str) -> String {
     } else {
         None
     };
-    
+
     // Return translated string or original message
     translation
         .map(|s| s.to_string())
@@ -338,7 +338,7 @@ mod tests {
     fn test_translation_init() {
         // Test that translation initialization doesn't panic
         init_translations();
-        
+
         // Test that tr function returns a string (even if untranslated)
         let result = tr("test message");
         assert!(!result.is_empty());
@@ -357,47 +357,53 @@ mod tests {
         assert!(!unable_to_tidy_date().is_empty());
         assert!(!date_should_be_character().is_empty());
     }
-    
+
     #[test]
     fn test_spanish_translations() {
         // Test Spanish translations
         let spanish_day = SPANISH_TRANSLATIONS.get("Day not in expected range");
         assert_eq!(spanish_day, Some(&"Día fuera del rango esperado"));
-        
+
         let spanish_month = SPANISH_TRANSLATIONS.get("Month not in expected range");
         assert_eq!(spanish_month, Some(&"Mes fuera del rango esperado"));
     }
-    
+
     #[test]
     fn test_french_translations() {
         // Test French translations
         let french_day = FRENCH_TRANSLATIONS.get("Day not in expected range");
         assert_eq!(french_day, Some(&"Jour hors de la plage attendue"));
-        
+
         let french_month = FRENCH_TRANSLATIONS.get("Month not in expected range");
         assert_eq!(french_month, Some(&"Mois hors de la plage attendue"));
     }
-    
+
     #[test]
     fn test_german_translations() {
         // Test German translations
         let german_day = GERMAN_TRANSLATIONS.get("Day not in expected range");
         assert_eq!(german_day, Some(&"Tag nicht im erwarteten Bereich"));
-        
+
         let german_month = GERMAN_TRANSLATIONS.get("Month not in expected range");
         assert_eq!(german_month, Some(&"Monat nicht im erwarteten Bereich"));
     }
-    
+
     #[test]
     fn test_russian_translations() {
         // Test Russian translations with Cyrillic characters
         let russian_day = RUSSIAN_TRANSLATIONS.get("Day not in expected range");
-        assert_eq!(russian_day, Some(&"день определен вне ожидаемого диапазона"));
-        
+        assert_eq!(
+            russian_day,
+            Some(&"день определен вне ожидаемого диапазона")
+        );
+
         let russian_month = RUSSIAN_TRANSLATIONS.get("Month not in expected range");
-        assert_eq!(russian_month, Some(&"Месяц определен вне ожидаемого диапазона"));
+        assert_eq!(
+            russian_month,
+            Some(&"Месяц определен вне ожидаемого диапазона")
+        );
     }
-    
+
     #[test]
     fn test_all_languages_have_core_messages() {
         // Test that all translation maps contain the core messages
@@ -406,9 +412,9 @@ mod tests {
             "Month not in expected range",
             "date should be a character",
             "unable to tidy a date",
-            "format should be either 'dmy' or 'mdy'"
+            "format should be either 'dmy' or 'mdy'",
         ];
-        
+
         let translation_maps = [
             &*SPANISH_TRANSLATIONS,
             &*FRENCH_TRANSLATIONS,
@@ -417,34 +423,41 @@ mod tests {
             &*INDONESIAN_TRANSLATIONS,
             &*PORTUGUESE_TRANSLATIONS,
             &*RUSSIAN_TRANSLATIONS,
-            &*SLOVAK_TRANSLATIONS
+            &*SLOVAK_TRANSLATIONS,
         ];
-        
+
         for translation_map in translation_maps {
             for message in &core_messages {
-                assert!(translation_map.contains_key(message), 
-                    "Translation map missing message: {}", message);
+                assert!(
+                    translation_map.contains_key(message),
+                    "Translation map missing message: {}",
+                    message
+                );
             }
         }
     }
-    
-    #[test] 
+
+    #[test]
     fn test_locale_detection() {
         // Test that locale detection works for various locale formats
         let test_locales = [
             ("es_ES.UTF-8", "es"),
-            ("fr_FR.UTF-8", "fr"), 
+            ("fr_FR.UTF-8", "fr"),
             ("de_DE.UTF-8", "de"),
             ("ru_RU.UTF-8", "ru"),
             ("cs_CZ.UTF-8", "cs"),
             ("sk_SK.UTF-8", "sk"),
             ("id_ID.UTF-8", "id"),
-            ("pt_PT.UTF-8", "pt")
+            ("pt_PT.UTF-8", "pt"),
         ];
-        
+
         for (locale, expected_prefix) in test_locales {
-            assert!(locale.starts_with(expected_prefix), 
-                "Locale {} should start with {}", locale, expected_prefix);
+            assert!(
+                locale.starts_with(expected_prefix),
+                "Locale {} should start with {}",
+                locale,
+                expected_prefix
+            );
         }
     }
 }
