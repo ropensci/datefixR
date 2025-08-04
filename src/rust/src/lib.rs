@@ -13,6 +13,13 @@ use optimizations::*;
 static MONTHS: OnceLock<HashMap<usize, Vec<&'static str>>> = OnceLock::new();
 static ROMAN_NUMERALS: OnceLock<Vec<&'static str>> = OnceLock::new();
 static DAYS_IN_MONTH: [u8; 12] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+static CURRENT_YEAR: OnceLock<i32> = OnceLock::new();
+
+/// Get cached current year to avoid repeated system calls
+#[inline]
+fn get_current_year() -> i32 {
+    *CURRENT_YEAR.get_or_init(|| chrono::Utc::now().year())
+}
 
 
 fn get_months() -> &'static HashMap<usize, Vec<&'static str>> {
@@ -191,9 +198,10 @@ fn get_roman_numerals() -> &'static Vec<&'static str> {
 /// Convert text month names to numeric format (optimized with pre-compiled regexes)
 
 /// Add year prefix to 2-digit years
+#[inline]
 fn year_prefix(year: &str) -> String {
     if year.len() == 2 {
-        let current_year = chrono::Utc::now().year();
+        let current_year = get_current_year();
         let current_two_digit = current_year % 100;
         let year_num: i32 = year.parse().unwrap_or(0);
 
@@ -240,11 +248,13 @@ fn roman_conversion(mut date_vec: Vec<String>) -> Vec<String> {
 }
 
 /// Check if string contains only digits
+#[inline]
 fn is_numeric(s: &str) -> bool {
     !s.chars().any(|c| !c.is_ascii_digit())
 }
 
 /// Helper function to clean numeric strings by removing trailing punctuation
+#[inline]
 fn clean_numeric_string(s: &str) -> &str {
     s.trim_end_matches(|c: char| !c.is_ascii_digit())
 }
@@ -394,21 +404,26 @@ fn fix_date_native(
         return Ok(None);
     }
 
-    // Clean the date string
-    let mut cleaned_date = rm_ordinal_suffixes_optimized(date_str).into_owned();
-    // Process French date strings by removing articles and normalizing ordinals
-    cleaned_date = replace_all_optimized(&cleaned_date, &[("le ", " "), ("Le ", " "), ("1er", "01")]).into_owned();
-    cleaned_date = cleaned_date.trim().to_string();
-    // Process Russian date strings by normalizing months
-    cleaned_date = replace_all_optimized(
-        &cleaned_date,
-        &[
-            ("марта", "март"),
-            ("Марта", "Март"),
-            ("августа", "август"),
-            ("Августа", "Август"),
-        ],
-    ).into_owned();
+    // Try fast-path parsing for common formats first
+    if let Some((day, month, year)) = fast_path_parse_date(date_str, format) {
+        // Still need to validate and adjust the date components (e.g., Feb 30 -> Feb 28)
+        let (adjusted_day, adjusted_month, adjusted_year) = check_output(
+            Some(day as i32),
+            Some(month as i32),
+            Some(year as i32),
+        )?;
+        
+        return Ok(combine_partial_date(
+            adjusted_day,
+            adjusted_month,
+            adjusted_year,
+            date_str,
+            subject,
+        ));
+    }
+
+    // Clean the date string using combined approach
+    let cleaned_date = clean_date_string_combined(date_str).into_owned();
 
     // Handle 4-digit year only
     if cleaned_date.len() == 4 && is_numeric(&cleaned_date) {
@@ -679,23 +694,26 @@ fn fix_date(
         return Err(date_should_be_character().into());
     };
 
-    // format, excel, and roman_numeral are now non-optional parameters
+    // Try fast-path parsing for common formats first
+    if let Some((day, month, year)) = fast_path_parse_date(date_str, format) {
+        // Still need to validate and adjust the date components (e.g., Feb 30 -> Feb 28)
+        let (adjusted_day, adjusted_month, adjusted_year) = check_output(
+            Some(day as i32),
+            Some(month as i32),
+            Some(year as i32),
+        )?;
+        
+        return Ok(combine_partial_date(
+            adjusted_day,
+            adjusted_month,
+            adjusted_year,
+            date_str,
+            subject.as_deref(),
+        ));
+    }
 
-    // Clean the date string
-    let mut cleaned_date = rm_ordinal_suffixes_optimized(date_str).into_owned();
-    // Process French date strings by removing articles and normalizing ordinals
-    cleaned_date = replace_all_optimized(&cleaned_date, &[("le ", " "), ("Le ", " "), ("1er", "01")]).into_owned();
-    cleaned_date = cleaned_date.trim().to_string();
-    // Process Russian date strings by normalizing months
-    cleaned_date = replace_all_optimized(
-        &cleaned_date,
-        &[
-            ("марта", "март"),
-            ("Марта", "Март"),
-            ("августа", "август"),
-            ("Августа", "Август"),
-        ],
-    ).into_owned();
+    // Clean the date string using combined approach
+    let cleaned_date = clean_date_string_combined(date_str).into_owned();
 
     // Handle 4-digit year only
     if cleaned_date.len() == 4 && is_numeric(&cleaned_date) {

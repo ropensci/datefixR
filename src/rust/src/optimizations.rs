@@ -164,6 +164,145 @@ pub fn separate_date_optimized(date: &str) -> Vec<&str> {
     }
 }
 
+/// Fast-path parser for common date formats to bypass complex processing
+pub fn fast_path_parse_date(date: &str, format: &str) -> Option<(u8, u8, u16)> {
+    match date.len() {
+        10 => {
+            // YYYY-MM-DD format (ISO) - always unambiguous
+            if date.chars().nth(4) == Some('-') && date.chars().nth(7) == Some('-') {
+                if let (Ok(year), Ok(month), Ok(day)) = (
+                    date[0..4].parse::<u16>(),
+                    date[5..7].parse::<u8>(),
+                    date[8..10].parse::<u8>(),
+                ) {
+                    if month >= 1 && month <= 12 && day >= 1 && day <= 31 {
+                        // Return even if day might be invalid for this month (e.g., Feb 30)
+                        // The main validation logic will handle month-specific day limits
+                        return Some((day, month, year));
+                    }
+                }
+            }
+            // MM/DD/YYYY or DD/MM/YYYY format - depends on format parameter
+            else if date.chars().nth(2) == Some('/') && date.chars().nth(5) == Some('/') {
+                if let (Ok(first), Ok(second), Ok(year)) = (
+                    date[0..2].parse::<u8>(),
+                    date[3..5].parse::<u8>(),
+                    date[6..10].parse::<u16>(),
+                ) {
+                    // Only use fast path for unambiguous cases or explicit format
+                    match format {
+                        "mdy" => {
+                            // MM/DD/YYYY format
+                            if first >= 1 && first <= 12 && second >= 1 && second <= 31 {
+                                return Some((second, first, year));
+                            }
+                        }
+                        "dmy" => {
+                            // DD/MM/YYYY format  
+                            if second >= 1 && second <= 12 && first >= 1 && first <= 31 {
+                                return Some((first, second, year));
+                            }
+                        }
+                        _ => {
+                            // For unspecified format, only handle unambiguous cases
+                            // If first > 12, must be DD/MM/YYYY
+                            if first > 12 && second >= 1 && second <= 12 {
+                                return Some((first, second, year));
+                            }
+                            // If second > 12, must be MM/DD/YYYY
+                            else if second > 12 && first >= 1 && first <= 12 {
+                                return Some((second, first, year));
+                            }
+                            // Otherwise ambiguous - let main logic handle it
+                        }
+                    }
+                }
+            }
+        }
+        8 => {
+            // MM/DD/YY or DD/MM/YY format - only handle if format is specified
+            if date.chars().nth(2) == Some('/') && date.chars().nth(5) == Some('/') {
+                if let (Ok(first), Ok(second), Ok(year_short)) = (
+                    date[0..2].parse::<u8>(),
+                    date[3..5].parse::<u8>(),
+                    date[6..8].parse::<u8>(),
+                ) {
+                    let year = if year_short <= 30 { 2000 + year_short as u16 } else { 1900 + year_short as u16 };
+                    
+                    match format {
+                        "mdy" => {
+                            // MM/DD/YY format
+                            if first >= 1 && first <= 12 && second >= 1 && second <= 31 {
+                                return Some((second, first, year));
+                            }
+                        }
+                        "dmy" => {
+                            // DD/MM/YY format
+                            if second >= 1 && second <= 12 && first >= 1 && first <= 31 {
+                                return Some((first, second, year));
+                            }
+                        }
+                        _ => {
+                            // For unspecified format, only handle unambiguous cases
+                            if first > 12 && second >= 1 && second <= 12 {
+                                return Some((first, second, year));
+                            }
+                            else if second > 12 && first >= 1 && first <= 12 {
+                                return Some((second, first, year));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        _ => {}
+    }
+    None
+}
+
+/// Combined string cleaning function to reduce multiple passes
+pub fn clean_date_string_combined(date: &str) -> Cow<str> {
+    // Check if any cleaning is needed first
+    let needs_ordinal = date.contains("st") || date.contains("nd") || date.contains("rd") || date.contains("th");
+    let needs_french = date.contains("le ") || date.contains("Le ") || date.contains("1er");
+    let needs_russian = date.contains("марта") || date.contains("Марта") || date.contains("августа") || date.contains("Августа");
+    
+    if !needs_ordinal && !needs_french && !needs_russian {
+        let trimmed = date.trim();
+        return if trimmed.len() == date.len() {
+            Cow::Borrowed(date)
+        } else {
+            Cow::Owned(trimmed.to_string())
+        };
+    }
+    
+    // Apply ordinal suffix removal first
+    let mut result = if needs_ordinal {
+        rm_ordinal_suffixes_optimized(date).into_owned()
+    } else {
+        date.to_string()
+    };
+    
+    // Apply French replacements
+    if needs_french {
+        result = replace_all_optimized(&result, &[("le ", " "), ("Le ", " "), ("1er", "01")]).into_owned();
+    }
+    
+    // Apply Russian replacements
+    if needs_russian {
+        result = replace_all_optimized(&result, &[
+            ("марта", "март"),
+            ("Марта", "Март"),
+            ("августа", "август"),
+            ("Августа", "Август"),
+        ]).into_owned();
+    }
+    
+    // Trim and return
+    result = result.trim().to_string();
+    Cow::Owned(result)
+}
+
 
 #[cfg(test)]
 mod tests {
@@ -203,5 +342,50 @@ mod tests {
         assert_eq!(rm_ordinal_suffixes_optimized("1st January"), "1 January");
         assert_eq!(rm_ordinal_suffixes_optimized("July 4th, 1776"), "July 4, 1776");
         assert_eq!(rm_ordinal_suffixes_optimized("4th,"), "4,");
+    }
+    
+    #[test]
+    fn test_fast_path_parse_date() {
+        // Test ISO format (always unambiguous)
+        assert_eq!(fast_path_parse_date("2020-12-25", "dmy"), Some((25, 12, 2020)));
+        assert_eq!(fast_path_parse_date("2020-01-01", "mdy"), Some((1, 1, 2020)));
+        
+        // Test DD/MM/YYYY format with dmy
+        assert_eq!(fast_path_parse_date("25/12/2020", "dmy"), Some((25, 12, 2020)));
+        
+        // Test MM/DD/YYYY format with mdy
+        assert_eq!(fast_path_parse_date("12/25/2020", "mdy"), Some((25, 12, 2020)));
+        
+        // Test unambiguous cases (format doesn't matter)
+        assert_eq!(fast_path_parse_date("25/01/2020", ""), Some((25, 1, 2020))); // 25 > 12, must be DD/MM
+        assert_eq!(fast_path_parse_date("01/25/2020", ""), Some((25, 1, 2020))); // 25 > 12, must be MM/DD
+        
+        // Test short year formats
+        assert_eq!(fast_path_parse_date("25/12/99", "dmy"), Some((25, 12, 1999)));
+        assert_eq!(fast_path_parse_date("12/25/23", "mdy"), Some((25, 12, 2023)));
+        
+        // Test invalid formats
+        assert_eq!(fast_path_parse_date("invalid", "dmy"), None);
+        
+        // Test ambiguous cases without format (should pass through)
+        assert_eq!(fast_path_parse_date("01/02/2020", ""), None); // Ambiguous, let main logic handle
+    }
+    
+    #[test]
+    fn test_clean_date_string_combined() {
+        // Test no cleaning needed
+        assert_eq!(clean_date_string_combined("25/12/2020"), "25/12/2020");
+        
+        // Test ordinal suffix removal
+        assert_eq!(clean_date_string_combined("July 4th, 1776"), "July 4, 1776");
+        
+        // Test French cleaning
+        assert_eq!(clean_date_string_combined("le 1er janvier"), "01 janvier");
+        
+        // Test Russian cleaning
+        assert_eq!(clean_date_string_combined("15 марта 2020"), "15 март 2020");
+        
+        // Test combined cleaning
+        assert_eq!(clean_date_string_combined("le 4th марта"), "4 март");
     }
 }
