@@ -56,7 +56,7 @@ jobs:
         run: |
           cov <- covr::package_coverage(
             quiet = FALSE,
-            clean = FALSE
+            clean = TRUE
           )
           covr::to_cobertura(cov)
         shell: Rscript {0}
