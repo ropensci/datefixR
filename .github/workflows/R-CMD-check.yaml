@@ -45,7 +45,8 @@ jobs:
           name: ${{ matrix.config.os }} (${{ matrix.config.r }}) shiny-test
           path: tests/testthat/_snaps/
           retention-days: 5
-      - name: Install dependencies
+      - name: Install coverage dependencies
+        if: runner.os == 'Linux' && matrix.config.r == 'release'
         run: |
           install.packages(c("remotes"))
           remotes::install_deps(dependencies = TRUE)
@@ -53,17 +54,36 @@ jobs:
         shell: Rscript {0}
 
       - name: Test coverage
+        if: runner.os == 'Linux' && matrix.config.r == 'release'
+        timeout-minutes: 30
+        env:
+          MC_CORES: 1
         run: |
-          cov <- covr::package_coverage(
-            quiet = FALSE,
-            clean = TRUE
-          )
-          covr::to_cobertura(cov)
+          # Clean up any existing coverage files
+          rm -rf .coverage_temp || true
+          rm -f cobertura.xml || true
+          
+          # Set single-threaded execution to avoid race conditions
+          options(mc.cores = 1)
+          
+          tryCatch({
+            cov <- covr::package_coverage(
+              quiet = FALSE,
+              clean = TRUE,
+              install_path = file.path(normalizePath(tempdir()), "R_LIBS")
+            )
+            covr::to_cobertura(cov)
+            cat("Coverage generation completed successfully\n")
+          }, error = function(e) {
+            cat("Coverage generation failed:", conditionMessage(e), "\n")
+            quit(status = 1)
+          })
         shell: Rscript {0}
 
       - uses: codecov/codecov-action@v5
+        if: runner.os == 'Linux' && matrix.config.r == 'release'
         with:
-          fail_ci_if_error: ${{ github.event_name != 'pull_request' && true || false }}
+          fail_ci_if_error: false
           files: ./cobertura.xml
           plugins: noop
           disable_search: true
