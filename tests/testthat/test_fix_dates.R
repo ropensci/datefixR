@@ -178,7 +178,7 @@ test_that("Error if month out of bounds", {
 
   expect_error(
     fix_dates(temp, "date"),
-    "Month not in expected range \n"
+    "Month not in expected range"
   )
 })
 

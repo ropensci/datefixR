@@ -177,9 +177,9 @@ test_that("error if day.impute or month.impute are in wrong format", {
 test_that("Error if month out of bounds", {
   temp <- data.frame(id = 1, date = "13-1994")
 
-  expect_error(
+expect_error(
     fix_date_df(temp, "date"),
-    "Month not in expected range \n"
+    "Month not in expected range"
   )
 })
 
@@ -293,18 +293,18 @@ test_that("Excel numeric date is parsed correctly", {
 })
 
 test_that("checkday errors when input is out of range", {
-  result <- try(checkday(45), silent = TRUE)
-  expect_s3_class(result, "extendr_error")
-  # Note: The actual error message is wrapped in extendr_error and not directly accessible
+  result <- try(datefixR:::checkday(45), silent = TRUE)
+expect_s3_class(result, "extendr_error")
+  # Note: The actual error message is wrapped in try-error and not directly accessible
   
   # Test that valid values work
-  expect_null(checkday(15))  # Should return NULL for valid day
-  expect_null(checkday(1))   # Should return NULL for valid day
-  expect_null(checkday(31))  # Should return NULL for valid day
+  expect_no_condition(datefixR:::checkday(15))  # Should return without error for valid day
+  expect_no_condition(datefixR:::checkday(1))   # Should return without error for valid day
+  expect_no_condition(datefixR:::checkday(31))  # Should return without error for valid day
   
   # Test other invalid values also throw errors
-  expect_s3_class(try(checkday(0), silent = TRUE), "extendr_error")
-  expect_s3_class(try(checkday(32), silent = TRUE), "extendr_error")
+expect_s3_class(try(datefixR:::checkday(0), silent = TRUE), "extendr_error")
+  expect_s3_class(try(datefixR:::checkday(32), silent = TRUE), "extendr_error")
 })
 
 

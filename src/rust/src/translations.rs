@@ -13,8 +13,8 @@ lazy_static! {
     /// Spanish translations
     static ref SPANISH_TRANSLATIONS: HashMap<&'static str, &'static str> = {
         let mut m = HashMap::new();
-        m.insert("Day not in expected range", "Día fuera del rango esperado");
-        m.insert("Month not in expected range", "Mes fuera del rango esperado");
+        m.insert("Day not in expected range\n", "Día fuera del rango esperado\n");
+        m.insert("Month not in expected range\n", "Mes fuera del rango esperado\n");
         m.insert("date should be a character", "la fecha debe ser un carácter");
         m.insert("unable to tidy a date", "no se puede ordenar una fecha");
         m.insert("format should be either 'dmy' or 'mdy'", "el formato debe ser 'dmy' o 'mdy'");
@@ -35,8 +35,8 @@ lazy_static! {
     /// French translations
     static ref FRENCH_TRANSLATIONS: HashMap<&'static str, &'static str> = {
         let mut m = HashMap::new();
-        m.insert("Day not in expected range", "Jour hors de la plage attendue");
-        m.insert("Month not in expected range", "Mois hors de la plage attendue");
+        m.insert("Day not in expected range\n", "Jour hors de la plage attendue\n");
+        m.insert("Month not in expected range\n", "Mois hors de la plage attendue\n");
         m.insert("date should be a character", "la date doit être un caractère");
         m.insert("unable to tidy a date", "impossible de nettoyer une date");
         m.insert("format should be either 'dmy' or 'mdy'", "le format doit être 'dmy' ou 'mdy'");
@@ -57,8 +57,8 @@ lazy_static! {
     /// Czech translations
     static ref CZECH_TRANSLATIONS: HashMap<&'static str, &'static str> = {
         let mut m = HashMap::new();
-        m.insert("Day not in expected range", "Den není v očekávaném rozsahu");
-        m.insert("Month not in expected range", "Měsíc není v očekávaném rozsahu");
+        m.insert("Day not in expected range\n", "Den není v očekávaném rozsahu\n");
+        m.insert("Month not in expected range\n", "Měsíc není v očekávaném rozsahu\n");
         m.insert("date should be a character", "datum by měl být text");
         m.insert("unable to tidy a date", "nepodařilo se normalizovat datum");
         m.insert("format should be either 'dmy' or 'mdy'", "Formát by měl být buď 'dmy' nebo 'mdy'");
@@ -79,8 +79,8 @@ lazy_static! {
     /// German translations
     static ref GERMAN_TRANSLATIONS: HashMap<&'static str, &'static str> = {
         let mut m = HashMap::new();
-        m.insert("Day not in expected range", "Tag nicht im erwarteten Bereich");
-        m.insert("Month not in expected range", "Monat nicht im erwarteten Bereich");
+        m.insert("Day not in expected range\n", "Tag nicht im erwarteten Bereich\n");
+        m.insert("Month not in expected range\n", "Monat nicht im erwarteten Bereich\n");
         m.insert("date should be a character", "date muss vom Typ character sein");
         m.insert("unable to tidy a date", "Datum kann nicht bereinigt werden");
         m.insert("format should be either 'dmy' or 'mdy'", "format sollte entweder 'dmy' oder 'mdy' sein");
@@ -101,8 +101,8 @@ lazy_static! {
     /// Indonesian translations
     static ref INDONESIAN_TRANSLATIONS: HashMap<&'static str, &'static str> = {
         let mut m = HashMap::new();
-        m.insert("Day not in expected range", "Hari bukan dalam jangka yang di ekspektasi");
-        m.insert("Month not in expected range", "Bulan bukan dalam jangka yang di ekspektasi");
+        m.insert("Day not in expected range\n", "Hari bukan dalam jangka yang di ekspektasi\n");
+        m.insert("Month not in expected range\n", "Bulan bukan dalam jangka yang di ekspektasi\n");
         m.insert("date should be a character", "tanggal harus berupa karakter");
         m.insert("unable to tidy a date", "tanggal tidak dapat dirapihkan");
         m.insert("format should be either 'dmy' or 'mdy'", "format harus 'dmy' atau 'mdy'");
@@ -123,8 +123,8 @@ lazy_static! {
     /// Portuguese translations
     static ref PORTUGUESE_TRANSLATIONS: HashMap<&'static str, &'static str> = {
         let mut m = HashMap::new();
-        m.insert("Day not in expected range", "Dia fora do intervalo esperado");
-        m.insert("Month not in expected range", "Mês fora do intervalo esperado");
+        m.insert("Day not in expected range\n", "Dia fora do intervalo esperado\n");
+        m.insert("Month not in expected range\n", "Mês fora do intervalo esperado\n");
         m.insert("date should be a character", "data deve ser um caractere");
         m.insert("unable to tidy a date", "não foi possível organizar a data");
         m.insert("format should be either 'dmy' or 'mdy'", "formato deve ser 'dmy' ou 'mdy'");
@@ -145,8 +145,8 @@ lazy_static! {
     /// Russian translations
     static ref RUSSIAN_TRANSLATIONS: HashMap<&'static str, &'static str> = {
         let mut m = HashMap::new();
-        m.insert("Day not in expected range", "день определен вне ожидаемого диапазона");
-        m.insert("Month not in expected range", "Месяц определен вне ожидаемого диапазона");
+        m.insert("Day not in expected range\n", "день определен вне ожидаемого диапазона\n");
+        m.insert("Month not in expected range\n", "Месяц определен вне ожидаемого диапазона\n");
         m.insert("date should be a character", "Переменная `date` должна быть строкой");
         m.insert("unable to tidy a date", "Не удалось почистить дату");
         m.insert("format should be either 'dmy' or 'mdy'", "переменная `format` должна быть либо 'dmy' (т.е., день-месяц-год), либо 'mdy' (т.е., месяц-день-год)");
@@ -167,8 +167,8 @@ lazy_static! {
     /// Slovak translations
     static ref SLOVAK_TRANSLATIONS: HashMap<&'static str, &'static str> = {
         let mut m = HashMap::new();
-        m.insert("Day not in expected range", "Deň nie je v očakávanom rozsahu");
-        m.insert("Month not in expected range", "Mesiac nie je v očakávanom rozsahu");
+        m.insert("Day not in expected range\n", "Deň nie je v očakávanom rozsahu\n");
+        m.insert("Month not in expected range\n", "Mesiac nie je v očakávanom rozsahu\n");
         m.insert("date should be a character", "dátum by malo byť text");
         m.insert("unable to tidy a date", "nepodarilo sa normalizovať dátum");
         m.insert("format should be either 'dmy' or 'mdy'", "Formát by mal byť 'dmy' alebo 'mdy'.");
@@ -290,11 +290,11 @@ pub fn month_impute_integer() -> String {
 }
 
 pub fn month_not_in_range() -> String {
-    tr("Month not in expected range")
+    tr("Month not in expected range\n")
 }
 
 pub fn day_not_in_range() -> String {
-    tr("Day not in expected range")
+    tr("Day not in expected range\n")
 }
 
 pub fn format_should_be_dmy_or_mdy() -> String {

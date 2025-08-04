@@ -389,7 +389,7 @@ fn check_output(
 ) -> Result<(Option<i32>, Option<i32>, Option<i32>)> {
     if let Some(m) = month {
         if m < 1 || m > 12 {
-            return Err(month_not_in_range().into());
+return Err(format!("{}\n", month_not_in_range()).into());
         }
     }
 
@@ -480,7 +480,7 @@ fn fix_date_column(
                 if error_str.contains("unable to tidy a date")
                     || error_str.contains("format should be either")
                     || error_str.contains("date should be a character")
-                    || error_str.contains("Month not in expected range")
+|| error_str.contains("Month not in expected range\n")
                     || error_str.contains("Day not in expected range")
                     || error_str.contains("Missing month with no imputation value given")
                     || error_str.contains("Missing day with no imputation value given")

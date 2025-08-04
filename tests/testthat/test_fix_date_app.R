@@ -29,7 +29,7 @@ test_that(".read_data works for xlsx files", {
       "December 2020"
     )
   )
-  expect_equal(.read_data(upload), exp.data)
+  expect_equal(datefixR:::.read_data(upload), exp.data)
 })
 
 
@@ -57,5 +57,5 @@ test_that(".read_data works for csv files", {
       "December 2020"
     )
   )
-  expect_equal(.read_data(upload), exp.data)
+  expect_equal(datefixR:::.read_data(upload), exp.data)
 })
