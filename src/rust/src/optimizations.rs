@@ -147,12 +147,13 @@ pub fn separate_date_optimized(date: &str) -> Vec<&str> {
     } else if date.contains('-') {
         date.split('-').collect()
     } else if date.contains(" de ") || date.contains(" del ") {
-        // Spanish date - use split instead of regex for common cases
-        if date.contains(" de ") {
-            date.split(" de ").collect()
-        } else {
-            date.split(" del ").collect()
-        }
+        // Spanish date - handle both "de" and "del" patterns
+        // Compile regex lazily for performance but only when needed
+        static SPANISH_REGEX: std::sync::OnceLock<Regex> = std::sync::OnceLock::new();
+        let regex = SPANISH_REGEX.get_or_init(|| {
+            Regex::new(r" de | del ").unwrap()
+        });
+        regex.split(date).filter(|s| !s.is_empty()).collect()
     } else if date.contains('.') {
         // German date - simplified splitting for common cases
         date.split(&['.', ' '][..]).filter(|s| !s.is_empty()).collect()
@@ -163,68 +164,11 @@ pub fn separate_date_optimized(date: &str) -> Vec<&str> {
     }
 }
 
-/// Pre-compiled fast path for common date formats
-pub fn fast_path_parse(date: &str) -> Option<(u8, u8, u16)> {
-    // Handle common formats without regex
-    match date.len() {
-        10 => {
-            // YYYY-MM-DD or DD/MM/YYYY format
-            if date.chars().nth(4) == Some('-') && date.chars().nth(7) == Some('-') {
-                // ISO format YYYY-MM-DD
-                if let (Ok(year), Ok(month), Ok(day)) = (
-                    date[0..4].parse::<u16>(),
-                    date[5..7].parse::<u8>(),
-                    date[8..10].parse::<u8>(),
-                ) {
-                    if month <= 12 && day <= 31 && year >= 1900 && year <= 2100 {
-                        return Some((day, month, year));
-                    }
-                }
-            } else if date.chars().nth(2) == Some('/') && date.chars().nth(5) == Some('/') {
-                // DD/MM/YYYY format
-                if let (Ok(day), Ok(month), Ok(year)) = (
-                    date[0..2].parse::<u8>(),
-                    date[3..5].parse::<u8>(),
-                    date[6..10].parse::<u16>(),
-                ) {
-                    if month <= 12 && day <= 31 && year >= 1900 && year <= 2100 {
-                        return Some((day, month, year));
-                    }
-                }
-            }
-        }
-        8 => {
-            // DD/MM/YY format
-            if date.chars().nth(2) == Some('/') && date.chars().nth(5) == Some('/') {
-                if let (Ok(day), Ok(month), Ok(year_short)) = (
-                    date[0..2].parse::<u8>(),
-                    date[3..5].parse::<u8>(),
-                    date[6..8].parse::<u8>(),
-                ) {
-                    if month <= 12 && day <= 31 {
-                        let year = if year_short <= 25 { 2000 + year_short as u16 } else { 1900 + year_short as u16 };
-                        return Some((day, month, year));
-                    }
-                }
-            }
-        }
-        _ => {}
-    }
-    None
-}
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    #[test]
-    fn test_fast_path_parse() {
-        assert_eq!(fast_path_parse("2020-12-25"), Some((25, 12, 2020)));
-        assert_eq!(fast_path_parse("25/12/2020"), Some((25, 12, 2020)));
-        assert_eq!(fast_path_parse("25/12/99"), Some((25, 12, 1999)));
-        assert_eq!(fast_path_parse("25/12/23"), Some((25, 12, 2023)));
-        assert_eq!(fast_path_parse("invalid"), None);
-    }
 
     #[test]
     fn test_replace_all_optimized() {
@@ -239,5 +183,25 @@ mod tests {
         } else {
             panic!("Should not allocate when no replacement needed");
         }
+    }
+    
+    #[test]
+    fn test_convert_text_month_optimized() {
+        assert_eq!(convert_text_month_optimized("July 4th, 1776"), "07 4th, 1776");
+        assert_eq!(convert_text_month_optimized("january 2020"), "01 2020");
+        assert_eq!(convert_text_month_optimized("06 de enero del 2008"), "06 de 01 del 2008");
+    }
+    
+    #[test]
+    fn test_separate_date_optimized() {
+        assert_eq!(separate_date_optimized("06 de enero del 2008"), vec!["06", "enero", "2008"]);
+        assert_eq!(separate_date_optimized("July 4th, 1776"), vec!["July", "4th,", "1776"]);
+    }
+    
+    #[test]
+    fn test_rm_ordinal_suffixes_optimized() {
+        assert_eq!(rm_ordinal_suffixes_optimized("1st January"), "1 January");
+        assert_eq!(rm_ordinal_suffixes_optimized("July 4th, 1776"), "July 4, 1776");
+        assert_eq!(rm_ordinal_suffixes_optimized("4th,"), "4,");
     }
 }

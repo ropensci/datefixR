@@ -1,7 +1,6 @@
 #![allow(non_snake_case)]
 use chrono::{Datelike, NaiveDate};
 use extendr_api::prelude::*;
-use regex::Regex;
 use std::collections::HashMap;
 use std::sync::OnceLock;
 
@@ -15,11 +14,6 @@ static MONTHS: OnceLock<HashMap<usize, Vec<&'static str>>> = OnceLock::new();
 static ROMAN_NUMERALS: OnceLock<Vec<&'static str>> = OnceLock::new();
 static DAYS_IN_MONTH: [u8; 12] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-// Pre-compiled regexes for performance
-static ORDINAL_REGEXES: OnceLock<Vec<Regex>> = OnceLock::new();
-static SPANISH_DATE_REGEX: OnceLock<Regex> = OnceLock::new();
-static GERMAN_DATE_REGEX: OnceLock<Regex> = OnceLock::new();
-static MONTH_REGEXES: OnceLock<Vec<(Regex, String)>> = OnceLock::new();
 
 fn get_months() -> &'static HashMap<usize, Vec<&'static str>> {
     MONTHS.get_or_init(|| {
@@ -185,98 +179,16 @@ fn get_roman_numerals() -> &'static Vec<&'static str> {
 }
 
 /// Private helper function to replace multiple patterns in a string
-fn replace_all<'a>(input: &'a str, patterns: &[(&str, &str)]) -> String {
-    let mut out = input.to_string();
-    for (from, to) in patterns {
-        out = out.replace(from, to);
-    }
-    out
-}
 
 /// Get pre-compiled ordinal regexes
-fn get_ordinal_regexes() -> &'static Vec<Regex> {
-    ORDINAL_REGEXES.get_or_init(|| {
-        vec![
-            Regex::new(r"(\d)(st,)").unwrap(),
-            Regex::new(r"(\d)(nd,)").unwrap(),
-            Regex::new(r"(\d)(rd,)").unwrap(),
-            Regex::new(r"(\d)(th,)").unwrap(),
-            Regex::new(r"(\d)(st)").unwrap(),
-            Regex::new(r"(\d)(nd)").unwrap(),
-            Regex::new(r"(\d)(rd)").unwrap(),
-            Regex::new(r"(\d)(th)").unwrap(),
-        ]
-    })
-}
 
 /// Remove ordinal suffixes from date strings (optimized with pre-compiled regexes)
-fn rm_ordinal_suffixes(date: &str) -> String {
-    let regexes = get_ordinal_regexes();
-    let mut result = date.to_string();
-    
-    for regex in regexes {
-        result = regex.replace_all(&result, "$1").to_string();
-    }
-    result
-}
 
 /// Separate date string into components
-fn separate_date(date: &str) -> Vec<String> {
-    if date.contains('/') {
-        date.split('/').map(|s| s.to_string()).collect()
-    } else if date.contains('-') {
-        date.split('-').map(|s| s.to_string()).collect()
-    } else if date.contains(" de ") || date.contains(" del ") {
-        // Spanish date
-        let re = Regex::new(r" de | del ").unwrap();
-        re.split(date)
-            .map(|s| s.to_string())
-            .filter(|s| !s.is_empty())
-            .collect()
-    } else if date.contains('.') {
-        // German date
-        let re = Regex::new(r"\.(\s)|\.'|\.|\s'|\s").unwrap();
-        re.split(date)
-            .map(|s| s.to_string())
-            .filter(|s| !s.is_empty())
-            .collect()
-    } else if date.contains(' ') {
-        date.split(' ').map(|s| s.to_string()).collect()
-    } else {
-        vec![date.to_string()]
-    }
-}
 
 /// Get pre-compiled month regexes
-fn get_month_regexes() -> &'static Vec<(Regex, String)> {
-    MONTH_REGEXES.get_or_init(|| {
-        let mut regexes = Vec::new();
-        let months = get_months();
-        
-        for (month_num, month_names) in months {
-            let replacement = if *month_num < 10 {
-                format!("0{}", month_num)
-            } else {
-                month_num.to_string()
-            };
-            for month_name in month_names {
-                let re = Regex::new(&format!("\\b{}\\b", regex::escape(month_name))).unwrap();
-                regexes.push((re, replacement.clone()));
-            }
-        }
-        regexes
-    })
-}
 
 /// Convert text month names to numeric format (optimized with pre-compiled regexes)
-fn convert_text_month(date: &str) -> String {
-    let mut result = date.to_lowercase();
-    let regexes = get_month_regexes();
-    for (re, replacement) in regexes {
-        result = re.replace_all(&result, replacement).to_string();
-    }
-    result
-}
 
 /// Add year prefix to 2-digit years
 fn year_prefix(year: &str) -> String {
@@ -330,6 +242,11 @@ fn roman_conversion(mut date_vec: Vec<String>) -> Vec<String> {
 /// Check if string contains only digits
 fn is_numeric(s: &str) -> bool {
     !s.chars().any(|c| !c.is_ascii_digit())
+}
+
+/// Helper function to clean numeric strings by removing trailing punctuation
+fn clean_numeric_string(s: &str) -> &str {
+    s.trim_end_matches(|c: char| !c.is_ascii_digit())
 }
 
 /// Check if first element of date vector is a month name
@@ -658,7 +575,8 @@ fn fix_date_native(
                 "mdy" => {
                     // MM/DD/YYYY
                     let month = date_vec[0].parse::<i32>().map_err(|_| "Invalid month")?;
-                    let day = date_vec[1].parse::<i32>().map_err(|_| "Invalid day")?;
+                    let day_str = clean_numeric_string(&date_vec[1]);
+                    let day = day_str.parse::<i32>().map_err(|_| "Invalid day")?;
                     // Check for year with more than 4 digits
                     if date_vec[2].len() > 4 {
                         return Err(unable_to_tidy_date().into());
@@ -1021,32 +939,32 @@ mod tests {
 
     #[test]
     fn test_rm_ordinal_suffixes() {
-        assert_eq!(rm_ordinal_suffixes("1st January"), "1 January");
-        assert_eq!(rm_ordinal_suffixes("2nd February"), "2 February");
-        assert_eq!(rm_ordinal_suffixes("3rd March"), "3 March");
-        assert_eq!(rm_ordinal_suffixes("4th April"), "4 April");
+        assert_eq!(rm_ordinal_suffixes_optimized("1st January"), "1 January");
+        assert_eq!(rm_ordinal_suffixes_optimized("2nd February"), "2 February");
+        assert_eq!(rm_ordinal_suffixes_optimized("3rd March"), "3 March");
+        assert_eq!(rm_ordinal_suffixes_optimized("4th April"), "4 April");
     }
 
     #[test]
     fn test_separate_date() {
-        assert_eq!(separate_date("01/02/2020"), vec!["01", "02", "2020"]);
-        assert_eq!(separate_date("01-02-2020"), vec!["01", "02", "2020"]);
-        assert_eq!(separate_date("01 02 2020"), vec!["01", "02", "2020"]);
+        assert_eq!(separate_date_optimized("01/02/2020"), vec!["01", "02", "2020"]);
+        assert_eq!(separate_date_optimized("01-02-2020"), vec!["01", "02", "2020"]);
+        assert_eq!(separate_date_optimized("01 02 2020"), vec!["01", "02", "2020"]);
         assert_eq!(
-            separate_date("01 de febrero del 2020"),
+            separate_date_optimized("01 de febrero del 2020"),
             vec!["01", "febrero", "2020"]
         );
     }
 
     #[test]
     fn test_convert_text_month() {
-        assert_eq!(convert_text_month("january 2020"), "01 2020");
-        assert_eq!(convert_text_month("février 2020"), "02 2020");
-        assert_eq!(convert_text_month("march 2020"), "03 2020");
-        assert_eq!(convert_text_month("декабрь 2020"), "12 2020");
+        assert_eq!(convert_text_month_optimized("january 2020"), "01 2020");
+        assert_eq!(convert_text_month_optimized("février 2020"), "02 2020");
+        assert_eq!(convert_text_month_optimized("march 2020"), "03 2020");
+        assert_eq!(convert_text_month_optimized("декабрь 2020"), "12 2020");
         // Test Spanish months
-        assert_eq!(convert_text_month("20 abril 1994"), "20 04 1994");
-        assert_eq!(convert_text_month("06 enero 2008"), "06 01 2008");
+        assert_eq!(convert_text_month_optimized("20 abril 1994"), "20 04 1994");
+        assert_eq!(convert_text_month_optimized("06 enero 2008"), "06 01 2008");
     }
 
     #[test]
@@ -1122,14 +1040,14 @@ mod tests {
     fn test_spanish_date_parsing() {
         // Test Spanish date separation
         let spanish_date = "20 de abril de 1994";
-        let separated = separate_date(spanish_date);
+        let separated = separate_date_optimized(spanish_date);
         println!("Separated: {:?}", separated);
         assert_eq!(separated, vec!["20", "abril", "1994"]);
 
         // Test month conversion on individual components
         let mut components = vec!["20".to_string(), "abril".to_string(), "1994".to_string()];
         for component in &mut components {
-            let converted = convert_text_month(component);
+            let converted = convert_text_month_optimized(component).into_owned();
             *component = converted;
         }
         println!("After month conversion: {:?}", components);
