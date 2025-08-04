@@ -360,56 +360,56 @@ mod tests {
 
     #[test]
     fn test_spanish_translations() {
-        // Test Spanish translations
-        let spanish_day = SPANISH_TRANSLATIONS.get("Day not in expected range");
-        assert_eq!(spanish_day, Some(&"Día fuera del rango esperado"));
+        // Test Spanish translations - include newline characters as they appear in the actual messages
+        let spanish_day = SPANISH_TRANSLATIONS.get("Day not in expected range\n");
+        assert_eq!(spanish_day, Some(&"Día fuera del rango esperado\n"));
 
-        let spanish_month = SPANISH_TRANSLATIONS.get("Month not in expected range");
-        assert_eq!(spanish_month, Some(&"Mes fuera del rango esperado"));
+        let spanish_month = SPANISH_TRANSLATIONS.get("Month not in expected range\n");
+        assert_eq!(spanish_month, Some(&"Mes fuera del rango esperado\n"));
     }
 
     #[test]
     fn test_french_translations() {
-        // Test French translations
-        let french_day = FRENCH_TRANSLATIONS.get("Day not in expected range");
-        assert_eq!(french_day, Some(&"Jour hors de la plage attendue"));
+        // Test French translations - include newline characters as they appear in the actual messages
+        let french_day = FRENCH_TRANSLATIONS.get("Day not in expected range\n");
+        assert_eq!(french_day, Some(&"Jour hors de la plage attendue\n"));
 
-        let french_month = FRENCH_TRANSLATIONS.get("Month not in expected range");
-        assert_eq!(french_month, Some(&"Mois hors de la plage attendue"));
+        let french_month = FRENCH_TRANSLATIONS.get("Month not in expected range\n");
+        assert_eq!(french_month, Some(&"Mois hors de la plage attendue\n"));
     }
 
     #[test]
     fn test_german_translations() {
-        // Test German translations
-        let german_day = GERMAN_TRANSLATIONS.get("Day not in expected range");
-        assert_eq!(german_day, Some(&"Tag nicht im erwarteten Bereich"));
+        // Test German translations - include newline characters as they appear in the actual messages
+        let german_day = GERMAN_TRANSLATIONS.get("Day not in expected range\n");
+        assert_eq!(german_day, Some(&"Tag nicht im erwarteten Bereich\n"));
 
-        let german_month = GERMAN_TRANSLATIONS.get("Month not in expected range");
-        assert_eq!(german_month, Some(&"Monat nicht im erwarteten Bereich"));
+        let german_month = GERMAN_TRANSLATIONS.get("Month not in expected range\n");
+        assert_eq!(german_month, Some(&"Monat nicht im erwarteten Bereich\n"));
     }
 
     #[test]
     fn test_russian_translations() {
-        // Test Russian translations with Cyrillic characters
-        let russian_day = RUSSIAN_TRANSLATIONS.get("Day not in expected range");
+        // Test Russian translations with Cyrillic characters - include newline characters
+        let russian_day = RUSSIAN_TRANSLATIONS.get("Day not in expected range\n");
         assert_eq!(
             russian_day,
-            Some(&"день определен вне ожидаемого диапазона")
+            Some(&"день определен вне ожидаемого диапазона\n")
         );
 
-        let russian_month = RUSSIAN_TRANSLATIONS.get("Month not in expected range");
+        let russian_month = RUSSIAN_TRANSLATIONS.get("Month not in expected range\n");
         assert_eq!(
             russian_month,
-            Some(&"Месяц определен вне ожидаемого диапазона")
+            Some(&"Месяц определен вне ожидаемого диапазона\n")
         );
     }
 
     #[test]
     fn test_all_languages_have_core_messages() {
-        // Test that all translation maps contain the core messages
+        // Test that all translation maps contain the core messages - use the exact message strings with newlines
         let core_messages = [
-            "Day not in expected range",
-            "Month not in expected range",
+            "Day not in expected range\n",
+            "Month not in expected range\n",
             "date should be a character",
             "unable to tidy a date",
             "format should be either 'dmy' or 'mdy'",

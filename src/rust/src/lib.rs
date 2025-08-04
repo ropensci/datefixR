@@ -7,6 +7,8 @@ use std::sync::OnceLock;
 
 mod translations;
 use translations::*;
+mod optimizations;
+use optimizations::*;
 
 /// Month names in different languages (mirroring R months data)
 static MONTHS: OnceLock<HashMap<usize, Vec<&'static str>>> = OnceLock::new();
@@ -476,12 +478,12 @@ fn fix_date_native(
     }
 
     // Clean the date string
-    let mut cleaned_date = rm_ordinal_suffixes(date_str);
+    let mut cleaned_date = rm_ordinal_suffixes_optimized(date_str).into_owned();
     // Process French date strings by removing articles and normalizing ordinals
-    cleaned_date = replace_all(&cleaned_date, &[("le ", " "), ("Le ", " "), ("1er", "01")]);
+    cleaned_date = replace_all_optimized(&cleaned_date, &[("le ", " "), ("Le ", " "), ("1er", "01")]).into_owned();
     cleaned_date = cleaned_date.trim().to_string();
     // Process Russian date strings by normalizing months
-    cleaned_date = replace_all(
+    cleaned_date = replace_all_optimized(
         &cleaned_date,
         &[
             ("марта", "март"),
@@ -489,7 +491,7 @@ fn fix_date_native(
             ("августа", "август"),
             ("Августа", "Август"),
         ],
-    );
+    ).into_owned();
 
     // Handle 4-digit year only
     if cleaned_date.len() == 4 && is_numeric(&cleaned_date) {
@@ -547,8 +549,9 @@ fn fix_date_native(
         }
     }
 
-    // Process the date string
-    let mut date_vec = separate_date(&cleaned_date);
+    // Process the date string - convert to Vec<String> from Vec<&str>
+    let date_vec_str = separate_date_optimized(&cleaned_date);
+    let mut date_vec: Vec<String> = date_vec_str.into_iter().map(|s| s.to_string()).collect();
     // Debug information removed for production
 
     // Check if first element is a month name (forces MDY format)
@@ -560,7 +563,7 @@ fn fix_date_native(
 
     // Convert text months to numbers in date components
     for component in &mut date_vec {
-        let converted = convert_text_month(component);
+        let converted = convert_text_month_optimized(component).into_owned();
         *component = converted;
     }
 
@@ -761,12 +764,12 @@ fn fix_date(
     // format, excel, and roman_numeral are now non-optional parameters
 
     // Clean the date string
-    let mut cleaned_date = rm_ordinal_suffixes(date_str);
+    let mut cleaned_date = rm_ordinal_suffixes_optimized(date_str).into_owned();
     // Process French date strings by removing articles and normalizing ordinals
-    cleaned_date = replace_all(&cleaned_date, &[("le ", " "), ("Le ", " "), ("1er", "01")]);
+    cleaned_date = replace_all_optimized(&cleaned_date, &[("le ", " "), ("Le ", " "), ("1er", "01")]).into_owned();
     cleaned_date = cleaned_date.trim().to_string();
     // Process Russian date strings by normalizing months
-    cleaned_date = replace_all(
+    cleaned_date = replace_all_optimized(
         &cleaned_date,
         &[
             ("марта", "март"),
@@ -774,7 +777,7 @@ fn fix_date(
             ("августа", "август"),
             ("Августа", "Август"),
         ],
-    );
+    ).into_owned();
 
     // Handle 4-digit year only
     if cleaned_date.len() == 4 && is_numeric(&cleaned_date) {
@@ -832,8 +835,9 @@ fn fix_date(
         }
     }
 
-    // Process the date string
-    let mut date_vec = separate_date(&cleaned_date);
+    // Process the date string - convert to Vec<String> from Vec<&str>
+    let date_vec_str = separate_date_optimized(&cleaned_date);
+    let mut date_vec: Vec<String> = date_vec_str.into_iter().map(|s| s.to_string()).collect();
     // Debug information removed for production
 
     // Check if first element is a month name (forces MDY format)
@@ -845,7 +849,7 @@ fn fix_date(
 
     // Convert text months to numbers in date components
     for component in &mut date_vec {
-        let converted = convert_text_month(component);
+        let converted = convert_text_month_optimized(component).into_owned();
         *component = converted;
     }
 
