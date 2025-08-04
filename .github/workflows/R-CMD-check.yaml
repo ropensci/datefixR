@@ -53,16 +53,19 @@ jobs:
           remotes::install_cran("covr")
         shell: Rscript {0}
 
+      - name: Clean coverage files
+        if: runner.os == 'Linux' && matrix.config.r == 'release'
+        run: |
+          rm -rf .coverage_temp || true
+          rm -f cobertura.xml || true
+        shell: bash
+
       - name: Test coverage
         if: runner.os == 'Linux' && matrix.config.r == 'release'
         timeout-minutes: 30
         env:
           MC_CORES: 1
         run: |
-          # Clean up any existing coverage files
-          rm -rf .coverage_temp || true
-          rm -f cobertura.xml || true
-          
           # Set single-threaded execution to avoid race conditions
           options(mc.cores = 1)
           
