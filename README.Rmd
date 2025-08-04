@@ -197,7 +197,7 @@ roman_dates <- c(
   "1.I.2000" # January 1, 2000
 )
 
-fix_date_char(roman_dates)
+fix_date_char(roman_dates, roman.numeral = TRUE)
 ```
 
 Roman numerals (I-XII) are automatically recognized and converted to the appropriate numeric months.
