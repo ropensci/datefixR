@@ -56,8 +56,7 @@ jobs:
         run: |
           cov <- covr::package_coverage(
             quiet = FALSE,
-            clean = FALSE,
-            install_path = file.path(normalizePath(Sys.getenv("RUNNER_TEMP"), winslash = "/"), "package")
+            clean = FALSE
           )
           covr::to_cobertura(cov)
         shell: Rscript {0}
