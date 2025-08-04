@@ -108,17 +108,16 @@ fix_date_char <- function(
     format = "dmy",
     excel = FALSE,
     roman.numeral = FALSE) {
-  
   # Handle NA input early
   if (length(dates) == 1 && is.na(dates)) {
     return(as.Date(NA))
   }
-  
+
   # Check non-character input
   if (!is.character(dates)) {
     stop("date should be a character \n")
   }
-  
+
   # Check day.impute and handle extendr errors
   checkday_result <- checkday(day.impute)
   if (inherits(checkday_result, "extendr_error")) {
@@ -129,24 +128,24 @@ fix_date_char <- function(
     }
     stop(error_msg, call. = FALSE)
   }
-  
+
   .checkmonth(month.impute)
   .checkformat(format)
-  
+
   # Handle NA day.impute by issuing warning
   if (is.na(day.impute)) {
     warning("NA imputed", call. = FALSE)
   }
-  
+
   # Convert imputation values to integers for Rust
   # Pass -1 as a sentinel value for NULL/NA, which Rust will interpret as None
   day_impute_int <- if (is.na(day.impute) || is.null(day.impute)) -1L else as.integer(day.impute)
   month_impute_int <- if (is.na(month.impute) || is.null(month.impute)) -1L else as.integer(month.impute)
-  
+
   # Pre-process data to handle NA and empty values
   date_data <- as.character(dates)
   na_indices <- is.na(date_data) | date_data == "" | date_data == "NA"
-  
+
   # Only process non-NA values through Rust
   if (all(na_indices)) {
     # All values are NA, return all NAs
@@ -154,11 +153,11 @@ fix_date_char <- function(
   } else {
     # Replace NA values with placeholder for processing
     processed_data <- date_data
-    processed_data[na_indices] <- "1999-01-01"  # Temporary placeholder
-    
+    processed_data[na_indices] <- "1999-01-01" # Temporary placeholder
+
     # Call Rust backend for efficient processing
     fixed_dates <- .Call(
-      'wrap__fix_date_column',
+      "wrap__fix_date_column",
       processed_data,
       day_impute_int,
       month_impute_int,
@@ -167,13 +166,13 @@ fix_date_char <- function(
       excel,
       roman.numeral
     )
-    
+
     # Restore NA values in the result
     if (is.list(fixed_dates)) {
       fixed_dates[na_indices] <- list(NULL)
     }
   }
-  
+
   # Check if the result is an error condition from extendr
   if (inherits(fixed_dates, "extendr_error")) {
     # Extract the error message and throw it as a proper R error
@@ -184,12 +183,12 @@ fix_date_char <- function(
     }
     stop(error_msg, call. = FALSE)
   }
-  
+
   # Convert to Date class, handling NULL values from Rust
   result <- as.Date(sapply(fixed_dates, function(x) if (is.null(x)) NA_character_ else x))
-  
+
   # Remove names to match expected output
   names(result) <- NULL
-  
+
   result
 }

@@ -114,7 +114,7 @@ fix_date_df <- function(
   } # Use first column as id if not explicitly given
 
   # Note: NA values in input data are handled by the Rust backend and converted to NA dates
-  
+
   # Handle NULL values first - these should throw errors immediately
   if (is.null(day.impute)) {
     stop("Missing day with no imputation value given \n", call. = FALSE)
@@ -122,7 +122,7 @@ fix_date_df <- function(
   if (is.null(month.impute)) {
     stop("Missing month with no imputation value given \n", call. = FALSE)
   }
-  
+
   # Check day.impute for valid values (but only if not NA)
   if (!is.na(day.impute)) {
     checkday_result <- checkday(day.impute)
@@ -135,19 +135,19 @@ fix_date_df <- function(
       stop(error_msg, call. = FALSE)
     }
   }
-  
+
   .checkmonth(month.impute)
-  
+
   # Convert imputation values to integers for Rust
   # Pass -1 as a sentinel value for NA, which Rust will interpret as a special case
   day_impute_int <- if (is.na(day.impute)) -1L else as.integer(day.impute)
   month_impute_int <- if (is.na(month.impute)) -1L else as.integer(month.impute)
-  
+
   for (col.name in col.names) {
     # Pre-process data to handle NA and empty values
     date_data <- as.character(df[[col.name]])
     na_indices <- is.na(date_data) | date_data == "" | date_data == "NA"
-    
+
     # Only process non-NA values through Rust
     if (all(na_indices)) {
       # All values are NA, return all NAs
@@ -155,13 +155,13 @@ fix_date_df <- function(
     } else {
       # Replace NA values with placeholder for processing
       processed_data <- date_data
-      processed_data[na_indices] <- "1999-01-01"  # Temporary placeholder
-      
+      processed_data[na_indices] <- "1999-01-01" # Temporary placeholder
+
       subjects <- if (is.numeric(id) && id <= ncol(df)) as.character(df[[id]]) else NULL
-      
+
       # Call Rust backend
       fixed.dates <- .Call(
-        'wrap__fix_date_column',
+        "wrap__fix_date_column",
         processed_data,
         day_impute_int,
         month_impute_int,
@@ -170,7 +170,7 @@ fix_date_df <- function(
         excel,
         roman.numeral
       )
-      
+
       # Generate warnings for NA imputation when day.impute or month.impute is NA
       day_is_na <- !is.null(day.impute) && is.na(day.impute)
       month_is_na <- !is.null(month.impute) && is.na(month.impute)
@@ -180,7 +180,7 @@ fix_date_df <- function(
             # This date resulted in NA, generate appropriate warning
             original_date <- date_data[i] # Use original date data, not processed
             subject_id <- if (!is.null(subjects)) subjects[i] else i
-            
+
             if (day_is_na) {
               warning(sprintf("NA imputed for subject %s (date: %s)", subject_id, original_date), call. = FALSE)
             } else if (month_is_na) {
@@ -189,13 +189,13 @@ fix_date_df <- function(
           }
         }
       }
-      
+
       # Restore NA values in the result
       if (is.list(fixed.dates)) {
         fixed.dates[na_indices] <- list(NULL)
       }
     }
-    
+
     # Check if the result is an error condition from extendr
     if (inherits(fixed.dates, "extendr_error")) {
       # Extract the error message and throw it as a proper R error
@@ -206,7 +206,7 @@ fix_date_df <- function(
       }
       stop(error_msg, call. = FALSE)
     }
-    
+
     # Convert to Date class, handling NULL values from Rust
     df[, col.name] <- as.Date(sapply(fixed.dates, function(x) if (is.null(x)) NA_character_ else x))
   }
