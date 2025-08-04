@@ -323,3 +323,53 @@ test_that("Roman numerical dates handled correctly", {
 
   expect_equal(fixed.df, expected.df)
 })
+
+test_that("parallel processing with multiple date columns works correctly", {
+  # Skip if future packages are not available
+  skip_if_not_installed("future")
+  skip_if_not_installed("future.apply")
+  
+  # Create test dataframe with two date columns
+  test_df <- data.frame(
+    id = 1:4,
+    dates_col1 = c("01/01/2020", "02/02/2021", "03/03/2022", "15-12-2019"),
+    dates_col2 = c("04/04/2020", "05/05/2021", "06/06/2022", "dec 2018")
+  )
+  
+  # Process with parallel processing (2 cores)
+  result_parallel <- fix_date_df(test_df, c("dates_col1", "dates_col2"), cores = 2)
+  
+  # Process sequentially for comparison
+  result_sequential <- fix_date_df(test_df, c("dates_col1", "dates_col2"), cores = 1)
+  
+  # Results should be identical regardless of processing method
+  expect_equal(result_parallel, result_sequential)
+  
+  # Verify the actual parsed dates are correct
+  expected_df <- data.frame(
+    id = 1:4,
+    dates_col1 = as.Date(c("2020-01-01", "2021-02-02", "2022-03-03", "2019-12-15")),
+    dates_col2 = as.Date(c("2020-04-04", "2021-05-05", "2022-06-06", "2018-12-01"))
+  )
+  
+  expect_equal(result_parallel, expected_df)
+})
+
+test_that("parallel processing falls back to sequential for single column", {
+  # Create test dataframe with one date column
+  test_df <- data.frame(
+    id = 1:3,
+    single_date_col = c("01/01/2020", "02/02/2021", "03/03/2022")
+  )
+  
+  # Process with cores = 4 (should fall back to sequential since only 1 column)
+  result <- fix_date_df(test_df, "single_date_col", cores = 4)
+  
+  # Verify the result is correct
+  expected_df <- data.frame(
+    id = 1:3,
+    single_date_col = as.Date(c("2020-01-01", "2021-02-02", "2022-03-03"))
+  )
+  
+  expect_equal(result, expected_df)
+})

@@ -44,6 +44,8 @@ Imports:
     rlang
 Suggests: 
     DT,
+    future,
+    future.apply,
     htmltools,
     knitr,
     parsedate,

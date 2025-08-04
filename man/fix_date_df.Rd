@@ -12,7 +12,8 @@ fix_date_df(
   id = NULL,
   format = "dmy",
   excel = FALSE,
-  roman.numeral = FALSE
+  roman.numeral = FALSE,
+  cores = getOption("Ncpus", 1)
 )
 }
 \arguments{
@@ -56,6 +57,13 @@ numeric-only dates with more than four digits as Excel serial dates with
 to \code{FALSE}. When \code{TRUE}, attempts to interpret Roman numeral
 month indications within datasets. This feature may not handle all cases
 correctly.}
+
+\item{cores}{Integer: Number of CPU cores to use for parallel processing.
+Defaults to \code{getOption("Ncpus", 1)}. When \code{cores > 1}, processes
+multiple date columns in parallel using the \code{future} framework.
+Requires the \code{future} and \code{future.apply} packages to be installed.
+The actual number of workers used will be the minimum of \code{cores} and
+the number of columns to process.}
 }
 \value{
 A revised \code{dataframe} or \code{tibble} structure, maintaining
@@ -109,6 +117,21 @@ fix_date_df(serial_df, "serial.dates", excel = TRUE)
 # Handling Roman numerals
 roman_df <- data.frame(roman.dates = c("15.I.2023", "03.XII.2019"))
 fix_date_df(roman_df, "roman.dates", roman.numeral = TRUE)
+
+# Parallel processing (requires 'future' and 'future.apply' packages)
+\dontrun{
+large_df <- data.frame(
+  dates1 = c("01/02/2020", "15/03/2021", "22/12/2019"),
+  dates2 = c("2020-01-01", "March 2021", "Dec 2019"),
+  dates3 = c("01.01.20", "15.03.21", "22.12.19")
+)
+# Use 4 cores for parallel processing
+fix_date_df(large_df, c("dates1", "dates2", "dates3"), cores = 4)
+
+# Use all available cores (respects getOption("Ncpus"))
+options(Ncpus = parallel::detectCores())
+fix_date_df(large_df, c("dates1", "dates2", "dates3"))
+}
 }
 \seealso{
 \code{\link{fix_date_char}} for similar functionality on character vectors

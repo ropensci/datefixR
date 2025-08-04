@@ -52,6 +52,12 @@
 #'   to \code{FALSE}. When \code{TRUE}, attempts to interpret Roman numeral
 #'   month indications within datasets. This feature may not handle all cases
 #'   correctly.
+#' @param cores Integer: Number of CPU cores to use for parallel processing.
+#'   Defaults to \code{getOption("Ncpus", 1)}. When \code{cores > 1}, processes
+#'   multiple date columns in parallel using the \code{future} framework.
+#'   Requires the \code{future} and \code{future.apply} packages to be installed.
+#'   The actual number of workers used will be the minimum of \code{cores} and
+#'   the number of columns to process.
 #' @return A revised \code{dataframe} or \code{tibble} structure, maintaining
 #'   input type. Date columns will be formatted with \code{Date} class and
 #'   display as \code{yyyy-mm-dd}.
@@ -91,6 +97,21 @@
 #' # Handling Roman numerals
 #' roman_df <- data.frame(roman.dates = c("15.I.2023", "03.XII.2019"))
 #' fix_date_df(roman_df, "roman.dates", roman.numeral = TRUE)
+#'
+#' # Parallel processing (requires 'future' and 'future.apply' packages)
+#' \dontrun{
+#' large_df <- data.frame(
+#'   dates1 = c("01/02/2020", "15/03/2021", "22/12/2019"),
+#'   dates2 = c("2020-01-01", "March 2021", "Dec 2019"),
+#'   dates3 = c("01.01.20", "15.03.21", "22.12.19")
+#' )
+#' # Use 4 cores for parallel processing
+#' fix_date_df(large_df, c("dates1", "dates2", "dates3"), cores = 4)
+#' 
+#' # Use all available cores (respects getOption("Ncpus"))
+#' options(Ncpus = parallel::detectCores())
+#' fix_date_df(large_df, c("dates1", "dates2", "dates3"))
+#' }
 #' @export
 fix_date_df <- function(
     df,
@@ -100,7 +121,8 @@ fix_date_df <- function(
     id = NULL,
     format = "dmy",
     excel = FALSE,
-    roman.numeral = FALSE) {
+    roman.numeral = FALSE,
+    cores = getOption("Ncpus", 1)) {
   if (!is.data.frame(df)) {
     stop("df should be a dataframe object!")
   }
@@ -143,7 +165,8 @@ fix_date_df <- function(
   day_impute_int <- if (is.na(day.impute)) -1L else as.integer(day.impute)
   month_impute_int <- if (is.na(month.impute)) -1L else as.integer(month.impute)
   
-  for (col.name in col.names) {
+  # Function to process a single column
+  process_column <- function(col.name) {
     # Pre-process data to handle NA and empty values
     date_data <- as.character(df[[col.name]])
     na_indices <- is.na(date_data) | date_data == "" | date_data == "NA"
@@ -208,7 +231,36 @@ fix_date_df <- function(
     }
     
     # Convert to Date class, handling NULL values from Rust
-    df[, col.name] <- as.Date(sapply(fixed.dates, function(x) if (is.null(x)) NA_character_ else x))
+    return(as.Date(sapply(fixed.dates, function(x) if (is.null(x)) NA_character_ else x)))
   }
+  
+  # Process columns either in parallel or sequentially
+  if (cores > 1 && length(col.names) > 1) {
+    # Check if required packages are available
+    if (!requireNamespace("future", quietly = TRUE) || !requireNamespace("future.apply", quietly = TRUE)) {
+      stop("Parallel processing requires 'future' and 'future.apply' packages. Install with: install.packages(c('future', 'future.apply'))")
+    }
+    
+    # Determine optimal number of workers (minimum of cores and columns)
+    n_workers <- min(cores, length(col.names))
+    
+    # Set up parallel plan
+    future::plan(future::multisession, workers = n_workers)
+    
+    # Process columns in parallel
+    result_columns <- future.apply::future_lapply(col.names, process_column)
+    names(result_columns) <- col.names
+    
+    # Assign results back to dataframe
+    for (i in seq_along(col.names)) {
+      df[, col.names[i]] <- result_columns[[i]]
+    }
+  } else {
+    # Process columns sequentially
+    for (col.name in col.names) {
+      df[, col.name] <- process_column(col.name)
+    }
+  }
+  
   df
 }
