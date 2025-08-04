@@ -1,9 +1,6 @@
 Package: datefixR
 Title: Standardize Dates in Different Formats or with Missing Data
 Version: 1.7.0.9000
-Author: Nathan Constantine-Cooke [aut, cre], Jonathan Kitt [ctb, trl], Antonio J. Pérez-Luque [ctb, trl],
-  Daniel Possenriede [ctb, trl], Michal Lauer [ctb, trl], Kaique dos S. Alves [rev],
-  Al-Ahmadgaid B. Asaad [rev], Anatoly Tsyplenkov [ctb, trl], Chitra M. Saraswati [ctb, trl]
 Maintainer: Nathan Constantine-Cooke <nathan.constantine-cooke@ed.ac.uk>
 Authors@R: c(
     person("Nathan", "Constantine-Cooke", , "nathan.constantine-cooke@ed.ac.uk", role = c("aut", "cre"),
