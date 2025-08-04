@@ -72,13 +72,13 @@ jobs:
           tryCatch({
             cov <- covr::package_coverage(
               quiet = FALSE,
-              clean = TRUE,
-              install_path = file.path(normalizePath(tempdir()), "R_LIBS")
+              clean = TRUE
             )
             covr::to_cobertura(cov)
             cat("Coverage generation completed successfully\n")
           }, error = function(e) {
             cat("Coverage generation failed:", conditionMessage(e), "\n")
+            cat("Error details:", toString(e), "\n")
             quit(status = 1)
           })
         shell: Rscript {0}
