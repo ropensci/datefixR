@@ -13,6 +13,12 @@ static MONTHS: OnceLock<HashMap<usize, Vec<&'static str>>> = OnceLock::new();
 static ROMAN_NUMERALS: OnceLock<Vec<&'static str>> = OnceLock::new();
 static DAYS_IN_MONTH: [u8; 12] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
+// Pre-compiled regexes for performance
+static ORDINAL_REGEXES: OnceLock<Vec<Regex>> = OnceLock::new();
+static SPANISH_DATE_REGEX: OnceLock<Regex> = OnceLock::new();
+static GERMAN_DATE_REGEX: OnceLock<Regex> = OnceLock::new();
+static MONTH_REGEXES: OnceLock<Vec<(Regex, String)>> = OnceLock::new();
+
 fn get_months() -> &'static HashMap<usize, Vec<&'static str>> {
     MONTHS.get_or_init(|| {
         let mut months = HashMap::new();
@@ -185,24 +191,29 @@ fn replace_all<'a>(input: &'a str, patterns: &[(&str, &str)]) -> String {
     out
 }
 
-/// Remove ordinal suffixes from date strings
-fn rm_ordinal_suffixes(date: &str) -> String {
-    let patterns = [
-        (r"(\d)(st,)", "$1"),
-        (r"(\d)(nd,)", "$1"),
-        (r"(\d)(rd,)", "$1"),
-        (r"(\d)(th,)", "$1"),
-        (r"(\d)(st)", "$1"),
-        (r"(\d)(nd)", "$1"),
-        (r"(\d)(rd)", "$1"),
-        (r"(\d)(th)", "$1"),
-    ];
+/// Get pre-compiled ordinal regexes
+fn get_ordinal_regexes() -> &'static Vec<Regex> {
+    ORDINAL_REGEXES.get_or_init(|| {
+        vec![
+            Regex::new(r"(\d)(st,)").unwrap(),
+            Regex::new(r"(\d)(nd,)").unwrap(),
+            Regex::new(r"(\d)(rd,)").unwrap(),
+            Regex::new(r"(\d)(th,)").unwrap(),
+            Regex::new(r"(\d)(st)").unwrap(),
+            Regex::new(r"(\d)(nd)").unwrap(),
+            Regex::new(r"(\d)(rd)").unwrap(),
+            Regex::new(r"(\d)(th)").unwrap(),
+        ]
+    })
+}
 
+/// Remove ordinal suffixes from date strings (optimized with pre-compiled regexes)
+fn rm_ordinal_suffixes(date: &str) -> String {
+    let regexes = get_ordinal_regexes();
     let mut result = date.to_string();
-    for (pattern, replacement) in patterns {
-        if let Ok(re) = Regex::new(pattern) {
-            result = re.replace_all(&result, replacement).to_string();
-        }
+    
+    for regex in regexes {
+        result = regex.replace_all(&result, "$1").to_string();
     }
     result
 }
@@ -234,37 +245,33 @@ fn separate_date(date: &str) -> Vec<String> {
     }
 }
 
-/// Convert text month names to numeric format
+/// Get pre-compiled month regexes
+fn get_month_regexes() -> &'static Vec<(Regex, String)> {
+    MONTH_REGEXES.get_or_init(|| {
+        let mut regexes = Vec::new();
+        let months = get_months();
+        
+        for (month_num, month_names) in months {
+            let replacement = if *month_num < 10 {
+                format!("0{}", month_num)
+            } else {
+                month_num.to_string()
+            };
+            for month_name in month_names {
+                let re = Regex::new(&format!("\\b{}\\b", regex::escape(month_name))).unwrap();
+                regexes.push((re, replacement.clone()));
+            }
+        }
+        regexes
+    })
+}
+
+/// Convert text month names to numeric format (optimized with pre-compiled regexes)
 fn convert_text_month(date: &str) -> String {
     let mut result = date.to_lowercase();
-    let months = get_months();
-
-    // Sort month names by length (longest first) to avoid partial replacements
-    let mut all_month_pairs: Vec<(&str, String)> = Vec::new();
-    for (month_num, month_names) in months {
-        let replacement = if *month_num < 10 {
-            format!("0{}", month_num)
-        } else {
-            month_num.to_string()
-        };
-
-        for month_name in month_names {
-            all_month_pairs.push((month_name, replacement.clone()));
-        }
-    }
-
-    // Sort by length descending to replace longer strings first
-    all_month_pairs.sort_by(|a, b| b.0.len().cmp(&a.0.len()));
-
-    // Use word boundary matching where possible
-    for (month_name, replacement) in all_month_pairs {
-        // Create regex pattern with word boundaries
-        if let Ok(re) = Regex::new(&format!(r"\b{}\b", regex::escape(month_name))) {
-            result = re.replace_all(&result, &replacement).to_string();
-        } else {
-            // Fallback to simple replacement if regex fails
-            result = result.replace(month_name, &replacement);
-        }
+    let regexes = get_month_regexes();
+    for (re, replacement) in regexes {
+        result = re.replace_all(&result, replacement).to_string();
     }
     result
 }
@@ -448,6 +455,232 @@ fn combine_partial_date(
     }
 }
 
+/// Internal native function to fix a single date string efficiently
+fn fix_date_native(
+    date_str: &str,
+    day_impute: Option<i32>,
+    month_impute: Option<i32>,
+    subject: Option<&str>,
+    format: &str,
+    excel: bool,
+    roman_numeral: bool,
+) -> Result<Option<String>> {
+    // Convert -1 sentinel values to special marker for NA (for direct calls from R)
+    // Keep -1 to distinguish between NA (-1) and NULL (None)
+    let day_impute_na = day_impute == Some(-1);
+    let month_impute_na = month_impute == Some(-1);
+    
+    // Handle null/NA/empty dates
+    if date_str.is_empty() || date_str == "NA" {
+        return Ok(None);
+    }
+
+    // Clean the date string
+    let mut cleaned_date = rm_ordinal_suffixes(date_str);
+    // Process French date strings by removing articles and normalizing ordinals
+    cleaned_date = replace_all(&cleaned_date, &[("le ", " "), ("Le ", " "), ("1er", "01")]);
+    cleaned_date = cleaned_date.trim().to_string();
+    // Process Russian date strings by normalizing months
+    cleaned_date = replace_all(
+        &cleaned_date,
+        &[
+            ("марта", "март"),
+            ("Марта", "Март"),
+            ("августа", "август"),
+            ("Августа", "Август"),
+        ],
+    );
+
+    // Handle 4-digit year only
+    if cleaned_date.len() == 4 && is_numeric(&cleaned_date) {
+        let year = cleaned_date.parse::<i32>().unwrap();
+        return if month_impute_na || day_impute_na {
+            // Either month.impute or day.impute is NA, should return None and let R generate warning
+            Ok(None)
+        } else if month_impute.is_none() {
+            Err(missing_month_no_imputation().into())
+        } else if day_impute.is_none() {
+            Err(missing_day_no_imputation().into())
+        } else if let (Some(m), Some(d)) = (month_impute, day_impute) {
+            // Only format if we have valid non-NA values
+            if m != -1 && d != -1 {
+                Ok(Some(format!("{:04}-{:02}-{:02}", year, m, d)))
+            } else {
+                Ok(None)
+            }
+        } else {
+            Ok(None)
+        };
+    }
+
+    // Handle pure numeric dates (Excel serial dates or Unix timestamps)
+    if is_numeric(&cleaned_date) {
+        if let Ok(num_date) = cleaned_date.parse::<i64>() {
+            return if excel {
+                // Excel dates - account for Excel's 1900 leap year bug
+                let adjusted_date = num_date;
+                if let Some(excel_date) = NaiveDate::from_ymd_opt(1899, 12, 30) {
+                    if let Some(result_date) =
+                        excel_date.checked_add_signed(chrono::Duration::days(adjusted_date))
+                    {
+                        Ok(Some(result_date.format("%Y-%m-%d").to_string()))
+                    } else {
+                        Err("Invalid Excel date".into())
+                    }
+                } else {
+                    Err("Invalid Excel base date".into())
+                }
+            } else {
+                // Unix timestamp
+                if let Some(unix_date) = NaiveDate::from_ymd_opt(1970, 1, 1) {
+                    if let Some(result_date) =
+                        unix_date.checked_add_signed(chrono::Duration::days(num_date))
+                    {
+                        Ok(Some(result_date.format("%Y-%m-%d").to_string()))
+                    } else {
+                        Err("Invalid Unix timestamp date".into())
+                    }
+                } else {
+                    Err("Invalid Unix base date".into())
+                }
+            };
+        }
+    }
+
+    // Process the date string
+    let mut date_vec = separate_date(&cleaned_date);
+    // Debug information removed for production
+
+    // Check if first element is a month name (forces MDY format)
+    let effective_format = if first_is_month(&date_vec) {
+        "mdy"
+    } else {
+        format
+    };
+
+    // Convert text months to numbers in date components
+    for component in &mut date_vec {
+        let converted = convert_text_month(component);
+        *component = converted;
+    }
+
+    // Handle Roman numerals
+    if roman_numeral {
+        date_vec = roman_conversion(date_vec);
+    }
+
+    // Check for overly long components before processing
+    if date_str.len() > 200 || date_vec.iter().any(|s| s.len() > 6) {
+        return Err(unable_to_tidy_date().into());
+    }
+
+    // Check for components that are too long to be valid date parts
+    // Any numeric component longer than 4 digits is invalid for years, and anything over 2 digits is invalid for days/months
+    for component in &date_vec {
+        if is_numeric(component) && component.len() > 4 {
+            return Err(unable_to_tidy_date().into());
+        }
+    }
+
+    // Append year prefixes if needed
+    date_vec = append_year(date_vec);
+
+    // Parse the date components based on length and format
+    // Parse the date components
+    let (day, month, year) = if date_vec.len() < 3 {
+        // Handle MM/YYYY or YYYY/MM format
+        // Handle MM/YYYY or YYYY/MM format
+        if day_impute.is_none() {
+            // When day_impute is None (NULL), we need to throw an error
+            // When day_impute is None (NULL), we need to throw an error
+            return Err(missing_day_no_imputation().into());
+        } else if day_impute_na {
+            // When day_impute is Some(-1) (NA), we return None and let R handle the warning
+            // When day_impute is Some(-1) (NA), we return None and let R handle the warning
+            return Ok(None);
+        }
+
+        let day = day_impute.unwrap();
+
+        if date_vec.len() == 2 {
+            if date_vec[0].len() == 4 {
+                // YYYY/MM
+                let year = date_vec[0].parse::<i32>().map_err(|_| "Invalid year")?;
+                // Check for year with more than 4 digits
+                if date_vec[0].len() > 4 {
+                    return Err(unable_to_tidy_date().into());
+                }
+                let month = date_vec[1].parse::<i32>().map_err(|_| "Invalid month")?;
+                (Some(day), Some(month), Some(year))
+            } else if date_vec[1].len() == 4 {
+                // MM/YYYY
+                let month = date_vec[0].parse::<i32>().map_err(|_| "Invalid month")?;
+                let year = date_vec[1].parse::<i32>().map_err(|_| "Invalid year")?;
+                // Check for year with more than 4 digits
+                if date_vec[1].len() > 4 {
+                    return Err(unable_to_tidy_date().into());
+                }
+                (Some(day), Some(month), Some(year))
+            } else {
+                return Err("Unable to determine date format".into());
+            }
+        } else {
+            return Err("Insufficient date components".into());
+        }
+    } else {
+        // Handle full date with day, month, year
+        if date_vec[0].len() == 4 {
+            // YYYY/MM/DD
+            // Check for year with more than 4 digits
+            if date_vec[0].len() > 4 {
+                return Err(unable_to_tidy_date().into());
+            }
+            let year = date_vec[0].parse::<i32>().map_err(|_| "Invalid year")?;
+            let month = date_vec[1].parse::<i32>().map_err(|_| "Invalid month")?;
+            let day = date_vec[2].parse::<i32>().map_err(|_| "Invalid day")?;
+            (Some(day), Some(month), Some(year))
+        } else {
+            match effective_format {
+                "dmy" => {
+                    // DD/MM/YYYY
+                    let day = date_vec[0].parse::<i32>().map_err(|_| "Invalid day")?;
+                    let month = date_vec[1].parse::<i32>().map_err(|_| "Invalid month")?;
+                    // Check for year with more than 4 digits
+                    if date_vec[2].len() > 4 {
+                        return Err(unable_to_tidy_date().into());
+                    }
+                    let year = date_vec[2].parse::<i32>().map_err(|_| "Invalid year")?;
+                    (Some(day), Some(month), Some(year))
+                }
+                "mdy" => {
+                    // MM/DD/YYYY
+                    let month = date_vec[0].parse::<i32>().map_err(|_| "Invalid month")?;
+                    let day = date_vec[1].parse::<i32>().map_err(|_| "Invalid day")?;
+                    // Check for year with more than 4 digits
+                    if date_vec[2].len() > 4 {
+                        return Err(unable_to_tidy_date().into());
+                    }
+                    let year = date_vec[2].parse::<i32>().map_err(|_| "Invalid year")?;
+                    (Some(day), Some(month), Some(year))
+                }
+                _ => return Err(format_should_be_dmy_or_mdy().into()),
+            }
+        }
+    };
+
+    // Validate and adjust the date components
+    let (adjusted_day, adjusted_month, adjusted_year) = check_output(day, month, year)?;
+
+    // Combine into final date string
+    Ok(combine_partial_date(
+        adjusted_day,
+        adjusted_month,
+        adjusted_year,
+        date_str,
+        subject,
+    ))
+}
+
 /// Analyze and fix date strings in a whole column of a DataFrame
 /// @noRd
 #[extendr]
@@ -460,62 +693,40 @@ fn fix_date_column(
     excel: bool,
     roman_numeral: bool,
 ) -> Result<Vec<Option<String>>> {
-    // Keep -1 as sentinel values for NA, pass them through to fix_date
+    // Process all dates using native Rust function to avoid R object conversions
     let day_impute_opt = Some(day_impute);
     let month_impute_opt = Some(month_impute);
 
-    // First pass: check if any date would cause a critical error
-    for date in &dates {
-        match fix_date(
-            Robj::from(date.clone()),
+    dates.into_iter().enumerate().map(|(i, date)| {
+        let subject = subjects.as_ref().and_then(|s| s.get(i));
+        
+        // Use native function instead of converting to R objects
+        match fix_date_native(
+            &date,
             day_impute_opt,
             month_impute_opt,
-            None, // No subject for error checking
+            subject.map(|s| s.as_str()),
             format,
             excel,
             roman_numeral,
         ) {
+            Ok(result) => Ok(result),
             Err(e) => {
                 let error_str = e.to_string();
                 if error_str.contains("unable to tidy a date")
                     || error_str.contains("format should be either")
                     || error_str.contains("date should be a character")
-|| error_str.contains("Month not in expected range\n")
+                    || error_str.contains("Month not in expected range\n")
                     || error_str.contains("Day not in expected range")
                     || error_str.contains("Missing month with no imputation value given")
                     || error_str.contains("Missing day with no imputation value given")
                 {
-                    // These errors should be thrown to R immediately
                     return Err(e);
                 }
+                Ok(None)
             }
-            _ => {}
         }
-    }
-
-    // Second pass: process all dates (we know none will cause critical errors)
-    Ok(dates
-        .iter()
-        .enumerate()
-        .map(|(i, date)| {
-            let subject = subjects.as_ref().and_then(|s| s.get(i)).cloned();
-            match fix_date(
-                Robj::from(date.clone()),
-                day_impute_opt,
-                month_impute_opt,
-                subject,
-                format,
-                excel,
-                roman_numeral,
-            ) {
-                Ok(result) => result,
-                Err(e) => {
-                    eprintln!("ERROR in fix_date for '{}': {}", date, e);
-                    None
-                }
-            }
-        })
-        .collect())
+    }).collect::<Result<Vec<Option<String>>>>()
 }
 
 /// Main date fixing function - Rust implementation of .fix_date
