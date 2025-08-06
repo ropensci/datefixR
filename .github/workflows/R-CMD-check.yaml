@@ -52,6 +52,35 @@ jobs:
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("covr")
         shell: Rscript {0}
+      
+      - name: Install Rust toolchain for coverage
+        if: runner.os == 'Linux' && matrix.config.r == 'release'
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: llvm-tools-preview
+      
+      - name: Cache cargo registry and target
+        if: runner.os == 'Linux' && matrix.config.r == 'release'
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            ~/.cargo/bin/cargo-tarpaulin
+          key: ${{ runner.os }}-cargo-tarpaulin-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-tarpaulin-
+      
+      - name: Install cargo-tarpaulin
+        if: runner.os == 'Linux' && matrix.config.r == 'release'
+        run: |
+          if ! command -v cargo-tarpaulin &> /dev/null; then
+            echo "Installing cargo-tarpaulin..."
+            cargo install cargo-tarpaulin
+          else
+            echo "cargo-tarpaulin already installed"
+          fi
+        shell: bash
 
       - name: Clean coverage files
         if: runner.os == 'Linux' && matrix.config.r == 'release'
@@ -62,6 +91,7 @@ jobs:
           sleep 2
           rm -rf .coverage_temp || true
           rm -f cobertura.xml || true
+          rm -f rust-cobertura.xml || true
           rm -f *.gcov *.gcda *.gcno || true
         shell: bash
 
@@ -139,6 +169,40 @@ jobs:
           })
         shell: Rscript {0}
 
+      - name: Generate Rust coverage
+        if: runner.os == 'Linux' && matrix.config.r == 'release'
+        timeout-minutes: 15
+        run: |
+          cd src/rust
+          echo "Starting Rust coverage generation..."
+          echo "Current working directory: $(pwd)"
+          
+          # Ensure we have tests to run
+          echo "Available tests:"
+          cargo test --list || echo "No tests found or cargo test failed"
+          
+          # Generate coverage with tarpaulin, outputting to cobertura format
+          echo "Running tarpaulin..."
+          cargo tarpaulin --verbose --all-features --workspace --timeout 120 \
+            --exclude-files vendor/ \
+            --out cobertura --output-dir ../../ --cobertura-name rust-cobertura.xml \
+            --follow-exec \
+            || { echo "Tarpaulin failed, trying with simpler options..."; \
+                 cargo tarpaulin --out cobertura --output-dir ../../ --cobertura-name rust-cobertura.xml; }
+          
+          echo "Rust coverage generation completed"
+          echo "Checking if coverage file was created..."
+          if [ -f "../../rust-cobertura.xml" ]; then
+            echo "✓ Coverage file created successfully"
+            ls -la ../../rust-cobertura.xml
+          else
+            echo "✗ Coverage file was not created"
+            ls -la ../../*cobertura* || echo "No cobertura files found"
+          fi
+          
+          cd ../..
+        shell: bash
+
       - name: Final process cleanup
         if: runner.os == 'Linux' && matrix.config.r == 'release' && always()
         run: |
@@ -149,11 +213,44 @@ jobs:
           ps aux | grep -E "(R --slave|Rscript|covr)" | grep -v grep || true
         shell: bash
 
+      - name: Verify coverage files exist
+        if: runner.os == 'Linux' && matrix.config.r == 'release'
+        run: |
+          echo "Checking for coverage files..."
+          if [ -f "cobertura.xml" ]; then
+            echo "✓ R coverage file found: cobertura.xml ($(wc -c < cobertura.xml) bytes)"
+            ls -la cobertura.xml
+          else
+            echo "✗ R coverage file NOT found: cobertura.xml"
+          fi
+          
+          if [ -f "rust-cobertura.xml" ]; then
+            echo "✓ Rust coverage file found: rust-cobertura.xml ($(wc -c < rust-cobertura.xml) bytes)"
+            ls -la rust-cobertura.xml
+          else
+            echo "✗ Rust coverage file NOT found: rust-cobertura.xml"
+          fi
+          
+          echo "Coverage files verification completed."
+          
+          # Show sample content of coverage files for debugging
+          if [ -f "cobertura.xml" ]; then
+            echo "R coverage file preview (first 10 lines):"
+            head -10 cobertura.xml
+          fi
+          
+          if [ -f "rust-cobertura.xml" ]; then
+            echo "Rust coverage file preview (first 10 lines):"
+            head -10 rust-cobertura.xml
+          fi
+        shell: bash
+
       - uses: codecov/codecov-action@v5
         if: runner.os == 'Linux' && matrix.config.r == 'release'
         with:
           fail_ci_if_error: false
-          files: ./cobertura.xml
+          files: ./cobertura.xml,./rust-cobertura.xml
+          flags: r-code,rust-code
           plugins: noop
           disable_search: true
           token: ${{ secrets.CODECOV_TOKEN }}
