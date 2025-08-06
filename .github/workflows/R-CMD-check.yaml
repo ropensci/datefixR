@@ -179,16 +179,31 @@ jobs:
           
           # Ensure we have tests to run
           echo "Available tests:"
-          cargo test --list || echo "No tests found or cargo test failed"
+          cargo test --lib --dry-run || echo "No tests found or cargo test failed"
           
-          # Generate coverage with tarpaulin, outputting to cobertura format
+          # Generate coverage with tarpaulin, outputting to XML (Cobertura) format
           echo "Running tarpaulin..."
+          
+          # First, clean any existing cobertura files to avoid conflicts
+          rm -f cobertura.xml ../../cobertura.xml ../../rust-cobertura.xml
+          
           cargo tarpaulin --verbose --all-features --workspace --timeout 120 \
             --exclude-files vendor/ \
-            --out cobertura --output-dir ../../ --cobertura-name rust-cobertura.xml \
+            --out Xml \
             --follow-exec \
             || { echo "Tarpaulin failed, trying with simpler options..."; \
-                 cargo tarpaulin --out cobertura --output-dir ../../ --cobertura-name rust-cobertura.xml; }
+                 cargo tarpaulin --out Xml; }
+          
+          # Move the generated cobertura.xml to the project root with rust prefix
+          if [ -f "cobertura.xml" ]; then
+            mv "cobertura.xml" "../../rust-cobertura.xml"
+            echo "Moved cobertura.xml to ../../rust-cobertura.xml"
+          elif [ -f "../../cobertura.xml" ]; then
+            mv "../../cobertura.xml" "../../rust-cobertura.xml"
+            echo "Moved ../../cobertura.xml to ../../rust-cobertura.xml"
+          else
+            echo "Warning: No cobertura.xml file found after tarpaulin run"
+          fi
           
           echo "Rust coverage generation completed"
           echo "Checking if coverage file was created..."
