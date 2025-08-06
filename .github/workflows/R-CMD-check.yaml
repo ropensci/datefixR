@@ -177,9 +177,19 @@ jobs:
           echo "Starting Rust coverage generation..."
           echo "Current working directory: $(pwd)"
           
+          # Set up R library path for linking
+          export R_HOME=$(R RHOME)
+          export LD_LIBRARY_PATH="$R_HOME/lib:$LD_LIBRARY_PATH"
+          export PKG_CONFIG_PATH="$R_HOME/lib/pkgconfig:$PKG_CONFIG_PATH"
+          
+          echo "R_HOME: $R_HOME"
+          echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
+          echo "Checking for libR.so:"
+          find "$R_HOME" -name "libR.so" -o -name "libR.so.*" 2>/dev/null || echo "libR.so not found in R_HOME"
+          
           # Ensure we have tests to run
           echo "Available tests:"
-          cargo test -- --list || echo "No tests found or cargo test failed"
+          cargo test --list || echo "No tests found or cargo test failed"
           
           # Generate coverage with tarpaulin, outputting to XML (Cobertura) format
           echo "Running tarpaulin..."
