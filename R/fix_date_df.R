@@ -261,6 +261,8 @@ fix_date_df <- function(
       df[, col.name] <- process_column(col.name)
     }
   }
+  # Reset future plan to sequential after processing (closes workers)
+  future::plan(future::sequential) 
   
   df
 }

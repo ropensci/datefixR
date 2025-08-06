@@ -49,3 +49,7 @@ src/Makevars.win
 *.gcov
 *.gcda
 *.gcno
+cobertura*.xml
+test_coverage.R
+.coverage_temp/
+ci_coverage_fixes.md
