@@ -179,7 +179,7 @@ jobs:
           
           # Ensure we have tests to run
           echo "Available tests:"
-          cargo test --lib --dry-run || echo "No tests found or cargo test failed"
+          cargo test -- --list || echo "No tests found or cargo test failed"
           
           # Generate coverage with tarpaulin, outputting to XML (Cobertura) format
           echo "Running tarpaulin..."
