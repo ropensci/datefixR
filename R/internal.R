@@ -1,4 +1,3 @@
-
 #' @noRd
 .checkmonth <- function(month.impute) {
   if (!is.na(month.impute) && !is.null(month.impute)) {
@@ -19,4 +18,3 @@
     stop("format should be either 'dmy' or 'mdy' \n")
   }
 }
-
