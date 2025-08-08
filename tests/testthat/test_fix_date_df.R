@@ -177,7 +177,7 @@ test_that("error if day.impute or month.impute are in wrong format", {
 test_that("Error if month out of bounds", {
   temp <- data.frame(id = 1, date = "13-1994")
 
-expect_error(
+  expect_error(
     fix_date_df(temp, "date"),
     "Month not in expected range"
   )
@@ -294,16 +294,16 @@ test_that("Excel numeric date is parsed correctly", {
 
 test_that("checkday errors when input is out of range", {
   result <- try(datefixR:::checkday(45), silent = TRUE)
-expect_s3_class(result, "extendr_error")
+  expect_s3_class(result, "extendr_error")
   # Note: The actual error message is wrapped in try-error and not directly accessible
-  
+
   # Test that valid values work
-  expect_no_condition(datefixR:::checkday(15))  # Should return without error for valid day
-  expect_no_condition(datefixR:::checkday(1))   # Should return without error for valid day
-  expect_no_condition(datefixR:::checkday(31))  # Should return without error for valid day
-  
+  expect_no_condition(datefixR:::checkday(15)) # Should return without error for valid day
+  expect_no_condition(datefixR:::checkday(1)) # Should return without error for valid day
+  expect_no_condition(datefixR:::checkday(31)) # Should return without error for valid day
+
   # Test other invalid values also throw errors
-expect_s3_class(try(datefixR:::checkday(0), silent = TRUE), "extendr_error")
+  expect_s3_class(try(datefixR:::checkday(0), silent = TRUE), "extendr_error")
   expect_s3_class(try(datefixR:::checkday(32), silent = TRUE), "extendr_error")
 })
 
@@ -328,30 +328,30 @@ test_that("parallel processing with multiple date columns works correctly", {
   # Skip if future packages are not available
   skip_if_not_installed("future")
   skip_if_not_installed("future.apply")
-  
+
   # Create test dataframe with two date columns
   test_df <- data.frame(
     id = 1:4,
     dates_col1 = c("01/01/2020", "02/02/2021", "03/03/2022", "15-12-2019"),
     dates_col2 = c("04/04/2020", "05/05/2021", "06/06/2022", "dec 2018")
   )
-  
+
   # Process with parallel processing (2 cores)
   result_parallel <- fix_date_df(test_df, c("dates_col1", "dates_col2"), cores = 2)
-  
+
   # Process sequentially for comparison
   result_sequential <- fix_date_df(test_df, c("dates_col1", "dates_col2"), cores = 1)
-  
+
   # Results should be identical regardless of processing method
   expect_equal(result_parallel, result_sequential)
-  
+
   # Verify the actual parsed dates are correct
   expected_df <- data.frame(
     id = 1:4,
     dates_col1 = as.Date(c("2020-01-01", "2021-02-02", "2022-03-03", "2019-12-15")),
     dates_col2 = as.Date(c("2020-04-04", "2021-05-05", "2022-06-06", "2018-12-01"))
   )
-  
+
   expect_equal(result_parallel, expected_df)
 })
 
@@ -361,15 +361,15 @@ test_that("parallel processing falls back to sequential for single column", {
     id = 1:3,
     single_date_col = c("01/01/2020", "02/02/2021", "03/03/2022")
   )
-  
+
   # Process with cores = 4 (should fall back to sequential since only 1 column)
   result <- fix_date_df(test_df, "single_date_col", cores = 4)
-  
+
   # Verify the result is correct
   expected_df <- data.frame(
     id = 1:3,
     single_date_col = as.Date(c("2020-01-01", "2021-02-02", "2022-03-03"))
   )
-  
+
   expect_equal(result, expected_df)
 })
