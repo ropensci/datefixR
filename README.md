@@ -252,8 +252,8 @@ roman_dates <- c(
   "1.I.2000" # January 1, 2000
 )
 
-fix_date_char(roman_dates)
-#> [1] NA NA NA
+fix_date_char(roman_dates, roman.numeral = TRUE)
+#> [1] "2023-07-15" "1999-12-03" "2000-01-01"
 ```
 
 Roman numerals (I-XII) are automatically recognized and converted to the
