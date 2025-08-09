@@ -12,7 +12,6 @@
 | [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/datefixR?color=blue)](https://r-pkg.org/pkg/datefixR)                                    | [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5655311.svg)](https://doi.org/10.5281/zenodo.5655311)                                        | [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) | [![French localization](https://gitlocalize.com/repo/8364/fr/badge.svg)](https://gitlocalize.com/repo/8364/fr?utm_source=badge)     |
 | ![website status](https://img.shields.io/website?down_color=red&down_message=offline&up_color=green&up_message=online&url=https%3A%2F%2Fdocs.ropensci.org%2FdatefixR%2F) | [![Status at rOpenSci Software Peer Review](https://badges.ropensci.org/533_status.svg)](https://github.com/ropensci/software-review/issues/533) | [![codecov](https://codecov.io/gh/ropensci/datefixR/branch/main/graph/badge.svg?token=zycOVwlq1m)](https://app.codecov.io/gh/ropensci/datefixR)                                                        | [![Indonesian localization](https://gitlocalize.com/repo/8364/id/badge.svg)](https://gitlocalize.com/repo/8364/id?utm_source=badge) |
 |                                                                                                                                                                          |                                                                                                                                                  | [![Tidyverse style guide](https://img.shields.io/static/v1?label=Code%20Style&message=Tidyverse&color=1f1c30)](https://style.tidyverse.org)                                                            | [![Russian localization](https://gitlocalize.com/repo/8364/ru/badge.svg)](https://gitlocalize.com/repo/8364/ru?utm_source=badge)    |
-|                                                                                                                                                                          |                                                                                                                                                  |                                                                                                                                                                                                        |                                                                                                                                     |
 
 <!-- badges: end -->
 
@@ -22,13 +21,6 @@ with free-text web form entries like “02 05 92”, “2020-may-01”, or “le
 mars 2013”, `datefixR` intelligently parses diverse date formats and
 converts them to R’s standard Date class. Under the hood, datefixR uses
 Rust for fast and memory-safe parsing.
-
-[![CRAN
-Version](https://www.r-pkg.org/badges/version/datefixR)](https://cran.r-project.org/package=datefixR)
-[![R
-Version](https://img.shields.io/badge/R-≥4.1.0-blue)](https://www.r-project.org/)
-[![Development
-Version](https://img.shields.io/badge/dev-1.7.0.9000-orange)](https://github.com/ropensci/datefixR)
 
 **Key features:**
 
