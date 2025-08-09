@@ -421,7 +421,8 @@ fn handle_numeric_dates(
     cleaned_date: &str,
     excel: bool,
 ) -> Result<Option<String>> {
-    if is_numeric(cleaned_date) {
+    // Exclude 4-digit numbers as they're more likely to be years than timestamps
+    if is_numeric(cleaned_date) && cleaned_date.len() != 4 {
         if let Ok(num_date) = cleaned_date.parse::<i64>() {
             return if excel {
                 // Excel dates - account for Excel's 1900 leap year bug
@@ -621,8 +622,19 @@ fn process_date_pipeline(
     let cleaned_date = clean_date_string_combined(date_str).into_owned();
 
     // Try handling as year-only date
-    if let Ok(Some(result)) = handle_year_only_date(&cleaned_date, day_impute, month_impute, day_impute_na, month_impute_na) {
-        return Ok(Some(result));
+    match handle_year_only_date(&cleaned_date, day_impute, month_impute, day_impute_na, month_impute_na) {
+        Ok(Some(result)) => return Ok(Some(result)),
+        Ok(None) => {
+            // Year-only date was handled but resulted in None (NA imputation case)
+            // Check if this was actually a year-only date that should return None
+            if cleaned_date.len() == 4 && is_numeric(&cleaned_date) {
+                return Ok(None);
+            }
+            // Otherwise, continue with normal processing
+        }
+        Err(_) => {
+            // Not a year-only date or error occurred, continue with normal processing
+        }
     }
 
     // Try handling as pure numeric date (Excel/Unix)
@@ -992,6 +1004,57 @@ mod tests {
         // Test edge case: year 9999
         let result = handle_year_only_date("9999", Some(31), Some(12), false, false).unwrap();
         assert_eq!(result, Some("9999-12-31".to_string()));
+    }
+
+    #[test]
+    fn test_process_date_pipeline_na_imputation() {
+        // Test year-only date with NA month imputation
+        let result = process_date_pipeline(
+            "1994",
+            Some(1),      // day_impute = 1
+            Some(-1),     // month_impute = -1 (NA)
+            Some("1"),    // subject
+            "dmy",
+            false,
+            false,
+        ).unwrap();
+        assert_eq!(result, None); // Should return None for NA imputation
+
+        // Test year-only date with NA day imputation
+        let result = process_date_pipeline(
+            "1994",
+            Some(-1),     // day_impute = -1 (NA)
+            Some(7),      // month_impute = 7
+            Some("1"),    // subject
+            "dmy",
+            false,
+            false,
+        ).unwrap();
+        assert_eq!(result, None); // Should return None for NA imputation
+
+        // Test year-only date with both NA imputation values
+        let result = process_date_pipeline(
+            "1994",
+            Some(-1),     // day_impute = -1 (NA)
+            Some(-1),     // month_impute = -1 (NA)
+            Some("1"),    // subject
+            "dmy",
+            false,
+            false,
+        ).unwrap();
+        assert_eq!(result, None); // Should return None for NA imputation
+
+        // Test MM/YYYY format with NA day imputation
+        let result = process_date_pipeline(
+            "04/1994",
+            Some(-1),     // day_impute = -1 (NA)
+            Some(7),      // month_impute = 7
+            Some("1"),    // subject
+            "dmy",
+            false,
+            false,
+        ).unwrap();
+        assert_eq!(result, None); // Should return None for NA imputation
     }
 
     #[test]
