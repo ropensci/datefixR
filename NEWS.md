@@ -17,7 +17,7 @@
 * Fastpath optimization implemented for common date formats, further improving
   performance.
 * parallelism support in `fix_date_df()` via the `cores` argument and `'Ncpus'`
-  global option. This parellelizes the processing of columns in data frames,
+  global option. This allows columns in data frames to be processed in parallel,
   allowing for faster processing of large datasets.
 * Improved error handling and memory management through Rust's type system.
 * All existing deprecated functions (`fix_date()` and `fix_dates()`) continue to
