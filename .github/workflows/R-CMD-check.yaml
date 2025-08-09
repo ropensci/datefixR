@@ -204,8 +204,9 @@ jobs:
           echo "Tests passed, proceeding with coverage..."
           echo "Running tarpaulin..."
           
-          # First, clean any existing cobertura files to avoid conflicts
-          rm -f cobertura.xml ../../cobertura.xml ../../rust-cobertura.xml
+          # Clean any existing Rust cobertura files to avoid conflicts
+          # Note: Don't remove ../../cobertura.xml as it may be the R coverage file
+          rm -f cobertura.xml ../../rust-cobertura.xml
           
           cargo tarpaulin --verbose --workspace --timeout 180 --engine llvm \
             --exclude-files vendor/ \
@@ -218,11 +219,10 @@ jobs:
           if [ -f "cobertura.xml" ]; then
             mv "cobertura.xml" "../../rust-cobertura.xml"
             echo "Moved cobertura.xml to ../../rust-cobertura.xml"
-          elif [ -f "../../cobertura.xml" ]; then
-            mv "../../cobertura.xml" "../../rust-cobertura.xml"
-            echo "Moved ../../cobertura.xml to ../../rust-cobertura.xml"
           else
             echo "Warning: No cobertura.xml file found after tarpaulin run"
+            echo "This is expected if Rust coverage generation failed"
+            # NOTE: Do NOT move ../../cobertura.xml as that would overwrite the R coverage file!
           fi
           
           echo "Rust coverage generation completed"
@@ -280,12 +280,24 @@ jobs:
           fi
         shell: bash
 
-      - uses: codecov/codecov-action@v5
-        if: runner.os == 'Linux' && matrix.config.r == 'release'
+      - name: Upload R coverage to Codecov
+        if: runner.os == 'Linux' && matrix.config.r == 'release' && hashFiles('./cobertura.xml') != ''
+        uses: codecov/codecov-action@v5
         with:
           fail_ci_if_error: false
-          files: ./cobertura.xml,./rust-cobertura.xml
-          flags: r-code,rust-code
+          files: ./cobertura.xml
+          flags: r-code
+          plugins: noop
+          disable_search: true
+          token: ${{ secrets.CODECOV_TOKEN }}
+          
+      - name: Upload Rust coverage to Codecov
+        if: runner.os == 'Linux' && matrix.config.r == 'release' && hashFiles('./rust-cobertura.xml') != ''
+        uses: codecov/codecov-action@v5
+        with:
+          fail_ci_if_error: false
+          files: ./rust-cobertura.xml
+          flags: rust-code
           plugins: noop
           disable_search: true
           token: ${{ secrets.CODECOV_TOKEN }}
