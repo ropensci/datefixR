@@ -237,9 +237,5 @@ fix_date_char(roman_dates, roman.numeral = TRUE)
 
 ## Adding New Languages
 
-Translations of months can be updated via the `R/months.R` file. However,
-changes to the logic to cover new formats may require more extensive
-modifications to the source code.
-
-If you need support for additional languages, please consider contributing to
-the package or filing an issue on GitHub.
+If you need/want support for additional languages, please consider contributing
+to the package or filing an issue on GitHub.
