@@ -384,11 +384,206 @@ fn combine_partial_date(
     }
 }
 
-/// Internal native function to fix a single date string efficiently
-fn fix_date_native(
-    date_str: &str,
+/// Handle 4-digit year only dates (e.g., "2020")
+fn handle_year_only_date(
+    cleaned_date: &str,
     day_impute: Option<i32>,
     month_impute: Option<i32>,
+    day_impute_na: bool,
+    month_impute_na: bool,
+) -> Result<Option<String>> {
+    if cleaned_date.len() == 4 && is_numeric(cleaned_date) {
+        let year = cleaned_date.parse::<i32>().unwrap();
+        return if month_impute_na || day_impute_na {
+            // Either month.impute or day.impute is NA, should return None and let R generate warning
+            Ok(None)
+        } else if month_impute.is_none() {
+            Err(missing_month_no_imputation().into())
+        } else if day_impute.is_none() {
+            Err(missing_day_no_imputation().into())
+        } else if let (Some(m), Some(d)) = (month_impute, day_impute) {
+            // Only format if we have valid non-NA values
+            if m != -1 && d != -1 {
+                Ok(Some(format!("{:04}-{:02}-{:02}", year, m, d)))
+            } else {
+                Ok(None)
+            }
+        } else {
+            Ok(None)
+        };
+    }
+    // Not a year-only date, continue with other parsing
+    Ok(None)
+}
+
+/// Handle pure numeric dates (Excel serial dates or Unix timestamps)
+fn handle_numeric_dates(
+    cleaned_date: &str,
+    excel: bool,
+) -> Result<Option<String>> {
+    if is_numeric(cleaned_date) {
+        if let Ok(num_date) = cleaned_date.parse::<i64>() {
+            return if excel {
+                // Excel dates - account for Excel's 1900 leap year bug
+                let adjusted_date = num_date;
+                if let Some(excel_date) = NaiveDate::from_ymd_opt(1899, 12, 30) {
+                    if let Some(result_date) =
+                        excel_date.checked_add_signed(chrono::Duration::days(adjusted_date))
+                    {
+                        Ok(Some(result_date.format("%Y-%m-%d").to_string()))
+                    } else {
+                        Err("Invalid Excel date".into())
+                    }
+                } else {
+                    Err("Invalid Excel base date".into())
+                }
+            } else {
+                // Unix timestamp
+                if let Some(unix_date) = NaiveDate::from_ymd_opt(1970, 1, 1) {
+                    if let Some(result_date) =
+                        unix_date.checked_add_signed(chrono::Duration::days(num_date))
+                    {
+                        Ok(Some(result_date.format("%Y-%m-%d").to_string()))
+                    } else {
+                        Err("Invalid Unix timestamp date".into())
+                    }
+                } else {
+                    Err("Invalid Unix base date".into())
+                }
+            };
+        }
+    }
+    // Not a pure numeric date, continue with other parsing
+    Ok(None)
+}
+
+
+/// Process a single date with error handling for batch operations
+fn process_single_date_with_error_handling(
+    date: &str,
+    day_impute: Option<i32>,
+    month_impute: Option<i32>,
+    subject: Option<&str>,
+    format: &str,
+    excel: bool,
+    roman_numeral: bool,
+) -> Result<Option<String>> {
+    match fix_date_native(
+        date,
+        day_impute,
+        month_impute,
+        subject,
+        format,
+        excel,
+        roman_numeral,
+    ) {
+        Ok(result) => Ok(result),
+        Err(e) => {
+            let error_str = e.to_string();
+            if error_str.contains("unable to tidy a date")
+                || error_str.contains("format should be either")
+                || error_str.contains("date should be a character")
+                || error_str.contains("Month not in expected range\n")
+                || error_str.contains("Day not in expected range")
+                || error_str.contains("Missing month with no imputation value given")
+                || error_str.contains("Missing day with no imputation value given")
+            {
+                Err(e)
+            } else {
+                // For other errors, return None instead of propagating
+                Ok(None)
+            }
+        }
+    }
+}
+
+/// Parse date components from date vector based on length and format
+fn parse_date_components(
+    date_vec: &[String],
+    effective_format: &str,
+    day_impute: Option<i32>,
+    day_impute_na: bool,
+) -> Result<(Option<i32>, Option<i32>, Option<i32>)> {
+    if date_vec.len() < 3 {
+        // Handle MM/YYYY or YYYY/MM format
+        if day_impute.is_none() {
+            // When day_impute is None (NULL), we need to throw an error
+            return Err(missing_day_no_imputation().into());
+        } else if day_impute_na {
+            // When day_impute is Some(-1) (NA), we return None and let R handle the warning
+            return Err("NA imputation requested".into()); // Special error to signal NA return
+        }
+
+        let day = day_impute.unwrap();
+
+        if date_vec.len() == 2 {
+            if date_vec[0].len() == 4 {
+                // YYYY/MM
+                validate_year_length(&date_vec[0])?;
+                let year = date_vec[0].parse::<i32>().map_err(|_| "Invalid year")?;
+                let month = date_vec[1].parse::<i32>().map_err(|_| "Invalid month")?;
+                Ok((Some(day), Some(month), Some(year)))
+            } else if date_vec[1].len() == 4 {
+                // MM/YYYY
+                validate_year_length(&date_vec[1])?;
+                let month = date_vec[0].parse::<i32>().map_err(|_| "Invalid month")?;
+                let year = date_vec[1].parse::<i32>().map_err(|_| "Invalid year")?;
+                Ok((Some(day), Some(month), Some(year)))
+            } else {
+                Err("Unable to determine date format".into())
+            }
+        } else {
+            Err("Insufficient date components".into())
+        }
+    } else {
+        // Handle full date with day, month, year
+        if date_vec[0].len() == 4 {
+            // YYYY/MM/DD
+            validate_year_length(&date_vec[0])?;
+            let year = date_vec[0].parse::<i32>().map_err(|_| "Invalid year")?;
+            let month = date_vec[1].parse::<i32>().map_err(|_| "Invalid month")?;
+            let day = date_vec[2].parse::<i32>().map_err(|_| "Invalid day")?;
+            Ok((Some(day), Some(month), Some(year)))
+        } else {
+            match effective_format {
+                "dmy" => {
+                    // DD/MM/YYYY
+                    let day = date_vec[0].parse::<i32>().map_err(|_| "Invalid day")?;
+                    let month = date_vec[1].parse::<i32>().map_err(|_| "Invalid month")?;
+                    validate_year_length(&date_vec[2])?;
+                    let year = date_vec[2].parse::<i32>().map_err(|_| "Invalid year")?;
+                    Ok((Some(day), Some(month), Some(year)))
+                }
+                "mdy" => {
+                    // MM/DD/YYYY
+                    let month = date_vec[0].parse::<i32>().map_err(|_| "Invalid month")?;
+                    let day_str = clean_numeric_string(&date_vec[1]);
+                    let day = day_str.parse::<i32>().map_err(|_| "Invalid day")?;
+                    validate_year_length(&date_vec[2])?;
+                    let year = date_vec[2].parse::<i32>().map_err(|_| "Invalid year")?;
+                    Ok((Some(day), Some(month), Some(year)))
+                }
+                _ => Err(format_should_be_dmy_or_mdy().into()),
+            }
+        }
+    }
+}
+
+/// Helper function to validate year string length
+#[inline]
+fn validate_year_length(year_str: &str) -> Result<()> {
+    if year_str.len() > 4 {
+        Err(unable_to_tidy_date().into())
+    } else {
+        Ok(())
+    }
+}
+
+/// Common date processing pipeline used by both fix_date and fix_date_native
+fn process_date_pipeline(
+    date_str: &str,
+    day_impute: Option<i32>,
+    month_impute: Option<i32>, 
     subject: Option<&str>,
     format: &str,
     excel: bool,
@@ -425,60 +620,14 @@ fn fix_date_native(
     // Clean the date string using combined approach
     let cleaned_date = clean_date_string_combined(date_str).into_owned();
 
-    // Handle 4-digit year only
-    if cleaned_date.len() == 4 && is_numeric(&cleaned_date) {
-        let year = cleaned_date.parse::<i32>().unwrap();
-        return if month_impute_na || day_impute_na {
-            // Either month.impute or day.impute is NA, should return None and let R generate warning
-            Ok(None)
-        } else if month_impute.is_none() {
-            Err(missing_month_no_imputation().into())
-        } else if day_impute.is_none() {
-            Err(missing_day_no_imputation().into())
-        } else if let (Some(m), Some(d)) = (month_impute, day_impute) {
-            // Only format if we have valid non-NA values
-            if m != -1 && d != -1 {
-                Ok(Some(format!("{:04}-{:02}-{:02}", year, m, d)))
-            } else {
-                Ok(None)
-            }
-        } else {
-            Ok(None)
-        };
+    // Try handling as year-only date
+    if let Ok(Some(result)) = handle_year_only_date(&cleaned_date, day_impute, month_impute, day_impute_na, month_impute_na) {
+        return Ok(Some(result));
     }
 
-    // Handle pure numeric dates (Excel serial dates or Unix timestamps)
-    if is_numeric(&cleaned_date) {
-        if let Ok(num_date) = cleaned_date.parse::<i64>() {
-            return if excel {
-                // Excel dates - account for Excel's 1900 leap year bug
-                let adjusted_date = num_date;
-                if let Some(excel_date) = NaiveDate::from_ymd_opt(1899, 12, 30) {
-                    if let Some(result_date) =
-                        excel_date.checked_add_signed(chrono::Duration::days(adjusted_date))
-                    {
-                        Ok(Some(result_date.format("%Y-%m-%d").to_string()))
-                    } else {
-                        Err("Invalid Excel date".into())
-                    }
-                } else {
-                    Err("Invalid Excel base date".into())
-                }
-            } else {
-                // Unix timestamp
-                if let Some(unix_date) = NaiveDate::from_ymd_opt(1970, 1, 1) {
-                    if let Some(result_date) =
-                        unix_date.checked_add_signed(chrono::Duration::days(num_date))
-                    {
-                        Ok(Some(result_date.format("%Y-%m-%d").to_string()))
-                    } else {
-                        Err("Invalid Unix timestamp date".into())
-                    }
-                } else {
-                    Err("Invalid Unix base date".into())
-                }
-            };
-        }
+    // Try handling as pure numeric date (Excel/Unix)
+    if let Ok(Some(result)) = handle_numeric_dates(&cleaned_date, excel) {
+        return Ok(Some(result));
     }
 
     // Process the date string - convert to Vec<String> from Vec<&str>
@@ -521,86 +670,13 @@ fn fix_date_native(
     date_vec = append_year(date_vec);
 
     // Parse the date components based on length and format
-    // Parse the date components
-    let (day, month, year) = if date_vec.len() < 3 {
-        // Handle MM/YYYY or YYYY/MM format
-        // Handle MM/YYYY or YYYY/MM format
-        if day_impute.is_none() {
-            // When day_impute is None (NULL), we need to throw an error
-            // When day_impute is None (NULL), we need to throw an error
-            return Err(missing_day_no_imputation().into());
-        } else if day_impute_na {
-            // When day_impute is Some(-1) (NA), we return None and let R handle the warning
-            // When day_impute is Some(-1) (NA), we return None and let R handle the warning
-            return Ok(None);
-        }
-
-        let day = day_impute.unwrap();
-
-        if date_vec.len() == 2 {
-            if date_vec[0].len() == 4 {
-                // YYYY/MM
-                let year = date_vec[0].parse::<i32>().map_err(|_| "Invalid year")?;
-                // Check for year with more than 4 digits
-                if date_vec[0].len() > 4 {
-                    return Err(unable_to_tidy_date().into());
-                }
-                let month = date_vec[1].parse::<i32>().map_err(|_| "Invalid month")?;
-                (Some(day), Some(month), Some(year))
-            } else if date_vec[1].len() == 4 {
-                // MM/YYYY
-                let month = date_vec[0].parse::<i32>().map_err(|_| "Invalid month")?;
-                let year = date_vec[1].parse::<i32>().map_err(|_| "Invalid year")?;
-                // Check for year with more than 4 digits
-                if date_vec[1].len() > 4 {
-                    return Err(unable_to_tidy_date().into());
-                }
-                (Some(day), Some(month), Some(year))
-            } else {
-                return Err("Unable to determine date format".into());
+    let (day, month, year) = match parse_date_components(&date_vec, &effective_format, day_impute, day_impute_na) {
+        Ok(components) => components,
+        Err(e) => {
+            if e.to_string().contains("NA imputation requested") {
+                return Ok(None);
             }
-        } else {
-            return Err("Insufficient date components".into());
-        }
-    } else {
-        // Handle full date with day, month, year
-        if date_vec[0].len() == 4 {
-            // YYYY/MM/DD
-            // Check for year with more than 4 digits
-            if date_vec[0].len() > 4 {
-                return Err(unable_to_tidy_date().into());
-            }
-            let year = date_vec[0].parse::<i32>().map_err(|_| "Invalid year")?;
-            let month = date_vec[1].parse::<i32>().map_err(|_| "Invalid month")?;
-            let day = date_vec[2].parse::<i32>().map_err(|_| "Invalid day")?;
-            (Some(day), Some(month), Some(year))
-        } else {
-            match effective_format {
-                "dmy" => {
-                    // DD/MM/YYYY
-                    let day = date_vec[0].parse::<i32>().map_err(|_| "Invalid day")?;
-                    let month = date_vec[1].parse::<i32>().map_err(|_| "Invalid month")?;
-                    // Check for year with more than 4 digits
-                    if date_vec[2].len() > 4 {
-                        return Err(unable_to_tidy_date().into());
-                    }
-                    let year = date_vec[2].parse::<i32>().map_err(|_| "Invalid year")?;
-                    (Some(day), Some(month), Some(year))
-                }
-                "mdy" => {
-                    // MM/DD/YYYY
-                    let month = date_vec[0].parse::<i32>().map_err(|_| "Invalid month")?;
-                    let day_str = clean_numeric_string(&date_vec[1]);
-                    let day = day_str.parse::<i32>().map_err(|_| "Invalid day")?;
-                    // Check for year with more than 4 digits
-                    if date_vec[2].len() > 4 {
-                        return Err(unable_to_tidy_date().into());
-                    }
-                    let year = date_vec[2].parse::<i32>().map_err(|_| "Invalid year")?;
-                    (Some(day), Some(month), Some(year))
-                }
-                _ => return Err(format_should_be_dmy_or_mdy().into()),
-            }
+            return Err(e);
         }
     };
 
@@ -615,6 +691,19 @@ fn fix_date_native(
         date_str,
         subject,
     ))
+}
+
+/// Internal native function to fix a single date string efficiently
+fn fix_date_native(
+    date_str: &str,
+    day_impute: Option<i32>,
+    month_impute: Option<i32>,
+    subject: Option<&str>,
+    format: &str,
+    excel: bool,
+    roman_numeral: bool,
+) -> Result<Option<String>> {
+    process_date_pipeline(date_str, day_impute, month_impute, subject, format, excel, roman_numeral)
 }
 
 /// Analyze and fix date strings in a whole column of a DataFrame
@@ -636,8 +725,8 @@ fn fix_date_column(
     dates.into_iter().enumerate().map(|(i, date)| {
         let subject = subjects.as_ref().and_then(|s| s.get(i));
         
-        // Use native function instead of converting to R objects
-        match fix_date_native(
+        // Use helper function for cleaner error handling
+        process_single_date_with_error_handling(
             &date,
             day_impute_opt,
             month_impute_opt,
@@ -645,23 +734,7 @@ fn fix_date_column(
             format,
             excel,
             roman_numeral,
-        ) {
-            Ok(result) => Ok(result),
-            Err(e) => {
-                let error_str = e.to_string();
-                if error_str.contains("unable to tidy a date")
-                    || error_str.contains("format should be either")
-                    || error_str.contains("date should be a character")
-                    || error_str.contains("Month not in expected range\n")
-                    || error_str.contains("Day not in expected range")
-                    || error_str.contains("Missing month with no imputation value given")
-                    || error_str.contains("Missing day with no imputation value given")
-                {
-                    return Err(e);
-                }
-                Ok(None)
-            }
-        }
+        )
     }).collect::<Result<Vec<Option<String>>>>()
 }
 
@@ -676,11 +749,7 @@ fn fix_date(
     excel: bool,
     roman_numeral: bool,
 ) -> Result<Option<String>> {
-    // Convert -1 sentinel values to special marker for NA (for direct calls from R)
-    // Keep -1 to distinguish between NA (-1) and NULL (None)
-    let day_impute_na = day_impute == Some(-1);
-    let month_impute_na = month_impute == Some(-1);
-    // Handle null/NA/empty dates
+    // Handle null/NA/empty dates at R object level
     if date.is_null() || date.is_na() {
         return Ok(None);
     }
@@ -694,216 +763,16 @@ fn fix_date(
         return Err(date_should_be_character().into());
     };
 
-    // Try fast-path parsing for common formats first
-    if let Some((day, month, year)) = fast_path_parse_date(date_str, format) {
-        // Still need to validate and adjust the date components (e.g., Feb 30 -> Feb 28)
-        let (adjusted_day, adjusted_month, adjusted_year) = check_output(
-            Some(day as i32),
-            Some(month as i32),
-            Some(year as i32),
-        )?;
-        
-        return Ok(combine_partial_date(
-            adjusted_day,
-            adjusted_month,
-            adjusted_year,
-            date_str,
-            subject.as_deref(),
-        ));
-    }
-
-    // Clean the date string using combined approach
-    let cleaned_date = clean_date_string_combined(date_str).into_owned();
-
-    // Handle 4-digit year only
-    if cleaned_date.len() == 4 && is_numeric(&cleaned_date) {
-        let year = cleaned_date.parse::<i32>().unwrap();
-        return if month_impute_na || day_impute_na {
-            // Either month.impute or day.impute is NA, should return None and let R generate warning
-            Ok(None)
-        } else if month_impute.is_none() {
-            Err(missing_month_no_imputation().into())
-        } else if day_impute.is_none() {
-            Err(missing_day_no_imputation().into())
-        } else if let (Some(m), Some(d)) = (month_impute, day_impute) {
-            // Only format if we have valid non-NA values
-            if m != -1 && d != -1 {
-                Ok(Some(format!("{:04}-{:02}-{:02}", year, m, d)))
-            } else {
-                Ok(None)
-            }
-        } else {
-            Ok(None)
-        };
-    }
-
-    // Handle pure numeric dates (Excel serial dates or Unix timestamps)
-    if is_numeric(&cleaned_date) {
-        if let Ok(num_date) = cleaned_date.parse::<i64>() {
-            return if excel {
-                // Excel dates - account for Excel's 1900 leap year bug
-                let adjusted_date = num_date;
-                if let Some(excel_date) = NaiveDate::from_ymd_opt(1899, 12, 30) {
-                    if let Some(result_date) =
-                        excel_date.checked_add_signed(chrono::Duration::days(adjusted_date))
-                    {
-                        Ok(Some(result_date.format("%Y-%m-%d").to_string()))
-                    } else {
-                        Err("Invalid Excel date".into())
-                    }
-                } else {
-                    Err("Invalid Excel base date".into())
-                }
-            } else {
-                // Unix timestamp
-                if let Some(unix_date) = NaiveDate::from_ymd_opt(1970, 1, 1) {
-                    if let Some(result_date) =
-                        unix_date.checked_add_signed(chrono::Duration::days(num_date))
-                    {
-                        Ok(Some(result_date.format("%Y-%m-%d").to_string()))
-                    } else {
-                        Err("Invalid Unix timestamp date".into())
-                    }
-                } else {
-                    Err("Invalid Unix base date".into())
-                }
-            };
-        }
-    }
-
-    // Process the date string - convert to Vec<String> from Vec<&str>
-    let date_vec_str = separate_date_optimized(&cleaned_date);
-    let mut date_vec: Vec<String> = date_vec_str.into_iter().map(|s| s.to_string()).collect();
-    // Debug information removed for production
-
-    // Check if first element is a month name (forces MDY format)
-    let effective_format = if first_is_month(&date_vec) {
-        "mdy"
-    } else {
-        format
-    };
-
-    // Convert text months to numbers in date components
-    for component in &mut date_vec {
-        let converted = convert_text_month_optimized(component).into_owned();
-        *component = converted;
-    }
-
-    // Handle Roman numerals
-    if roman_numeral {
-        date_vec = roman_conversion(date_vec);
-    }
-
-    // Check for overly long components before processing
-    if date_str.len() > 200 || date_vec.iter().any(|s| s.len() > 6) {
-        return Err(unable_to_tidy_date().into());
-    }
-
-    // Check for components that are too long to be valid date parts
-    // Any numeric component longer than 4 digits is invalid for years, and anything over 2 digits is invalid for days/months
-    for component in &date_vec {
-        if is_numeric(component) && component.len() > 4 {
-            return Err(unable_to_tidy_date().into());
-        }
-    }
-
-    // Append year prefixes if needed
-    date_vec = append_year(date_vec);
-
-    // Parse the date components based on length and format
-    // Parse the date components
-    let (day, month, year) = if date_vec.len() < 3 {
-        // Handle MM/YYYY or YYYY/MM format
-        // Handle MM/YYYY or YYYY/MM format
-        if day_impute.is_none() {
-            // When day_impute is None (NULL), we need to throw an error
-            // When day_impute is None (NULL), we need to throw an error
-            return Err(missing_day_no_imputation().into());
-        } else if day_impute_na {
-            // When day_impute is Some(-1) (NA), we return None and let R handle the warning
-            // When day_impute is Some(-1) (NA), we return None and let R handle the warning
-            return Ok(None);
-        }
-
-        let day = day_impute.unwrap();
-
-        if date_vec.len() == 2 {
-            if date_vec[0].len() == 4 {
-                // YYYY/MM
-                let year = date_vec[0].parse::<i32>().map_err(|_| "Invalid year")?;
-                // Check for year with more than 4 digits
-                if date_vec[0].len() > 4 {
-                    return Err(unable_to_tidy_date().into());
-                }
-                let month = date_vec[1].parse::<i32>().map_err(|_| "Invalid month")?;
-                (Some(day), Some(month), Some(year))
-            } else if date_vec[1].len() == 4 {
-                // MM/YYYY
-                let month = date_vec[0].parse::<i32>().map_err(|_| "Invalid month")?;
-                let year = date_vec[1].parse::<i32>().map_err(|_| "Invalid year")?;
-                // Check for year with more than 4 digits
-                if date_vec[1].len() > 4 {
-                    return Err(unable_to_tidy_date().into());
-                }
-                (Some(day), Some(month), Some(year))
-            } else {
-                return Err("Unable to determine date format".into());
-            }
-        } else {
-            return Err("Insufficient date components".into());
-        }
-    } else {
-        // Handle full date with day, month, year
-        if date_vec[0].len() == 4 {
-            // YYYY/MM/DD
-            // Check for year with more than 4 digits
-            if date_vec[0].len() > 4 {
-                return Err(unable_to_tidy_date().into());
-            }
-            let year = date_vec[0].parse::<i32>().map_err(|_| "Invalid year")?;
-            let month = date_vec[1].parse::<i32>().map_err(|_| "Invalid month")?;
-            let day = date_vec[2].parse::<i32>().map_err(|_| "Invalid day")?;
-            (Some(day), Some(month), Some(year))
-        } else {
-            match effective_format {
-                "dmy" => {
-                    // DD/MM/YYYY
-                    let day = date_vec[0].parse::<i32>().map_err(|_| "Invalid day")?;
-                    let month = date_vec[1].parse::<i32>().map_err(|_| "Invalid month")?;
-                    // Check for year with more than 4 digits
-                    if date_vec[2].len() > 4 {
-                        return Err(unable_to_tidy_date().into());
-                    }
-                    let year = date_vec[2].parse::<i32>().map_err(|_| "Invalid year")?;
-                    (Some(day), Some(month), Some(year))
-                }
-                "mdy" => {
-                    // MM/DD/YYYY
-                    let month = date_vec[0].parse::<i32>().map_err(|_| "Invalid month")?;
-                    let day = date_vec[1].parse::<i32>().map_err(|_| "Invalid day")?;
-                    // Check for year with more than 4 digits
-                    if date_vec[2].len() > 4 {
-                        return Err(unable_to_tidy_date().into());
-                    }
-                    let year = date_vec[2].parse::<i32>().map_err(|_| "Invalid year")?;
-                    (Some(day), Some(month), Some(year))
-                }
-                _ => return Err(format_should_be_dmy_or_mdy().into()),
-            }
-        }
-    };
-
-    // Validate and adjust the date components
-    let (adjusted_day, adjusted_month, adjusted_year) = check_output(day, month, year)?;
-
-    // Combine into final date string
-    Ok(combine_partial_date(
-        adjusted_day,
-        adjusted_month,
-        adjusted_year,
-        date_str,
-        subject.as_deref(),
-    ))
+    // Use the common processing pipeline
+    process_date_pipeline(
+        date_str, 
+        day_impute, 
+        month_impute, 
+        subject.as_deref(), 
+        format, 
+        excel, 
+        roman_numeral
+    )
 }
 
 // Macro to generate exports.
@@ -1070,5 +939,497 @@ mod tests {
         }
         println!("After month conversion: {:?}", components);
         assert_eq!(components, vec!["20", "04", "1994"]);
+    }
+
+    #[test]
+    fn test_handle_year_only_date() {
+        // Test valid year-only date with imputation
+        let result = handle_year_only_date("2020", Some(15), Some(6), false, false).unwrap();
+        assert_eq!(result, Some("2020-06-15".to_string()));
+
+        // Test year-only date with NA day imputation
+        let result = handle_year_only_date("2020", Some(-1), Some(6), true, false).unwrap();
+        assert_eq!(result, None);
+
+        // Test year-only date with NA month imputation
+        let result = handle_year_only_date("2020", Some(15), Some(-1), false, true).unwrap();
+        assert_eq!(result, None);
+
+        // Test year-only date with both NA imputation values
+        let result = handle_year_only_date("2020", Some(-1), Some(-1), true, true).unwrap();
+        assert_eq!(result, None);
+
+        // Test year-only date with missing month imputation (should error)
+        let result = handle_year_only_date("2020", Some(15), None, false, false);
+        assert!(result.is_err());
+        assert!(result.unwrap_err().to_string().contains("Missing month"));
+
+        // Test year-only date with missing day imputation (should error)
+        let result = handle_year_only_date("2020", None, Some(6), false, false);
+        assert!(result.is_err());
+        assert!(result.unwrap_err().to_string().contains("Missing day"));
+
+        // Test non-year-only date (should return None to continue processing)
+        let result = handle_year_only_date("01/02/2020", Some(15), Some(6), false, false).unwrap();
+        assert_eq!(result, None);
+
+        // Test non-numeric year-only (should return None to continue processing)
+        let result = handle_year_only_date("abcd", Some(15), Some(6), false, false).unwrap();
+        assert_eq!(result, None);
+
+        // Test 3-digit year (should return None to continue processing)
+        let result = handle_year_only_date("202", Some(15), Some(6), false, false).unwrap();
+        assert_eq!(result, None);
+
+        // Test 5-digit year (should return None to continue processing)
+        let result = handle_year_only_date("20201", Some(15), Some(6), false, false).unwrap();
+        assert_eq!(result, None);
+
+        // Test edge case: year 0000
+        let result = handle_year_only_date("0000", Some(1), Some(1), false, false).unwrap();
+        assert_eq!(result, Some("0000-01-01".to_string()));
+
+        // Test edge case: year 9999
+        let result = handle_year_only_date("9999", Some(31), Some(12), false, false).unwrap();
+        assert_eq!(result, Some("9999-12-31".to_string()));
+    }
+
+    #[test]
+    fn test_handle_numeric_dates() {
+        // Test Excel date parsing
+        let result = handle_numeric_dates("44927", true).unwrap();
+        assert!(result.is_some());
+        let date_str = result.unwrap();
+        // Excel date 44927 should be around 2023 (give or take depending on Excel's epoch)
+        assert!(date_str.starts_with("202"));
+
+        // Test Unix timestamp parsing
+        let result = handle_numeric_dates("18628", false).unwrap();
+        assert!(result.is_some());
+        let date_str = result.unwrap();
+        // Unix day 18628 from 1970-01-01 should be around 2021
+        assert!(date_str.starts_with("202"));
+
+        // Test small Excel date
+        let result = handle_numeric_dates("1", true).unwrap();
+        assert!(result.is_some());
+        let date_str = result.unwrap();
+        assert_eq!(date_str, "1899-12-31"); // Excel day 1 = Dec 31, 1899
+
+        // Test small Unix date
+        let result = handle_numeric_dates("1", false).unwrap();
+        assert!(result.is_some());
+        let date_str = result.unwrap();
+        assert_eq!(date_str, "1970-01-02"); // Unix day 1 = Jan 2, 1970
+
+        // Test zero for both systems
+        let excel_zero = handle_numeric_dates("0", true).unwrap();
+        assert!(excel_zero.is_some());
+        let unix_zero = handle_numeric_dates("0", false).unwrap();
+        assert!(unix_zero.is_some());
+        // Excel day 0 vs Unix day 0 should be different
+        assert_ne!(excel_zero.unwrap(), unix_zero.unwrap());
+
+        // Test non-numeric input (should return None to continue processing)
+        let result = handle_numeric_dates("01/02/2020", true).unwrap();
+        assert_eq!(result, None);
+
+        // Test non-numeric input with letters
+        let result = handle_numeric_dates("abc123", true).unwrap();
+        assert_eq!(result, None);
+
+        // Test empty string
+        let result = handle_numeric_dates("", true).unwrap();
+        assert_eq!(result, None);
+
+        // Test mixed alphanumeric
+        let result = handle_numeric_dates("123abc", true).unwrap();
+        assert_eq!(result, None);
+
+        // Test with spaces
+        let result = handle_numeric_dates("123 456", true).unwrap();
+        assert_eq!(result, None);
+
+        // Test very large number that might overflow
+        let result = handle_numeric_dates("999999999999999999999999999999999", true);
+        // This should either return None (parsing fails) or handle gracefully
+        assert!(result.is_ok());
+        if let Ok(Some(_)) = result {
+            // If it parses, that's fine
+        } else {
+            // If it doesn't parse or returns None, that's also fine
+            assert!(true);
+        }
+
+        // Test negative numbers (should handle gracefully)
+        let result = handle_numeric_dates("-100", true);
+        assert!(result.is_ok()); // Should not panic, might return error or None
+    }
+
+    #[test]
+    fn test_parse_date_components() {
+        // Test DMY format (DD/MM/YYYY)
+        let date_vec = vec!["15".to_string(), "06".to_string(), "2020".to_string()];
+        let result = parse_date_components(&date_vec, "dmy", Some(1), false).unwrap();
+        assert_eq!(result, (Some(15), Some(6), Some(2020)));
+
+        // Test MDY format (MM/DD/YYYY)
+        let date_vec = vec!["06".to_string(), "15".to_string(), "2020".to_string()];
+        let result = parse_date_components(&date_vec, "mdy", Some(1), false).unwrap();
+        assert_eq!(result, (Some(15), Some(6), Some(2020)));
+
+        // Test YMD format (YYYY/MM/DD)
+        let date_vec = vec!["2020".to_string(), "06".to_string(), "15".to_string()];
+        let result = parse_date_components(&date_vec, "dmy", Some(1), false).unwrap();
+        assert_eq!(result, (Some(15), Some(6), Some(2020)));
+
+        // Test MM/YYYY format with day imputation
+        let date_vec = vec!["06".to_string(), "2020".to_string()];
+        let result = parse_date_components(&date_vec, "dmy", Some(15), false).unwrap();
+        assert_eq!(result, (Some(15), Some(6), Some(2020)));
+
+        // Test YYYY/MM format with day imputation
+        let date_vec = vec!["2020".to_string(), "06".to_string()];
+        let result = parse_date_components(&date_vec, "dmy", Some(15), false).unwrap();
+        assert_eq!(result, (Some(15), Some(6), Some(2020)));
+
+        // Test insufficient components (single element) - should error
+        let date_vec = vec!["2020".to_string()];
+        let result = parse_date_components(&date_vec, "dmy", Some(15), false);
+        assert!(result.is_err());
+        assert!(result.unwrap_err().to_string().contains("Insufficient"));
+
+        // Test missing day imputation (None) - should error
+        let date_vec = vec!["06".to_string(), "2020".to_string()];
+        let result = parse_date_components(&date_vec, "dmy", None, false);
+        assert!(result.is_err());
+        assert!(result.unwrap_err().to_string().contains("Missing day"));
+
+        // Test NA day imputation - should return special error
+        let date_vec = vec!["06".to_string(), "2020".to_string()];
+        let result = parse_date_components(&date_vec, "dmy", Some(-1), true);
+        assert!(result.is_err());
+        assert!(result.unwrap_err().to_string().contains("NA imputation requested"));
+
+        // Test invalid format
+        let date_vec = vec!["15".to_string(), "06".to_string(), "2020".to_string()];
+        let result = parse_date_components(&date_vec, "xyz", Some(1), false);
+        assert!(result.is_err());
+        assert!(result.unwrap_err().to_string().contains("format should be either"));
+
+        // Test overly long year (more than 4 digits) - should error
+        let date_vec = vec!["15".to_string(), "06".to_string(), "20201".to_string()];
+        let result = parse_date_components(&date_vec, "dmy", Some(1), false);
+        assert!(result.is_err());
+        assert!(result.unwrap_err().to_string().contains("unable to tidy"));
+
+        // Test invalid numeric components
+        let date_vec = vec!["abc".to_string(), "06".to_string(), "2020".to_string()];
+        let result = parse_date_components(&date_vec, "dmy", Some(1), false);
+        assert!(result.is_err());
+        assert!(result.unwrap_err().to_string().contains("Invalid"));
+
+        // Test ambiguous 2-component format (neither is 4 digits)
+        let date_vec = vec!["06".to_string(), "15".to_string()];
+        let result = parse_date_components(&date_vec, "dmy", Some(1), false);
+        assert!(result.is_err());
+        assert!(result.unwrap_err().to_string().contains("Unable to determine"));
+
+        // Test MDY with day having trailing punctuation (should be cleaned)
+        let date_vec = vec!["06".to_string(), "15,".to_string(), "2020".to_string()];
+        let result = parse_date_components(&date_vec, "mdy", Some(1), false).unwrap();
+        assert_eq!(result, (Some(15), Some(6), Some(2020)));
+
+        // Test edge cases: year 0000
+        let date_vec = vec!["0000".to_string(), "01".to_string(), "01".to_string()];
+        let result = parse_date_components(&date_vec, "dmy", Some(1), false).unwrap();
+        assert_eq!(result, (Some(1), Some(1), Some(0)));
+
+        // Test edge cases: year 9999
+        let date_vec = vec!["31".to_string(), "12".to_string(), "9999".to_string()];
+        let result = parse_date_components(&date_vec, "dmy", Some(1), false).unwrap();
+        assert_eq!(result, (Some(31), Some(12), Some(9999)));
+    }
+
+    #[test]
+    fn test_process_single_date_with_error_handling() {
+        // Test successful date processing
+        let result = process_single_date_with_error_handling(
+            "15/06/2020",
+            Some(1),
+            Some(1),
+            None,
+            "dmy",
+            false,
+            false,
+        ).unwrap();
+        assert_eq!(result, Some("2020-06-15".to_string()));
+
+        // Test with subject
+        let result = process_single_date_with_error_handling(
+            "06/15/2020",
+            Some(1),
+            Some(1),
+            Some("test_subject"),
+            "mdy",
+            false,
+            false,
+        ).unwrap();
+        assert_eq!(result, Some("2020-06-15".to_string()));
+
+        // Test critical errors that should be propagated - invalid format
+        // Use a date that won't be caught by fast-path parser to test format validation
+        let result = process_single_date_with_error_handling(
+            "15 06 2020", // Space-separated date that bypasses fast-path
+            Some(1),
+            Some(1),
+            None,
+            "xyz", // Invalid format
+            false,
+            false,
+        );
+        assert!(result.is_err());
+        assert!(result.unwrap_err().to_string().contains("format should be either"));
+
+        // Test critical errors that should be propagated - missing day imputation
+        let result = process_single_date_with_error_handling(
+            "06 2020", // 2-component space-separated date requiring day imputation
+            None, // No day imputation provided
+            Some(1),
+            None,
+            "dmy",
+            false,
+            false,
+        );
+        assert!(result.is_err());
+        assert!(result.unwrap_err().to_string().contains("Missing day"));
+
+        // Test critical errors that should be propagated - month out of range
+        let result = process_single_date_with_error_handling(
+            "15 13 2020", // Month 13 is invalid, space-separated
+            Some(1),
+            Some(1),
+            None,
+            "dmy",
+            false,
+            false,
+        );
+        assert!(result.is_err());
+        assert!(result.unwrap_err().to_string().contains("Month not in expected range"));
+
+        // Test critical errors that should be propagated - day out of range
+        let result = process_single_date_with_error_handling(
+            "32 06 2020", // Day 32 is invalid, space-separated
+            Some(1),
+            Some(1),
+            None,
+            "dmy",
+            false,
+            false,
+        );
+        assert!(result.is_err());
+        assert!(result.unwrap_err().to_string().contains("Day not in expected range"));
+
+        // Test critical errors that should be propagated - unable to tidy date
+        let result = process_single_date_with_error_handling(
+            "15 06 202001", // Year too long, space-separated
+            Some(1),
+            Some(1),
+            None,
+            "dmy",
+            false,
+            false,
+        );
+        assert!(result.is_err());
+        assert!(result.unwrap_err().to_string().contains("unable to tidy a date"));
+
+        // Test empty date string (should return None, not error)
+        let result = process_single_date_with_error_handling(
+            "",
+            Some(1),
+            Some(1),
+            None,
+            "dmy",
+            false,
+            false,
+        ).unwrap();
+        assert_eq!(result, None);
+
+        // Test NA date string (should return None, not error)
+        let result = process_single_date_with_error_handling(
+            "NA",
+            Some(1),
+            Some(1),
+            None,
+            "dmy",
+            false,
+            false,
+        ).unwrap();
+        assert_eq!(result, None);
+
+        // Test partial date with imputation (MM/YYYY)
+        let result = process_single_date_with_error_handling(
+            "06/2020",
+            Some(25), // Day imputation
+            Some(1),
+            None,
+            "dmy",
+            false,
+            false,
+        ).unwrap();
+        assert_eq!(result, Some("2020-06-25".to_string()));
+
+        // Test date adjustment (Feb 30 -> Feb 28)
+        let result = process_single_date_with_error_handling(
+            "30/02/2021", // Feb 30 in non-leap year
+            Some(1),
+            Some(1),
+            None,
+            "dmy",
+            false,
+            false,
+        ).unwrap();
+        assert_eq!(result, Some("2021-02-28".to_string())); // Should be adjusted to Feb 28
+
+        // Test date adjustment (Feb 29 in leap year - should be preserved)
+        let result = process_single_date_with_error_handling(
+            "29/02/2020", // Feb 29 in leap year
+            Some(1),
+            Some(1),
+            None,
+            "dmy",
+            false,
+            false,
+        ).unwrap();
+        assert_eq!(result, Some("2020-02-29".to_string())); // Should be preserved
+
+        // Test with 2-digit year conversion
+        let result = process_single_date_with_error_handling(
+            "15/06/99", // 99 should become 1999
+            Some(1),
+            Some(1),
+            None,
+            "dmy",
+            false,
+            false,
+        ).unwrap();
+        assert_eq!(result, Some("1999-06-15".to_string()));
+
+        // Test Roman numeral conversion
+        let result = process_single_date_with_error_handling(
+            "15/xii/2020", // December in Roman numerals
+            Some(1),
+            Some(1),
+            None,
+            "dmy",
+            false,
+            true, // Roman numeral mode
+        ).unwrap();
+        assert_eq!(result, Some("2020-12-15".to_string()));
+
+        // Test date with month name (forces MDY)
+        let result = process_single_date_with_error_handling(
+            "january 15 2020",
+            Some(1),
+            Some(1),
+            None,
+            "dmy", // Should be overridden to mdy due to month name
+            false,
+            false,
+        ).unwrap();
+        assert_eq!(result, Some("2020-01-15".to_string()));
+    }
+
+    #[test]
+    fn test_process_single_date_error_propagation() {
+        // Test that critical errors are properly propagated
+        
+        // Invalid format error - use space-separated date that bypasses fast-path
+        let result = process_single_date_with_error_handling(
+            "15 06 2020",
+            Some(1),
+            Some(1),
+            None,
+            "invalid_format",
+            false,
+            false,
+        );
+        assert!(result.is_err());
+        
+        // Month out of range error - use space-separated date that bypasses fast-path
+        let result = process_single_date_with_error_handling(
+            "15 15 2020", // Month 15 is invalid
+            Some(1),
+            Some(1),
+            None,
+            "dmy",
+            false,
+            false,
+        );
+        assert!(result.is_err());
+        
+        // Day out of range error - use space-separated date that bypasses fast-path
+        let result = process_single_date_with_error_handling(
+            "40 06 2020", // Day 40 is invalid
+            Some(1),
+            Some(1),
+            None,
+            "dmy",
+            false,
+            false,
+        );
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn test_process_single_date_recoverable_errors() {
+        // Test cases where errors should be converted to None instead of propagated
+        
+        // Empty string should return None, not error
+        let result = process_single_date_with_error_handling(
+            "",
+            Some(1),
+            Some(1),
+            None,
+            "dmy",
+            false,
+            false,
+        ).unwrap();
+        assert_eq!(result, None);
+        
+        // NA string should return None, not error
+        let result = process_single_date_with_error_handling(
+            "NA",
+            Some(1),
+            Some(1),
+            None,
+            "dmy",
+            false,
+            false,
+        ).unwrap();
+        assert_eq!(result, None);
+    }
+
+    #[test]
+    fn test_validate_year_length() {
+        // Test valid 4-digit years
+        assert!(validate_year_length("2020").is_ok());
+        assert!(validate_year_length("1999").is_ok());
+        assert!(validate_year_length("0001").is_ok());
+        assert!(validate_year_length("9999").is_ok());
+        
+        // Test valid shorter years
+        assert!(validate_year_length("20").is_ok());
+        assert!(validate_year_length("1").is_ok());
+        assert!(validate_year_length("").is_ok()); // Empty is technically valid
+        
+        // Test invalid long years
+        assert!(validate_year_length("20201").is_err());
+        assert!(validate_year_length("123456").is_err());
+        
+        // Verify error message
+        let result = validate_year_length("20201");
+        assert!(result.is_err());
+        assert!(result.unwrap_err().to_string().contains("unable to tidy"));
     }
 }
