@@ -20,3 +20,4 @@
 ^src/Makevars\.win$
 ^doc$
 ^Meta$
+^codecov\.yml$
