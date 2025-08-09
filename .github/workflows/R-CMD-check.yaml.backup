@@ -177,10 +177,6 @@ jobs:
           echo "Starting Rust coverage generation..."
           echo "Current working directory: $(pwd)"
           
-          # Install build essentials for better linking compatibility
-          sudo apt-get update -q
-          sudo apt-get install -y build-essential
-
           # Set up R library path for linking
           export R_HOME=$(R RHOME)
           export LD_LIBRARY_PATH="$R_HOME/lib:$LD_LIBRARY_PATH"
@@ -196,23 +192,17 @@ jobs:
           cargo test --list || echo "No tests found or cargo test failed"
           
           # Generate coverage with tarpaulin, outputting to XML (Cobertura) format
-          # First verify tests compile and run successfully
-          if ! cargo test; then
-            echo "Tests failed to compile or run, skipping coverage generation"
-            exit 1
-          fi
-          echo "Tests passed, proceeding with coverage..."
           echo "Running tarpaulin..."
           
           # First, clean any existing cobertura files to avoid conflicts
           rm -f cobertura.xml ../../cobertura.xml ../../rust-cobertura.xml
           
-          cargo tarpaulin --verbose --workspace --timeout 180 --engine llvm \
+          cargo tarpaulin --verbose --all-features --workspace --timeout 120 \
             --exclude-files vendor/ \
             --out Xml \
             --follow-exec \
             || { echo "Tarpaulin failed, trying with simpler options..."; \
-                 cargo tarpaulin --out Xml --engine llvm --timeout 120; }
+                 cargo tarpaulin --out Xml; }
           
           # Move the generated cobertura.xml to the project root with rust prefix
           if [ -f "cobertura.xml" ]; then
