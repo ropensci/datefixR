@@ -29,7 +29,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: end -->
 
-**`datefixR` is an R package that automatically standardizes messy date data into consistent, machine-readable formats.** Whether you're dealing with free-text web form entries like "02 05 92", "2020-may-01", or "le 3 mars 2013", `datefixR` intelligently parses diverse date formats and converts them to R's standard Date class.
+**`datefixR` is an R package that automatically standardizes messy date data into consistent, machine-readable formats.** Whether you're dealing with free-text web form entries like "02 05 92", "2020-may-01", or "le 3 mars 2013", `datefixR` intelligently parses diverse date formats and converts them to R's standard Date class. Under the hood, datefixR uses Rust for fast and memory-safe parsing.
 
 [![CRAN Version](https://www.r-pkg.org/badges/version/datefixR)](https://cran.r-project.org/package=datefixR) 
 [![R Version](https://img.shields.io/badge/R-≥4.1.0-blue)](https://www.r-project.org/)
@@ -37,12 +37,14 @@ knitr::opts_chunk$set(
 
 **Key features:**
 
-- **Smart parsing**: Handles mixed date formats, separators, and representations in a single dataset
-- **Multilingual support**: Recognizes dates in English, French, German, Spanish, Indonesian, Russian, and Portuguese
-- **Missing data imputation**: User-controlled behavior for incomplete dates (missing days/months)
-- **Detailed error reporting**: Identifies exactly which dates couldn't be parsed and why
-- **Excel compatibility**: Supports both R and Excel numeric date representations
-- **Shiny integration**: Interactive web app for data exploration and cleaning
+- **Smart parsing**: Handles mixed date formats, separators, and representations in a single dataset.
+- **Multilingual support**: Recognizes dates in English, French, German, Spanish, Indonesian, Russian, and Portuguese.
+- **Missing data imputation**: User-controlled behavior for incomplete dates (missing days/months).
+- **Error reporting**: If a date cannot be parsed, the user is informed of the provided date and associated row ID, allowing for easier debugging and correction.
+- **Excel compatibility**: Supports both R and Excel numeric date representations.
+- **Shiny integration**: Interactive web app for data exploration and cleaning.
+<br>
+
 <img src="man/figures/example.svg" width="800"/>
 
 ## Quick Start
@@ -58,12 +60,16 @@ messy_df <- data.frame(id = 1:4, dates = messy_dates)
 print(messy_df)
 
 # Clean the dates
-clean_dates <- fix_date_char(messy_dates)
-clean_df <- fix_date_df(messy_df, "dates")
+clean_dates <- fix_date_char(messy_dates) # Clean a character vector
+clean_df <- fix_date_df(messy_df, "dates") # Clean a column of a dataframe
 print(clean_df)
 ```
 
-The package automatically standardizes dates from different formats (US/European style, named months, various separators, incomplete dates) into R's standard `yyyy-mm-dd` format. When parts are missing (like the day or month), it intelligently imputes them—defaulting to July 1st for incomplete dates.
+The package automatically standardizes dates from different formats (named
+months, various separators, incomplete dates) into R's standard `yyyy-mm-dd`
+format. When parts are missing (like the day or month), they are imputed,
+defaulting to July 1st for incomplete dates. Imputation can be denied if this
+behaviour is undesirable.
 
 ## Installation
 
@@ -98,16 +104,10 @@ if (!require("remotes")) install.packages("remotes")
 remotes::install_github("ropensci/datefixR", "devel")
 ```
 
-**Version Compatibility**: `datefixR` requires R ≥ 4.1.0. Current stable version: `r packageVersion("datefixR")`.
+**Version Compatibility**: `datefixR` requires R ≥ 4.1.0. Current stable
+version: `r packageVersion("datefixR")`.
 
 ## Getting Started
-
-New to `datefixR`? Start here:
-
-1. **Install the package** (see above)
-2. **Try the Quick Start example** (see below)
-3. **Explore the Shiny app**: [https://nathansam.shinyapps.io/datefixr/](https://nathansam.shinyapps.io/datefixr/)
-4. **Read the full vignette**: `browseVignettes("datefixR")` or visit [online documentation](https://docs.ropensci.org/datefixR/articles/datefixR.html)
 
 ## Package vignette
 
@@ -121,13 +121,19 @@ browseVignettes("datefixR")
 or visiting the vignette on the [package
 website](https://docs.ropensci.org/datefixR/articles/datefixR.html)
 
+Additional vignettes are available describing datefixR's localization features
+and how to use the Shiny app.
+
 ## Usage
 
-`datefixR` provides flexible date standardization capabilities across different data structures and formats. This section demonstrates various use cases with practical examples.
+`datefixR` provides flexible date standardization capabilities across different
+data structures and formats. This section demonstrates various use cases with
+practical examples.
 
 ### Character Vector Cleaning
 
-The most basic use case involves cleaning a character vector of messy dates using `fix_date_char()`:
+The most basic use case involves cleaning a character vector of messy dates
+using `fix_date_char()`:
 
 ```{r char-vector-example}
 library(datefixR)
@@ -147,11 +153,13 @@ clean_dates <- fix_date_char(messy_dates)
 print(clean_dates)
 ```
 
-This function automatically handles various separators ("-", "/", ".", spaces), different date orders, named months in multiple languages, and incomplete dates.
+This function automatically handles various separators ("-", "/", ".", spaces),
+different date orders, named months in multiple languages, and incomplete dates.
 
 ### Data Frame Cleaning
 
-For structured data, use `fix_date_df()` to clean multiple date columns simultaneously:
+For structured data, use `fix_date_df()` to clean multiple date columns
+simultaneously:
 
 ```{r df-example}
 # Load example dataset
@@ -163,7 +171,8 @@ fixed_df <- fix_date_df(exampledates, c("some.dates", "some.more.dates"))
 knitr::kable(fixed_df)
 ```
 
-The function preserves non-date columns and provides detailed error reporting if any dates fail to parse.
+The function preserves non-date columns and provides detailed error reporting if
+any dates fail to parse.
 
 ### Excel Serial Numbers
 
@@ -183,11 +192,13 @@ mixed_dates <- c("45108", "2023-07-01", "july 1 2023")
 fix_date_char(mixed_dates, excel = TRUE)
 ```
 
-This is particularly useful when importing data from Excel spreadsheets where dates may have been converted to serial numbers.
+This is particularly useful when importing data from Excel spreadsheets where
+dates may have been converted to serial numbers.
 
 ### Roman Numerals
 
-`datefixR` can handle Roman numerals in month positions, common in some European date formats:
+`datefixR` can handle Roman numerals in month positions, common in some European
+date formats:
 
 ```{r roman-example}
 # Roman numeral months
@@ -200,11 +211,13 @@ roman_dates <- c(
 fix_date_char(roman_dates, roman.numeral = TRUE)
 ```
 
-Roman numerals (I-XII) are automatically recognized and converted to the appropriate numeric months.
+Roman numerals (I-XII) are automatically recognized and converted to the
+appropriate numeric months.
 
 ### MDY vs DMY Detection
 
-By default, `datefixR` assumes day-first (DMY) format when the date order is ambiguous. However, you can specify month-first (MDY) format:
+By default, `datefixR` assumes day-first (DMY) format when the date order is
+ambiguous. However, you can specify month-first (MDY) format:
 
 ```{r mdy-dmy-example}
 # Ambiguous dates that could be interpreted as either MDY or DMY
@@ -219,10 +232,10 @@ mdy_result <- fix_date_char(ambiguous_dates, format = "mdy")
 print(mdy_result)
 ```
 
-
 ### Missing Day/Month Imputation
 
-`datefixR` provides flexible control over how missing date components are imputed:
+`datefixR` provides flexible control over how missing date components are
+imputed:
 
 ```{r imputation-example}
 # Incomplete dates requiring imputation
@@ -252,9 +265,18 @@ fixed_incomplete <- fix_date_df(incomplete_df, "dates",
 knitr::kable(fixed_incomplete)
 ```
 
-This flexibility allows you to choose imputation strategies that make sense for your specific use case (e.g., fiscal year starts, survey periods, etc.).
+This flexibility allows you to choose imputation strategies that make sense for
+your specific use case (e.g., fiscal year starts, survey periods, etc.).
 
-For datasets with hundreds of thousands of rows where speed is critical and you can accept less flexible parsing, consider alternatives like `lubridate` or `clock` packages, which use compiled code and can be orders of magnitude faster.
+## Performance
+
+This package has recently been optimized for speed using Rust and is now over
+300x faster than the largely pure R implementation used in previous versions.
+Moreover, a fastpath approach has been implemented for common date formats,
+further improving performance in most situations. Finally, `fix_date_df()` now
+supports parallelism over columns via the `cores` argument (or via the `'Ncpus'`
+global option). As such, speed is now very unlikely to be an issue when using
+`datefixR` on large datasets.
 
 ## Limitations
 
@@ -264,10 +286,6 @@ current rationale is this package is mostly used to handle dates entered via
 free text web forms and it is much less common for both date and time to be
 reported together in this input method. However, if there is significant demand
 for support for datetime data in the future this may added.
-
-The package is written solely in R and seems fast enough for my current use
-cases (a few hundred rows). However, I may convert the core for loop to C++ in
-the future if speed becomes an issue.
 
 ## Similar packages to datefixR
 
@@ -306,14 +324,14 @@ also attempts to convert dates to a consistent format (POSIXct). However
 `{anytime}` assumes year, month, and day have all been provided and does not
 permit imputation. Moreover, if a date cannot be parsed, then the date is
 converted to an NA object and no warning is raised- which may lead to issues
-later in the analysis.
+in any downstream analyses.
 
 ### `parsedate`
 
 `parsedate::parse_date()` also attempts to solve the problem of handling
 arbitrary dates and parses dates into the `POSIXct` type. Unfortunately,
-`parse_date()` cannot handle years before 1970 -- instead imputing the year using
-the current year without raising a warning. 
+`parse_date()` cannot handle years before 1970 -- instead imputing the year as
+the current year without any warnings being raised. 
 
 ```{R}
 parsedate::parse_date("april 15 1969")
@@ -339,23 +357,19 @@ readr::parse_date("02/2010", "%m/%Y")
 
 However, these packages have support for weekdays and months in around 211
 locales whereas `datefixR` supports much fewer languages due to support for
-additional languages needing to be implemented individually by hand.
-
-
-### Performance Comparison
-
-These alternative packages all use compiled code and therefore have the
-potential to be orders of magnitude faster than `datefixR`. However, performance
-varies significantly based on use case and data characteristics.
+additional languages needing to be implemented individually and by hand.
 
 **Trade-offs to consider:**
 
-- **`datefixR`**: Excellent error reporting, flexible imputation, handles mixed formats automatically
-- **`lubridate`**: Faster performance but requires format specification, limited imputation control  
-- **`stringi`/`readr`/`clock`**: Blazing fast but require exact format specification, 211 locale support
+- **`datefixR`**: Better error reporting, flexible imputation, handles mixed formats automatically. Fast. 
+- **`lubridate`**: Requires format specification, limited imputation control  
+- **`stringi`/`readr`/`clock`**: Require exact format specification, supports 211 locales
 - **`anytime`**: Variable performance, no imputation support, silent failures
 
-If you have very large datasets with consistent formats and don't need detailed error reporting, consider `lubridate` or ICU-based packages. For messy, mixed-format data where usability and error handling are priorities, `datefixR` is optimized for ease of use over raw speed.
+For messy, mixed-format data where usability and error handling are priorities,
+datefixR shines. Additionally now that the core logic is handled in Rust,
+performance has improved significantly making it suitable for very large
+datasets.
 
 ## Contributing to datefixR
 
