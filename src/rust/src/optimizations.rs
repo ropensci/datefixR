@@ -87,7 +87,7 @@ pub fn replace_all_optimized<'a>(input: &'a str, patterns: &[(&str, &str)]) -> C
 }
 
 /// Optimized ordinal suffix removal using a single regex and pre-allocated capacity
-pub fn rm_ordinal_suffixes_optimized(date: &str) -> Cow<str> {
+pub fn rm_ordinal_suffixes_optimized(date: &str) -> Cow<'_, str> {
     // Single compiled regex for all ordinal patterns
     static ORDINAL_REGEX: std::sync::OnceLock<Regex> = std::sync::OnceLock::new();
     let regex = ORDINAL_REGEX.get_or_init(|| {
@@ -108,7 +108,7 @@ pub fn fast_month_lookup(text: &str) -> Option<u8> {
 }
 
 /// Optimized month conversion using fast lookup table instead of regex
-pub fn convert_text_month_optimized(date: &str) -> Cow<str> {
+pub fn convert_text_month_optimized(date: &str) -> Cow<'_, str> {
     let mut result = Cow::Borrowed(date);
     let mut needs_lowercase = false;
     
@@ -261,7 +261,7 @@ pub fn fast_path_parse_date(date: &str, format: &str) -> Option<(u8, u8, u16)> {
 }
 
 /// Combined string cleaning function to reduce multiple passes
-pub fn clean_date_string_combined(date: &str) -> Cow<str> {
+pub fn clean_date_string_combined(date: &str) -> Cow<'_, str> {
     // Check if any cleaning is needed first
     let needs_ordinal = date.contains("st") || date.contains("nd") || date.contains("rd") || date.contains("th");
     let needs_french = date.contains("le ") || date.contains("Le ") || date.contains("1er");
