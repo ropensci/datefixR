@@ -19,7 +19,8 @@
 data into consistent, machine-readable formats.** Whether you’re dealing
 with free-text web form entries like “02 05 92”, “2020-may-01”, or “le 3
 mars 2013”, `datefixR` intelligently parses diverse date formats and
-converts them to R’s standard Date class.
+converts them to R’s standard Date class. Under the hood, datefixR uses
+Rust for fast and memory-safe parsing.
 
 [![CRAN
 Version](https://www.r-pkg.org/badges/version/datefixR)](https://cran.r-project.org/package=datefixR)
@@ -31,17 +32,20 @@ Version](https://img.shields.io/badge/dev-1.7.0.9000-orange)](https://github.com
 **Key features:**
 
   - **Smart parsing**: Handles mixed date formats, separators, and
-    representations in a single dataset
+    representations in a single dataset.
   - **Multilingual support**: Recognizes dates in English, French,
-    German, Spanish, Indonesian, Russian, and Portuguese
+    German, Spanish, Indonesian, Russian, and Portuguese.
   - **Missing data imputation**: User-controlled behavior for incomplete
-    dates (missing days/months)
-  - **Detailed error reporting**: Identifies exactly which dates
-    couldn’t be parsed and why
+    dates (missing days/months).
+  - **Error reporting**: If a date cannot be parsed, the user is
+    informed of the provided date and associated row ID, allowing for
+    easier debugging and correction.
   - **Excel compatibility**: Supports both R and Excel numeric date
-    representations
+    representations.
   - **Shiny integration**: Interactive web app for data exploration and
-    cleaning <img src="man/figures/example.svg" width="800"/>
+    cleaning. <br>
+
+<img src="man/figures/example.svg" width="800"/>
 
 ## Quick Start
 
@@ -61,8 +65,8 @@ print(messy_df)
 #> 4  4           1996
 
 # Clean the dates
-clean_dates <- fix_date_char(messy_dates)
-clean_df <- fix_date_df(messy_df, "dates")
+clean_dates <- fix_date_char(messy_dates) # Clean a character vector
+clean_df <- fix_date_df(messy_df, "dates") # Clean a column of a dataframe
 print(clean_df)
 #>   id      dates
 #> 1  1 1992-05-02
@@ -72,10 +76,10 @@ print(clean_df)
 ```
 
 The package automatically standardizes dates from different formats
-(US/European style, named months, various separators, incomplete dates)
-into R’s standard `yyyy-mm-dd` format. When parts are missing (like the
-day or month), it intelligently imputes them—defaulting to July 1st for
-incomplete dates.
+(named months, various separators, incomplete dates) into R’s standard
+`yyyy-mm-dd` format. When parts are missing (like the day or month),
+they are imputed, defaulting to July 1st for incomplete dates.
+Imputation can be denied if this behaviour is undesirable.
 
 ## Installation
 
@@ -116,16 +120,6 @@ version: 1.7.0.9000.
 
 ## Getting Started
 
-New to `datefixR`? Start here:
-
-1.  **Install the package** (see above)
-2.  **Try the Quick Start example** (see below)
-3.  **Explore the Shiny app**:
-    <https://nathansam.shinyapps.io/datefixr/>
-4.  **Read the full vignette**: `browseVignettes("datefixR")` or visit
-    [online
-    documentation](https://docs.ropensci.org/datefixR/articles/datefixR.html)
-
 ## Package vignette
 
 `datefixR` has a “Getting Started” vignette which describes how to use
@@ -138,6 +132,9 @@ browseVignettes("datefixR")
 
 or visiting the vignette on the [package
 website](https://docs.ropensci.org/datefixR/articles/datefixR.html)
+
+Additional vignettes are available describing datefixR’s localization
+features and how to use the Shiny app.
 
 ## Usage
 
@@ -325,10 +322,15 @@ This flexibility allows you to choose imputation strategies that make
 sense for your specific use case (e.g., fiscal year starts, survey
 periods, etc.).
 
-For datasets with hundreds of thousands of rows where speed is critical
-and you can accept less flexible parsing, consider alternatives like
-`lubridate` or `clock` packages, which use compiled code and can be
-orders of magnitude faster.
+## Performance
+
+This package has recently been optimized for speed using Rust and is now
+over 300x faster than the largely pure R implementation used in previous
+versions. Moreover, a fastpath approach has been implemented for common
+date formats, further improving performance in most situations. Finally,
+`fix_date_df()` now supports parallelism over columns via the `cores`
+argument (or via the `'Ncpus'` global option). As such, speed is now
+very unlikely to be an issue when using `datefixR` on large datasets.
 
 ## Limitations
 
@@ -339,10 +341,6 @@ handle dates entered via free text web forms and it is much less common
 for both date and time to be reported together in this input method.
 However, if there is significant demand for support for datetime data in
 the future this may added.
-
-The package is written solely in R and seems fast enough for my current
-use cases (a few hundred rows). However, I may convert the core for loop
-to C++ in the future if speed becomes an issue.
 
 ## Similar packages to datefixR
 
@@ -383,14 +381,14 @@ which also attempts to convert dates to a consistent format (POSIXct).
 However `{anytime}` assumes year, month, and day have all been provided
 and does not permit imputation. Moreover, if a date cannot be parsed,
 then the date is converted to an NA object and no warning is raised-
-which may lead to issues later in the analysis.
+which may lead to issues in any downstream analyses.
 
 ### `parsedate`
 
 `parsedate::parse_date()` also attempts to solve the problem of handling
 arbitrary dates and parses dates into the `POSIXct` type. Unfortunately,
 `parse_date()` cannot handle years before 1970 – instead imputing the
-year using the current year without raising a warning.
+year as the current year without any warnings being raised.
 
 ``` r
 parsedate::parse_date("april 15 1969")
@@ -420,30 +418,23 @@ readr::parse_date("02/2010", "%m/%Y")
 However, these packages have support for weekdays and months in around
 211 locales whereas `datefixR` supports much fewer languages due to
 support for additional languages needing to be implemented individually
-by hand.
-
-### Performance Comparison
-
-These alternative packages all use compiled code and therefore have the
-potential to be orders of magnitude faster than `datefixR`. However,
-performance varies significantly based on use case and data
-characteristics.
+and by hand.
 
 **Trade-offs to consider:**
 
-  - **`datefixR`**: Excellent error reporting, flexible imputation,
-    handles mixed formats automatically
-  - **`lubridate`**: Faster performance but requires format
-    specification, limited imputation control  
-  - **`stringi`/`readr`/`clock`**: Blazing fast but require exact format
-    specification, 211 locale support
+  - **`datefixR`**: Better error reporting, flexible imputation, handles
+    mixed formats automatically. Fast.
+  - **`lubridate`**: Requires format specification, limited imputation
+    control  
+  - **`stringi`/`readr`/`clock`**: Require exact format specification,
+    supports 211 locales
   - **`anytime`**: Variable performance, no imputation support, silent
     failures
 
-If you have very large datasets with consistent formats and don’t need
-detailed error reporting, consider `lubridate` or ICU-based packages.
 For messy, mixed-format data where usability and error handling are
-priorities, `datefixR` is optimized for ease of use over raw speed.
+priorities, datefixR shines. Additionally now that the core logic is
+handled in Rust, performance has improved significantly making it
+suitable for very large datasets.
 
 ## Contributing to datefixR
 
