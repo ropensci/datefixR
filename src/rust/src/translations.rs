@@ -244,13 +244,6 @@ pub fn tr(message: &str) -> String {
         .unwrap_or_else(|| message.to_string())
 }
 
-/// Set locale manually for testing purposes
-#[allow(dead_code)]
-pub fn set_locale(locale: &str) {
-    unsafe {
-        CURRENT_LOCALE = locale.to_string();
-    }
-}
 
 /// Macro for convenient translation calls
 #[macro_export]
@@ -279,15 +272,6 @@ pub fn day_impute_integer() -> String {
     tr("day.impute should be an integer\n")
 }
 
-#[allow(dead_code)]
-pub fn month_impute_integer_range() -> String {
-    tr("month.impute should be an integer between 1 and 12")
-}
-
-#[allow(dead_code)]
-pub fn month_impute_integer() -> String {
-    tr("month.impute should be an integer")
-}
 
 pub fn month_not_in_range() -> String {
     tr("Month not in expected range\n")
@@ -309,10 +293,6 @@ pub fn date_should_be_character() -> String {
     tr("date should be a character")
 }
 
-#[allow(dead_code)]
-pub fn unable_to_resolve_date_for_subject() -> String {
-    tr("Unable to resolve date for subject")
-}
 
 pub fn na_imputed_date() -> String {
     tr("NA imputed (date:")
