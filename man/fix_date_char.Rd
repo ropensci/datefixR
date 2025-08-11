@@ -121,8 +121,7 @@ fix_date_char(incomplete, day.impute = 15, month.impute = 6)
 
 }
 \seealso{
-\code{\link{fix_date_df}} for data frame columns with date data and
-\code{\link{fix_date}} for singular date conversions.
+\code{\link{fix_date_df}} for data frame columns with date data.
 
 For detailed examples and usage patterns, see:
 \itemize{

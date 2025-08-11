@@ -20,8 +20,9 @@
   global option. This allows columns in data frames to be processed in parallel,
   allowing for faster processing of large datasets.
 * Improved error handling and memory management through Rust's type system.
-* All existing deprecated functions (`fix_date()` and `fix_dates()`) continue to
-  work with deprecation warnings.
+* First deprecated in version 1.0.0 (July 18, 2022), `fix_date()` and
+  `fix_dates()` have now been removed. Users should use `fix_date_char()` and
+  `fix_date_df()` instead..
 
 ## Documentation
 

@@ -134,8 +134,7 @@ fix_date_df(large_df, c("dates1", "dates2", "dates3"))
 }
 }
 \seealso{
-\code{\link{fix_date_char}} for similar functionality on character vectors
-and \code{\link{fix_date}} for single date entries.
+\code{\link{fix_date_char}} for similar functionality on character vectors.
 
 For comprehensive examples and usage practices, consult:
 \itemize{

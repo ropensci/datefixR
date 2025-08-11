@@ -751,6 +751,7 @@ fn fix_date_column(
 }
 
 /// Main date fixing function - Rust implementation of .fix_date
+/// @noRd
 #[extendr]
 fn fix_date(
     date: Robj,

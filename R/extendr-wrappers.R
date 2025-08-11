@@ -15,6 +15,7 @@ NULL
 checkday <- function(day_impute) .Call(wrap__checkday, day_impute)
 
 #' Main date fixing function - Rust implementation of .fix_date
+#' @noRd
 fix_date <- function(date, day_impute, month_impute, subject, format, excel, roman_numeral) .Call(wrap__fix_date, date, day_impute, month_impute, subject, format, excel, roman_numeral)
 
 #' Analyze and fix date strings in a whole column of a DataFrame
