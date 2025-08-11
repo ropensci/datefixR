@@ -373,3 +373,41 @@ test_that("parallel processing falls back to sequential for single column", {
 
   expect_equal(result, expected_df)
 })
+
+test_that("NA values in dataframe columns are preserved correctly", {
+  # Test dataframe with mixed NA, empty string, and "NA" string
+  test_df <- data.frame(
+    id = 1:5,
+    dates = c("2023-01-01", NA, "2024-01-01", "", "NA")
+  )
+  
+  result_df <- fix_date_df(test_df, "dates")
+  
+  # Check that valid dates are parsed correctly
+  expect_equal(result_df$dates[1], as.Date("2023-01-01"))
+  expect_equal(result_df$dates[3], as.Date("2024-01-01"))
+  
+  # Check that all types of NA are preserved as NA
+  expect_true(is.na(result_df$dates[2])) # NA
+  expect_true(is.na(result_df$dates[4])) # empty string
+  expect_true(is.na(result_df$dates[5])) # "NA" string
+  
+  # Ensure we didn't get the placeholder date (1999-01-01)
+  expect_false(any(result_df$dates == as.Date("1999-01-01"), na.rm = TRUE))
+})
+
+test_that("Dataframe with all NA values returns all NA", {
+  test_df <- data.frame(
+    id = 1:3,
+    dates = c(NA, "", "NA")
+  )
+  
+  result_df <- fix_date_df(test_df, "dates")
+  
+  # All should be NA
+  expect_true(all(is.na(result_df$dates)))
+  expect_equal(length(result_df$dates), 3)
+  
+  # Ensure we didn't get the placeholder date
+  expect_false(any(result_df$dates == as.Date("1999-01-01"), na.rm = TRUE))
+})

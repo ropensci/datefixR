@@ -46,8 +46,7 @@
 #' @return A vector of elements belonging to \R{}'s built in \code{Date} class
 #'   with the following format \code{yyyy-mm-dd}.
 #' @seealso
-#' \code{\link{fix_date_df}} for data frame columns with date data and
-#' \code{\link{fix_date}} for singular date conversions.
+#' \code{\link{fix_date_df}} for data frame columns with date data.
 #'
 #' For detailed examples and usage patterns, see:
 #' \itemize{
@@ -170,6 +169,9 @@ fix_date_char <- function(
     # Restore NA values in the result
     if (is.list(fixed_dates)) {
       fixed_dates[na_indices] <- list(NULL)
+    } else if (is.vector(fixed_dates)) {
+      # Handle case where fixed_dates is a vector
+      fixed_dates[na_indices] <- NA
     }
   }
 

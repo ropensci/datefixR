@@ -62,8 +62,7 @@
 #'   input type. Date columns will be formatted with \code{Date} class and
 #'   display as \code{yyyy-mm-dd}.
 #' @seealso
-#' \code{\link{fix_date_char}} for similar functionality on character vectors
-#' and \code{\link{fix_date}} for single date entries.
+#' \code{\link{fix_date_char}} for similar functionality on character vectors.
 #'
 #' For comprehensive examples and usage practices, consult:
 #' \itemize{
@@ -216,6 +215,9 @@ fix_date_df <- function(
       # Restore NA values in the result
       if (is.list(fixed.dates)) {
         fixed.dates[na_indices] <- list(NULL)
+      } else if (is.vector(fixed.dates)) {
+        # Handle case where fixed.dates is a vector
+        fixed.dates[na_indices] <- NA
       }
     }
 

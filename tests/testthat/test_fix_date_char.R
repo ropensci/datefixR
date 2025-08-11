@@ -100,3 +100,53 @@ test_that("Roman conversion works as expected", {
     as.Date("2023-02-15")
   )
 })
+
+test_that("NA values in vectors are preserved correctly", {
+  # Test vector with mixed NA, empty string, and "NA" string
+  test_vector <- c("2023-01-01", NA, "2024-01-01", "", "NA")
+  result <- fix_date_char(test_vector)
+  
+  # Check that valid dates are parsed correctly
+  expect_equal(result[1], as.Date("2023-01-01"))
+  expect_equal(result[3], as.Date("2024-01-01"))
+  
+  # Check that all types of NA are preserved as NA
+  expect_true(is.na(result[2])) # NA
+  expect_true(is.na(result[4])) # empty string
+  expect_true(is.na(result[5])) # "NA" string
+  
+  # Ensure we didn't get the placeholder date (1999-01-01)
+  expect_false(any(result == as.Date("1999-01-01"), na.rm = TRUE))
+})
+
+test_that("Vector with all NA values returns all NA", {
+  test_vector <- c(NA, "", "NA")
+  result <- fix_date_char(test_vector)
+  
+  # All should be NA
+  expect_true(all(is.na(result)))
+  expect_equal(length(result), 3)
+  
+  # Ensure we didn't get the placeholder date
+  expect_false(any(result == as.Date("1999-01-01"), na.rm = TRUE))
+})
+
+test_that("Legitimate 1999-01-01 dates are preserved correctly", {
+  # Test vector with legitimate 1999-01-01 dates mixed with NA and other dates
+  test_vector <- c("1999-01-01", NA, "2023-01-01", "", "January 1, 1999", "NA")
+  result <- fix_date_char(test_vector)
+  
+  # Check that legitimate 1999-01-01 dates are preserved
+  expect_equal(result[1], as.Date("1999-01-01"))
+  expect_equal(result[5], as.Date("1999-01-01")) # "January 1, 1999"
+  expect_equal(result[3], as.Date("2023-01-01"))
+  
+  # Check that NA values are still NA
+  expect_true(is.na(result[2])) # NA
+  expect_true(is.na(result[4])) # empty string
+  expect_true(is.na(result[6])) # "NA" string
+  
+  # Count legitimate 1999-01-01 dates
+  count_1999 <- sum(!is.na(result) & result == as.Date("1999-01-01"))
+  expect_equal(count_1999, 2)
+})
