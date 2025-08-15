@@ -33,7 +33,7 @@ knitr::opts_chunk$set(
 **Key features:**
 
 - **Smart parsing**: Handles mixed date formats, separators, and representations in a single dataset.
-- **Multilingual support**: Recognizes dates in English, French, German, Spanish, Indonesian, Russian, and Portuguese.
+- **Multilingual support**: Recognizes dates in English, French, German, Spanish, Indonesian, and Russian.
 - **Missing data imputation**: User-controlled behavior for incomplete dates (missing days/months).
 - **Error reporting**: If a date cannot be parsed, the user is informed of the provided date and associated row ID, allowing for easier debugging and correction.
 - **Excel compatibility**: Supports both R and Excel numeric date representations.
@@ -60,11 +60,11 @@ clean_df <- fix_date_df(messy_df, "dates") # Clean a column of a dataframe
 print(clean_df)
 ```
 
-The package automatically standardizes dates from different formats (named
+The package automatically standardizes dates in different formats (named
 months, various separators, incomplete dates) into R's standard `yyyy-mm-dd`
-format. When parts are missing (like the day or month), they are imputed,
-defaulting to July 1st for incomplete dates. Imputation can be denied if this
-behaviour is undesirable.
+format. When dates are partially missing (like the day or month), they can be
+imputed. Whilst imputation defaults to July 1st for incomplete dates,
+this behaviour can be changed including the prevention of any imputation.
 
 ## Installation
 
@@ -89,18 +89,6 @@ options(repos = c(
 
 install.packages("datefixR")
 ```
-
-### Development Version
-
-For bleeding-edge features (may be unstable):
-
-```{R, eval = FALSE}
-if (!require("remotes")) install.packages("remotes")
-remotes::install_github("ropensci/datefixR", "devel")
-```
-
-**Version Compatibility**: `datefixR` requires R ≥ 4.1.0. Current stable
-version: `r packageVersion("datefixR")`.
 
 ## Getting Started
 
@@ -190,29 +178,10 @@ fix_date_char(mixed_dates, excel = TRUE)
 This is particularly useful when importing data from Excel spreadsheets where
 dates may have been converted to serial numbers.
 
-### Roman Numerals
-
-`datefixR` can handle Roman numerals in month positions, common in some European
-date formats:
-
-```{r roman-example}
-# Roman numeral months
-roman_dates <- c(
-  "15.VII.2023", # July 15, 2023
-  "3.XII.1999", # December 3, 1999
-  "1.I.2000" # January 1, 2000
-)
-
-fix_date_char(roman_dates, roman.numeral = TRUE)
-```
-
-Roman numerals (I-XII) are automatically recognized and converted to the
-appropriate numeric months.
-
 ### MDY vs DMY Detection
 
-By default, `datefixR` assumes day-first (DMY) format when the date order is
-ambiguous. However, you can specify month-first (MDY) format:
+By default, `datefixR` assumes day-first (DMY) over month-first format when the
+date order is ambiguous. However, you can specify month-first (MDY) format:
 
 ```{r mdy-dmy-example}
 # Ambiguous dates that could be interpreted as either MDY or DMY
@@ -262,6 +231,25 @@ knitr::kable(fixed_incomplete)
 
 This flexibility allows you to choose imputation strategies that make sense for
 your specific use case (e.g., fiscal year starts, survey periods, etc.).
+
+### Roman Numerals
+
+`datefixR` can handle Roman numerals being used to denote the month, a format
+sometimes used by Oracle Database:
+
+```{r roman-example}
+# Roman numeral months
+roman_dates <- c(
+  "15.VII.2023", # July 15, 2023
+  "3.XII.1999", # December 3, 1999
+  "1.I.2000" # January 1, 2000
+)
+
+fix_date_char(roman_dates, roman.numeral = TRUE)
+```
+
+Roman numeral support is experimental and has to be explicitly enabled via
+`roman.numeral = TRUE`.
 
 ## Performance
 
@@ -362,7 +350,7 @@ additional languages needing to be implemented individually and by hand.
 - **`anytime`**: Variable performance, no imputation support, silent failures
 
 For messy, mixed-format data where usability and error handling are priorities,
-datefixR shines. Additionally now that the core logic is handled in Rust,
+datefixR shines. Now that the core logic is handled in Rust,
 performance has improved significantly making it suitable for very large
 datasets.
 
