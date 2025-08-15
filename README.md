@@ -27,7 +27,7 @@ Rust for fast and memory-safe parsing.
   - **Smart parsing**: Handles mixed date formats, separators, and
     representations in a single dataset.
   - **Multilingual support**: Recognizes dates in English, French,
-    German, Spanish, Indonesian, Russian, and Portuguese.
+    German, Spanish, Indonesian, and Russian.
   - **Missing data imputation**: User-controlled behavior for incomplete
     dates (missing days/months).
   - **Error reporting**: If a date cannot be parsed, the user is
@@ -68,11 +68,12 @@ print(clean_df)
 #> 4  4 1996-07-01
 ```
 
-The package automatically standardizes dates from different formats
-(named months, various separators, incomplete dates) into R’s standard
-`yyyy-mm-dd` format. When parts are missing (like the day or month),
-they are imputed, defaulting to July 1st for incomplete dates.
-Imputation can be denied if this behaviour is undesirable.
+The package automatically standardizes dates in different formats (named
+months, various separators, incomplete dates) into R’s standard
+`yyyy-mm-dd` format. When dates are partially missing (like the day or
+month), they can be imputed. Whilst imputation defaults to July 1st for
+incomplete dates, this behaviour can be changed including the prevention
+of any imputation.
 
 ## Installation
 
@@ -98,18 +99,6 @@ options(repos = c(
 
 install.packages("datefixR")
 ```
-
-### Development Version
-
-For bleeding-edge features (may be unstable):
-
-``` r
-if (!require("remotes")) install.packages("remotes")
-remotes::install_github("ropensci/datefixR", "devel")
-```
-
-**Version Compatibility**: `datefixR` requires R ≥ 4.1.0. Current stable
-version: 1.7.0.9000.
 
 ## Getting Started
 
@@ -229,30 +218,11 @@ fix_date_char(mixed_dates, excel = TRUE)
 This is particularly useful when importing data from Excel spreadsheets
 where dates may have been converted to serial numbers.
 
-### Roman Numerals
-
-`datefixR` can handle Roman numerals in month positions, common in some
-European date formats:
-
-``` r
-# Roman numeral months
-roman_dates <- c(
-  "15.VII.2023", # July 15, 2023
-  "3.XII.1999", # December 3, 1999
-  "1.I.2000" # January 1, 2000
-)
-
-fix_date_char(roman_dates, roman.numeral = TRUE)
-#> [1] "2023-07-15" "1999-12-03" "2000-01-01"
-```
-
-Roman numerals (I-XII) are automatically recognized and converted to the
-appropriate numeric months.
-
 ### MDY vs DMY Detection
 
-By default, `datefixR` assumes day-first (DMY) format when the date
-order is ambiguous. However, you can specify month-first (MDY) format:
+By default, `datefixR` assumes day-first (DMY) over month-first format
+when the date order is ambiguous. However, you can specify month-first
+(MDY) format:
 
 ``` r
 # Ambiguous dates that could be interpreted as either MDY or DMY
@@ -314,6 +284,26 @@ knitr::kable(fixed_incomplete)
 This flexibility allows you to choose imputation strategies that make
 sense for your specific use case (e.g., fiscal year starts, survey
 periods, etc.).
+
+### Roman Numerals
+
+`datefixR` can handle Roman numerals being used to denote the month, a
+format sometimes used by Oracle Database:
+
+``` r
+# Roman numeral months
+roman_dates <- c(
+  "15.VII.2023", # July 15, 2023
+  "3.XII.1999", # December 3, 1999
+  "1.I.2000" # January 1, 2000
+)
+
+fix_date_char(roman_dates, roman.numeral = TRUE)
+#> [1] "2023-07-15" "1999-12-03" "2000-01-01"
+```
+
+Roman numeral support is experimental and has to be explicitly enabled
+via `roman.numeral = TRUE`.
 
 ## Performance
 
@@ -425,9 +415,9 @@ and by hand.
     failures
 
 For messy, mixed-format data where usability and error handling are
-priorities, datefixR shines. Additionally now that the core logic is
-handled in Rust, performance has improved significantly making it
-suitable for very large datasets.
+priorities, datefixR shines. Now that the core logic is handled in Rust,
+performance has improved significantly making it suitable for very large
+datasets.
 
 ## Contributing to datefixR
 
