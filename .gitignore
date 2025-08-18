@@ -55,3 +55,5 @@ test_coverage.R
 test_rust_coverage.sh
 .coverage_temp/
 ci_coverage_fixes.md
+
+WARP.md
