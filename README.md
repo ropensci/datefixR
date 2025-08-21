@@ -19,8 +19,8 @@
 data into consistent, machine-readable formats.** Whether you’re dealing
 with free-text web form entries like “02 05 92”, “2020-may-01”, or “le 3
 mars 2013”, `datefixR` intelligently parses diverse date formats and
-converts them to R’s standard Date class. Under the hood, datefixR uses
-Rust for fast and memory-safe parsing.
+converts them to R’s standard Date class. Under the hood, `datefixR`
+uses Rust for fast and memory-safe parsing.
 
 **Key features:**
 
@@ -115,7 +115,7 @@ browseVignettes("datefixR")
 or visiting the vignette on the [package
 website](https://docs.ropensci.org/datefixR/articles/datefixR.html)
 
-Additional vignettes are available describing datefixR’s localization
+Additional vignettes are available describing `datefixR`’s localization
 features and how to use the Shiny app.
 
 ## Usage
@@ -415,9 +415,9 @@ and by hand.
     failures
 
 For messy, mixed-format data where usability and error handling are
-priorities, datefixR shines. Now that the core logic is handled in Rust,
-performance has improved significantly making it suitable for very large
-datasets.
+priorities, `datefixR` shines. Now that the core logic is handled in
+Rust, performance has improved significantly making it suitable for very
+large datasets.
 
 ## Contributing to datefixR
 
