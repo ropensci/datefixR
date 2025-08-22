@@ -3,7 +3,7 @@
 This is a resubmission. The Windows build failed in the previous submission. 
 The problematic code has now been replaced with a thread-safe approach using
 a readers–writer lock lock which should satisfy the Rust compiler being used for
-Windows builds. 
+Windows builds. Confirmed working with Win-builder. 
 
 0 errors | 0 warnings | 0 notes
 
