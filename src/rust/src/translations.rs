@@ -1,10 +1,10 @@
 use lazy_static::lazy_static;
 use std::collections::HashMap;
 use std::env;
-use std::sync::Once;
+use std::sync::{Once, RwLock};
 
 static INIT: Once = Once::new();
-static mut CURRENT_LOCALE: String = String::new();
+static CURRENT_LOCALE: RwLock<String> = RwLock::new(String::new());
 
 lazy_static! {
     /// Translation domain for datefixR
@@ -191,8 +191,8 @@ lazy_static! {
 pub fn init_translations() {
     INIT.call_once(|| {
         // Get locale from environment variables
-        unsafe {
-            CURRENT_LOCALE = get_current_locale();
+        if let Ok(mut locale) = CURRENT_LOCALE.write() {
+            *locale = get_current_locale();
         }
     });
 }
@@ -211,11 +211,11 @@ fn get_current_locale() -> String {
 pub fn tr(message: &str) -> String {
     init_translations();
 
-    // Use raw pointer to avoid mutable static reference warning
-    let locale_str = unsafe {
-        let ptr = &raw const CURRENT_LOCALE;
-        &*ptr
-    };
+    // Read the current locale safely using RwLock
+    let locale_str = CURRENT_LOCALE
+        .read()
+        .map(|locale| locale.clone())
+        .unwrap_or_else(|_| "en".to_string());
 
     // Determine which translation dictionary to use based on locale
     let translation = if locale_str.starts_with("es") || locale_str.contains("spanish") {

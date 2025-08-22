@@ -1,5 +1,10 @@
 ## R CMD check results
 
+This is a resubmission. The Windows build failed in the previous submission. 
+The problematic code has now been replaced with a thread-safe approach using
+a readers–writer lock lock which should satisfy the Rust compiler being used for
+Windows builds. 
+
 0 errors | 0 warnings | 0 notes
 
 Please note this package now depends upon Rust code and therefore uses
