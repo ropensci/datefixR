@@ -14,3 +14,7 @@ extendr-api = { version = "*", default-features = false, features = ["result_con
 regex = "1.5"
 chrono = "0.4"
 lazy_static = "1.4"
+
+[profile.release]
+lto = true
+codegen-units = 1

@@ -1,6 +1,6 @@
 Package: datefixR
 Title: Standardize Dates in Different Formats or with Missing Data
-Version: 2.0.0
+Version: 2.0.0.9000
 Maintainer: Nathan Constantine-Cooke <nathan.constantine-cooke@ed.ac.uk>
 Authors@R: c(
     person("Nathan", "Constantine-Cooke", , "nathan.constantine-cooke@ed.ac.uk", role = c("aut", "cre"),
@@ -65,5 +65,5 @@ Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
-Config/rextendr/version: 0.4.1
-SystemRequirements: Cargo (Rust's package manager), rustc
+Config/rextendr/version: 0.4.2
+SystemRequirements: Cargo (Rust's package manager), rustc, xz
