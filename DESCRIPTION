@@ -40,6 +40,7 @@ Imports:
     lifecycle,
     rlang
 Suggests: 
+    anytime,
     DT,
     future,
     future.apply,
