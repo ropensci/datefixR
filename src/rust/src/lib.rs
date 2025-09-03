@@ -279,6 +279,7 @@ fn first_is_month(date_vec: &[String]) -> bool {
 /// Validate day imputation value range
 /// @noRd
 #[extendr]
+#[no_mangle]
 fn checkday(day_impute: Robj) -> Result<()> {
     if day_impute.is_null() || day_impute.len() == 0 {
         return Ok(()); // nothing to check
@@ -721,6 +722,7 @@ fn fix_date_native(
 /// Analyze and fix date strings in a whole column of a DataFrame
 /// @noRd
 #[extendr]
+#[no_mangle]
 fn fix_date_column(
     dates: Vec<String>,
     day_impute: i32,
@@ -753,6 +755,7 @@ fn fix_date_column(
 /// Main date fixing function - Rust implementation of .fix_date
 /// @noRd
 #[extendr]
+#[no_mangle]
 fn fix_date(
     date: Robj,
     day_impute: Option<i32>,

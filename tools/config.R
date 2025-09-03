@@ -63,10 +63,10 @@ cfg <- if (is_debug) "debug" else "release"
 # there may be use cases later where this can be adapted or expanded
 .target <- ifelse(is_wasm, paste0("--target=", webr_target), "")
 
-# add panic exports only for WASM builds via RUSTFLAGS
+# add panic exports and symbol optimization flags only for WASM builds via RUSTFLAGS
 .panic_exports <- ifelse(
   is_wasm,
-  "RUSTFLAGS=\"$RUSTFLAGS -C panic=abort\" ",
+  "RUSTFLAGS=\"$RUSTFLAGS -C panic=abort -C opt-level=s -C lto=fat -C codegen-units=1 -C strip=symbols\" ",
   ""
 )
 
