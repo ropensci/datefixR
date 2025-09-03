@@ -10,10 +10,10 @@ crate-type = [ 'staticlib', 'rlib' ]
 name = 'datefixR'
 
 [dependencies]
-extendr-api = { version = "*", default-features = false, features = ["result_condition"] }
-regex = "1.5"
+extendr-api = { version = "0.8.1", default-features = false, features = ["result_condition"] }
+regex = "1.11"
 chrono = "0.4"
-lazy_static = "1.4"
+lazy_static = "1.5"
 
 [profile.release]
 lto = true
