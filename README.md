@@ -393,7 +393,7 @@ year as the current year without any warnings being raised.
 
 ``` r
 parsedate::parse_date("april 15 1969")
-#> [1] "2025-04-15 UTC"
+#> [1] "2026-04-15 UTC"
 ```
 
 Moreover, `parse_date()` assumes dates are in MDY format and does not
