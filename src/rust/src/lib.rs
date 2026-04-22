@@ -4,6 +4,9 @@ use extendr_api::prelude::*;
 use std::collections::HashMap;
 use std::sync::OnceLock;
 
+// Type alias for extendr's Result type for compatibility with 0.9.0
+type RResult<T> = std::result::Result<T, extendr_api::Error>;
+
 mod translations;
 use translations::*;
 mod optimizations;
@@ -280,7 +283,7 @@ fn first_is_month(date_vec: &[String]) -> bool {
 /// @noRd
 #[extendr]
 #[no_mangle]
-fn checkday(day_impute: Robj) -> Result<()> {
+fn checkday(day_impute: Robj) -> RResult<()> {
     if day_impute.is_null() || day_impute.len() == 0 {
         return Ok(()); // nothing to check
     }
@@ -323,7 +326,7 @@ fn check_output(
     day: Option<i32>,
     month: Option<i32>,
     year: Option<i32>,
-) -> Result<(Option<i32>, Option<i32>, Option<i32>)> {
+) -> RResult<(Option<i32>, Option<i32>, Option<i32>)> {
     if let Some(m) = month {
         if m < 1 || m > 12 {
 return Err(format!("{}\n", month_not_in_range()).into());
@@ -392,7 +395,7 @@ fn handle_year_only_date(
     month_impute: Option<i32>,
     day_impute_na: bool,
     month_impute_na: bool,
-) -> Result<Option<String>> {
+) -> RResult<Option<String>> {
     if cleaned_date.len() == 4 && is_numeric(cleaned_date) {
         let year = cleaned_date.parse::<i32>().unwrap();
         return if month_impute_na || day_impute_na {
@@ -421,7 +424,7 @@ fn handle_year_only_date(
 fn handle_numeric_dates(
     cleaned_date: &str,
     excel: bool,
-) -> Result<Option<String>> {
+) -> RResult<Option<String>> {
     // Exclude 4-digit numbers as they're more likely to be years than timestamps
     if is_numeric(cleaned_date) && cleaned_date.len() != 4 {
         if let Ok(num_date) = cleaned_date.parse::<i64>() {
@@ -469,7 +472,7 @@ fn process_single_date_with_error_handling(
     format: &str,
     excel: bool,
     roman_numeral: bool,
-) -> Result<Option<String>> {
+) -> RResult<Option<String>> {
     match fix_date_native(
         date,
         day_impute,
@@ -505,7 +508,7 @@ fn parse_date_components(
     effective_format: &str,
     day_impute: Option<i32>,
     day_impute_na: bool,
-) -> Result<(Option<i32>, Option<i32>, Option<i32>)> {
+) -> RResult<(Option<i32>, Option<i32>, Option<i32>)> {
     if date_vec.len() < 3 {
         // Handle MM/YYYY or YYYY/MM format
         if day_impute.is_none() {
@@ -573,7 +576,7 @@ fn parse_date_components(
 
 /// Helper function to validate year string length
 #[inline]
-fn validate_year_length(year_str: &str) -> Result<()> {
+fn validate_year_length(year_str: &str) -> RResult<()> {
     if year_str.len() > 4 {
         Err(unable_to_tidy_date().into())
     } else {
@@ -590,7 +593,7 @@ fn process_date_pipeline(
     format: &str,
     excel: bool,
     roman_numeral: bool,
-) -> Result<Option<String>> {
+) -> RResult<Option<String>> {
     // Convert -1 sentinel values to special marker for NA (for direct calls from R)
     // Keep -1 to distinguish between NA (-1) and NULL (None)
     let day_impute_na = day_impute == Some(-1);
@@ -715,7 +718,7 @@ fn fix_date_native(
     format: &str,
     excel: bool,
     roman_numeral: bool,
-) -> Result<Option<String>> {
+) -> RResult<Option<String>> {
     process_date_pipeline(date_str, day_impute, month_impute, subject, format, excel, roman_numeral)
 }
 
@@ -731,7 +734,7 @@ fn fix_date_column(
     format: &str,
     excel: bool,
     roman_numeral: bool,
-) -> Result<Vec<Option<String>>> {
+) -> RResult<Vec<Option<String>>> {
     // Process all dates using native Rust function to avoid R object conversions
     let day_impute_opt = Some(day_impute);
     let month_impute_opt = Some(month_impute);
@@ -749,7 +752,7 @@ fn fix_date_column(
             excel,
             roman_numeral,
         )
-    }).collect::<Result<Vec<Option<String>>>>()
+    }).collect::<RResult<Vec<Option<String>>>>()
 }
 
 /// Main date fixing function - Rust implementation of .fix_date
@@ -764,7 +767,7 @@ fn fix_date(
     format: &str,
     excel: bool,
     roman_numeral: bool,
-) -> Result<Option<String>> {
+) -> RResult<Option<String>> {
     // Handle null/NA/empty dates at R object level
     if date.is_null() || date.is_na() {
         return Ok(None);
