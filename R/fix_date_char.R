@@ -101,12 +101,13 @@
 #'
 #' @export
 fix_date_char <- function(
-    dates,
-    day.impute = 1,
-    month.impute = 7,
-    format = "dmy",
-    excel = FALSE,
-    roman.numeral = FALSE) {
+  dates,
+  day.impute = 1,
+  month.impute = 7,
+  format = "dmy",
+  excel = FALSE,
+  roman.numeral = FALSE
+) {
   # Handle NA input early
   if (length(dates) == 1 && is.na(dates)) {
     return(as.Date(NA))

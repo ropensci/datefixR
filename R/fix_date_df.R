@@ -113,15 +113,16 @@
 #' }
 #' @export
 fix_date_df <- function(
-    df,
-    col.names,
-    day.impute = 1,
-    month.impute = 7,
-    id = NULL,
-    format = "dmy",
-    excel = FALSE,
-    roman.numeral = FALSE,
-    cores = getOption("Ncpus", 1)) {
+  df,
+  col.names,
+  day.impute = 1,
+  month.impute = 7,
+  id = NULL,
+  format = "dmy",
+  excel = FALSE,
+  roman.numeral = FALSE,
+  cores = getOption("Ncpus", 1)
+) {
   if (!is.data.frame(df)) {
     stop("df should be a dataframe object!")
   }
