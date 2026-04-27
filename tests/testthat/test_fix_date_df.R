@@ -396,6 +396,25 @@ test_that("NA values in dataframe columns are preserved correctly", {
   expect_false(any(result_df$dates == as.Date("1999-01-01"), na.rm = TRUE))
 })
 
+test_that("parse error includes subject ID and date", {
+  temp <- data.frame(id = 5, date = "20125/02")
+  expect_error(
+    fix_date_df(temp, "date"),
+    "for subject 5 \\(date: 20125/02\\)"
+  )
+})
+
+test_that("parse error reports correct subject when error is not in first row", {
+  temp <- data.frame(
+    id = c(1, 2, 3),
+    date = c("01/01/2020", "02/02/2021", "20125/02")
+  )
+  expect_error(
+    fix_date_df(temp, "date"),
+    "for subject 3 \\(date: 20125/02\\)"
+  )
+})
+
 test_that("Dataframe with all NA values returns all NA", {
   test_df <- data.frame(
     id = 1:3,

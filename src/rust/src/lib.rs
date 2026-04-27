@@ -473,33 +473,9 @@ fn process_single_date_with_error_handling(
     excel: bool,
     roman_numeral: bool,
 ) -> RResult<Option<String>> {
-    match fix_date_native(
-        date,
-        day_impute,
-        month_impute,
-        subject,
-        format,
-        excel,
-        roman_numeral,
-    ) {
-        Ok(result) => Ok(result),
-        Err(e) => {
-            let error_str = e.to_string();
-            if error_str.contains("unable to tidy a date")
-                || error_str.contains("format should be either")
-                || error_str.contains("date should be a character")
-                || error_str.contains("Month not in expected range\n")
-                || error_str.contains("Day not in expected range")
-                || error_str.contains("Missing month with no imputation value given")
-                || error_str.contains("Missing day with no imputation value given")
-            {
-                Err(e)
-            } else {
-                // For other errors, return None instead of propagating
-                Ok(None)
-            }
-        }
-    }
+    // Propagate all errors: Ok(None) for genuinely-absent dates is handled
+    // inside process_date_pipeline (empty/NA inputs, NA imputation), not here.
+    fix_date_native(date, day_impute, month_impute, subject, format, excel, roman_numeral)
 }
 
 /// Parse date components from date vector based on length and format
@@ -599,8 +575,8 @@ fn process_date_pipeline(
     let day_impute_na = day_impute == Some(-1);
     let month_impute_na = month_impute == Some(-1);
     
-    // Handle null/NA/empty dates
-    if date_str.is_empty() || date_str == "NA" {
+    // Handle null/NA/empty dates and common missing-value sentinels
+    if date_str.is_empty() || date_str == "NA" || date_str == "?" {
         return Ok(None);
     }
 
@@ -682,6 +658,11 @@ fn process_date_pipeline(
         }
     }
 
+    // Reject dates with more than 3 components (more than 2 separators)
+    if date_vec.len() > 3 {
+        return Err(unable_to_tidy_date().into());
+    }
+
     // Append year prefixes if needed
     date_vec = append_year(date_vec);
 
@@ -741,7 +722,7 @@ fn fix_date_column(
 
     dates.into_iter().enumerate().map(|(i, date)| {
         let subject = subjects.as_ref().and_then(|s| s.get(i));
-        
+
         // Use helper function for cleaner error handling
         process_single_date_with_error_handling(
             &date,
@@ -752,7 +733,23 @@ fn fix_date_column(
             excel,
             roman_numeral,
         )
-    }).collect::<RResult<Vec<Option<String>>>>()
+        .map_err(|e| {
+            let subj_str = subject.map(|s| s.as_str()).unwrap_or("");
+            let id_display = if subj_str.is_empty() {
+                (i + 1).to_string()
+            } else {
+                subj_str.to_string()
+            };
+            format!(
+                "{}\n for subject {} (date: {})",
+                e.to_string().trim_end_matches('\n'),
+                id_display,
+                date
+            )
+            .into()
+        })
+    })
+    .collect::<RResult<Vec<Option<String>>>>()
 }
 
 /// Main date fixing function - Rust implementation of .fix_date

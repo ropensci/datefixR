@@ -131,6 +131,34 @@ test_that("Vector with all NA values returns all NA", {
   expect_false(any(result == as.Date("1999-01-01"), na.rm = TRUE))
 })
 
+test_that("? is treated as NA", {
+  expect_equal(fix_date_char("?"), as.Date(NA))
+  expect_equal(
+    fix_date_char(c("01/01/2020", "?", "02/02/2021")),
+    as.Date(c("2020-01-01", NA, "2021-02-02"))
+  )
+})
+
+test_that("error if date has more than two separators", {
+  expect_error(fix_date_char("01/02/03/2000"), "unable to tidy a date")
+  expect_error(fix_date_char("01-02-03-2000"), "unable to tidy a date")
+  expect_error(fix_date_char("01 02 03 2000"), "unable to tidy a date")
+})
+
+test_that("parse error includes element index and date", {
+  expect_error(
+    fix_date_char("202312-12-2"),
+    "for subject 1 \\(date: 202312\\-12\\-2\\)"
+  )
+})
+
+test_that("parse error reports correct index when error is not in first element", {
+  expect_error(
+    fix_date_char(c("01/01/2020", "02/02/2021", "202312-12-2")),
+    "for subject 3 \\(date: 202312\\-12\\-2\\)"
+  )
+})
+
 test_that("Legitimate 1999-01-01 dates are preserved correctly", {
   # Test vector with legitimate 1999-01-01 dates mixed with NA and other dates
   test_vector <- c("1999-01-01", NA, "2023-01-01", "", "January 1, 1999", "NA")
