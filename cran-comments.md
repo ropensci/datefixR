@@ -1,22 +1,19 @@
 ## R CMD check results
 
-This is a resubmission. The Windows build failed in the previous submission. 
-The problematic code has now been replaced with a thread-safe approach using
-a readers–writer lock lock which should satisfy the Rust compiler being used for
-Windows builds. Confirmed working with Win-builder. 
+This version of datefixR no longer raises a NOTE due to a non-API call.
+Fixed by depending on a newer version of the extendr-api Rust crate.
 
 0 errors | 0 warnings | 0 notes
 
-Please note this package now depends upon Rust code and therefore uses
-vendored dependencies. As such, an INFO statement may occur due to installed
-file size (5.3Mb total size of which 4.3Mb is attributable to libs on local
-machine).
+Please note this package depends upon Rust code and therefore uses
+vendored dependencies. An INFO statement may occur due to installed
+file size.
 
 ## Test environments 
 
 - windows-latest (R release)
-- macOS-15 (R release)
-- macOS-15 (R devel)
+- macOS-26 (R release)
+- macOS-26 (R devel)
 - ubuntu-24.04 (R release)
 - ubuntu-24.04 (R oldrel-1)
 - ubuntu-24.04 (R oldrel-2)

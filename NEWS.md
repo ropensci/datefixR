@@ -1,5 +1,25 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# datefixR 2.0.1
+
+## Major changes
+
+* Fix bugs introduced by the Rust implementation
+  * Fix support for º and ª ordinal indicators
+  * Prevent malformed dates being silently cast to NA
+  * Fix informative error messages not being raised for `fix_date_df()`
+* Raise an error if a date has more than three components
+* Improve support for r-wasm (webR)
+
+## Code changes
+
+* Update Rust dependencies (resolves NOTE on CRAN due to a non-API call
+  originating from extendr-api ):
+  * extendr-api 0.8.1 ~> 0.9.0
+  * regex 1.11 ~> 1.12.3
+  * chrono 0.4 ~> 0.4.44
+
+
 # datefixR 2.0.0
 
 ## Major changes

@@ -8,7 +8,7 @@ message: 'To cite package "datefixR" in publications use:'
 type: software
 license: GPL-3.0-or-later
 title: 'datefixR: Standardize Dates in Different Formats or with Missing Data'
-version: 2.0.0
+version: 2.0.1
 doi: 10.5281/zenodo.5655311
 identifiers:
 - type: doi
@@ -35,7 +35,7 @@ preferred-citation:
     email: nathan.constantine-cooke@ed.ac.uk
     orcid: https://orcid.org/0000-0002-4437-8713
   year: '2025'
-  notes: R package version 2.0.0
+  notes: R package version 2.0.1
   doi: 10.5281/zenodo.5655311
   url: https://CRAN.R-project.org/package=datefixR
 repository: https://CRAN.R-project.org/package=datefixR
@@ -60,9 +60,10 @@ references:
   authors:
   - name: R Core Team
   institution:
-    name: R Foundation for Statistical Computing
+    name: 'R Foundation for Statistical Computing (ROR: <https://ror.org/05qewa988>)'
     address: Vienna, Austria
-  year: '2025'
+  year: '2026'
+  doi: 10.32614/R.manuals
   version: '>= 4.2'
 - type: software
   title: lifecycle
@@ -78,7 +79,7 @@ references:
     given-names: Hadley
     email: hadley@posit.co
     orcid: https://orcid.org/0000-0003-4757-117X
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.lifecycle
 - type: software
   title: rlang
@@ -93,8 +94,21 @@ references:
   - family-names: Wickham
     given-names: Hadley
     email: hadley@posit.co
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.rlang
+- type: software
+  title: anytime
+  abstract: 'anytime: Anything to ''POSIXct'' or ''Date'' Converter'
+  notes: Suggests
+  url: https://dirk.eddelbuettel.com/code/anytime.html
+  repository: https://CRAN.R-project.org/package=anytime
+  authors:
+  - family-names: Eddelbuettel
+    given-names: Dirk
+    email: edd@debian.org
+    orcid: https://orcid.org/0000-0001-6419-907X
+  year: '2026'
+  doi: 10.32614/CRAN.package.anytime
 - type: software
   title: DT
   abstract: 'DT: A Wrapper of the JavaScript Library ''DataTables'''
@@ -109,7 +123,11 @@ references:
     email: joe@posit.co
   - family-names: Tan
     given-names: Xianying
-  year: '2025'
+  - family-names: Aden-Buie
+    given-names: Garrick
+    email: garrick@posit.co
+    orcid: https://orcid.org/0000-0002-7111-0077
+  year: '2026'
   doi: 10.32614/CRAN.package.DT
 - type: software
   title: future
@@ -122,7 +140,7 @@ references:
     given-names: Henrik
     email: henrikb@braju.com
     orcid: https://orcid.org/0000-0002-7579-5165
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.future
 - type: software
   title: future.apply
@@ -135,7 +153,7 @@ references:
     given-names: Henrik
     email: henrikb@braju.com
     orcid: https://orcid.org/0000-0002-7579-5165
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.future.apply
 - type: software
   title: htmltools
@@ -164,7 +182,7 @@ references:
     email: yihui@posit.co
   - family-names: Allen
     given-names: Jeff
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.htmltools
 - type: software
   title: knitr
@@ -177,7 +195,7 @@ references:
     given-names: Yihui
     email: xie@yihui.name
     orcid: https://orcid.org/0000-0003-0645-5666
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.knitr
 - type: software
   title: parsedate
@@ -192,7 +210,7 @@ references:
     email: csardi.gabor@gmail.com
   - family-names: Torvalds
     given-names: Linus
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.parsedate
 - type: software
   title: pkgbuild
@@ -208,19 +226,20 @@ references:
   - family-names: Csárdi
     given-names: Gábor
     email: csardi.gabor@gmail.com
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.pkgbuild
 - type: software
   title: png
   abstract: 'png: Read and write PNG images'
   notes: Suggests
-  url: http://www.rforge.net/png/
+  url: https://www.rforge.net/png/
   repository: https://CRAN.R-project.org/package=png
   authors:
   - family-names: Urbanek
     given-names: Simon
     email: Simon.Urbanek@r-project.org
-  year: '2025'
+    orcid: https://orcid.org/0000-0003-2297-1732
+  year: '2026'
   doi: 10.32614/CRAN.package.png
 - type: software
   title: readr
@@ -238,7 +257,7 @@ references:
     given-names: Jennifer
     email: jenny@posit.co
     orcid: https://orcid.org/0000-0002-6983-2759
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.readr
 - type: software
   title: readxl
@@ -255,7 +274,7 @@ references:
     given-names: Jennifer
     email: jenny@posit.co
     orcid: https://orcid.org/0000-0002-6983-2759
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.readxl
 - type: software
   title: rmarkdown
@@ -299,7 +318,7 @@ references:
     given-names: Richard
     email: rich@posit.co
     orcid: https://orcid.org/0000-0003-3925-190X
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.rmarkdown
 - type: software
   title: shiny
@@ -326,6 +345,10 @@ references:
     given-names: Barret
     email: barret@posit.co
     orcid: https://orcid.org/0000-0001-9986-114X
+  - family-names: Aden-Buie
+    given-names: Garrick
+    email: garrick@adenbuie.com
+    orcid: https://orcid.org/0000-0002-7111-0077
   - family-names: Xie
     given-names: Yihui
     email: yihui@posit.co
@@ -338,7 +361,7 @@ references:
     given-names: Alan
   - family-names: Borges
     given-names: Barbara
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.shiny
 - type: software
   title: shinytest2
@@ -351,7 +374,7 @@ references:
     given-names: Barret
     email: barret@posit.co
     orcid: https://orcid.org/0000-0001-9986-114X
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.shinytest2
 - type: software
   title: spelling
@@ -367,7 +390,7 @@ references:
   - family-names: Hester
     given-names: Jim
     email: james.hester@rstudio.com
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.spelling
 - type: software
   title: testthat
@@ -379,7 +402,7 @@ references:
   - family-names: Wickham
     given-names: Hadley
     email: hadley@posit.co
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.testthat
   version: '>= 3.0.0'
 - type: software
@@ -405,6 +428,6 @@ references:
     email: hadley@posit.co
   - family-names: Chang
     given-names: Winston
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.withr
 
