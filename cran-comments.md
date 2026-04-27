@@ -1,5 +1,7 @@
 ## R CMD check results
 
+This is resubmission. Hidden .cargo directory was removed.
+
 This version of datefixR no longer raises a NOTE due to a non-API call.
 Fixed by depending on a newer version of the extendr-api Rust crate.
 
