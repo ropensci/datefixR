@@ -14,7 +14,7 @@
 ## Code changes
 
 * Update Rust dependencies (resolves NOTE on CRAN due to a non-API call
-  originating from extendr-api ):
+  originating from extendr-api):
   * extendr-api 0.8.1 ~> 0.9.0
   * regex 1.11 ~> 1.12.3
   * chrono 0.4 ~> 0.4.44
