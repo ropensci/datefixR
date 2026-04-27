@@ -88,10 +88,10 @@ pub fn replace_all_optimized<'a>(input: &'a str, patterns: &[(&str, &str)]) -> C
 
 /// Optimized ordinal suffix removal using a single regex and pre-allocated capacity
 pub fn rm_ordinal_suffixes_optimized(date: &str) -> Cow<'_, str> {
-    // Single compiled regex for all ordinal patterns
+    // Single compiled regex for all ordinal patterns including Portuguese/Spanish º and ª
     static ORDINAL_REGEX: std::sync::OnceLock<Regex> = std::sync::OnceLock::new();
     let regex = ORDINAL_REGEX.get_or_init(|| {
-        Regex::new(r"(\d)(?:st|nd|rd|th)(,?)").unwrap()
+        Regex::new(r"(\d)(?:st|nd|rd|th|º|ª)(,?)").unwrap()
     });
     
     if regex.is_match(date) {
@@ -263,7 +263,7 @@ pub fn fast_path_parse_date(date: &str, format: &str) -> Option<(u8, u8, u16)> {
 /// Combined string cleaning function to reduce multiple passes
 pub fn clean_date_string_combined(date: &str) -> Cow<'_, str> {
     // Check if any cleaning is needed first
-    let needs_ordinal = date.contains("st") || date.contains("nd") || date.contains("rd") || date.contains("th");
+    let needs_ordinal = date.contains("st") || date.contains("nd") || date.contains("rd") || date.contains("th") || date.contains('º') || date.contains('ª');
     let needs_french = date.contains("le ") || date.contains("Le ") || date.contains("1er");
     let needs_russian = date.contains("марта") || date.contains("Марта") || date.contains("августа") || date.contains("Августа");
     
@@ -342,6 +342,9 @@ mod tests {
         assert_eq!(rm_ordinal_suffixes_optimized("1st January"), "1 January");
         assert_eq!(rm_ordinal_suffixes_optimized("July 4th, 1776"), "July 4, 1776");
         assert_eq!(rm_ordinal_suffixes_optimized("4th,"), "4,");
+        // Portuguese/Spanish ordinal indicators
+        assert_eq!(rm_ordinal_suffixes_optimized("1º jan"), "1 jan");
+        assert_eq!(rm_ordinal_suffixes_optimized("1ª jan"), "1 jan");
     }
     
     #[test]
