@@ -8,13 +8,13 @@
   "codeRepository": "https://github.com/ropensci/datefixR",
   "issueTracker": "https://github.com/ropensci/datefixR/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.5.1 (2025-06-13)",
+  "runtimePlatform": "R version 4.6.0 (2026-04-24)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -122,6 +122,18 @@
     }
   ],
   "softwareSuggestions": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "anytime",
+      "name": "anytime",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=anytime"
+    },
     {
       "@type": "SoftwareApplication",
       "identifier": "DT",
@@ -347,9 +359,9 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rlang"
     },
-    "SystemRequirements": "Cargo (Rust's package manager), rustc"
+    "SystemRequirements": "Cargo (Rust's package manager), rustc, xz"
   },
-  "fileSize": "8143.04KB",
+  "fileSize": "7810.546KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -364,7 +376,7 @@
       "name": "{datefixR}: Standardize Dates in Different Formats or with Missing Data",
       "identifier": "10.5281/zenodo.5655311",
       "url": "https://CRAN.R-project.org/package=datefixR",
-      "description": "R package version 2.0.0",
+      "description": "R package version 2.0.1",
       "@id": "https://doi.org/10.5281/zenodo.5655311",
       "sameAs": "https://doi.org/10.5281/zenodo.5655311"
     }
