@@ -34,7 +34,7 @@ jobs:
           use-public-rspm: true
       - uses: r-lib/actions/setup-pandoc@v2
         with:
-          pandoc-version: '2.7.3' # The pandoc version to download (if necessary) and use.
+          pandoc-version: 'latest' # The pandoc version to download (if necessary) and use.
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: local::.
