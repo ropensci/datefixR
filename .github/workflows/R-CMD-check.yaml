@@ -1,8 +1,11 @@
 on:
   push:
+    branches: [main, master]
   pull_request:
+    branches: [main, master]
   schedule:
-    - cron:  '40 4 * * 1'
+    - cron: '40 4 * * 1'
+  workflow_dispatch:
 
 name: "CI"
 jobs:
