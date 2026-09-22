@@ -19,7 +19,7 @@ jobs:
         run: |
           install.packages(c("curl", "shiny", "rsconnect", "remotes", "pkgbuild")); remotes::install_deps(dependencies = TRUE) 
         shell: Rscript {0}
-      - name: Push to shiny.io
+      - name: Push to Posit Connect Cloud
         run: |
           rsconnect::connectCloudClientCredentials(account='nathansam', clientId=${{secrets.CLIENTID}}, clientSecret=${{secrets.CLIENTSECRET}}); rsconnect::deployApp(appName = 'datefixr', forceUpdate = TRUE) 
         shell: Rscript {0}

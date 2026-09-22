@@ -117,7 +117,7 @@ fix_date_app <- function(theme = "datefixR") {
             ),
             htmltools::tags$p(
               "Please note, if you are using this app via an online hosting
-              platform, such as on shinyapps.io, then your file will temporarily
+              platform, such as on Posit Connect Cloud, then your file will temporarily
               be stored by the hosting platform. However, no data should be
               stored persistently. Nevertheless, user discretion is advised, and
               any sensitive data should be used with a version of this app which

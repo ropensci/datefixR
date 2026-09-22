@@ -133,7 +133,7 @@ If the app encounters problematic dates:
 
 ### Data Privacy
 
-**Important Security Note**: When using online hosting platforms (like shinyapps.io), your uploaded files are temporarily stored on the hosting platform's servers. While no data should be stored persistently, use discretion with sensitive data. For maximum security, run the app locally.
+**Important Security Note**: When using online hosting platforms (like Posit Connect Cloud), your uploaded files are temporarily stored on the hosting platform's servers. While no data should be stored persistently, use discretion with sensitive data. For maximum security, run the app locally.
 
 ## Example Workflow
 
