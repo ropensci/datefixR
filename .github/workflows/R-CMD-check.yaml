@@ -26,7 +26,7 @@ jobs:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       RSPM: ${{ matrix.config.rspm }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: r-lib/actions/setup-r@v2
       - uses: r-lib/actions/setup-pandoc@v2
         with:
@@ -39,7 +39,7 @@ jobs:
         run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
       - name: Archive artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: ${{ matrix.config.os }} (${{ matrix.config.r }}) shiny-test
@@ -321,7 +321,7 @@ jobs:
 
       - name: Upload R coverage to Codecov
         if: runner.os == 'Linux' && matrix.config.r == 'release' && hashFiles('./cobertura.xml') != ''
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v7
         with:
           fail_ci_if_error: false
           files: ./cobertura.xml
@@ -332,7 +332,7 @@ jobs:
           
       - name: Upload Rust coverage to Codecov
         if: runner.os == 'Linux' && matrix.config.r == 'release' && hashFiles('./rust-cobertura.xml') != ''
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v7
         with:
           fail_ci_if_error: false
           files: ./rust-cobertura.xml
@@ -350,7 +350,7 @@ jobs:
 
       - name: Upload test results
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-test-failures
           path: ${{ runner.temp }}/package
