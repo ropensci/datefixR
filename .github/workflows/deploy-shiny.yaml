@@ -21,5 +21,12 @@ jobs:
         shell: Rscript {0}
       - name: Push to Posit Connect Cloud
         run: |
-          rsconnect::connectCloudClientCredentials(account='nathansam', clientId=${{secrets.CLIENTID}}, clientSecret=${{secrets.CLIENTSECRET}}); rsconnect::deployApp(appName = 'datefixr', forceUpdate = TRUE) 
+          rsconnect::connectCloudClientCredentials(account='nathansam', clientId=${{secrets.CLIENTID}}, clientSecret=${{secrets.CLIENTSECRET}});
+          apps <- rsconnect::cloudApps();
+          existing <- apps[apps$name == 'datefixr', ];
+          if (nrow(existing) > 0) {
+            rsconnect::deployApp(appId = existing$id, appTitle = 'datefixr');
+          } else {
+            rsconnect::deployApp(appName = 'datefixr', appTitle = 'datefixr');
+          }
         shell: Rscript {0}
