@@ -29,6 +29,11 @@ Useful links:
 \author{
 \strong{Maintainer}: Nathan Constantine-Cooke \email{nathan.constantine-cooke@ed.ac.uk} (\href{https://orcid.org/0000-0002-4437-8713}{ORCID})
 
+Authors:
+\itemize{
+  \item Nathan Constantine-Cooke \email{nathan.constantine-cooke@ed.ac.uk} (\href{https://orcid.org/0000-0002-4437-8713}{ORCID})
+}
+
 Other contributors:
 \itemize{
   \item Jonathan Kitt \email{jonathan.kitt@protonmail.com} [contributor, translator]

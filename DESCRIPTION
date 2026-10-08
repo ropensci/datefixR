@@ -67,4 +67,4 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 Config/rextendr/version: 0.5.0
 SystemRequirements: Cargo (Rust's package manager), rustc, xz
-Config/roxygen2/version: 8.0.0
+Config/roxygen2/version: 8.1.0
