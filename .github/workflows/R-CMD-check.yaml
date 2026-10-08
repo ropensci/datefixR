@@ -41,12 +41,26 @@ jobs:
       - name: Check
         run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
+      - name: Stage snapshots for upload
+        if: failure()
+        shell: bash
+        run: |
+          # testthat::snapshot_download_gh() expects the artifact to contain exactly one
+          # top-level directory holding tests/testthat/_snaps.
+          mkdir -p snaps-artifact/pkg/tests/testthat
+          if [ -d check/datefixR.Rcheck/tests/testthat/_snaps ]; then
+            cp -R check/datefixR.Rcheck/tests/testthat/_snaps snaps-artifact/pkg/tests/testthat/_snaps
+          elif [ -d tests/testthat/_snaps ]; then
+            cp -R tests/testthat/_snaps snaps-artifact/pkg/tests/testthat/_snaps
+          else
+            mkdir -p snaps-artifact/pkg/tests/testthat/_snaps
+          fi
       - name: Archive artifacts
         uses: actions/upload-artifact@v7
         if: failure()
         with:
-          name: ${{ matrix.config.os }} (${{ matrix.config.r }}) shiny-test
-          path: tests/testthat/_snaps/
+          name: ${{ matrix.config.os }}-${{ matrix.config.r }}-shiny-test
+          path: snaps-artifact
           retention-days: 5
       - name: Install coverage dependencies
         if: runner.os == 'Linux' && matrix.config.r == 'release'
