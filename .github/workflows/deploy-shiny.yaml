@@ -22,7 +22,7 @@ jobs:
       - name: Push to Posit Connect Cloud
         run: |
           rsconnect::connectCloudClientCredentials(account='nathansam', clientId=${{secrets.CLIENTID}}, clientSecret=${{secrets.CLIENTSECRET}});
-          apps <- rsconnect::cloudApps();
+          apps <- rsconnect::applications();
           existing <- apps[apps$name == 'datefixr', ];
           if (nrow(existing) > 0) {
             rsconnect::deployApp(appId = existing$id, appTitle = 'datefixr');
